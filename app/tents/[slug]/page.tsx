@@ -66,6 +66,26 @@ export default async function TentDetailPage({
           }}
         />
 
+        {/* Logo printed-on-fabric — hero */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-transparent.png"
+          alt=""
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "clamp(100px, 12vw, 160px)",
+            opacity: 0.18,
+            mixBlendMode: "overlay",
+            filter: "brightness(0) invert(1)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+
         {/* Bottom text overlay */}
         <div className="absolute bottom-0 inset-x-0 px-4 md:px-10 pb-10 md:pb-14 max-w-7xl mx-auto w-full">
           <p className="label-fs mb-3" style={{ color: "#C4954A" }}>OUTORA · {tent.nameHe}</p>

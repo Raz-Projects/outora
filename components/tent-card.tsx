@@ -40,6 +40,24 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
         />
 
+        {/* Logo printed-on-fabric effect */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-transparent.png"
+          alt=""
+          aria-hidden
+          style={{
+            position: "absolute",
+            bottom: "14px",
+            left: "14px",
+            width: "54px",
+            opacity: 0.55,
+            mixBlendMode: "overlay",
+            filter: "brightness(0) invert(1)",
+            pointerEvents: "none",
+          }}
+        />
+
         {num && (
           <span
             className="absolute top-3 right-3 tent-card-number"
