@@ -185,17 +185,17 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "rgba(20,14,8,0.86)" }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-14">
             <p className="label-fs mb-4" style={{ color: "#C4954A" }}>התהליך שלנו</p>
             <h2
               className="font-light"
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.2rem, 4vw, 3.5rem)",
+                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
                 color: "#F7F2E8",
               }}
             >
-              שלושה צעדים לחוויה מושלמת
+              ארבעה צעדים לחוויה מושלמת
             </h2>
           </div>
 
@@ -203,20 +203,26 @@ export default function Home() {
             {steps.map((s, i) => (
               <div
                 key={s.title}
-                className={`flex flex-col gap-6 px-6 md:px-8 py-8 ${i < steps.length - 1 ? "border-b sm:border-b-0 sm:border-r" : ""}`}
+                className={`flex flex-col gap-5 px-6 md:px-8 py-8 ${i < steps.length - 1 ? "border-b sm:border-b-0 sm:border-r" : ""}`}
                 style={{ borderColor: "rgba(196,149,74,0.2)" }}
               >
                 <span
                   className="font-light"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "5rem", lineHeight: 1, color: "#C4954A", opacity: 0.35 }}
+                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3rem, 4vw, 3.8rem)", lineHeight: 1, color: "#C4954A", opacity: 0.4 }}
                 >
                   0{i + 1}
                 </span>
                 <div className="fs-divider-full" style={{ maxWidth: "40px", opacity: 0.4 }} />
-                <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.6rem", color: "#F7F2E8" }}>
+                <h3
+                  className="font-light"
+                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.3rem, 2vw, 1.5rem)", color: "#F7F2E8", lineHeight: 1.3 }}
+                >
                   {s.title}
                 </h3>
-                <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#F7F2E8", opacity: 0.65 }}>
+                <p
+                  className="font-light leading-relaxed"
+                  style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.85rem, 1.2vw, 0.95rem)", color: "#F7F2E8", opacity: 0.65, lineHeight: 1.8 }}
+                >
                   {s.desc}
                 </p>
               </div>
