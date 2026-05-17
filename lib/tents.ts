@@ -63,7 +63,7 @@ export const tents: Tent[] = [
     sizeSqm: 17,
     heightM: 2.3,
     setupMinutes: 10,
-    image: "/tents/familia-pro/hero-branded.png",
+    image: "/tents/familia-pro/img-01.jpg",
     gallery: Array.from({length: 22}, (_, i) => `/tents/familia-pro/img-${String(i+1).padStart(2,'0')}.jpg`),
     features: [
       "שני חדרים נפרדים",
