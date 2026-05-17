@@ -3,10 +3,13 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === "/"
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -25,14 +28,18 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0">
+        {/* Logo — hidden on homepage until scrolled (hero already shows it) */}
+        <Link
+          href="/"
+          className="flex items-center shrink-0 transition-all duration-500"
+          style={{ opacity: isHome && !scrolled ? 0 : 1, pointerEvents: isHome && !scrolled ? "none" : "auto" }}
+        >
           <Image
-            src="/logo.png"
+            src="/logo-transparent.png"
             alt="OUTORA"
             width={110}
             height={55}
-            className="object-contain transition-all duration-500"
+            className="object-contain"
             style={{
               filter: "brightness(0) invert(1)",
               opacity: 0.93,

@@ -49,10 +49,10 @@ export default function Home() {
           {/* Logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/logo-transparent.png"
             alt="OUTORA"
             className="animate-fade-in"
-            style={{ width: "170px", opacity: 0.96 }}
+            style={{ width: "170px", opacity: 0.96, filter: "brightness(0) invert(1)" }}
           />
 
           {/* Tagline */}
