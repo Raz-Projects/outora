@@ -134,11 +134,11 @@ export function useCart() {
   return ctx;
 }
 
-// Per-tent upsell suggestions (most relevant accessories by tent type)
+// Per-tent upsell suggestions — top 4 most relevant premium add-ons
 export const tentUpsells: Record<string, string[]> = {
-  "familia-pro":     ["dining-set", "fire-pit", "speaker", "sup"],
-  "hub-shelter-pro": ["dining-set", "garlands", "coffee-machine", "speaker"],
-  "dome":            ["star-projector", "telescope", "fur-blanket", "solar-lights"],
-  "hub-station":     ["coffee-machine", "fur-blanket", "solar-lights", "star-projector"],
-  "familia":         ["fire-pit", "coffee-machine", "dining-set", "fur-blanket"],
+  "familia-pro":     ["fire-pit", "pool", "bbq", "speaker"],
+  "hub-shelter-pro": ["dining-set", "garlands", "ac", "fridge"],
+  "dome":            ["star-projector", "telescope", "fur-blanket", "projector"],
+  "hub-station":     ["coffee-machine", "fur-blanket", "fan", "star-projector"],
+  "familia":         ["fire-pit", "coffee-machine", "sup", "pool"],
 };

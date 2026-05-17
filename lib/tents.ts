@@ -7,8 +7,8 @@ export type Accessory = {
 
 export type Tent = {
   slug: string
-  nameEn: string        // e.g. "FAMILIA PRO"
-  nameHe: string        // e.g. "פמיליה פרו"
+  nameEn: string
+  nameHe: string
   taglineHe: string
   descriptionHe: string
   capacity: number
@@ -19,20 +19,36 @@ export type Tent = {
   gallery: string[]
   videoUrl?: string
   features: string[]
+  includedItems: string[]
   priceFrom: number
 }
 
+// ─── Base package (always included, no extra charge) ───────────────────────
+// ספה מתנפחת, מיטות, כריות, תיקי COODY, כיסאות + שולחן
+
+// ─── Premium add-ons (paid per night) ──────────────────────────────────────
 export const accessories: Accessory[] = [
-  { id: "fire-pit",       nameHe: "קערת אש",        image: "/accessories/fire-pit.jpg",       pricePerNight: 80  },
-  { id: "coffee-machine", nameHe: "מכונת קפה",       image: "/accessories/coffee-machine.png", pricePerNight: 60  },
-  { id: "solar-lights",   nameHe: "מנורות סולריות",  image: "/accessories/solar-lights.jpg",   pricePerNight: 40  },
-  { id: "dining-set",     nameHe: "פינת אוכל ל-4",   image: "/accessories/dining-set.jpg",     pricePerNight: 100 },
-  { id: "fur-blanket",    nameHe: "שמיכת פרווה",     image: "/accessories/fur-blanket.jpg",    pricePerNight: 30  },
-  { id: "star-projector", nameHe: "מקרן כוכבים",     image: "/accessories/star-projector.jpg", pricePerNight: 50  },
-  { id: "sup",            nameHe: "סאפ מתנפח",       image: "/accessories/sup.jpeg",           pricePerNight: 150 },
-  { id: "garlands",       nameHe: "גרלנדות אור",     image: "/accessories/garlands.png",       pricePerNight: 40  },
-  { id: "speaker",        nameHe: "רמקול JBL",       image: "/accessories/speaker.jpg",        pricePerNight: 60  },
-  { id: "telescope",      nameHe: "טלסקופ",          image: "/accessories/telescope.jpg",      pricePerNight: 70  },
+  { id: "fire-pit",        nameHe: "קערת אש",            image: "/accessories/fire-pit.jpg",        pricePerNight: 80  },
+  { id: "coffee-machine",  nameHe: "מכונת קפה Nespresso", image: "/accessories/coffee-machine.png",  pricePerNight: 60  },
+  { id: "garlands",        nameHe: "גרלנדות סולריות",    image: "/accessories/garlands.png",        pricePerNight: 40  },
+  { id: "lanterns",        nameHe: "עששיות נטענות",       image: "/accessories/solar-lights.jpg",    pricePerNight: 40  },
+  { id: "dining-set",      nameHe: "פינת אוכל ל-4",      image: "/accessories/dining-set.jpg",      pricePerNight: 100 },
+  { id: "fur-blanket",     nameHe: "שמיכת פרווה",        image: "/accessories/fur-blanket.jpg",     pricePerNight: 30  },
+  { id: "star-projector",  nameHe: "מקרן כוכבים",        image: "/accessories/star-projector.jpg",  pricePerNight: 50  },
+  { id: "sup",             nameHe: "סאפ מתנפח",          image: "/accessories/sup.jpeg",            pricePerNight: 150 },
+  { id: "speaker",         nameHe: "רמקול JBL",          image: "/accessories/speaker.jpg",         pricePerNight: 60  },
+  { id: "telescope",       nameHe: "טלסקופ",             image: "/accessories/telescope.jpg",       pricePerNight: 70  },
+  { id: "gas-stove",       nameHe: "כיריית גז ניידת",    image: "/accessories/fire-pit.jpg",        pricePerNight: 60  },
+  { id: "fridge",          nameHe: "מקרר נייד",          image: "/accessories/fridge.jpg",          pricePerNight: 90  },
+  { id: "bbq",             nameHe: "מנגל מתקפל",         image: "/accessories/bbq.jpg",             pricePerNight: 70  },
+  { id: "pool",            nameHe: "בריכת גומי מתנפחת",  image: "/accessories/pool.jpg",            pricePerNight: 120 },
+  { id: "fan",             nameHe: "מאוורר נייד",        image: "/accessories/fan.jpg",             pricePerNight: 50  },
+  { id: "ac",              nameHe: "מזגן נייד",          image: "/accessories/ac.jpg",              pricePerNight: 150 },
+  { id: "shower",          nameHe: "מקלחת ניידת",        image: "/accessories/shower.jpg",          pricePerNight: 50  },
+  { id: "board-games",     nameHe: "משחקי קופסא",        image: "/accessories/board-games.jpg",     pricePerNight: 30  },
+  { id: "cart",            nameHe: "עגלת קמפינג",        image: "/accessories/cart.jpg",            pricePerNight: 80  },
+  { id: "projector",       nameHe: "פרוג׳קטור קולנוע",   image: "/accessories/star-projector.jpg",  pricePerNight: 100 },
+  { id: "mosquito",        nameHe: "קוטל יתושים",        image: "/accessories/mosquito.jpg",        pricePerNight: 30  },
 ]
 
 export const tents: Tent[] = [
@@ -59,6 +75,14 @@ export const tents: Tent[] = [
       "אוורור עוצמתי",
       "עד 8 אנשים",
     ],
+    includedItems: [
+      "ספה מתנפחת COODY",
+      "מיטות זוגיות + יחידות (לפי קיבולת)",
+      "8 כריות",
+      "כיסאות + שולחן COODY",
+      "תיקי אחסון COODY",
+      "שטיחי רצפה",
+    ],
     priceFrom: 1290,
   },
   {
@@ -83,6 +107,14 @@ export const tents: Tent[] = [
       "עד 10 אנשים",
       "כניסות מכמה כיוונים",
       "אוורור מלא",
+    ],
+    includedItems: [
+      "ספה מתנפחת COODY",
+      "מיטות זוגיות + יחידות",
+      "10 כריות",
+      "כיסאות + שולחן COODY",
+      "תיקי אחסון COODY",
+      "שטיחי רצפה",
     ],
     priceFrom: 990,
   },
@@ -109,6 +141,14 @@ export const tents: Tent[] = [
       "עמיד בתנאי קיצון",
       "עד 6 אנשים",
     ],
+    includedItems: [
+      "ספה מתנפחת COODY",
+      "מיטות זוגיות",
+      "6 כריות",
+      "כיסאות + שולחן COODY",
+      "תיקי אחסון COODY",
+      "שטיח רצפה",
+    ],
     priceFrom: 890,
   },
   {
@@ -133,6 +173,14 @@ export const tents: Tent[] = [
       "13 מ״ר שטח פנימי",
       "אוורור מלא",
       "עד 4 אנשים",
+    ],
+    includedItems: [
+      "ספה מתנפחת COODY",
+      "מיטה זוגית",
+      "4 כריות",
+      "כיסאות + שולחן COODY",
+      "תיקי אחסון COODY",
+      "שטיח רצפה",
     ],
     priceFrom: 690,
   },
@@ -159,9 +207,25 @@ export const tents: Tent[] = [
       "עמיד בגשם",
       "עד 6 אנשים",
     ],
+    includedItems: [
+      "ספה מתנפחת COODY",
+      "מיטות זוגיות + יחידות",
+      "6 כריות",
+      "כיסאות + שולחן COODY",
+      "תיקי אחסון COODY",
+      "שטיח רצפה",
+    ],
     priceFrom: 790,
   },
 ]
+
+export const tentUpsells: Record<string, string[]> = {
+  "familia-pro":     ["fire-pit", "pool", "bbq", "speaker", "fridge", "ac"],
+  "hub-shelter-pro": ["dining-set", "garlands", "ac", "fridge", "bbq", "projector"],
+  "dome":            ["star-projector", "telescope", "fur-blanket", "projector", "coffee-machine", "lanterns"],
+  "hub-station":     ["coffee-machine", "fur-blanket", "fan", "star-projector", "board-games", "lanterns"],
+  "familia":         ["fire-pit", "coffee-machine", "sup", "pool", "bbq", "board-games"],
+}
 
 export function getTentBySlug(slug: string): Tent | undefined {
   return tents.find((t) => t.slug === slug)
@@ -169,4 +233,9 @@ export function getTentBySlug(slug: string): Tent | undefined {
 
 export function getRelatedTents(currentSlug: string, count = 2): Tent[] {
   return tents.filter((t) => t.slug !== currentSlug).slice(0, count)
+}
+
+export function getTentUpsells(slug: string): Accessory[] {
+  const ids = tentUpsells[slug] ?? []
+  return ids.map((id) => accessories.find((a) => a.id === id)).filter(Boolean) as Accessory[]
 }

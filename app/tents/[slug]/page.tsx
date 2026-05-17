@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TentCard } from "@/components/tent-card"
-import { tents, accessories, getTentBySlug, getRelatedTents } from "@/lib/tents"
+import { tents, accessories, getTentBySlug, getRelatedTents, getTentUpsells } from "@/lib/tents"
 
 export function generateStaticParams() {
   return tents.map((t) => ({ slug: t.slug }))
@@ -35,6 +35,7 @@ export default async function TentDetailPage({
   if (!tent) notFound()
 
   const related = getRelatedTents(tent.slug, 3)
+  const upsells = getTentUpsells(tent.slug)
   const waText = encodeURIComponent(
     `שלום! אני מעוניין לשכור את ${tent.nameEn}. אפשר לקבל פרטים?`
   )
@@ -186,39 +187,52 @@ export default async function TentDetailPage({
 
             <div className="fs-divider-full" />
 
-            {/* Features */}
+            {/* Base package — always included */}
+            <div>
+              <h3
+                className="font-light mb-2"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1610" }}
+              >
+                חבילת הבסיס — כלול במחיר
+              </h3>
+              <p
+                className="mb-6"
+                style={{ fontFamily: "var(--font-assistant)", fontSize: "0.8rem", color: "#C4954A", letterSpacing: "0.1em" }}
+              >
+                ✓ כל הפריטים הבאים מגיעים עם האוהל ללא תוספת תשלום
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8">
+                {tent.includedItems.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3"
+                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1C1610", opacity: 0.8 }}
+                  >
+                    <span style={{ color: "#C4954A", fontSize: "1rem", flexShrink: 0 }}>✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="fs-divider-full" />
+
+            {/* Tent features */}
             <div>
               <h3
                 className="font-light mb-6"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "1.8rem",
-                  color: "#1C1610",
-                }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1610" }}
               >
-                מה כלול
+                מאפייני האוהל
               </h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8">
                 {tent.features.map((f) => (
                   <li
                     key={f}
                     className="flex items-center gap-3"
-                    style={{
-                      fontFamily: "var(--font-assistant)",
-                      fontSize: "0.9rem",
-                      color: "#1C1610",
-                      opacity: 0.75,
-                    }}
+                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1C1610", opacity: 0.75 }}
                   >
-                    <span
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        borderRadius: "50%",
-                        backgroundColor: "#C4954A",
-                        flexShrink: 0,
-                      }}
-                    />
+                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#C4954A", flexShrink: 0 }} />
                     {f}
                   </li>
                 ))}
@@ -251,44 +265,32 @@ export default async function TentDetailPage({
               </div>
             )}
 
-            {/* Popular add-ons */}
+            {/* Premium add-ons — tent-specific */}
             <div>
               <div className="fs-divider-full mb-8" />
               <h3
-                className="font-light mb-6"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "1.8rem",
-                  color: "#1C1610",
-                }}
+                className="font-light mb-2"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1610" }}
               >
                 שדרגו את החוויה
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
-                {accessories.slice(0, 5).map((a) => (
-                  <div key={a.id} className="flex flex-col items-center gap-2">
-                    <div className="img-zoom relative w-full" style={{ aspectRatio: "1/1" }}>
-                      <Image
-                        src={a.image}
-                        alt={a.nameHe}
-                        fill
-                        className="object-cover"
-                        sizes="15vw"
-                      />
+              <p className="mb-8" style={{ fontFamily: "var(--font-assistant)", fontSize: "0.8rem", color: "#1C1610", opacity: 0.5, letterSpacing: "0.08em" }}>
+                תוספות פרימיום — ניתן להוסיף בעת ההזמנה
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                {upsells.map((a) => (
+                  <div key={a.id} className="flex flex-col gap-3 p-4" style={{ border: "1px solid rgba(28,22,16,0.08)" }}>
+                    <div className="img-zoom relative w-full" style={{ aspectRatio: "4/3" }}>
+                      <Image src={a.image} alt={a.nameHe} fill className="object-cover" sizes="20vw" />
                     </div>
-                    <p
-                      className="text-center"
-                      style={{
-                        fontFamily: "var(--font-cormorant)",
-                        fontSize: "0.9rem",
-                        color: "#1C1610",
-                      }}
-                    >
-                      {a.nameHe}
-                    </p>
-                    <p className="label-fs" style={{ color: "#C4954A" }}>
-                      ₪{a.pricePerNight}/לילה
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem", color: "#1C1610" }}>
+                        {a.nameHe}
+                      </p>
+                      <p className="label-fs" style={{ color: "#C4954A", whiteSpace: "nowrap" }}>
+                        ₪{a.pricePerNight}/לילה
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -355,19 +357,14 @@ export default async function TentDetailPage({
               {/* Popular add-ons labels */}
               <div>
                 <p className="label-fs mb-3" style={{ color: "#F7F2E8", opacity: 0.5 }}>
-                  תוספות פופולריות
+                  שדרוגים מומלצים
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {accessories.slice(0, 6).map((a) => (
+                  {upsells.slice(0, 6).map((a) => (
                     <span
                       key={a.id}
                       className="label-fs py-1 px-2"
-                      style={{
-                        color: "#F7F2E8",
-                        border: "1px solid rgba(247,242,232,0.12)",
-                        opacity: 0.55,
-                        fontSize: "0.6rem",
-                      }}
+                      style={{ color: "#F7F2E8", border: "1px solid rgba(247,242,232,0.12)", opacity: 0.55, fontSize: "0.6rem" }}
                     >
                       {a.nameHe}
                     </span>
