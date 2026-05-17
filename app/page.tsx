@@ -46,8 +46,14 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center px-6 max-w-4xl mx-auto" style={{ gap: "2rem" }}>
 
-          {/* Divider line */}
-          <div className="fs-divider animate-fade-in delay-100" />
+          {/* Logo */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="OUTORA"
+            className="animate-fade-in"
+            style={{ width: "170px", opacity: 0.96 }}
+          />
 
           {/* Tagline */}
           <p
