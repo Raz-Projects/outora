@@ -1,0 +1,472 @@
+﻿"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
+import { DeliverySelector } from "@/components/delivery-selector";
+import { tents, accessories } from "@/lib/tents";
+import { tentUpsells } from "@/lib/cart-context";
+import { validatePromoCode } from "@/lib/promo";
+import { deliveryOptions } from "@/lib/delivery";
+
+export default function BookPage() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    tent: "",
+    dateFrom: "",
+    dateTo: "",
+    guests: "",
+    region: "",
+    extras: [] as string[],
+    delivery: "",
+    carSize: "",
+    notes: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoStatus, setPromoStatus] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [activePromoCode, setActivePromoCode] = useState("");
+
+  const toggle = (id: string) =>
+    setForm((prev) => ({
+      ...prev,
+      extras: prev.extras.includes(id)
+        ? prev.extras.filter((e) => e !== id)
+        : [...prev.extras, id],
+    }));
+
+  const buildWhatsAppMessage = () => {
+    const tent = tents.find((t) => t.slug === form.tent);
+    const extraNames = form.extras
+      .map((id) => accessories.find((a) => a.id === id)?.nameHe)
+      .filter(Boolean)
+      .join(", ");
+    const deliveryLabel = deliveryOptions.find((d) => d.id === form.delivery)?.titleHe ?? "";
+    return encodeURIComponent(
+      `שלום OUTORA! 🏕️\n` +
+      `שם: ${form.name}\n` +
+      `טלפון: ${form.phone}\n` +
+      `אוהל: ${tent?.nameHe ?? form.tent}\n` +
+      `תאריכים: ${form.dateFrom} עד ${form.dateTo}\n` +
+      `מספר אנשים: ${form.guests}\n` +
+      `אזור: ${form.region}\n` +
+      (extraNames ? `תוספות: ${extraNames}\n` : "") +
+      (deliveryLabel ? `אופן קבלה: ${deliveryLabel}\n` : "") +
+      (form.carSize ? `סוג רכב: ${form.carSize}\n` : "") +
+      (form.notes ? `הערות: ${form.notes}\n` : "") +
+      (activePromoCode ? `קוד הנחה: ${activePromoCode}` : "")
+    );
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    // Small delay for UX, then redirect to WhatsApp
+    await new Promise((r) => setTimeout(r, 600));
+    const msg = buildWhatsAppMessage();
+    window.open(`https://wa.me/972528448870?text=${msg}`, "_blank");
+    setSubmitted(true);
+    setLoading(false);
+  };
+
+  return (
+    <main className="min-h-screen flex flex-col" style={{ backgroundColor: "transparent" }}>
+      <Navbar />
+      <WhatsAppButton />
+
+      {/* ── Hero strip ── */}
+      <section className="relative h-56 flex items-end overflow-hidden">
+        <Image
+          src="/gallery/bonfire-beach.jpg"
+          alt="הזמנה"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(28,20,16,0.85), rgba(28,20,16,0.2))" }}
+        />
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-4 md:px-8 pb-10">
+          <h1
+            className="text-4xl md:text-5xl font-light"
+            style={{ color: "#F7F2E8", fontFamily: "var(--font-cormorant)" }}
+          >
+            הזמינו חוויה
+          </h1>
+        </div>
+      </section>
+
+      {/* ── Form ── */}
+      <section className="py-16 px-6">
+        <div className="max-w-2xl mx-auto">
+
+          {submitted ? (
+            <div className="text-center py-20 flex flex-col items-center gap-6">
+              <div
+                className="w-20 h-20 flex items-center justify-center text-3xl"
+                style={{ backgroundColor: "rgba(28,22,16,0.92)" }}
+              >
+                ✓
+              </div>
+              <h2
+                className="text-3xl font-light"
+                style={{ color: "#1C1610", fontFamily: "var(--font-cormorant)" }}
+              >
+                ההודעה נשלחה!
+              </h2>
+              <p
+                className="opacity-70 text-base"
+                style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+              >
+                נחזור אליכם בהקדם לאישור ופרטים. אם לא קיבלתם מענה תוך שעה —
+              </p>
+              <a
+                href={`https://wa.me/972528448870?text=${buildWhatsAppMessage()}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-fs-solid"
+              >
+                💬 שלחו שוב בוואטסאפ
+              </a>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+              <p
+                className="text-sm opacity-60"
+                style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+              >
+                מלאו את הפרטים ואנחנו ניצור אתכם קשר לאישור ותיאום הפרטים.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <Field label="שם מלא" required>
+                  <input
+                    type="text"
+                    required
+                    placeholder="ישראל ישראלי"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+                <Field label="טלפון" required>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="05X-XXXXXXX"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+              </div>
+
+              <Field label="איזה אוהל?" required>
+                <select
+                  required
+                  value={form.tent}
+                  onChange={(e) => setForm({ ...form, tent: e.target.value })}
+                  style={inputStyle}
+                >
+                  <option value="">בחרו דגם...</option>
+                  {tents.map((t) => (
+                    <option key={t.slug} value={t.slug}>
+                      {t.nameHe} — עד {t.capacity} אנשים
+                    </option>
+                  ))}
+                </select>
+              </Field>
+
+              {/* ── Smart Upsell ── */}
+              {form.tent && tentUpsells[form.tent] && (
+                <div
+                  className="p-5"
+                  style={{ backgroundColor: "#1C1610", border: "1px solid rgba(196,149,74,0.25)" }}
+                >
+                  <p
+                    className="text-xs mb-4"
+                    style={{
+                      fontFamily: "var(--font-assistant)",
+                      color: "#C4954A",
+                      letterSpacing: "0.12em",
+                    }}
+                  >
+                    לקוחות שהזמינו {tents.find((t) => t.slug === form.tent)?.nameHe ?? ""} גם הוסיפו:
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {tentUpsells[form.tent].map((id) => {
+                      const acc = accessories.find((a) => a.id === id);
+                      if (!acc) return null;
+                      const checked = form.extras.includes(id);
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => toggle(id)}
+                          className="flex flex-col items-center gap-2 p-3 text-center transition-all"
+                          style={{
+                            border: `1px solid ${checked ? "#C4954A" : "rgba(196,149,74,0.25)"}`,
+                            backgroundColor: checked ? "rgba(196,149,74,0.15)" : "transparent",
+                          }}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={acc.image}
+                            alt={acc.nameHe}
+                            style={{ width: "48px", height: "48px", objectFit: "cover" }}
+                          />
+                          <span
+                            className="text-xs leading-tight"
+                            style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}
+                          >
+                            {checked ? "✓ " : ""}{acc.nameHe}
+                          </span>
+                          <span
+                            className="text-xs"
+                            style={{ fontFamily: "var(--font-assistant)", color: "#C4954A" }}
+                          >
+                            +₪{acc.pricePerNight}/לילה
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <Field label="תאריך התחלה" required>
+                  <input
+                    type="date"
+                    required
+                    value={form.dateFrom}
+                    onChange={(e) => setForm({ ...form, dateFrom: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+                <Field label="תאריך סיום" required>
+                  <input
+                    type="date"
+                    required
+                    value={form.dateTo}
+                    onChange={(e) => setForm({ ...form, dateTo: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <Field label="מספר אנשים" required>
+                  <input
+                    type="number"
+                    required
+                    min={1}
+                    max={15}
+                    placeholder="2"
+                    value={form.guests}
+                    onChange={(e) => setForm({ ...form, guests: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+                <Field label="אזור / מיקום">
+                  <input
+                    type="text"
+                    placeholder='למשל: "חוף אכזיב", "ערבה", "נהריה"'
+                    value={form.region}
+                    onChange={(e) => setForm({ ...form, region: e.target.value })}
+                    style={inputStyle}
+                  />
+                </Field>
+              </div>
+
+              {/* Extras */}
+              <div>
+                <label
+                  className="block text-sm font-medium mb-3"
+                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+                >
+                  תוספות ושדרוגים (אופציונלי)
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {accessories.map((a) => {
+                    const checked = form.extras.includes(a.id);
+                    return (
+                      <button
+                        key={a.id}
+                        type="button"
+                        onClick={() => toggle(a.id)}
+                        className="px-3 py-2 text-sm text-right border transition-all"
+                        style={{
+                          borderColor: checked ? "#C4954A" : "#D8D0C4",
+                          backgroundColor: checked ? "rgba(196,149,74,0.12)" : "transparent",
+                          color: "#1C1610",
+                          fontFamily: "var(--font-assistant)",
+                        }}
+                      >
+                        {checked ? "✓ " : ""}{a.nameHe}
+                        <span className="block text-xs opacity-50">+₪{a.pricePerNight}/לילה</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ── Delivery options ── */}
+              <div>
+                <div className="fs-divider-full my-2" />
+                <label
+                  className="block text-sm font-medium mb-3"
+                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+                >
+                  אופן קבלת הציוד
+                  <span style={{ color: "#C4954A" }}> *</span>
+                </label>
+                <DeliverySelector
+                  tentSlug={form.tent}
+                  accessoryIds={form.extras}
+                  selected={form.delivery}
+                  onSelect={(id) => setForm({ ...form, delivery: id })}
+                  onCarChange={(carId) => setForm({ ...form, carSize: carId })}
+                />
+                <div className="fs-divider-full mt-6" />
+              </div>
+
+              <Field label="הערות נוספות">
+                <textarea
+                  rows={3}
+                  placeholder="בקשות מיוחדות, שאלות..."
+                  value={form.notes}
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                  style={{ ...inputStyle, resize: "vertical" }}
+                />
+              </Field>
+
+              {/* ── Promo code ── */}
+              <div
+                className="p-4"
+                style={{ backgroundColor: "rgba(28,20,16,0.06)", border: "1px solid rgba(196,149,74,0.2)" }}
+              >
+                {activePromoCode ? (
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#1C1610" }}>
+                      ✓ קוד{" "}
+                      <strong style={{ color: "#C4954A", letterSpacing: "0.1em" }}>{activePromoCode}</strong>{" "}
+                      הופעל!
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => { setActivePromoCode(""); setPromoStatus(null); setPromoInput(""); }}
+                      className="text-xs opacity-40"
+                      style={{ fontFamily: "var(--font-assistant)", color: "#1C1610" }}
+                    >
+                      הסר
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="יש לכם קוד הנחה?"
+                      value={promoInput}
+                      onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const p = validatePromoCode(promoInput);
+                          if (p) { setActivePromoCode(p.code); setPromoStatus({ ok: true, msg: p.label }); }
+                          else setPromoStatus({ ok: false, msg: "קוד לא תקף" });
+                        }
+                      }}
+                      style={{ ...inputStyle, flex: 1, fontSize: "13px" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const p = validatePromoCode(promoInput);
+                        if (p) { setActivePromoCode(p.code); setPromoStatus({ ok: true, msg: p.label }); }
+                        else setPromoStatus({ ok: false, msg: "קוד לא תקף" });
+                      }}
+                      className="px-5 text-xs"
+                      style={{
+                        fontFamily: "var(--font-assistant)",
+                        backgroundColor: "#C4954A",
+                        color: "#1C1610",
+                        letterSpacing: "0.1em",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      החל
+                    </button>
+                  </div>
+                )}
+                {promoStatus && !activePromoCode && (
+                  <p className="text-xs mt-2" style={{ fontFamily: "var(--font-assistant)", color: promoStatus.ok ? "#2E7D32" : "#c62828" }}>
+                    {promoStatus.msg}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-fs-solid w-full disabled:opacity-60"
+              >
+                {loading ? "שולח..." : "💬 שלחו הזמנה בוואטסאפ"}
+              </button>
+
+              <p
+                className="text-center text-xs opacity-50"
+                style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+              >
+                הפרטים יישלחו ישירות לוואטסאפ שלנו — נחזור אליכם בהקדם.
+              </p>
+            </form>
+          )}
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
+
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label
+        className="text-sm font-medium"
+        style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+      >
+        {label}
+        {required && <span style={{ color: "#C4954A" }}> *</span>}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "12px 14px",
+  border: "1px solid #D8D0C4",
+  backgroundColor: "#fff",
+  color: "#1C1610",
+  fontSize: "14px",
+  fontFamily: "var(--font-assistant)",
+  outline: "none",
+};

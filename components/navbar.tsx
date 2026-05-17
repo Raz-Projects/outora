@@ -1,0 +1,124 @@
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+import { useState, useEffect } from "react"
+
+export function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  return (
+    <nav
+      className="fixed top-0 right-0 left-0 z-50 transition-all duration-700"
+      style={{
+        backgroundColor: scrolled ? "rgba(28, 20, 16, 0.97)" : "transparent",
+        backdropFilter: scrolled ? "blur(8px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(196,149,74,0.15)" : "none",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/logo.png"
+            alt="OUTORA"
+            width={110}
+            height={55}
+            className="object-contain transition-all duration-500"
+            style={{
+              filter: "brightness(0) invert(1)",
+              opacity: 0.93,
+            }}
+          />
+        </Link>
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-10">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="gold-underline label-fs transition-opacity hover:opacity-100"
+              style={{ color: "#F7F2E8", opacity: 0.75 }}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div style={{ width: "1px", height: "16px", background: "rgba(247,242,232,0.2)" }} />
+          <Link href="/book" className="btn-fs-gold" style={{ padding: "10px 28px" }}>
+            הזמינו עכשיו
+          </Link>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden flex flex-col gap-[5px] p-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="תפריט"
+        >
+          <span
+            className="block w-6 h-px transition-all duration-300"
+            style={{
+              backgroundColor: "#C4954A",
+              transform: menuOpen ? "rotate(45deg) translateY(6px)" : "none",
+            }}
+          />
+          <span
+            className="block w-4 h-px transition-all duration-300"
+            style={{ backgroundColor: "#C4954A", opacity: menuOpen ? 0 : 1 }}
+          />
+          <span
+            className="block w-6 h-px transition-all duration-300"
+            style={{
+              backgroundColor: "#C4954A",
+              transform: menuOpen ? "rotate(-45deg) translateY(-6px)" : "none",
+            }}
+          />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      <div
+        className="md:hidden overflow-hidden transition-all duration-500"
+        style={{
+          maxHeight: menuOpen ? "400px" : "0",
+          backgroundColor: "rgba(28, 20, 16, 0.98)",
+          backdropFilter: "blur(8px)",
+        }}
+      >
+        <div className="px-4 pt-4 pb-8 flex flex-col gap-6">
+          <div className="fs-divider-full" />
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="label-fs py-1 transition-opacity hover:opacity-100"
+              style={{ color: "#F7F2E8", opacity: 0.7 }}
+              onClick={() => setMenuOpen(false)}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div className="fs-divider-full" />
+          <Link href="/book" className="btn-fs-solid text-center" onClick={() => setMenuOpen(false)}>
+            הזמינו עכשיו
+          </Link>
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+const navLinks = [
+  { href: "/tents", label: "האוהלים" },
+  { href: "/map",   label: "מפת מקומות" },
+  { href: "/book",  label: "הזמנה"   },
+]

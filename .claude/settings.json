@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:coody.us)",
+      "WebFetch(domain:www.fourseasons.com)",
+      "Bash(Get-ChildItem -Recurse -Path \"public\")",
+      "Bash(Select-Object FullName, Length)",
+      "Bash(Sort-Object FullName)",
+      "Bash(npm install *)",
+      "Read(//c/Users/razar/OneDrive/**)",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\OUTORA WEB\\\\public\\\\tents\" | ForEach-Object { \"$\\($_.Name\\): $\\(Get-ChildItem $_.FullName | Measure-Object | Select-Object -ExpandProperty Count\\) files\" })",
+      "WebFetch(domain:unsplash.com)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\לוגו\" | Select-Object Name, @{N='KB';E={[int]\\($_.Length/1KB\\)}} | Format-Table -AutoSize)",
+      "Bash(git add *)"
+    ]
+  }
+}
