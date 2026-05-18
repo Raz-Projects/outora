@@ -121,32 +121,32 @@ export default function Home() {
           {/* Left — text */}
           <div className="flex flex-col justify-center px-8 md:px-16 py-16 md:py-24 gap-8">
             <div className="fs-divider" style={{ margin: "0" }} />
-            <p
+            <h2
               className="font-light"
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
                 color: "#F7F2E8",
-                fontStyle: "italic",
                 lineHeight: 1.3,
               }}
             >
-              &ldquo;כי הטבע לא אמור<br />להרגיש כמו ויתור.&rdquo;
-            </p>
+              נמאס מקירות בטון<br />
+              <em style={{ color: "#C4954A", fontStyle: "italic" }}>ומחדרי מלון זהים?</em>
+            </h2>
             <p
               className="font-light leading-relaxed"
               style={{
                 fontFamily: "var(--font-assistant)",
-                fontSize: "1rem",
+                fontSize: "1.05rem",
                 color: "#F7F2E8",
-                opacity: 0.65,
+                opacity: 0.7,
                 lineHeight: 1.9,
                 maxWidth: "420px",
               }}
             >
-              נמאס מקירות בטון ומחדרי מלון זהים? חשבנו על הכל —
-              האוהל, הפינוקים, ההגעה — כדי שתוכלו סוף סוף לישון
-              תחת הכוכבים בלי לוותר על דבר.
+              חשבנו על הכל — האוהל, הפינוקים, ההגעה —
+              כדי שתוכלו סוף סוף לישון תחת הכוכבים
+              בלי לוותר על שום דבר.
             </p>
             <div>
               <Link href="/tents" className="btn-fs-gold">
@@ -186,12 +186,12 @@ export default function Home() {
       <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "rgba(20,14,8,0.86)" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>התהליך שלנו</p>
+            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>איך מזמינים?</p>
             <h2
               className="font-light"
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
+                fontSize: "clamp(2rem, 3.5vw, 3rem)",
                 color: "#F7F2E8",
               }}
             >
@@ -199,32 +199,51 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+          {/* Flowchart — desktop: horizontal with arrows, mobile: vertical */}
+          <div className="flex flex-col md:flex-row items-stretch">
             {steps.map((s, i) => (
-              <div
-                key={s.title}
-                className={`flex flex-col gap-5 px-6 md:px-8 py-8 ${i < steps.length - 1 ? "border-b sm:border-b-0 sm:border-r" : ""}`}
-                style={{ borderColor: "rgba(196,149,74,0.2)" }}
-              >
-                <span
-                  className="font-light"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3rem, 4vw, 3.8rem)", lineHeight: 1, color: "#C4954A", opacity: 0.4 }}
+              <div key={s.title} className="flex flex-col md:flex-row items-stretch flex-1">
+                {/* Step box */}
+                <div
+                  className="flex flex-col gap-5 px-7 py-8 flex-1"
+                  style={{
+                    border: "1px solid rgba(196,149,74,0.25)",
+                    backgroundColor: i === 3 ? "rgba(196,149,74,0.08)" : "rgba(28,20,16,0.5)",
+                  }}
                 >
-                  0{i + 1}
-                </span>
-                <div className="fs-divider-full" style={{ maxWidth: "40px", opacity: 0.4 }} />
-                <h3
-                  className="font-light"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.3rem, 2vw, 1.5rem)", color: "#F7F2E8", lineHeight: 1.3 }}
-                >
-                  {s.title}
-                </h3>
-                <p
-                  className="font-light leading-relaxed"
-                  style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.85rem, 1.2vw, 0.95rem)", color: "#F7F2E8", opacity: 0.65, lineHeight: 1.8 }}
-                >
-                  {s.desc}
-                </p>
+                  <span
+                    className="font-light"
+                    style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: "#C4954A", opacity: 0.45 }}
+                  >
+                    0{i + 1}
+                  </span>
+                  <div style={{ width: "32px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
+                  <h3
+                    className="font-light"
+                    style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.3rem, 1.8vw, 1.6rem)", color: "#F7F2E8", lineHeight: 1.3 }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p
+                    className="font-light leading-relaxed"
+                    style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.88rem, 1.1vw, 0.97rem)", color: "#F7F2E8", opacity: 0.65, lineHeight: 1.85 }}
+                  >
+                    {s.desc}
+                  </p>
+                </div>
+                {/* Arrow between steps */}
+                {i < steps.length - 1 && (
+                  <>
+                    {/* Desktop arrow → */}
+                    <div className="hidden md:flex items-center justify-center px-1" style={{ color: "#C4954A", opacity: 0.5, fontSize: "1.4rem" }}>
+                      ←
+                    </div>
+                    {/* Mobile arrow ↓ */}
+                    <div className="flex md:hidden justify-center py-2" style={{ color: "#C4954A", opacity: 0.5, fontSize: "1.4rem" }}>
+                      ↓
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -286,7 +305,7 @@ export default function Home() {
                   className="font-light"
                   style={{
                     fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.15rem",
+                    fontSize: "clamp(1.2rem, 1.5vw, 1.45rem)",
                     color: "#F7F2E8",
                     lineHeight: 1.3,
                   }}
@@ -298,10 +317,10 @@ export default function Home() {
                   className="font-light leading-relaxed flex-1"
                   style={{
                     fontFamily: "var(--font-assistant)",
-                    fontSize: "0.82rem",
+                    fontSize: "clamp(0.88rem, 1vw, 0.95rem)",
                     color: "#F7F2E8",
-                    opacity: 0.65,
-                    lineHeight: 1.7,
+                    opacity: 0.7,
+                    lineHeight: 1.8,
                   }}
                 >
                   {opt.desc}
@@ -358,7 +377,7 @@ export default function Home() {
           </div>
 
           {/* 5 equal cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {tents.map((tent, i) => (
               <TentCard key={tent.slug} tent={tent} index={i} />
             ))}
@@ -489,7 +508,7 @@ export default function Home() {
                     {acc.nameHe}
                   </p>
                   <p className="label-fs" style={{ color: "#C4954A" }}>
-                    ₪{acc.pricePerNight} / לילה
+                    ₪{acc.pricePerNight} / לחופשה
                   </p>
                 </div>
               </div>
@@ -546,14 +565,14 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: "rgba(28,20,16,0.93)" }}>
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-8">
-          <p className="label-fs" style={{ color: "#C4954A" }}>מוכנים?</p>
+          <p className="label-fs" style={{ color: "#C4954A", opacity: 1, letterSpacing: "0.3em" }}>מוכנים?</p>
           <h2
             className="font-light"
             style={{
               fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(3rem, 7vw, 6rem)",
+              fontSize: "clamp(3.5rem, 8vw, 7rem)",
               color: "#F7F2E8",
-              lineHeight: 1.1,
+              lineHeight: 1,
             }}
           >
             הטבע מחכה לכם
@@ -562,9 +581,9 @@ export default function Home() {
             className="font-light leading-relaxed"
             style={{
               fontFamily: "var(--font-assistant)",
-              fontSize: "0.95rem",
+              fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
               color: "#F7F2E8",
-              opacity: 0.6,
+              opacity: 0.65,
             }}
           >
             בחרו אוהל, ספרו לנו איפה ומתי — אנחנו מגיעים ומכינים הכל
@@ -624,7 +643,7 @@ const deliveryOptionsList = [
     num:   "02",
     title: "תיק גג",
     desc:  "תיק גג גדול שמונח על הגג — ללא שום התקנה. מוסיפים עשרות ליטר, המקום בפנים נשאר לאנשים.",
-    price: "+₪120",
+    price: "+₪150",
     badge: null,
   },
   {
@@ -632,7 +651,7 @@ const deliveryOptionsList = [
     num:   "03",
     title: "עגלת נגרר",
     desc:  "כל המארז בעגלת נגרר קלה — למי שיש תפוח גרירה ברכב. הרכב נשאר רווח ומלא נוחות.",
-    price: "+₪180",
+    price: "+₪220",
     badge: "תפוח גרירה",
   },
   {
@@ -640,7 +659,7 @@ const deliveryOptionsList = [
     num:   "04",
     title: "משלוח עד אליכם",
     desc:  "אנחנו מגיעים עם כל החבילה לנקודה שתציינו — בית, חוף, מגרש. אתם רק אומרים לאן.",
-    price: "+₪150",
+    price: "+₪200",
     badge: null,
   },
   {
@@ -648,13 +667,13 @@ const deliveryOptionsList = [
     num:   "05",
     title: "משלוח + הקמה מלאה",
     desc:  "הצוות שלנו מגיע, מקים, מסדר הכל עד לפרט האחרון — אתם מגיעים למחנה מוכן לחלוטין.",
-    price: "+₪450",
+    price: "+₪550",
     badge: "מומלץ",
   },
 ]
 
 const stats = [
   { value: "5",          label: "דגמי אוהלים יוקרתיים" },
-  { value: "כל ישראל",  label: "אנחנו מגיעים לכל מקום" },
+  { value: "כל הארץ",   label: "אנחנו מגיעים לכל מקום" },
   { value: "48h",        label: "זמן הכנה מרגע ההזמנה" },
 ]

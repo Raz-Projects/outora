@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function MapPage() {
   return (
-    <main className="flex flex-col" style={{ minHeight: "100vh", backgroundColor: "#F7F2E8" }}>
+    <main className="flex flex-col" style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
       <Navbar />
       <WhatsAppButton />
 

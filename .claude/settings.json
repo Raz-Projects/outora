@@ -11,7 +11,14 @@
       "PowerShell(Get-ChildItem \"c:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\OUTORA WEB\\\\public\\\\tents\" | ForEach-Object { \"$\\($_.Name\\): $\\(Get-ChildItem $_.FullName | Measure-Object | Select-Object -ExpandProperty Count\\) files\" })",
       "WebFetch(domain:unsplash.com)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\לוגו\" | Select-Object Name, @{N='KB';E={[int]\\($_.Length/1KB\\)}} | Format-Table -AutoSize)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/קערת אש.jpg' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/fire-pit.jpg')",
+      "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/מכונת קפה 3.png' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/coffee-machine.png')",
+      "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/שרשרת גרילנדות.png' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/garlands.png')",
+      "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/עששיות נטענות -קמפינג.png' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/lanterns.png')",
+      "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/פינת אוכל - 4 מושבים.jpg' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/dining-set.jpg')",
+      "Bash(git commit -m ' *)",
+      "Bash(npx vercel *)"
     ]
   }
 }

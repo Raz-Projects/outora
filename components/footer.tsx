@@ -7,7 +7,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
         {/* Brand */}
         <div className="flex flex-col gap-4">
-          <Image src="/logo.png" alt="OUTORA" width={130} height={65} className="object-contain brightness-0 invert opacity-80" />
+          <Image src="/logo-transparent.png" alt="OUTORA" width={130} height={65} className="object-contain brightness-0 invert opacity-80" />
           <p className="text-sm leading-relaxed opacity-60" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
             חוויית קמפינג יוקרתית — אנחנו מגיעים אליך לכל מקום שתבחר בישראל.
           </p>

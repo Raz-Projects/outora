@@ -30,7 +30,7 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
       {/* ── Image box ── */}
       <div
         className="relative overflow-hidden w-full flex items-center justify-center"
-        style={{ height: "260px", backgroundColor: "#1C1410", padding: "16px" }}
+        style={{ height: "300px", backgroundColor: "#1C1410", padding: "12px" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

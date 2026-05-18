@@ -413,6 +413,71 @@ export default function BookPage() {
                 )}
               </div>
 
+              {/* ── Deposit notice ── */}
+              <div
+                className="p-5 flex flex-col gap-3"
+                style={{ backgroundColor: "rgba(196,149,74,0.08)", border: "1px solid rgba(196,149,74,0.3)" }}
+              >
+                <p
+                  className="text-sm font-medium"
+                  style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", letterSpacing: "0.08em" }}
+                >
+                  💳 פיקדון אשראי
+                </p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.75 }}
+                >
+                  בעת קבלת הציוד תידרש חתימה על שובר אשראי כפיקדון. הפיקדון מוחזר
+                  במלואו בסיום השכירות, בכפוף להחזרת הציוד תקין.
+                </p>
+              </div>
+
+              {/* ── Damage liability ── */}
+              <details
+                className="p-5"
+                style={{ backgroundColor: "rgba(28,20,16,0.04)", border: "1px solid #D8D0C4", cursor: "pointer" }}
+              >
+                <summary
+                  className="text-sm font-medium list-none flex justify-between items-center"
+                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+                >
+                  <span>⚠️ מחירון נזקים ואובדן ציוד</span>
+                  <span style={{ color: "#C4954A", fontSize: "0.75rem", letterSpacing: "0.1em" }}>לחצו לפתיחה</span>
+                </summary>
+                <div className="mt-4 flex flex-col gap-2">
+                  <p
+                    className="text-xs mb-3"
+                    style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.6 }}
+                  >
+                    הציוד שלנו יקר ומטופח. במקרה של נזק או אובדן, יחויב הפיקדון לפי הרשימה הבאה:
+                  </p>
+                  {damageList.map((item) => (
+                    <div
+                      key={item.item}
+                      className="flex justify-between items-center py-2 border-b"
+                      style={{ borderColor: "rgba(196,149,74,0.12)" }}
+                    >
+                      <span className="text-sm" style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}>
+                        {item.item}
+                      </span>
+                      <span
+                        className="text-sm font-medium"
+                        style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", whiteSpace: "nowrap" }}
+                      >
+                        ₪{item.price.toLocaleString()}
+                      </span>
+                    </div>
+                  ))}
+                  <p
+                    className="text-xs mt-3"
+                    style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.5 }}
+                  >
+                    * מחירים כוללים מע״מ. נזקים חלקיים יוערכו לפי מצב הציוד.
+                  </p>
+                </div>
+              </details>
+
               <button
                 type="submit"
                 disabled={loading}
@@ -459,6 +524,25 @@ function Field({
     </div>
   );
 }
+
+const damageList = [
+  { item: "אוהל מתנפח (Familia Pro / Hub Shelter Pro)",  price: 8500 },
+  { item: "אוהל מתנפח (Dome / Familia / Hub Station)",   price: 6500 },
+  { item: "מזרן Coody Air Block (זוגי)",                  price: 1200 },
+  { item: "מזרן Coody Air Block (יחיד)",                  price: 900  },
+  { item: "ספה מתנפחת Coody",                             price: 1500 },
+  { item: "כיסא Coody OK Chair (כ\"א)",                   price: 350  },
+  { item: "שולחן קמפינג",                                 price: 500  },
+  { item: "תיק גגון לרכב",                                price: 800  },
+  { item: "עגלת קמפינג",                                  price: 600  },
+  { item: "מכונת קפה Nespresso",                          price: 900  },
+  { item: "רמקול JBL",                                    price: 800  },
+  { item: "מקרן כוכבים",                                  price: 400  },
+  { item: "קערת אש",                                      price: 600  },
+  { item: "מנגל מתקפל",                                   price: 350  },
+  { item: "מקרר נייד",                                    price: 1200 },
+  { item: "שטיח רצפה / מחצלת",                            price: 300  },
+];
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
