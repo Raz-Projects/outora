@@ -21,9 +21,9 @@ export function Navbar() {
     <nav
       className="fixed top-0 right-0 left-0 z-50 transition-all duration-700"
       style={{
-        backgroundColor: scrolled ? "rgba(28, 20, 16, 0.97)" : "transparent",
-        backdropFilter: scrolled ? "blur(8px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(196,149,74,0.15)" : "none",
+        backgroundColor: scrolled ? "rgba(28, 20, 16, 0.97)" : "rgba(28, 20, 16, 0.55)",
+        backdropFilter: "blur(6px)",
+        borderBottom: scrolled ? "1px solid rgba(196,149,74,0.15)" : "1px solid rgba(196,149,74,0.08)",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
@@ -37,12 +37,12 @@ export function Navbar() {
           <Image
             src="/logo-transparent.png"
             alt="OUTORA"
-            width={110}
-            height={55}
+            width={160}
+            height={80}
             className="object-contain"
             style={{
               filter: "brightness(0) invert(1)",
-              opacity: 0.93,
+              opacity: 0.96,
             }}
           />
         </Link>
@@ -53,14 +53,25 @@ export function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="gold-underline label-fs transition-opacity hover:opacity-100"
-              style={{ color: "#F7F2E8", opacity: 0.75 }}
+              className="gold-underline transition-opacity hover:opacity-100"
+              style={{
+                color: "#F7F2E8",
+                opacity: 0.9,
+                fontFamily: "var(--font-assistant)",
+                fontSize: "1rem",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+              }}
             >
               {l.label}
             </Link>
           ))}
-          <div style={{ width: "1px", height: "16px", background: "rgba(247,242,232,0.2)" }} />
-          <Link href="/book" className="btn-fs-gold" style={{ padding: "10px 28px" }}>
+          <div style={{ width: "1px", height: "20px", background: "rgba(247,242,232,0.25)" }} />
+          <Link
+            href="/book"
+            className="btn-fs-solid navbar-cta"
+            style={{ padding: "12px 32px", fontSize: "0.9rem" }}
+          >
             הזמינו עכשיו
           </Link>
         </div>
@@ -107,8 +118,15 @@ export function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="label-fs py-1 transition-opacity hover:opacity-100"
-              style={{ color: "#F7F2E8", opacity: 0.7 }}
+              className="py-1 transition-opacity hover:opacity-100"
+              style={{
+                color: "#F7F2E8",
+                opacity: 0.85,
+                fontFamily: "var(--font-assistant)",
+                fontSize: "1.05rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+              }}
               onClick={() => setMenuOpen(false)}
             >
               {l.label}

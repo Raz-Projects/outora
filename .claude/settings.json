@@ -18,7 +18,9 @@
       "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/עששיות נטענות -קמפינג.png' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/lanterns.png')",
       "Bash(cp 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/תמונות מוצרים נלווים/פינת אוכל - 4 מושבים.jpg' 'c:/Users/razar/OneDrive/שולחן העבודה/OUTORA/OUTORA WEB/public/accessories/dining-set.jpg')",
       "Bash(git commit -m ' *)",
-      "Bash(npx vercel *)"
+      "Bash(npx vercel *)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

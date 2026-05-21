@@ -60,7 +60,7 @@ export function DeliverySelector({
                   className="font-light"
                   style={{
                     fontFamily: "var(--font-cormorant)",
-                    fontSize: item.bold ? "1.8rem" : "1.4rem",
+                    fontSize: item.bold ? "2.1rem" : "1.65rem",
                     color: item.bold ? "#C4954A" : "#F7F2E8",
                     lineHeight: 1,
                   }}
@@ -81,7 +81,7 @@ export function DeliverySelector({
 
       {/* ── Car selector ────────────────────────────────────────────────── */}
       <div>
-        <label className="block label-fs mb-3" style={{ color: "#1C1610" }}>
+        <label className="block label-fs mb-3" style={{ color: "#F7F2E8" }}>
           מה הרכב שלך? (לחישוב נפח הבגאז׳)
         </label>
         <select
@@ -93,7 +93,7 @@ export function DeliverySelector({
             border: "1px solid #D8D0C4",
             backgroundColor: "#fff",
             color: carId ? "#1C1610" : "#999",
-            fontSize: "14px",
+            fontSize: "16px",
             fontFamily: "var(--font-assistant)",
             outline: "none",
             appearance: "auto",
@@ -129,7 +129,7 @@ export function DeliverySelector({
               {!fits && (
                 <p
                   className="label-fs mt-0.5"
-                  style={{ color: "#1C1610", opacity: 0.6 }}
+                  style={{ color: "#F7F2E8", opacity: 0.6 }}
                 >
                   מומלץ: תיק גג, עגלת נגרר, או משלוח
                 </p>
@@ -143,7 +143,7 @@ export function DeliverySelector({
 
       {/* ── Delivery options ────────────────────────────────────────────── */}
       <div>
-        <p className="label-fs mb-4" style={{ color: "#1C1610" }}>בחרו אופן קבלה</p>
+        <p className="label-fs mb-4" style={{ color: "#F7F2E8" }}>בחרו אופן קבלה</p>
         <div className="flex flex-col gap-3">
           {deliveryOptions.map((opt) => {
             const isSelected = selected === opt.id
@@ -188,7 +188,7 @@ export function DeliverySelector({
                           className="font-light"
                           style={{
                             fontFamily: "var(--font-cormorant)",
-                            fontSize: "1.1rem",
+                            fontSize: "1.25rem",
                             color: "#1C1610",
                             letterSpacing: "0.02em",
                           }}
@@ -198,7 +198,7 @@ export function DeliverySelector({
                         {opt.ourTeamSetsUp && (
                           <span
                             className="label-fs px-2 py-0.5"
-                            style={{ backgroundColor: "#C4954A", color: "#fff", fontSize: "0.55rem" }}
+                            style={{ backgroundColor: "#C4954A", color: "#fff", fontSize: "0.72rem" }}
                           >
                             מומלץ
                           </span>
@@ -206,7 +206,7 @@ export function DeliverySelector({
                         {opt.needsTowHitch && (
                           <span
                             className="label-fs px-2 py-0.5"
-                            style={{ border: "1px solid rgba(28,22,16,0.2)", color: "#1C1610", fontSize: "0.55rem" }}
+                            style={{ border: "1px solid rgba(28,22,16,0.2)", color: "#1C1610", fontSize: "0.72rem" }}
                           >
                             תפוח גרירה בלבד
                           </span>
@@ -217,7 +217,7 @@ export function DeliverySelector({
                       <p
                         style={{
                           fontFamily: "var(--font-assistant)",
-                          fontSize: "0.82rem",
+                          fontSize: "0.95rem",
                           color: "#1C1610",
                           opacity: 0.65,
                           lineHeight: 1.6,
@@ -237,11 +237,11 @@ export function DeliverySelector({
                             >
                               <span style={{ fontSize: "0.8rem" }}>📍</span>
                               <div>
-                                <p className="label-fs" style={{ color: "#1C1610" }}>{pl.city}</p>
+                                <p className="label-fs" style={{ color: "#F7F2E8" }}>{pl.city}</p>
                                 <p
                                   style={{
                                     fontFamily: "var(--font-assistant)",
-                                    fontSize: "0.75rem",
+                                    fontSize: "0.88rem",
                                     color: "#1C1610",
                                     opacity: 0.6,
                                   }}

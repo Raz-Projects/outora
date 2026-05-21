@@ -41,6 +41,7 @@
   }
   html {
     scroll-behavior: smooth;
+    font-size: 17px;
   }
   body {
     font-family: var(--font-assistant), sans-serif;
@@ -52,15 +53,15 @@
     position: fixed;
     inset: 0;
     z-index: -10;
-    background: url('/gallery/bg-nature.jpg') center top / cover no-repeat;
+    background: url('/gallery/bg-nature.jpg') center center / cover no-repeat;
   }
-  /* Layer 2 — dark warm tint so tree reads as atmospheric night backdrop */
+  /* Layer 2 — warm dark tint, lets nature show through */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -9;
-    background: rgba(18, 12, 6, 0.62);
+    background: rgba(10, 6, 2, 0.60);
   }
   h1, h2, h3, h4 {
     font-family: var(--font-cormorant), serif;
@@ -122,8 +123,8 @@
   border: 1px solid var(--color-gold);
   color: var(--color-gold);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: background 0.3s ease, color 0.3s ease;
   cursor: pointer;
@@ -138,8 +139,8 @@
   background: var(--color-gold);
   color: var(--color-forest-deep);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: opacity 0.3s ease;
   cursor: pointer;
@@ -153,8 +154,8 @@
   border: 1px solid rgba(248, 246, 242, 0.35);
   color: var(--color-cream);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: border-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
@@ -169,10 +170,10 @@
 ───────────────────────────────────────── */
 .label-fs {
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.28em;
+  font-size: 0.88rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.9;
 }
 
 /* ─────────────────────────────────────────
@@ -242,6 +243,20 @@
 .delay-700 { animation-delay: 0.70s; transition-delay: 0.70s; }
 
 /* ─────────────────────────────────────────
+   NAVBAR CTA — subtle gold pulse
+───────────────────────────────────────── */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196,149,74,0.55); }
+  50%       { box-shadow: 0 0 0 6px rgba(196,149,74,0); }
+}
+.navbar-cta {
+  animation: goldPulse 2.8s ease-in-out infinite;
+}
+.navbar-cta:hover {
+  animation: none;
+}
+
+/* ─────────────────────────────────────────
    GOLD HOVER UNDERLINE (nav links)
 ───────────────────────────────────────── */
 .gold-underline {
@@ -283,4 +298,51 @@
   background: var(--color-gold);
   opacity: 0.4;
   border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────
+   DELIVERY OPTION CARDS — hover effect
+───────────────────────────────────────── */
+.delivery-card          { transition: background-color 0.25s ease; }
+.delivery-card:hover    { background-color: #251808 !important; }
+.delivery-card.featured { background-color: #2A1E0A; }
+.delivery-card.featured:hover { background-color: #3A2A0E !important; }
+.delivery-card .pick-cta { opacity: 0; transition: opacity 0.25s ease; }
+.delivery-card:hover .pick-cta { opacity: 1; }
+
+/* ─────────────────────────────────────────
+   ACCESSORIES CARDS — force white bg
+───────────────────────────────────────── */
+.acc-section {
+  background-color: #1C1410 !important;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+.acc-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #1C1410;
+  z-index: 0;
+}
+.acc-section > * {
+  position: relative;
+  z-index: 1;
+}
+.acc-card {
+  background-color: #ffffff !important;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+.acc-img-box {
+  background-color: #ffffff !important;
+  position: relative;
+  z-index: 2;
+}
+.acc-card-text {
+  background-color: #1C1410 !important;
+  position: relative;
+  z-index: 2;
 }

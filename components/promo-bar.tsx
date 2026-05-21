@@ -58,7 +58,7 @@ export function PromoBar() {
     >
       {/* Promo text */}
       <span
-        className="text-xs"
+        className="text-sm"
         style={{
           fontFamily: "var(--font-assistant)",
           color: "#F7F2E8",
@@ -100,7 +100,7 @@ export function PromoBar() {
                 className="tabular-nums font-light"
                 style={{
                   fontFamily: "var(--font-cormorant)",
-                  fontSize: "1.1rem",
+                  fontSize: "1.3rem",
                   color: "#C4954A",
                   lineHeight: 1,
                 }}
@@ -110,9 +110,9 @@ export function PromoBar() {
               <span
                 style={{
                   fontFamily: "var(--font-assistant)",
-                  fontSize: "0.5rem",
+                  fontSize: "0.65rem",
                   color: "#F7F2E8",
-                  opacity: 0.4,
+                  opacity: 0.5,
                   letterSpacing: "0.1em",
                 }}
               >
@@ -129,13 +129,14 @@ export function PromoBar() {
       {/* CTA */}
       <Link
         href="/book"
-        className="text-xs px-4 py-1.5 transition-all"
+        className="text-sm px-5 py-2 transition-all"
         style={{
           fontFamily: "var(--font-assistant)",
           letterSpacing: "0.12em",
           color: "#1C1410",
           backgroundColor: "#C4954A",
           whiteSpace: "nowrap",
+          fontWeight: 600,
         }}
       >
         לשמירת ההנחה ←

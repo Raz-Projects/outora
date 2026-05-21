@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/lib/cart-context";
 import { StickyCart } from "@/components/sticky-cart";
 import { PromoBar } from "@/components/promo-bar";
+import { AudioToggle } from "@/components/audio-toggle";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -48,6 +49,7 @@ export default function RootLayout({
             <PromoBar />
             {children}
             <StickyCart />
+            <AudioToggle />
           </CartProvider>
         </ThemeProvider>
       </body>

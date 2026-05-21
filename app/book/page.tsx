@@ -103,8 +103,8 @@ export default function BookPage() {
       </section>
 
       {/* ── Form ── */}
-      <section className="py-16 px-6">
-        <div className="max-w-2xl mx-auto">
+      <section className="py-10 md:py-16 px-4 md:px-8">
+        <div className="max-w-4xl mx-auto">
 
           {submitted ? (
             <div className="text-center py-20 flex flex-col items-center gap-6">
@@ -138,7 +138,7 @@ export default function BookPage() {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-7">
               <p
-                className="text-sm opacity-60"
+                className="text-base opacity-80"
                 style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
               >
                 מלאו את הפרטים ואנחנו ניצור אתכם קשר לאישור ותיאום הפרטים.
@@ -190,7 +190,7 @@ export default function BookPage() {
                   style={{ backgroundColor: "#1C1610", border: "1px solid rgba(196,149,74,0.25)" }}
                 >
                   <p
-                    className="text-xs mb-4"
+                    className="text-sm mb-4"
                     style={{
                       fontFamily: "var(--font-assistant)",
                       color: "#C4954A",
@@ -211,8 +211,8 @@ export default function BookPage() {
                           onClick={() => toggle(id)}
                           className="flex flex-col items-center gap-2 p-3 text-center transition-all"
                           style={{
-                            border: `1px solid ${checked ? "#C4954A" : "rgba(196,149,74,0.25)"}`,
-                            backgroundColor: checked ? "rgba(196,149,74,0.15)" : "transparent",
+                            border: `1px solid ${checked ? "#C4954A" : "rgba(196,149,74,0.4)"}`,
+                            backgroundColor: checked ? "rgba(196,149,74,0.2)" : "#2A2218",
                           }}
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -222,13 +222,13 @@ export default function BookPage() {
                             style={{ width: "48px", height: "48px", objectFit: "cover" }}
                           />
                           <span
-                            className="text-xs leading-tight"
+                            className="text-sm leading-tight"
                             style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}
                           >
                             {checked ? "✓ " : ""}{acc.nameHe}
                           </span>
                           <span
-                            className="text-xs"
+                            className="text-sm"
                             style={{ fontFamily: "var(--font-assistant)", color: "#C4954A" }}
                           >
                             +₪{acc.pricePerNight}/לילה
@@ -288,12 +288,12 @@ export default function BookPage() {
               {/* Extras */}
               <div>
                 <label
-                  className="block text-sm font-medium mb-3"
+                  className="block text-base font-medium mb-3"
                   style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
                 >
                   תוספות ושדרוגים (אופציונלי)
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                   {accessories.map((a) => {
                     const checked = form.extras.includes(a.id);
                     return (
@@ -301,16 +301,16 @@ export default function BookPage() {
                         key={a.id}
                         type="button"
                         onClick={() => toggle(a.id)}
-                        className="px-3 py-2 text-sm text-right border transition-all"
+                        className="px-3 py-2 text-base text-right border transition-all"
                         style={{
                           borderColor: checked ? "#C4954A" : "#D8D0C4",
-                          backgroundColor: checked ? "rgba(196,149,74,0.12)" : "transparent",
+                          backgroundColor: checked ? "rgba(196,149,74,0.18)" : "#ffffff",
                           color: "#1C1610",
                           fontFamily: "var(--font-assistant)",
                         }}
                       >
                         {checked ? "✓ " : ""}{a.nameHe}
-                        <span className="block text-xs opacity-50">+₪{a.pricePerNight}/לילה</span>
+                        <span className="block text-sm opacity-50">+₪{a.pricePerNight}/לילה</span>
                       </button>
                     );
                   })}
@@ -321,7 +321,7 @@ export default function BookPage() {
               <div>
                 <div className="fs-divider-full my-2" />
                 <label
-                  className="block text-sm font-medium mb-3"
+                  className="block text-base font-medium mb-3"
                   style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
                 >
                   אופן קבלת הציוד
@@ -354,7 +354,7 @@ export default function BookPage() {
               >
                 {activePromoCode ? (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#1C1610" }}>
+                    <span className="text-base" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
                       ✓ קוד{" "}
                       <strong style={{ color: "#C4954A", letterSpacing: "0.1em" }}>{activePromoCode}</strong>{" "}
                       הופעל!
@@ -362,8 +362,8 @@ export default function BookPage() {
                     <button
                       type="button"
                       onClick={() => { setActivePromoCode(""); setPromoStatus(null); setPromoInput(""); }}
-                      className="text-xs opacity-40"
-                      style={{ fontFamily: "var(--font-assistant)", color: "#1C1610" }}
+                      className="text-sm opacity-40"
+                      style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}
                     >
                       הסר
                     </button>
@@ -383,7 +383,7 @@ export default function BookPage() {
                           else setPromoStatus({ ok: false, msg: "קוד לא תקף" });
                         }
                       }}
-                      style={{ ...inputStyle, flex: 1, fontSize: "13px" }}
+                      style={{ ...inputStyle, flex: 1, fontSize: "15px" }}
                     />
                     <button
                       type="button"
@@ -392,7 +392,7 @@ export default function BookPage() {
                         if (p) { setActivePromoCode(p.code); setPromoStatus({ ok: true, msg: p.label }); }
                         else setPromoStatus({ ok: false, msg: "קוד לא תקף" });
                       }}
-                      className="px-5 text-xs"
+                      className="px-5 text-sm"
                       style={{
                         fontFamily: "var(--font-assistant)",
                         backgroundColor: "#C4954A",
@@ -407,7 +407,7 @@ export default function BookPage() {
                   </div>
                 )}
                 {promoStatus && !activePromoCode && (
-                  <p className="text-xs mt-2" style={{ fontFamily: "var(--font-assistant)", color: promoStatus.ok ? "#2E7D32" : "#c62828" }}>
+                  <p className="text-sm mt-2" style={{ fontFamily: "var(--font-assistant)", color: promoStatus.ok ? "#2E7D32" : "#c62828" }}>
                     {promoStatus.msg}
                   </p>
                 )}
@@ -419,14 +419,14 @@ export default function BookPage() {
                 style={{ backgroundColor: "rgba(196,149,74,0.08)", border: "1px solid rgba(196,149,74,0.3)" }}
               >
                 <p
-                  className="text-sm font-medium"
+                  className="text-base font-medium"
                   style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", letterSpacing: "0.08em" }}
                 >
                   💳 פיקדון אשראי
                 </p>
                 <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.75 }}
+                  className="text-base leading-relaxed"
+                  style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.85 }}
                 >
                   בעת קבלת הציוד תידרש חתימה על שובר אשראי כפיקדון. הפיקדון מוחזר
                   במלואו בסיום השכירות, בכפוף להחזרת הציוד תקין.
@@ -436,19 +436,19 @@ export default function BookPage() {
               {/* ── Damage liability ── */}
               <details
                 className="p-5"
-                style={{ backgroundColor: "rgba(28,20,16,0.04)", border: "1px solid #D8D0C4", cursor: "pointer" }}
+                style={{ backgroundColor: "rgba(28,20,16,0.5)", border: "1px solid rgba(196,149,74,0.25)", cursor: "pointer" }}
               >
                 <summary
-                  className="text-sm font-medium list-none flex justify-between items-center"
-                  style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+                  className="text-base font-medium list-none flex justify-between items-center"
+                  style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
                 >
                   <span>⚠️ מחירון נזקים ואובדן ציוד</span>
                   <span style={{ color: "#C4954A", fontSize: "0.75rem", letterSpacing: "0.1em" }}>לחצו לפתיחה</span>
                 </summary>
                 <div className="mt-4 flex flex-col gap-2">
                   <p
-                    className="text-xs mb-3"
-                    style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.6 }}
+                    className="text-sm mb-3"
+                    style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.65 }}
                   >
                     הציוד שלנו יקר ומטופח. במקרה של נזק או אובדן, יחויב הפיקדון לפי הרשימה הבאה:
                   </p>
@@ -456,13 +456,13 @@ export default function BookPage() {
                     <div
                       key={item.item}
                       className="flex justify-between items-center py-2 border-b"
-                      style={{ borderColor: "rgba(196,149,74,0.12)" }}
+                      style={{ borderColor: "rgba(196,149,74,0.15)" }}
                     >
-                      <span className="text-sm" style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}>
+                      <span className="text-base" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
                         {item.item}
                       </span>
                       <span
-                        className="text-sm font-medium"
+                        className="text-base font-medium"
                         style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", whiteSpace: "nowrap" }}
                       >
                         ₪{item.price.toLocaleString()}
@@ -470,8 +470,8 @@ export default function BookPage() {
                     </div>
                   ))}
                   <p
-                    className="text-xs mt-3"
-                    style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", opacity: 0.5 }}
+                    className="text-sm mt-3"
+                    style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.45 }}
                   >
                     * מחירים כוללים מע״מ. נזקים חלקיים יוערכו לפי מצב הציוד.
                   </p>
@@ -487,7 +487,7 @@ export default function BookPage() {
               </button>
 
               <p
-                className="text-center text-xs opacity-50"
+                className="text-center text-sm opacity-50"
                 style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
               >
                 הפרטים יישלחו ישירות לוואטסאפ שלנו — נחזור אליכם בהקדם.
@@ -514,8 +514,8 @@ function Field({
   return (
     <div className="flex flex-col gap-1.5">
       <label
-        className="text-sm font-medium"
-        style={{ color: "#1C1610", fontFamily: "var(--font-assistant)" }}
+        className="text-base font-medium"
+        style={{ color: "#1C1610", fontFamily: "var(--font-assistant)", fontWeight: 600 }}
       >
         {label}
         {required && <span style={{ color: "#C4954A" }}> *</span>}
@@ -550,7 +550,7 @@ const inputStyle: React.CSSProperties = {
   border: "1px solid #D8D0C4",
   backgroundColor: "#fff",
   color: "#1C1610",
-  fontSize: "14px",
+  fontSize: "16px",
   fontFamily: "var(--font-assistant)",
   outline: "none",
 };
