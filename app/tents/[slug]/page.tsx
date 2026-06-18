@@ -232,7 +232,7 @@ export default async function TentDetailPage({
                 { label: "מידות",      value: `${tent.dimensionsM} מ׳`         },
                 { label: "משקל",       value: `${tent.weightKg} ק״ג`            },
                 { label: "עמידות גשם", value: `${tent.waterproofMm.toLocaleString()} מ״מ` },
-                { label: "4 עונות",    value: "✓ Flame Retardant"               },
+                { label: "4 עונות",    value: "✓ עמיד אש"                      },
               ].map((spec, i) => (
                 <div
                   key={spec.label}
@@ -338,18 +338,18 @@ export default async function TentDetailPage({
               <table className="w-full text-sm" style={{ fontFamily: "var(--font-assistant)", borderCollapse: "collapse" }}>
                 <tbody>
                   {[
-                    ["חומר בד",           tent.material],
-                    ["מידות פנימיות",      `${tent.dimensionsM} מ׳`],
-                    ["שטח פנימי",          `${tent.sizeSqm} מ״ר`],
-                    ["גובה מרכזי",         `${tent.heightM} מ׳`],
-                    ["משקל כולל",          `${tent.weightKg} ק״ג`],
-                    ["עמידות גשם (בסיס)",  `${tent.waterproofMm.toLocaleString()} מ״מ`],
-                    ["עמידות גשם (עם גג)", "3,000 מ״מ"],
-                    ["לחץ אוויר מומלץ",   "5–7 PSI"],
-                    ["קוטר קורות אוויר",  "150 מ״מ | עובי 0.7 מ״מ"],
-                    ["דירוג עונות",        "4 עונות (Flame Retardant)"],
-                    ["אחריות קורות",       "2 שנים (ייצור)"],
-                    ["אחריות כללית",       "שנה אחת (ייצור)"],
+                    ["חומר בד",             tent.material],
+                    ["מידות פנימיות",        `${tent.dimensionsM} מ׳`],
+                    ["שטח פנימי",            `${tent.sizeSqm} מ״ר`],
+                    ["גובה מרכזי",           `${tent.heightM} מ׳`],
+                    ["משקל כולל",            `${tent.weightKg} ק״ג`],
+                    ["עמידות גשם — בסיס",   `${tent.waterproofMm.toLocaleString()} מ״מ`],
+                    ["עמידות גשם — עם גג גשם", "3,000 מ״מ"],
+                    ["לחץ אוויר מומלץ",     "5–7 PSI"],
+                    ["קורות אוויר",          "קוטר 150 מ״מ | עובי 0.7 מ״מ"],
+                    ["דירוג עונות",          "4 עונות | עמיד אש"],
+                    ["אחריות — קורות אוויר", "2 שנים"],
+                    ["אחריות — שאר הרכיבים", "שנה אחת"],
                   ].map(([label, value]) => (
                     <tr
                       key={label}
