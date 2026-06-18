@@ -36,7 +36,7 @@ const faqItems = [
 
 export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [form, setForm] = useState({ name: "", phone: "", message: "" })
+  const [form, setForm] = useState({ name: "", phone: "", message: "", website: "" })
   const [sent, setSent] = useState(false)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -45,6 +45,8 @@ export default function ContactPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    // Honeypot: if "website" field is filled, it's a bot
+    if (form.website) return;
     const text = encodeURIComponent(
       `היי OUTORA! 👋\nשם: ${form.name}\nטלפון: ${form.phone}\n${form.message}`
     )
@@ -218,6 +220,18 @@ export default function ContactPage() {
                     }}
                     onFocus={(e) => (e.target.style.borderColor = "rgba(196,149,74,0.7)")}
                     onBlur={(e) => (e.target.style.borderColor = "rgba(196,149,74,0.25)")}
+                  />
+                </div>
+
+                {/* Honeypot — hidden from humans, traps bots */}
+                <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} aria-hidden="true">
+                  <input
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={handleChange}
                   />
                 </div>
 

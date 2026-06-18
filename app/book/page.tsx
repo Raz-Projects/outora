@@ -112,7 +112,35 @@ export default function BookPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 500));
+
+    // Save lead to Supabase
+    try {
+      await fetch("/api/bookings/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer_name:  form.name,
+          customer_phone: form.phone,
+          tent_slug:      form.tent,
+          date_from:      form.dateFrom,
+          date_to:        form.dateTo,
+          guests:         Number(form.guests),
+          region:         form.region,
+          extra_ids:      form.extras,
+          delivery_type:  form.delivery,
+          car_size:       form.carSize,
+          base_price:     price.base,
+          extras_price:   price.extras,
+          discount:       price.discount,
+          total_price:    price.total,
+          promo_code:     activePromo || null,
+          notes:          form.notes,
+        }),
+      });
+    } catch {
+      // Non-blocking — WhatsApp still opens even if DB save fails
+    }
+
     window.open(`https://wa.me/972528448870?text=${buildWAMessage()}`, "_blank");
     setSubmitted(true);
     setLoading(false);

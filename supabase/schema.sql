@@ -153,3 +153,70 @@ CREATE TABLE IF NOT EXISTS promo_codes (
   valid_until      DATE,
   active           BOOLEAN NOT NULL DEFAULT true
 );
+
+-- ═══════════════════════════════════════════════════════════════
+-- PACKAGES — Admin overrides for tent/package settings
+-- ═══════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS packages (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+  slug             TEXT NOT NULL UNIQUE,
+  name_he          TEXT NOT NULL,
+  tagline_he       TEXT,
+  description_he   TEXT,
+  price_from       INT  NOT NULL DEFAULT 0,
+  capacity         INT  NOT NULL DEFAULT 2,
+  kit_quantity     INT  NOT NULL DEFAULT 1,
+  active           BOOLEAN NOT NULL DEFAULT true
+);
+
+-- ═══════════════════════════════════════════════════════════════
+-- EXTRAS — Additional accessories/services
+-- ═══════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS extras (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+  name_he          TEXT NOT NULL,
+  description_he   TEXT,
+  price_per_night  INT  NOT NULL DEFAULT 0,
+  available        BOOLEAN NOT NULL DEFAULT true,
+  package_slugs    TEXT[] DEFAULT '{}'
+);
+
+-- ═══════════════════════════════════════════════════════════════
+-- ADMIN LOCATIONS — Overrides/additions for camping locations
+-- ═══════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS admin_locations (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  location_id       TEXT NOT NULL UNIQUE,
+  name_he           TEXT NOT NULL,
+  region            TEXT NOT NULL,
+  landscape         TEXT NOT NULL,
+  description_he    TEXT,
+  nav_link          TEXT,
+  suitable_packages TEXT[] DEFAULT '{}',
+  active            BOOLEAN NOT NULL DEFAULT true
+);
+
+-- ═══════════════════════════════════════════════════════════════
+-- FAQ ITEMS — Frequently asked questions for homepage and FAQ page
+-- ═══════════════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS faq_items (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  question   TEXT NOT NULL,
+  answer     TEXT NOT NULL,
+  sort_order INT  NOT NULL DEFAULT 0,
+  active     BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE INDEX IF NOT EXISTS faq_sort ON faq_items (sort_order, created_at);
+
+-- ═══════════════════════════════════════════════════════════════
+-- BOOKINGS — Update status constraint to include collected/returned
+-- Run this if bookings table already exists:
+-- ALTER TABLE bookings DROP CONSTRAINT IF EXISTS bookings_status_check;
+-- ALTER TABLE bookings ADD CONSTRAINT bookings_status_check
+--   CHECK (status IN ('pending','confirmed','collected','returned','cancelled','completed'));
+-- ═══════════════════════════════════════════════════════════════

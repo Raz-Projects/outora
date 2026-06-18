@@ -716,6 +716,11 @@ export default function Home() {
 
 
       {/* ══════════════════════════════════════
+          FAQ
+      ══════════════════════════════════════ */}
+      <FAQSection />
+
+      {/* ══════════════════════════════════════
           FINAL CTA
       ══════════════════════════════════════ */}
       <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: "#1C1410" }}>
@@ -938,6 +943,108 @@ const stats = [
   { value: "כל הארץ",   label: "אנחנו מגיעים לכל מקום" },
   { value: "48h",        label: "זמן הכנה מרגע ההזמנה" },
 ]
+
+// ─── FAQ ──────────────────────────────────────────────────────────────────────
+
+function FAQSection() {
+  return (
+    <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#140E08" }}>
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-14">
+          <p className="label-fs mb-4" style={{ color: "#C4954A" }}>שאלות נפוצות</p>
+          <h2
+            className="font-light"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)", color: "#F7F2E8" }}
+          >
+            כל מה שרציתם לדעת
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {faqItems.map((item, i) => (
+            <details
+              key={i}
+              className="group"
+              style={{ border: "1px solid rgba(196,149,74,0.2)", backgroundColor: "rgba(247,242,232,0.025)" }}
+            >
+              <summary
+                className="flex items-center justify-between px-5 py-4 cursor-pointer list-none"
+                style={{ fontFamily: "var(--font-assistant)", fontSize: "1.05rem", color: "#F7F2E8" }}
+              >
+                <span>{item.q}</span>
+                <svg
+                  className="shrink-0 mr-4 transition-transform group-open:rotate-180"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="#C4954A"
+                  strokeWidth="1.5"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </summary>
+              <div className="px-5 pb-5 pt-1">
+                <p className="leading-relaxed opacity-70" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8", fontSize: "0.97rem", lineHeight: 1.85 }}>
+                  {item.a}
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <p className="opacity-50 text-sm mb-4" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+            לא מצאתם תשובה?
+          </p>
+          <a
+            href="https://wa.me/972528448870"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-fs-ghost"
+          >
+            💬 שאלו אותנו בוואטסאפ
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const faqItems = [
+  {
+    q: "האם אתם מגיעים לכל מקום בישראל?",
+    a: "כן — ים, הרים, מדבר, חוף, גולן, ערבה, אילת. אין מגבלה גיאוגרפית. בהזמנה תציינו את המיקום הרצוי ואנחנו נאשר עלויות הגעה בהתאם."
+  },
+  {
+    q: "מה כלול בחבילה הבסיסית?",
+    a: "כל חבילה כוללת את האוהל המתנפח, ספה מתנפחת, מזרנים זוגיים, כריות, ציפות, כיסאות ושולחן קמפינג. ניתן להוסיף תוספות כמו מכונת קפה, מקרן כוכבים, קערת אש ועוד."
+  },
+  {
+    q: "כמה זמן לוקח להקמת האוהל?",
+    a: "אוהלי COODY מתנפחים תוך 3–5 דקות בלבד עם משאבת חשמל. אם בחרתם בשירות הקמה מלאה — הצוות שלנו מגיע, מקים ומסדר הכל לפני שאתם מגיעים."
+  },
+  {
+    q: "מהו המחיר ואיך עובד התשלום?",
+    a: "המחיר נקבע לפי דגם האוהל, מספר הלילות והתוספות שתבחרו. לאחר אישור ההזמנה תשלמו מקדמה של 30%, והיתרה עם קבלת הציוד. בעת קבלה תחתמו על שובר פיקדון שמוחזר בסיום."
+  },
+  {
+    q: "מה קורה אם הציוד נפגע?",
+    a: "יש לנו מחירון נזקים שקוף — ניתן לראות אותו בדף ההזמנה. הפיקדון נועד לכסות נזקים שמעבר לבלאי סביר. אוהלים שלנו עשויים לעמוד בתנאי שטח קשים."
+  },
+  {
+    q: "האם ניתן לבטל הזמנה?",
+    a: "ביטול עד 7 ימים לפני — החזר מלא. ביטול 3–6 ימים לפני — החזר 50%. ביטול פחות מ-48 שעות — ללא החזר. מדיניות הביטולים המלאה זמינה בדף התקנון."
+  },
+  {
+    q: "לכמה אנשים מתאים כל אוהל?",
+    a: "יש לנו דגמים ל-2 עד 17 אנשים. Dome (2-4), Hub Station (4-6), Familia (4-8), Hub Shelter Pro (6-10), Familia Pro (8-17). ניתן לחבר כמה אוהלים לאירוע גדול."
+  },
+  {
+    q: "האם אפשר להשכיר לאירועים — בר מצווה, חתונה, רווקות?",
+    a: "בהחלט! אנחנו מתמחים באירועים. ניתן לשלב כמה אוהלים, להוסיף תאורה, שטיחים, מוזיקה ועוד. צרו קשר בוואטסאפ לתפריט מיוחד לאירועים."
+  },
+];
 
 const tentVideos = [
   { id: "familia-pro",    youtubeId: "c-PEVAPCv9I",  title: "Familia Pro — הסוויטה הגדולה" },

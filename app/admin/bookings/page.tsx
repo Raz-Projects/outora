@@ -27,8 +27,17 @@ type Booking = {
   notes: string;
 };
 
-const STATUS_OPTIONS = ["pending", "confirmed", "cancelled", "completed"];
-const FILTER_OPTIONS = ["הכל", "pending", "confirmed", "cancelled", "completed"];
+const STATUS_OPTIONS = ["pending", "confirmed", "collected", "returned", "cancelled", "completed"];
+const FILTER_OPTIONS = ["הכל", "pending", "confirmed", "collected", "returned", "cancelled", "completed"];
+
+type WaMsg = {
+  id: string;
+  created_at: string;
+  direction: string;
+  message_text: string;
+  template_name: string;
+  status: string;
+};
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -36,6 +45,8 @@ export default function BookingsPage() {
   const [search, setSearch]     = useState("");
   const [loading, setLoading]   = useState(true);
   const [selected, setSelected] = useState<Booking | null>(null);
+  const [waMsgs, setWaMsgs]     = useState<WaMsg[]>([]);
+  const [waTab, setWaTab]       = useState<"details" | "messages">("details");
 
   useEffect(() => {
     fetchBookings();
@@ -55,6 +66,18 @@ export default function BookingsPage() {
     await getSupabase().from("bookings").update({ status }).eq("id", id);
     setBookings((prev) => prev.map((b) => b.id === id ? { ...b, status } : b));
     if (selected?.id === id) setSelected((s) => s ? { ...s, status } : null);
+  }
+
+  async function selectBooking(b: Booking) {
+    setSelected(b);
+    setWaTab("details");
+    const { data } = await getSupabase()
+      .from("whatsapp_messages")
+      .select("id, created_at, direction, message_text, template_name, status")
+      .eq("booking_id", b.id)
+      .order("created_at", { ascending: false })
+      .limit(20);
+    setWaMsgs(data ?? []);
   }
 
   const filtered = bookings.filter((b) => {
@@ -118,7 +141,7 @@ export default function BookingsPage() {
                   <tr><td colSpan={6} className="px-4 py-10 text-center opacity-40" style={{ color: "#F7F2E8" }}>אין הזמנות</td></tr>
                 ) : filtered.map((b) => (
                   <tr key={b.id}
-                    onClick={() => setSelected(b)}
+                    onClick={() => selectBooking(b)}
                     className="cursor-pointer transition-colors"
                     style={{ borderBottom: "1px solid rgba(196,149,74,0.08)", backgroundColor: selected?.id === b.id ? "rgba(196,149,74,0.08)" : "transparent" }}>
                     <td className="px-4 py-3">
@@ -148,42 +171,94 @@ export default function BookingsPage() {
 
         {/* Detail panel */}
         {selected && (
-          <div className="w-72 shrink-0 p-5 rounded-sm self-start" style={{ backgroundColor: "rgba(247,242,232,0.04)", border: "1px solid rgba(196,149,74,0.2)" }}>
-            <div className="flex justify-between items-start mb-4">
+          <div className="w-80 shrink-0 rounded-sm self-start" style={{ backgroundColor: "rgba(247,242,232,0.04)", border: "1px solid rgba(196,149,74,0.2)" }}>
+            {/* Header */}
+            <div className="flex justify-between items-center px-5 py-4" style={{ borderBottom: "1px solid rgba(196,149,74,0.15)" }}>
               <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", color: "#C4954A" }}>פרטי הזמנה</h3>
               <button onClick={() => setSelected(null)} style={{ color: "#F7F2E8", opacity: 0.4 }}>✕</button>
             </div>
-            {[
-              { label: "שם", value: selected.customer_name },
-              { label: "טלפון", value: selected.customer_phone },
-              { label: "אימייל", value: selected.customer_email || "—" },
-              { label: "אוהל", value: selected.tent_slug },
-              { label: "הגעה", value: selected.date_from },
-              { label: "עזיבה", value: selected.date_to },
-              { label: "אנשים", value: String(selected.guests) },
-              { label: "אזור", value: selected.region || "—" },
-              { label: "תשלום", value: selected.payment_status },
-              { label: "הערות", value: selected.notes || "—" },
-            ].map((row) => (
-              <div key={row.label} className="flex justify-between py-2 text-sm" style={{ borderBottom: "1px solid rgba(196,149,74,0.1)" }}>
-                <span className="opacity-50" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>{row.label}</span>
-                <span className="text-right" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", maxWidth: "150px", wordBreak: "break-all" }}>{row.value}</span>
-              </div>
-            ))}
-            <div className="flex justify-between pt-3">
-              <span className="font-medium" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>סה״כ</span>
-              <span style={{ color: "#C4954A", fontFamily: "var(--font-cormorant)", fontSize: "1.3rem" }}>
-                ₪{(selected.total_price ?? 0).toLocaleString()}
-              </span>
+
+            {/* Tabs */}
+            <div className="flex" style={{ borderBottom: "1px solid rgba(196,149,74,0.15)" }}>
+              {[
+                { key: "details", label: "פרטים" },
+                { key: "messages", label: `הודעות (${waMsgs.length})` },
+              ].map((t) => (
+                <button key={t.key} onClick={() => setWaTab(t.key as "details" | "messages")}
+                  className="flex-1 py-2.5 text-xs transition-all"
+                  style={{
+                    backgroundColor: waTab === t.key ? "rgba(196,149,74,0.12)" : "transparent",
+                    color: waTab === t.key ? "#C4954A" : "rgba(247,242,232,0.5)",
+                    borderBottom: waTab === t.key ? "2px solid #C4954A" : "2px solid transparent",
+                    fontFamily: "var(--font-assistant)",
+                  }}>
+                  {t.label}
+                </button>
+              ))}
             </div>
-            {selected.customer_phone && (
-              <a href={`https://wa.me/972${selected.customer_phone.replace(/^0/, "").replace(/[^0-9]/g, "")}`}
-                target="_blank" rel="noopener noreferrer"
-                className="mt-4 block text-center text-sm py-2 transition-opacity hover:opacity-80"
-                style={{ backgroundColor: "#25D366", color: "#fff", fontFamily: "var(--font-assistant)" }}>
-                💬 ווטסאפ ללקוח
-              </a>
-            )}
+
+            <div className="p-5">
+              {waTab === "details" ? (
+                <>
+                  {[
+                    { label: "שם",     value: selected.customer_name },
+                    { label: "טלפון",  value: selected.customer_phone },
+                    { label: "אימייל", value: selected.customer_email || "—" },
+                    { label: "אוהל",   value: selected.tent_slug },
+                    { label: "הגעה",   value: selected.date_from },
+                    { label: "עזיבה",  value: selected.date_to },
+                    { label: "אנשים",  value: String(selected.guests) },
+                    { label: "אזור",   value: selected.region || "—" },
+                    { label: "תשלום",  value: selected.payment_status },
+                    { label: "הערות",  value: selected.notes || "—" },
+                  ].map((row) => (
+                    <div key={row.label} className="flex justify-between py-2 text-sm" style={{ borderBottom: "1px solid rgba(196,149,74,0.1)" }}>
+                      <span className="opacity-50" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>{row.label}</span>
+                      <span className="text-right" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", maxWidth: "150px", wordBreak: "break-all" }}>{row.value}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between pt-3">
+                    <span className="font-medium" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>סה״כ</span>
+                    <span style={{ color: "#C4954A", fontFamily: "var(--font-cormorant)", fontSize: "1.3rem" }}>
+                      ₪{(selected.total_price ?? 0).toLocaleString()}
+                    </span>
+                  </div>
+                  {selected.customer_phone && (
+                    <a href={`https://wa.me/972${selected.customer_phone.replace(/^0/, "").replace(/[^0-9]/g, "")}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="mt-4 block text-center text-sm py-2 transition-opacity hover:opacity-80"
+                      style={{ backgroundColor: "#25D366", color: "#fff", fontFamily: "var(--font-assistant)" }}>
+                      💬 ווטסאפ ללקוח
+                    </a>
+                  )}
+                </>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  {waMsgs.length === 0 ? (
+                    <p className="text-center py-6 opacity-40 text-sm" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
+                      אין הודעות ווטסאפ להזמנה זו
+                    </p>
+                  ) : waMsgs.map((msg) => (
+                    <div key={msg.id} className="p-3 text-xs" style={{
+                      backgroundColor: msg.direction === "inbound" ? "rgba(59,130,246,0.07)" : "rgba(37,211,102,0.07)",
+                      border: `1px solid ${msg.direction === "inbound" ? "rgba(59,130,246,0.2)" : "rgba(37,211,102,0.2)"}`,
+                    }}>
+                      <div className="flex justify-between mb-1">
+                        <span style={{ color: msg.direction === "inbound" ? "#60a5fa" : "#4ade80", fontFamily: "var(--font-assistant)" }}>
+                          {msg.direction === "inbound" ? "⬇ נכנס" : "⬆ יוצא"}
+                        </span>
+                        <span className="opacity-40" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
+                          {new Date(msg.created_at).toLocaleString("he-IL")}
+                        </span>
+                      </div>
+                      <p className="opacity-75" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", lineHeight: 1.5 }}>
+                        {msg.template_name ? `[תבנית: ${msg.template_name}]` : msg.message_text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -194,12 +269,21 @@ export default function BookingsPage() {
 const STATUS_LABELS: Record<string, string> = {
   pending:   "ממתין",
   confirmed: "מאושר",
+  collected: "נאסף",
+  returned:  "הוחזר",
   cancelled: "בוטל",
   completed: "הושלם",
 };
 
 function StatusBadge({ status }: { status: string }) {
-  const colors: Record<string, string> = { pending: "#f59e0b", confirmed: "#22c55e", cancelled: "#ef4444", completed: "#6366f1" };
+  const colors: Record<string, string> = {
+    pending:   "#f59e0b",
+    confirmed: "#22c55e",
+    collected: "#06b6d4",
+    returned:  "#8b5cf6",
+    cancelled: "#ef4444",
+    completed: "#6366f1",
+  };
   const c = colors[status] ?? "#9ca3af";
   return (
     <span className="px-2 py-0.5 text-xs" style={{ backgroundColor: `${c}22`, color: c, fontFamily: "var(--font-assistant)" }}>

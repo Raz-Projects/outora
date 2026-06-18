@@ -143,8 +143,8 @@ export function Navbar() {
 }
 
 const navLinks = [
-  { href: "/tents",   label: "האוהלים"    },
-  { href: "/shop",    label: "חנות"        },
-  { href: "/map",     label: "מפת מקומות" },
-  { href: "/contact", label: "צור קשר"    },
+  { href: "/tents",     label: "האוהלים"    },
+  { href: "/locations", label: "לוקיישנים"  },
+  { href: "/shop",      label: "חנות"       },
+  { href: "/contact",   label: "צור קשר"   },
 ]

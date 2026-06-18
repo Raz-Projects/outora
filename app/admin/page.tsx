@@ -70,11 +70,16 @@ export default async function AdminPage() {
       </div>
 
       {/* ── Quick links ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
         {[
           { href: "/admin/bookings",  title: "ניהול הזמנות",   desc: "צפו, אשרו וערכו הזמנות"    },
           { href: "/admin/messages",  title: "תור ווטסאפ",     desc: `${stats.agentQueue} הודעות ממתינות` },
           { href: "/admin/inventory", title: "חסימת תאריכים",  desc: "נהלו זמינות אוהלים"         },
+          { href: "/admin/packages",  title: "חבילות",          desc: "ניהול חבילות וכמות ערכות"   },
+          { href: "/admin/extras",    title: "תוספות",          desc: "ניהול תוספות ואביזרים"      },
+          { href: "/admin/locations", title: "לוקיישנים",       desc: "ניהול מקומות קמפינג"        },
+          { href: "/admin/faq",       title: "FAQ",              desc: "שאלות ותשובות לאתר"         },
+          { href: "/admin/promo",     title: "קודי הנחה",       desc: "יצירה וניהול קופונים"       },
         ].map((item) => (
           <a key={item.href} href={item.href} className="block p-5 transition-all"
             style={{ backgroundColor: "rgba(247,242,232,0.04)", border: "1px solid rgba(196,149,74,0.15)" }}
