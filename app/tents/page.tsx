@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TentCard } from "@/components/tent-card"
-import { tents } from "@/lib/tents"
+import { tents, accessories } from "@/lib/tents"
 
 export const metadata = {
   title: "האוהלים שלנו — OUTORA",
@@ -295,6 +295,53 @@ export default function TentsPage() {
             >
               💬 ייעצו לי
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Accessories / Extras ── */}
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#0E0904", borderTop: "1px solid rgba(196,149,74,0.12)" }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="label-fs mb-3" style={{ color: "#C4954A" }}>תוספות</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#F7F2E8" }}>
+              שדרגו את הלילה
+            </h2>
+            <p className="mt-4 opacity-60 max-w-xl mx-auto" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8", fontSize: "1rem", lineHeight: 1.75 }}>
+              לכל הזמנה ניתן להוסיף ציוד ושירותים נוספים — ממוקד אש ועד מכונת קפה.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.12)" }}>
+            {accessories.map((acc) => (
+              <div
+                key={acc.id}
+                className="flex flex-col gap-3 p-5"
+                style={{ backgroundColor: "#0E0904" }}
+              >
+                <div style={{ width: "100%", aspectRatio: "4/3", position: "relative", overflow: "hidden" }}>
+                  <Image
+                    src={acc.image}
+                    alt={acc.nameHe}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                </div>
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-medium text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+                    {acc.nameHe}
+                  </span>
+                  <span className="shrink-0 font-light text-sm" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}>
+                    +₪{acc.pricePerNight}/לילה
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/book" className="btn-fs-solid">בחרו תוספות בהזמנה</Link>
           </div>
         </div>
       </section>

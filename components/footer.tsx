@@ -130,16 +130,17 @@ export function Footer() {
 }
 
 const navLinks = [
-  { href: "/",        label: "דף הבית"    },
-  { href: "/tents",   label: "האוהלים"   },
-  { href: "/shop",    label: "חנות"       },
-  { href: "/map",     label: "מפת מקומות" },
-  { href: "/contact", label: "צור קשר"   },
-  { href: "/book",    label: "הזמנה"      },
+  { href: "/",          label: "דף הבית"    },
+  { href: "/tents",     label: "האוהלים"    },
+  { href: "/locations", label: "לוקיישנים"  },
+  { href: "/shop",      label: "חנות"       },
+  { href: "/contact",   label: "צור קשר"    },
+  { href: "/book",      label: "הזמנה"      },
 ];
 
 const legalLinks = [
-  { href: "/legal/terms",        label: "תקנון שימוש"   },
-  { href: "/legal/privacy",      label: "מדיניות פרטיות" },
-  { href: "/legal/cancellation", label: "מדיניות ביטולים" },
+  { href: "/legal/terms",          label: "תקנון שימוש"       },
+  { href: "/legal/privacy",        label: "מדיניות פרטיות"   },
+  { href: "/legal/cancellation",   label: "מדיניות ביטולים"  },
+  { href: "/legal/accessibility",  label: "הצהרת נגישות"     },
 ];

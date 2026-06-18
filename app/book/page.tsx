@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -60,12 +61,26 @@ function calcTotal(form: FormState, promoCode: string) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function BookPage() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<FormState>({
     tent: "", dateFrom: "", dateTo: "", guests: "",
     region: "", delivery: "", carSize: "",
     extras: [], name: "", phone: "", notes: "",
   });
+
+  // Pre-fill from URL params (e.g. ?region=north&tent=dome from location pages)
+  useEffect(() => {
+    const region = searchParams.get("region");
+    const tent   = searchParams.get("tent");
+    if (region || tent) {
+      setForm((f) => ({
+        ...f,
+        ...(region ? { region } : {}),
+        ...(tent   ? { tent   } : {}),
+      }));
+    }
+  }, [searchParams]);
   const [promoInput, setPromoInput]     = useState("");
   const [promoStatus, setPromoStatus]   = useState<{ ok: boolean; msg: string } | null>(null);
   const [activePromo, setActivePromo]   = useState("");

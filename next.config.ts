@@ -41,6 +41,8 @@ const nextConfig: NextConfig = {
       },
       // Legacy /protected → /account
       { source: "/protected", destination: "/account", permanent: true },
+      // /map → /locations (navbar was updated)
+      { source: "/map", destination: "/locations", permanent: true },
     ];
   },
 };

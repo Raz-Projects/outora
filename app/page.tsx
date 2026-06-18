@@ -679,6 +679,90 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
+          WHY OUTORA — Differentiators
+      ══════════════════════════════════════ */}
+      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#0E0904" }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>למה OUTORA</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: "#F7F2E8" }}>
+              לא אוהל — <em style={{ color: "#C4954A" }}>חוויה שלמה.</em>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.15)" }}>
+            {whyOutora.map((item) => (
+              <div
+                key={item.title}
+                className="flex flex-col gap-4 px-7 py-10"
+                style={{ backgroundColor: "#0E0904" }}
+              >
+                <span style={{ fontSize: "2rem" }}>{item.icon}</span>
+                <div style={{ width: "32px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
+                <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 2vw, 1.8rem)", color: "#F7F2E8", lineHeight: 1.2 }}>
+                  {item.title}
+                </h3>
+                <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "1rem", color: "#F7F2E8", opacity: 0.62, lineHeight: 1.85 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          LOCATIONS PREVIEW
+      ══════════════════════════════════════ */}
+      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#140E08" }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end justify-between mb-14">
+            <div>
+              <p className="label-fs mb-3" style={{ color: "#C4954A" }}>המקומות שלנו</p>
+              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: "#F7F2E8", lineHeight: 1.1 }}>
+                מצפון לדרום.<br />
+                <em style={{ color: "#C4954A" }}>כל ישראל בידיים שלנו.</em>
+              </h2>
+            </div>
+            <Link href="/locations" className="btn-fs-gold hidden md:inline-block" style={{ flexShrink: 0 }}>
+              כל הלוקיישנים
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {featuredLocations.map((loc) => (
+              <Link
+                key={loc.id}
+                href={`/locations/${loc.id}`}
+                className="group relative overflow-hidden"
+                style={{ aspectRatio: "3/4", textDecoration: "none" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={loc.img}
+                  alt={loc.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s ease" }}
+                  className="group-hover:scale-110"
+                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(14,9,4,0.9) 0%, rgba(14,9,4,0.1) 55%)" }} />
+                <div className="absolute bottom-0 right-0 p-3">
+                  <p className="text-xs opacity-60 mb-0.5" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", letterSpacing: "0.1em" }}>
+                    {loc.region}
+                  </p>
+                  <p className="font-light leading-tight" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(0.9rem, 1.2vw, 1.1rem)", color: "#F7F2E8" }}>
+                    {loc.name}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-10 md:hidden">
+            <Link href="/locations" className="btn-fs-gold">כל הלוקיישנים</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
           STATS — By the Numbers
       ══════════════════════════════════════ */}
       <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#1C1610" }}>
@@ -1045,6 +1129,48 @@ const faqItems = [
     a: "בהחלט! אנחנו מתמחים באירועים. ניתן לשלב כמה אוהלים, להוסיף תאורה, שטיחים, מוזיקה ועוד. צרו קשר בוואטסאפ לתפריט מיוחד לאירועים."
   },
 ];
+
+const whyOutora = [
+  {
+    icon: "🚐",
+    title: "אנחנו מגיעים אליכם",
+    desc: "לא צריך לגרור ציוד. הצוות שלנו מקים את האוהל לפני הגעתכם ומפנה לאחר היציאה — אתם רק נהנים.",
+  },
+  {
+    icon: "🛋️",
+    title: "ריהוט שלם, ברמת מלון",
+    desc: "מיטות, ספות, שטיחים, שולחן, כיסאות — כל ערכת COODY מצוידת מלא. אין צורך לקנות, לשאול, להביא.",
+  },
+  {
+    icon: "⚡",
+    title: "הקמה תוך דקות",
+    desc: "האוהל המתנפח עולה בפחות מ-3 דקות בכוח אוויר. ללא פרוץ, ללא בלבול — מקסימום זמן לטבע.",
+  },
+  {
+    icon: "🏔️",
+    title: "כל ישראל — כולל מקומות רחוקים",
+    desc: "ים המלח, ערד, הרי הגולן, חוף הים הצפוני — מגיעים לכל מקום. ממזרח למערב, מצפון לדרום.",
+  },
+  {
+    icon: "🔒",
+    title: "ביטוח ואחריות כלולים",
+    desc: "הציוד מבוטח, הצוות מוסמך, ואנחנו מספקים תמיכה טלפונית 24 שעות לאורך כל ההזמנה.",
+  },
+  {
+    icon: "✨",
+    title: "חוויה ייחודית — לא רק לינה",
+    desc: "OUTORA היא לא השכרת ציוד — זו חוויה שלמה. מהבחירה ועד הפינוי, אתם בידיים טובות.",
+  },
+]
+
+const featuredLocations = [
+  { id: "beach-dor",         name: "חוף דור",      region: "חוף הכרמל",  img: "/gallery/tent-real-2.jpg" },
+  { id: "sea-of-galilee",    name: "כינרת",         region: "צפון",        img: "/gallery/tent-real-3.jpg" },
+  { id: "ramon-crater",      name: "מכתש רמון",     region: "נגב",         img: "/gallery/tent-real-5.jpg" },
+  { id: "dead-sea-north",    name: "ים המלח",       region: "ים המלח",    img: "/gallery/רוחבי.jpeg" },
+  { id: "mt-hermon-foothills",name: "רגלי החרמון",  region: "צפון",        img: "/gallery/tent-real-4.jpg" },
+  { id: "red-sea-eilat",     name: "אילת",          region: "דרום",        img: "/gallery/tent-real-6.jpg" },
+]
 
 const tentVideos = [
   { id: "familia-pro",    youtubeId: "c-PEVAPCv9I",  title: "Familia Pro — הסוויטה הגדולה" },
