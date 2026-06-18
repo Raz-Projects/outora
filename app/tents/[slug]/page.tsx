@@ -11,6 +11,8 @@ export function generateStaticParams() {
   return tents.map((t) => ({ slug: t.slug }))
 }
 
+const BASE = "https://outora.co.il"
+
 export async function generateMetadata({
   params,
 }: {
@@ -19,9 +21,23 @@ export async function generateMetadata({
   const { slug } = await params
   const tent = getTentBySlug(slug)
   if (!tent) return {}
+  const imgUrl = `${BASE}${tent.image}`
   return {
-    title: `${tent.nameEn} — OUTORA`,
-    description: tent.descriptionHe,
+    title: `${tent.nameEn} | השכרת אוהל מתנפח — OUTORA`,
+    description: `${tent.taglineHe} | ${tent.sizeSqm} מ״ר | גובה ${tent.heightM} מ׳ | עד ${tent.capacity} אנשים | מ-₪${tent.priceFrom.toLocaleString()} ללילה`,
+    openGraph: {
+      title: `COODY ${tent.nameEn} — השכרת גלמפינג | OUTORA`,
+      description: tent.descriptionHe,
+      images: [{ url: imgUrl, width: 1200, height: 800, alt: tent.nameEn }],
+      type: "website",
+      locale: "he_IL",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `COODY ${tent.nameEn} — OUTORA`,
+      description: tent.taglineHe,
+      images: [imgUrl],
+    },
   }
 }
 
@@ -40,8 +56,29 @@ export default async function TentDetailPage({
     `שלום! אני מעוניין לשכור את ${tent.nameEn}. אפשר לקבל פרטים?`
   )
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `COODY ${tent.nameEn} — השכרת אוהל מתנפח`,
+    description: tent.descriptionHe,
+    image: `${BASE}${tent.image}`,
+    brand: { "@type": "Brand", name: "COODY" },
+    offers: {
+      "@type": "Offer",
+      price: tent.priceFrom,
+      priceCurrency: "ILS",
+      url: `${BASE}/tents/${tent.slug}`,
+      availability: "https://schema.org/InStock",
+      areaServed: { "@type": "Country", name: "Israel" },
+    },
+  }
+
   return (
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: "transparent" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <WhatsAppButton />
 
@@ -286,6 +323,54 @@ export default async function TentDetailPage({
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="fs-divider-full" />
+
+            {/* Technical Specs Table */}
+            <div>
+              <h3
+                className="font-light mb-6"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1610" }}
+              >
+                מפרט טכני
+              </h3>
+              <table className="w-full text-sm" style={{ fontFamily: "var(--font-assistant)", borderCollapse: "collapse" }}>
+                <tbody>
+                  {[
+                    ["חומר בד",           tent.material],
+                    ["מידות פנימיות",      `${tent.dimensionsM} מ׳`],
+                    ["שטח פנימי",          `${tent.sizeSqm} מ״ר`],
+                    ["גובה מרכזי",         `${tent.heightM} מ׳`],
+                    ["משקל כולל",          `${tent.weightKg} ק״ג`],
+                    ["עמידות גשם (בסיס)",  `${tent.waterproofMm.toLocaleString()} מ״מ`],
+                    ["עמידות גשם (עם גג)", "3,000 מ״מ"],
+                    ["לחץ אוויר מומלץ",   "5–7 PSI"],
+                    ["קוטר קורות אוויר",  "150 מ״מ | עובי 0.7 מ״מ"],
+                    ["דירוג עונות",        "4 עונות (Flame Retardant)"],
+                    ["אחריות קורות",       "2 שנים (ייצור)"],
+                    ["אחריות כללית",       "שנה אחת (ייצור)"],
+                  ].map(([label, value]) => (
+                    <tr
+                      key={label}
+                      style={{ borderBottom: "1px solid rgba(28,20,16,0.08)" }}
+                    >
+                      <td
+                        className="py-3 pl-0 pr-4 font-medium"
+                        style={{ color: "#1C1610", opacity: 0.5, width: "40%", letterSpacing: "0.05em", fontSize: "0.78rem" }}
+                      >
+                        {label}
+                      </td>
+                      <td
+                        className="py-3"
+                        style={{ color: "#1C1610", opacity: 0.85 }}
+                      >
+                        {value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* Video (if available) */}
