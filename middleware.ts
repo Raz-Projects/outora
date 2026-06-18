@@ -8,7 +8,22 @@ export async function middleware(req: NextRequest) {
   const isAdmin   = pathname.startsWith("/admin");
   const isAccount = pathname.startsWith("/account");
 
-  if (!isAdmin && !isAccount) return NextResponse.next();
+  // Always refresh session cookies for all routes
+  if (!isAdmin && !isAccount) {
+    const res = NextResponse.next();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+      {
+        cookies: {
+          getAll: () => req.cookies.getAll(),
+          setAll: (toSet) => toSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options)),
+        },
+      }
+    );
+    await supabase.auth.getUser();
+    return res;
+  }
 
   // Build a response so Supabase SSR can refresh the session cookie
   const res = NextResponse.next();
@@ -43,4 +58,8 @@ export async function middleware(req: NextRequest) {
   return res;
 }
 
-export const config = { matcher: ["/admin/:path*", "/account/:path*", "/account"] };
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
+};
