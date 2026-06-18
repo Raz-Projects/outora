@@ -15,7 +15,14 @@
       "PowerShell(cd \"C:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\OUTORA WEB\"; Start-Process powershell -ArgumentList \"-NoExit\", \"-Command\", \"npm run dev\" -WindowStyle Normal; Start-Sleep 3; Write-Host \"Dev server launching at http://localhost:3000\")",
       "WebSearch",
       "Bash(Get-ChildItem -Path . -Directory)",
-      "Bash(Select-Object Name)"
+      "Bash(Select-Object Name)",
+      "Bash(uipro init *)",
+      "Bash(dir \"C:\\\\Users\\\\razar\\\\OneDrive\\\\שולחן העבודה\\\\OUTORA\\\\OUTORA WEB\\\\.claude\\\\skills\" /s /b)",
+      "WebFetch(domain:21st.dev)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(npm show *)",
+      "WebFetch(domain:eilon.co)",
+      "Bash(ls /mnt/c/Users/razar/ 2>/dev/null || ls ~/)"
     ]
   }
 }

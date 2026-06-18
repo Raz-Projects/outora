@@ -20,7 +20,11 @@
       "Bash(git commit -m ' *)",
       "Bash(npx vercel *)",
       "Bash(npx tsc *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "WebFetch(domain:coodytents.eu)",
+      "Bash(ls .vercel)",
+      "Bash(cat .vercel/project.json)",
+      "Bash(git branch *)"
     ]
   }
 }
