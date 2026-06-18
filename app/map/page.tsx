@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { MapWrapper } from "@/components/map-wrapper"
 
@@ -50,6 +51,8 @@ export default function MapPage() {
       <div className="flex-1 flex flex-col" style={{ minHeight: "calc(100vh - 120px)" }}>
         <MapWrapper />
       </div>
+
+      <Footer />
     </main>
   )
 }

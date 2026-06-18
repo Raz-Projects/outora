@@ -7,14 +7,36 @@ import { PromoBar } from "@/components/promo-bar";
 import { AudioToggle } from "@/components/audio-toggle";
 import "./globals.css";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "OUTORA — הבית שלך בטבע",
-  description: "חוויית קמפינג יוקרתית — אנחנו מגיעים אליך לכל מקום שתבחר בישראל",
+  metadataBase: new URL("https://outora.co.il"),
+  title: {
+    default: "OUTORA — הבית שלך בטבע",
+    template: "%s | OUTORA",
+  },
+  description: "חוויית קמפינג יוקרתית — אוהלי COODY מתנפחים, משלוח והקמה בכל ישראל",
+  keywords: ["קמפינג יוקרתי", "אוהל מתנפח", "השכרת אוהלים", "COODY", "טבע ישראל", "גלמפינג"],
+  authors: [{ name: "OUTORA" }],
+  creator: "OUTORA",
+  openGraph: {
+    type: "website",
+    locale: "he_IL",
+    url: "https://outora.co.il",
+    siteName: "OUTORA",
+    title: "OUTORA — הבית שלך בטבע",
+    description: "חוויית קמפינג יוקרתית — אוהלי COODY מתנפחים, משלוח והקמה בכל ישראל",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "OUTORA — Luxury Camping" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OUTORA — הבית שלך בטבע",
+    description: "חוויית קמפינג יוקרתית — אוהלי COODY מתנפחים, משלוח והקמה בכל ישראל",
+    images: ["/twitter-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 const cormorant = Cormorant_Garamond({
@@ -46,6 +68,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CartProvider>
+            <a href="#main-content" className="skip-link">
+              דלגו לתוכן הראשי
+            </a>
             <PromoBar />
             {children}
             <StickyCart />

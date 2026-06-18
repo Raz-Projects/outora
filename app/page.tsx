@@ -6,9 +6,33 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TentCard } from "@/components/tent-card"
 import { tents, accessories } from "@/lib/tents"
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "OUTORA",
+  description: "חוויית קמפינג יוקרתית — אוהלי COODY מתנפחים, משלוח והקמה בכל ישראל",
+  url: "https://outora.co.il",
+  telephone: "+972528448870",
+  email: "Reservations@outora.co.il",
+  address: { "@type": "PostalAddress", addressCountry: "IL" },
+  priceRange: "₪₪₪",
+  image: "https://outora.co.il/gallery/רוחבי.jpeg",
+  sameAs: [],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"],
+    opens: "09:00",
+    closes: "20:00",
+  },
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: "transparent" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <WhatsAppButton />
 
