@@ -161,7 +161,7 @@ export default async function TentDetailPage({
 
             <div className="fs-divider-full" />
 
-            {/* Spec strip */}
+            {/* Spec strip — 4 primary */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-0">
               {[
                 { label: "קיבולת",    value: `עד ${tent.capacity} אנשים` },
@@ -181,6 +181,35 @@ export default async function TentDetailPage({
                       fontFamily: "var(--font-cormorant)",
                       fontSize: "1.4rem",
                       color: "#1C1610",
+                    }}
+                  >
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Spec strip — 4 secondary (technical) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border-b" style={{ borderColor: "rgba(28,22,16,0.12)" }}>
+              {[
+                { label: "מידות",      value: `${tent.dimensionsM} מ׳`         },
+                { label: "משקל",       value: `${tent.weightKg} ק״ג`            },
+                { label: "עמידות גשם", value: `${tent.waterproofMm.toLocaleString()} מ״מ` },
+                { label: "4 עונות",    value: "✓ Flame Retardant"               },
+              ].map((spec, i) => (
+                <div
+                  key={spec.label}
+                  className={`flex flex-col gap-2 px-6 py-4 ${i < 3 ? "sm:border-r" : ""}`}
+                  style={{ borderColor: "rgba(28,22,16,0.08)", backgroundColor: "rgba(28,22,16,0.02)" }}
+                >
+                  <span className="label-fs" style={{ color: "#1C1610", opacity: 0.6 }}>{spec.label}</span>
+                  <span
+                    className="font-light"
+                    style={{
+                      fontFamily: "var(--font-assistant)",
+                      fontSize: "0.9rem",
+                      color: "#1C1610",
+                      opacity: 0.85,
                     }}
                   >
                     {spec.value}
