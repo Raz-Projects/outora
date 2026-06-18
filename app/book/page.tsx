@@ -25,6 +25,7 @@ type FormState = {
   name: string;
   phone: string;
   notes: string;
+  website: string; // honeypot — must stay empty
 };
 
 const STEPS = [
@@ -66,7 +67,7 @@ export default function BookPage() {
   const [form, setForm] = useState<FormState>({
     tent: "", dateFrom: "", dateTo: "", guests: "",
     region: "", delivery: "", carSize: "",
-    extras: [], name: "", phone: "", notes: "",
+    extras: [], name: "", phone: "", notes: "", website: "",
   });
 
   // Pre-fill from URL params (e.g. ?region=north&tent=dome from location pages)
@@ -142,6 +143,7 @@ export default function BookPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (form.website) return; // honeypot triggered — bot submission
     setLoading(true);
 
     // Save lead to Supabase
@@ -576,6 +578,18 @@ export default function BookPage() {
                     ))}
                   </div>
                 </details>
+
+                {/* Honeypot — hidden from humans, traps bots */}
+                <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} aria-hidden="true">
+                  <input
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={(e) => setForm((f) => ({ ...f, website: e.target.value }))}
+                  />
+                </div>
 
                 {/* Submit */}
                 <button type="submit" disabled={loading || !form.name || !form.phone} className="btn-fs-solid w-full disabled:opacity-50" style={{ padding: "16px" }}>
