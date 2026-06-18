@@ -2,10 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { sendWhatsAppText } from "@/lib/whatsapp";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY!
-);
+export const dynamic = "force-dynamic";
+
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY!
+  );
+}
 
 // ── GET — Meta webhook verification challenge ──────────────────────
 export async function GET(req: NextRequest) {
@@ -22,6 +26,7 @@ export async function GET(req: NextRequest) {
 
 // ── POST — incoming messages & status updates ──────────────────────
 export async function POST(req: NextRequest) {
+  const supabase = getSupabase();
   const body = await req.json();
 
   const entry   = body.entry?.[0];

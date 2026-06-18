@@ -2,14 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { sendBookingConfirmation, sendInternalAlert } from "@/lib/email";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY!
-);
+export const dynamic = "force-dynamic";
+
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY!
+  );
+}
 
 // POST /api/payment/create
 // Body: booking details → saves to Supabase → creates Grow payment link
 export async function POST(req: NextRequest) {
+  const supabase = getSupabase();
   const body = await req.json();
 
   const {

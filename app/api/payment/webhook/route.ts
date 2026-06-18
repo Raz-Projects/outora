@@ -3,14 +3,19 @@ import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 import { waBookingConfirmed, waCancelled } from "@/lib/whatsapp";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY!
-);
+export const dynamic = "force-dynamic";
+
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY!
+  );
+}
 
 // POST /api/payment/webhook
 // Grow sends payment status updates here
 export async function POST(req: NextRequest) {
+  const supabase = getSupabase();
   const rawBody = await req.text();
 
   // Verify signature from Grow
