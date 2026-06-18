@@ -517,7 +517,7 @@ export default async function TentDetailPage({
                 💬 הזמינו דרך WhatsApp
               </a>
               <Link
-                href="/book"
+                href={`/book?tent=${tent.slug}`}
                 className="btn-fs-ghost text-center w-full"
                 style={{ fontSize: "0.7rem" }}
               >

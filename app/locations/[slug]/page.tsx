@@ -81,13 +81,31 @@ export async function generateStaticParams() {
   return locations.map((loc) => ({ slug: loc.id }));
 }
 
+const BASE = "https://outora.co.il";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const loc = locations.find((l) => l.id === slug);
   if (!loc) return {};
+  const imgPath = landscapeImages[loc.landscape] ?? "/gallery/tent-real-2.jpg";
+  const imgUrl  = `${BASE}${imgPath}`;
   return {
     title: `${loc.nameHe} — קמפינג יוקרה | OUTORA`,
     description: loc.descriptionHe,
+    openGraph: {
+      title:       `${loc.nameHe} — גלמפינג יוקרה | OUTORA`,
+      description: loc.descriptionHe,
+      url:         `${BASE}/locations/${loc.id}`,
+      type:        "website",
+      locale:      "he_IL",
+      images:      [{ url: imgUrl, width: 1200, height: 800, alt: loc.nameHe }],
+    },
+    twitter: {
+      card:        "summary_large_image",
+      title:       `${loc.nameHe} | OUTORA`,
+      description: loc.descriptionHe,
+      images:      [imgUrl],
+    },
   };
 }
 
@@ -106,8 +124,29 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
     .filter((l) => l.id !== loc.id && l.region === loc.region)
     .slice(0, 3);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    name: loc.nameHe,
+    description: loc.descriptionHe,
+    url: `${BASE}/locations/${loc.id}`,
+    geo: { "@type": "GeoCoordinates", latitude: loc.lat, longitude: loc.lng },
+    address: { "@type": "PostalAddress", addressCountry: "IL" },
+    touristType: "Glamping / Luxury Camping",
+    offers: {
+      "@type": "Offer",
+      url: `${BASE}/book?region=${encodeURIComponent(loc.nameHe)}`,
+      priceCurrency: "ILS",
+      availability: "https://schema.org/InStock",
+    },
+  };
+
   return (
     <main style={{ minHeight: "100vh" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <WhatsAppButton />
 

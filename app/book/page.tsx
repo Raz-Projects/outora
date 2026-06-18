@@ -86,6 +86,22 @@ export default function BookPage() {
   const [activePromo, setActivePromo]   = useState("");
   const [submitted, setSubmitted]       = useState(false);
   const [loading, setLoading]           = useState(false);
+  const [availStatus, setAvailStatus]   = useState<"idle" | "checking" | "available" | "unavailable">("idle");
+
+  // Real-time availability check whenever tent + both dates are set
+  useEffect(() => {
+    if (!form.tent || !form.dateFrom || !form.dateTo) {
+      setAvailStatus("idle");
+      return;
+    }
+    setAvailStatus("checking");
+    const controller = new AbortController();
+    fetch(`/api/availability?tent=${form.tent}&from=${form.dateFrom}&to=${form.dateTo}`, { signal: controller.signal })
+      .then((r) => r.json())
+      .then((d) => setAvailStatus(d.available === true ? "available" : "unavailable"))
+      .catch(() => setAvailStatus("idle"));
+    return () => controller.abort();
+  }, [form.tent, form.dateFrom, form.dateTo]);
 
   const price = calcTotal(form, activePromo);
 
@@ -163,7 +179,10 @@ export default function BookPage() {
 
   // ── Step validation ──
   function canNext() {
-    if (step === 1) return !!form.tent && !!form.dateFrom && !!form.dateTo && !!form.guests;
+    if (step === 1) return (
+      !!form.tent && !!form.dateFrom && !!form.dateTo && !!form.guests &&
+      availStatus !== "unavailable" && availStatus !== "checking"
+    );
     if (step === 2) return !!form.delivery;
     return true;
   }
@@ -301,8 +320,30 @@ export default function BookPage() {
                   </Field>
                 </div>
 
+                {/* Availability status */}
+                {availStatus === "checking" && (
+                  <div className="flex items-center gap-2 text-sm px-1" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.6 }}>
+                    <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", backgroundColor: "#C4954A", animation: "pulse 1.2s ease-in-out infinite" }} />
+                    בודק זמינות...
+                  </div>
+                )}
+                {availStatus === "available" && (
+                  <div className="flex items-center gap-2 text-sm px-1" style={{ color: "#4caf50", fontFamily: "var(--font-assistant)" }}>
+                    ✓ התאריכים פנויים — אפשר להמשיך
+                  </div>
+                )}
+                {availStatus === "unavailable" && (
+                  <div className="p-3 text-sm" style={{ backgroundColor: "rgba(239,83,80,0.1)", border: "1px solid rgba(239,83,80,0.35)", color: "#ef5350", fontFamily: "var(--font-assistant)", lineHeight: 1.6 }}>
+                    ⚠️ האוהל תפוס בתאריכים אלה. נסו תאריכים אחרים, או{" "}
+                    <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer" style={{ color: "#ef5350", textDecoration: "underline" }}>
+                      צרו קשר בוואטסאפ
+                    </a>
+                    {" "}לבדיקת חלופות.
+                  </div>
+                )}
+
                 {/* Price preview */}
-                {price.nights > 0 && (
+                {price.nights > 0 && availStatus !== "unavailable" && (
                   <div className="flex items-center justify-between p-4" style={{ backgroundColor: "rgba(196,149,74,0.08)", border: "1px solid rgba(196,149,74,0.2)" }}>
                     <span style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8", opacity: 0.7, fontSize: "0.9rem" }}>
                       {price.nights} לילות × ₪{tents.find(t => t.slug === form.tent)?.priceFrom.toLocaleString()}
