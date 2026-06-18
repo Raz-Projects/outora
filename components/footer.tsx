@@ -110,6 +110,9 @@ export function Footer() {
             style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
           >
             © 2026 OUTORA — כל הזכויות שמורות
+            {" · "}
+            {/* TODO: החליפו ב-ח.פ. / ע.מ. רשמי לאחר הרישום */}
+            OUTORA · עוסק מורשה · Israel
           </p>
           <div className="flex items-center gap-4">
             {legalLinks.map((l) => (

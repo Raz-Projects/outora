@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
       total_price,
       promo_code,
       notes,
+      marketing_consent,
     } = body;
 
     if (!customer_name || !customer_phone || !tent_slug || !date_from || !date_to || !guests) {
@@ -58,8 +59,9 @@ export async function POST(req: NextRequest) {
         extras_price:  Number(extras_price) || 0,
         discount:      Number(discount)     || 0,
         total_price:   Number(total_price)  || 0,
-        promo_code:    promo_code ?? null,
-        notes:         notes ?? null,
+        promo_code:         promo_code ?? null,
+        notes:              notes ?? null,
+        marketing_consent:  marketing_consent === true,
         status:        "pending",
         payment_status: "unpaid",
       })

@@ -25,7 +25,10 @@ type FormState = {
   name: string;
   phone: string;
   notes: string;
-  website: string; // honeypot — must stay empty
+  website: string;         // honeypot — must stay empty
+  agreedToTerms: boolean;  // חוק המסחר האלקטרוני — mandatory consent
+  agreedToAge: boolean;    // 18+ requirement
+  marketingConsent: boolean; // opt-in for WhatsApp/email marketing
 };
 
 const STEPS = [
@@ -68,6 +71,7 @@ export default function BookPage() {
     tent: "", dateFrom: "", dateTo: "", guests: "",
     region: "", delivery: "", carSize: "",
     extras: [], name: "", phone: "", notes: "", website: "",
+    agreedToTerms: false, agreedToAge: false, marketingConsent: false,
   });
 
   // Pre-fill from URL params (e.g. ?region=north&tent=dome from location pages)
@@ -167,7 +171,8 @@ export default function BookPage() {
           discount:       price.discount,
           total_price:    price.total,
           promo_code:     activePromo || null,
-          notes:          form.notes,
+          notes:              form.notes,
+          marketing_consent:  form.marketingConsent,
         }),
       });
     } catch {
@@ -591,8 +596,57 @@ export default function BookPage() {
                   />
                 </div>
 
+                {/* Legal consent checkboxes — חוק המסחר האלקטרוני */}
+                <div className="flex flex-col gap-3 py-2">
+                  <label className="flex items-start gap-3 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={form.agreedToTerms}
+                      onChange={(e) => setForm((f) => ({ ...f, agreedToTerms: e.target.checked }))}
+                      className="mt-1 shrink-0"
+                      style={{ accentColor: "#C4954A", width: "16px", height: "16px" }}
+                    />
+                    <span className="text-sm leading-relaxed" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.8 }}>
+                      קראתי ואני מסכים/ה ל<a href="/legal/terms" target="_blank" style={{ color: "#C4954A", textDecoration: "underline" }}>תקנון השימוש</a> ול<a href="/legal/cancellation" target="_blank" style={{ color: "#C4954A", textDecoration: "underline" }}>מדיניות הביטולים</a>
+                      {" "}<span style={{ color: "#ef4444" }}>*</span>
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={form.agreedToAge}
+                      onChange={(e) => setForm((f) => ({ ...f, agreedToAge: e.target.checked }))}
+                      className="mt-1 shrink-0"
+                      style={{ accentColor: "#C4954A", width: "16px", height: "16px" }}
+                    />
+                    <span className="text-sm" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.8 }}>
+                      אני מאשר/ת כי גילי 18 שנה ומעלה
+                      {" "}<span style={{ color: "#ef4444" }}>*</span>
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={form.marketingConsent}
+                      onChange={(e) => setForm((f) => ({ ...f, marketingConsent: e.target.checked }))}
+                      className="mt-1 shrink-0"
+                      style={{ accentColor: "#C4954A", width: "16px", height: "16px" }}
+                    />
+                    <span className="text-sm" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.6 }}>
+                      אני מסכים/ה לקבל עדכונים ומבצעים מ-OUTORA בוואטסאפ ואימייל (ניתן לבטל בכל עת)
+                    </span>
+                  </label>
+                </div>
+
                 {/* Submit */}
-                <button type="submit" disabled={loading || !form.name || !form.phone} className="btn-fs-solid w-full disabled:opacity-50" style={{ padding: "16px" }}>
+                <button
+                  type="submit"
+                  disabled={loading || !form.name || !form.phone || !form.agreedToTerms || !form.agreedToAge}
+                  className="btn-fs-solid w-full disabled:opacity-50"
+                  style={{ padding: "16px" }}
+                >
                   {loading ? "שולח..." : "💬 שלחו הזמנה בוואטסאפ"}
                 </button>
                 <p className="text-center text-sm opacity-40" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>

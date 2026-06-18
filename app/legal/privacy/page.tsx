@@ -85,14 +85,15 @@ export default function PrivacyPage() {
           </LegalSection>
 
           <LegalSection title="7. זכויות המשתמש">
-            <p className="mb-2">בהתאם לחוק, יש לכם זכות:</p>
+            <p className="mb-2">בהתאם לחוק הגנת הפרטיות תשמ"א-1981 ותקנותיו, יש לכם זכות:</p>
             <ul className="list-disc list-inside space-y-1 opacity-80 mr-2">
               <li>לעיין במידע האישי המוחזק עליכם</li>
               <li>לבקש תיקון מידע שגוי</li>
-              <li>לבקש מחיקת מידע (בכפוף למגבלות חוקיות)</li>
-              <li>לבטל הסכמה לקבלת הודעות שיווקיות</li>
+              <li>לבקש מחיקת מידע (בכפוף למגבלות חוקיות ודרישות שמירת רשומות)</li>
+              <li>לבטל הסכמה לקבלת הודעות שיווקיות בכל עת</li>
+              <li>להגיש תלונה לרשות להגנת הפרטיות (gov.il/privacy)</li>
             </ul>
-            <p className="mt-2">לפנייה: <a href="mailto:Reservations@outora.co.il" style={{ color: "#C4954A" }}>Reservations@outora.co.il</a></p>
+            <p className="mt-2">לבקשות פרטיות שלחו מייל עם הנושא "בקשת פרטיות": <a href="mailto:privacy@outora.co.il" style={{ color: "#C4954A" }}>privacy@outora.co.il</a>. נשיב תוך 30 יום.</p>
           </LegalSection>
 
           <LegalSection title="8. שמירת מידע">
