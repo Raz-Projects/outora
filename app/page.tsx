@@ -1,9 +1,11 @@
 ﻿import Image from "next/image"
 import Link from "next/link"
+import { Truck, BedDouble, Zap, MapPin, ShieldCheck, Sparkles, MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TentCard } from "@/components/tent-card"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import { tents, accessories } from "@/lib/tents"
 
 const jsonLd = {
@@ -162,7 +164,10 @@ export default function Home() {
 
           {/* Left — text */}
           <div className="flex flex-col justify-center px-8 md:px-16 py-16 md:py-28 gap-8">
+            <ScrollReveal>
             <div className="fs-divider" style={{ margin: "0" }} />
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
             <h2
               className="font-light"
               style={{
@@ -175,6 +180,8 @@ export default function Home() {
               יש מדינה שלמה<br />
               <em style={{ color: "#C4954A", fontStyle: "italic" }}>שמחכה לכם.</em>
             </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
             <p
               className="font-light leading-relaxed"
               style={{
@@ -192,11 +199,14 @@ export default function Home() {
               כדי שסוף סוף תרגישו אדמה מתחת לרגליים,
               בלי שכנים, בלי רעש, בלי פשרות.
             </p>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
             <div>
               <Link href="/tents" className="btn-fs-gold">
                 גלו את האוהלים שלנו
               </Link>
             </div>
+            </ScrollReveal>
           </div>
 
           {/* Right — two photos stacked */}
@@ -229,7 +239,7 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section style={{ backgroundColor: "#0E0904" }}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-16 md:py-24">
-          <div className="text-center mb-14">
+          <ScrollReveal className="text-center mb-14">
             <p className="label-fs mb-5" style={{ color: "#C4954A" }}>למי זה מתאים</p>
             <h2
               className="font-light"
@@ -242,7 +252,7 @@ export default function Home() {
             >
               לכל רגע יש מקום נכון.
             </h2>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.2)" }}>
             {forWhomCards.map((card) => (
@@ -477,7 +487,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
-          <div className="flex items-end justify-between mb-16">
+          <ScrollReveal className="flex items-end justify-between mb-16">
             <div>
               <p className="label-fs mb-3" style={{ color: "#C4954A" }}>הציוד שלנו</p>
               <h2
@@ -500,7 +510,7 @@ export default function Home() {
             >
               כל האוהלים
             </Link>
-          </div>
+          </ScrollReveal>
 
           {/* 5 equal cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -683,20 +693,21 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#0E0904" }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <ScrollReveal className="text-center mb-16">
             <p className="label-fs mb-4" style={{ color: "#C4954A" }}>למה OUTORA</p>
             <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: "#F7F2E8" }}>
               לא אוהל — <em style={{ color: "#C4954A" }}>חוויה שלמה.</em>
             </h2>
-          </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.15)" }}>
-            {whyOutora.map((item) => (
-              <div
+            {whyOutora.map((item, i) => (
+              <ScrollReveal
                 key={item.title}
+                delay={i * 80}
                 className="flex flex-col gap-4 px-7 py-10"
                 style={{ backgroundColor: "#0E0904" }}
               >
-                <span style={{ fontSize: "2rem" }}>{item.icon}</span>
+                <item.Icon size={26} stroke="#C4954A" strokeWidth={1.25} />
                 <div style={{ width: "32px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
                 <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 2vw, 1.8rem)", color: "#F7F2E8", lineHeight: 1.2 }}>
                   {item.title}
@@ -704,7 +715,7 @@ export default function Home() {
                 <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "1rem", color: "#F7F2E8", opacity: 0.62, lineHeight: 1.85 }}>
                   {item.desc}
                 </p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -1087,7 +1098,7 @@ function FAQSection() {
             rel="noopener noreferrer"
             className="btn-fs-ghost"
           >
-            💬 שאלו אותנו בוואטסאפ
+            <MessageCircle size={16} style={{ display: "inline", marginLeft: "6px", verticalAlign: "middle" }} /> שאלו אותנו בוואטסאפ
           </a>
         </div>
       </div>
@@ -1132,32 +1143,32 @@ const faqItems = [
 
 const whyOutora = [
   {
-    icon: "🚐",
+    Icon: Truck,
     title: "אנחנו מגיעים אליכם",
     desc: "לא צריך לגרור ציוד. הצוות שלנו מקים את האוהל לפני הגעתכם ומפנה לאחר היציאה — אתם רק נהנים.",
   },
   {
-    icon: "🛋️",
+    Icon: BedDouble,
     title: "ריהוט שלם, ברמת מלון",
     desc: "מיטות, ספות, שטיחים, שולחן, כיסאות — כל ערכת COODY מצוידת מלא. אין צורך לקנות, לשאול, להביא.",
   },
   {
-    icon: "⚡",
+    Icon: Zap,
     title: "הקמה תוך דקות",
     desc: "האוהל המתנפח עולה בפחות מ-3 דקות בכוח אוויר. ללא פרוץ, ללא בלבול — מקסימום זמן לטבע.",
   },
   {
-    icon: "🏔️",
+    Icon: MapPin,
     title: "כל ישראל — כולל מקומות רחוקים",
     desc: "ים המלח, ערד, הרי הגולן, חוף הים הצפוני — מגיעים לכל מקום. ממזרח למערב, מצפון לדרום.",
   },
   {
-    icon: "🔒",
+    Icon: ShieldCheck,
     title: "ביטוח ואחריות כלולים",
     desc: "הציוד מבוטח, הצוות מוסמך, ואנחנו מספקים תמיכה טלפונית 24 שעות לאורך כל ההזמנה.",
   },
   {
-    icon: "✨",
+    Icon: Sparkles,
     title: "חוויה ייחודית — לא רק לינה",
     desc: "OUTORA היא לא השכרת ציוד — זו חוויה שלמה. מהבחירה ועד הפינוי, אתם בידיים טובות.",
   },

@@ -1,18 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
+import { LayoutDashboard, ClipboardList, MessageSquare, Calendar, Tag, Package, Sparkles, MapPin, HelpCircle, FileText, Users } from "lucide-react";
 
 const NAV = [
-  { href: "/admin",              icon: "◈",  label: "דשבורד",       group: "" },
-  { href: "/admin/bookings",     icon: "📋", label: "הזמנות",       group: "תפעול" },
-  { href: "/admin/messages",     icon: "💬", label: "הודעות",       group: "תפעול" },
-  { href: "/admin/inventory",    icon: "📅", label: "זמינות",       group: "תפעול" },
-  { href: "/admin/promo",        icon: "🏷️", label: "קודי הנחה",   group: "תפעול" },
-  { href: "/admin/packages",     icon: "🏕️", label: "חבילות",       group: "תוכן" },
-  { href: "/admin/extras",       icon: "✨", label: "תוספות",       group: "תוכן" },
-  { href: "/admin/locations",    icon: "📍", label: "לוקיישנים",   group: "תוכן" },
-  { href: "/admin/faq",          icon: "❓", label: "FAQ",           group: "תוכן" },
-  { href: "/admin/content",      icon: "✏️", label: "טקסטים",        group: "תוכן" },
-  { href: "/admin/agents",       icon: "👥", label: "סוכנים",        group: "הגדרות" },
+  { href: "/admin",              Icon: LayoutDashboard, label: "דשבורד",       group: "" },
+  { href: "/admin/bookings",     Icon: ClipboardList,   label: "הזמנות",       group: "תפעול" },
+  { href: "/admin/messages",     Icon: MessageSquare,   label: "הודעות",       group: "תפעול" },
+  { href: "/admin/inventory",    Icon: Calendar,        label: "זמינות",       group: "תפעול" },
+  { href: "/admin/promo",        Icon: Tag,             label: "קודי הנחה",   group: "תפעול" },
+  { href: "/admin/packages",     Icon: Package,         label: "חבילות",       group: "תוכן" },
+  { href: "/admin/extras",       Icon: Sparkles,        label: "תוספות",       group: "תוכן" },
+  { href: "/admin/locations",    Icon: MapPin,          label: "לוקיישנים",   group: "תוכן" },
+  { href: "/admin/faq",          Icon: HelpCircle,      label: "FAQ",           group: "תוכן" },
+  { href: "/admin/content",      Icon: FileText,        label: "טקסטים",        group: "תוכן" },
+  { href: "/admin/agents",       Icon: Users,           label: "סוכנים",        group: "הגדרות" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -56,7 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     className="flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm transition-all hover:opacity-100"
                     style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.65 }}
                   >
-                    <span>{item.icon}</span>
+                    <item.Icon size={15} stroke="#C4954A" strokeWidth={1.5} />
                     <span>{item.label}</span>
                   </Link>
                 ))}

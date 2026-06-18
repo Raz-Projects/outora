@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { CancelBookingButton } from "@/components/cancel-booking-button";
+import { Calendar, Moon, Users, MapPin } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "החשבון שלי — OUTORA" };
@@ -164,10 +165,10 @@ function BookingCard({ booking: b, muted }: { booking: Booking; muted?: boolean 
             </span>
           </div>
           <div className="flex flex-wrap gap-4 text-sm opacity-60" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
-            <span>📅 {b.date_from} → {b.date_to}</span>
-            <span>🌙 {nights} לילות</span>
-            <span>👥 {b.guests} אנשים</span>
-            {b.region && <span>📍 {b.region}</span>}
+            <span className="flex items-center gap-1"><Calendar size={13} strokeWidth={1.5} /> {b.date_from} → {b.date_to}</span>
+            <span className="flex items-center gap-1"><Moon size={13} strokeWidth={1.5} /> {nights} לילות</span>
+            <span className="flex items-center gap-1"><Users size={13} strokeWidth={1.5} /> {b.guests} אנשים</span>
+            {b.region && <span className="flex items-center gap-1"><MapPin size={13} strokeWidth={1.5} /> {b.region}</span>}
           </div>
         </div>
         <div className="flex flex-col items-end gap-3 shrink-0">
