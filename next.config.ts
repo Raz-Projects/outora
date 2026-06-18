@@ -10,6 +10,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
 
+  experimental: {
+    cacheComponents: false,
+  },
+
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
