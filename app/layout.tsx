@@ -5,6 +5,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { StickyCart } from "@/components/sticky-cart";
 import { PromoBar } from "@/components/promo-bar";
 import { AudioToggle } from "@/components/audio-toggle";
+import { Analytics } from "@/components/analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -76,6 +77,7 @@ export default function RootLayout({
             <StickyCart />
             <AudioToggle />
           </CartProvider>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
