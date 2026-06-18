@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admin/extras",       icon: "✨", label: "תוספות",       group: "תוכן" },
   { href: "/admin/locations",    icon: "📍", label: "לוקיישנים",   group: "תוכן" },
   { href: "/admin/faq",          icon: "❓", label: "FAQ",           group: "תוכן" },
+  { href: "/admin/content",      icon: "✏️", label: "טקסטים",        group: "תוכן" },
   { href: "/admin/agents",       icon: "👥", label: "סוכנים",        group: "הגדרות" },
 ];
 
@@ -37,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Nav */}
         <nav className="flex flex-col p-3 flex-1 overflow-y-auto">
           {/* Group sections */}
-          {["", "תפעול", "תוכן"].map((group) => {
+          {["", "תפעול", "תוכן", "הגדרות"].map((group) => {
             const items = NAV.filter((n) => n.group === group);
             if (items.length === 0) return null;
             return (

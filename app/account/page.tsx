@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { CancelBookingButton } from "@/components/cancel-booking-button";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "החשבון שלי — OUTORA" };
@@ -169,13 +170,18 @@ function BookingCard({ booking: b, muted }: { booking: Booking; muted?: boolean 
             {b.region && <span>📍 {b.region}</span>}
           </div>
         </div>
-        <div className="text-left md:text-right shrink-0">
-          <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", color: "#F7F2E8", lineHeight: 1 }}>
-            ₪{(b.total_price ?? 0).toLocaleString()}
-          </p>
-          <p className="text-xs opacity-40 mt-0.5" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
-            {b.payment_status}
-          </p>
+        <div className="flex flex-col items-end gap-3 shrink-0">
+          <div className="text-left md:text-right">
+            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", color: "#F7F2E8", lineHeight: 1 }}>
+              ₪{(b.total_price ?? 0).toLocaleString()}
+            </p>
+            <p className="text-xs opacity-40 mt-0.5" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
+              {b.payment_status}
+            </p>
+          </div>
+          {!muted && !["cancelled", "completed", "returned"].includes(b.status) && (
+            <CancelBookingButton bookingId={b.id} />
+          )}
         </div>
       </div>
     </div>

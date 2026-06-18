@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendBookingConfirmation, sendInternalAlert } from "@/lib/email";
+import { tents } from "@/lib/tents";
 
 export const dynamic = "force-dynamic";
 
@@ -69,6 +71,27 @@ export async function POST(req: NextRequest) {
       console.error("Booking lead save error:", error.message);
       return NextResponse.json({ warning: error.message }, { status: 200 });
     }
+
+    // Fire emails non-blocking (silently skipped if RESEND_API_KEY not set)
+    const tent = tents.find((t) => t.slug === tent_slug);
+    const nights = Math.round((new Date(date_to).getTime() - new Date(date_from).getTime()) / 86_400_000);
+    const emailData = {
+      customerName:  customer_name,
+      customerPhone: customer_phone,
+      tentName:      tent?.nameHe ?? tent_slug,
+      dateFrom:      date_from,
+      dateTo:        date_to,
+      nights,
+      guests:        Number(guests),
+      region:        region ?? undefined,
+      extras:        extra_ids ?? [],
+      totalPrice:    Number(total_price) || 0,
+      bookingId:     data.id,
+    };
+    Promise.allSettled([
+      sendBookingConfirmation(emailData),
+      sendInternalAlert(emailData),
+    ]).catch(() => {}); // non-blocking
 
     return NextResponse.json({ id: data.id }, { status: 201 });
   } catch (err) {
