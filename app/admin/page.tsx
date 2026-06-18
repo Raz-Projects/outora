@@ -1,14 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SECRET_KEY!
-);
-
 export const dynamic = "force-dynamic";
 export const metadata = { title: "דשבורד — OUTORA Admin" };
 
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SECRET_KEY!
+  );
+}
+
 async function getStats() {
+  const supabase = getSupabase();
   const [bookings, pending, revenue, messages] = await Promise.all([
     supabase.from("bookings").select("id, status, total_price, created_at", { count: "exact" }),
     supabase.from("bookings").select("id", { count: "exact" }).eq("status", "pending"),

@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+  );
+}
 
 type Booking = {
   id: string;
@@ -41,7 +43,7 @@ export default function BookingsPage() {
 
   async function fetchBookings() {
     setLoading(true);
-    const { data } = await supabase
+    const { data } = await getSupabase()
       .from("bookings")
       .select("*")
       .order("created_at", { ascending: false });
@@ -50,7 +52,7 @@ export default function BookingsPage() {
   }
 
   async function updateStatus(id: string, status: string) {
-    await supabase.from("bookings").update({ status }).eq("id", id);
+    await getSupabase().from("bookings").update({ status }).eq("id", id);
     setBookings((prev) => prev.map((b) => b.id === id ? { ...b, status } : b));
     if (selected?.id === id) setSelected((s) => s ? { ...s, status } : null);
   }

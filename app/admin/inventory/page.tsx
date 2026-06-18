@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { tents } from "@/lib/tents";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+  );
+}
 
 type BlockedDate = {
   id: string;
@@ -28,7 +30,7 @@ export default function InventoryPage() {
 
   async function fetchBlocks() {
     setLoading(true);
-    const { data } = await supabase.from("blocked_dates").select("*").order("date_from");
+    const { data } = await getSupabase().from("blocked_dates").select("*").order("date_from");
     setBlocks(data ?? []);
     setLoading(false);
   }
@@ -41,14 +43,14 @@ export default function InventoryPage() {
       return;
     }
     setSaving(true);
-    const { error: err } = await supabase.from("blocked_dates").insert(form);
+    const { error: err } = await getSupabase().from("blocked_dates").insert(form);
     if (err) setError(err.message);
     else { setForm({ tent_slug: "", date_from: "", date_to: "", reason: "" }); fetchBlocks(); }
     setSaving(false);
   }
 
   async function removeBlock(id: string) {
-    await supabase.from("blocked_dates").delete().eq("id", id);
+    await getSupabase().from("blocked_dates").delete().eq("id", id);
     setBlocks((b) => b.filter((x) => x.id !== id));
   }
 

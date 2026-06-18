@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+  );
+}
 
 type QueueItem = {
   id: string;
@@ -42,8 +44,8 @@ export default function MessagesPage() {
   async function fetchData() {
     setLoading(true);
     const [qRes, lRes] = await Promise.all([
-      supabase.from("whatsapp_agent_queue").select("*").order("created_at", { ascending: false }).limit(50),
-      supabase.from("whatsapp_messages").select("*").order("created_at", { ascending: false }).limit(100),
+      getSupabase().from("whatsapp_agent_queue").select("*").order("created_at", { ascending: false }).limit(50),
+      getSupabase().from("whatsapp_messages").select("*").order("created_at", { ascending: false }).limit(100),
     ]);
     setQueue(qRes.data ?? []);
     setLog(lRes.data ?? []);
@@ -51,7 +53,7 @@ export default function MessagesPage() {
   }
 
   async function resolve(id: string) {
-    await supabase.from("whatsapp_agent_queue").update({ status: "resolved" }).eq("id", id);
+    await getSupabase().from("whatsapp_agent_queue").update({ status: "resolved" }).eq("id", id);
     setQueue((q) => q.map((item) => item.id === id ? { ...item, status: "resolved" } : item));
   }
 

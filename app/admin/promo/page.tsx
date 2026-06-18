@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+  );
+}
 
 type PromoCode = {
   id: string;
@@ -33,7 +35,7 @@ export default function PromoPage() {
 
   async function fetchPromos() {
     setLoading(true);
-    const { data } = await supabase.from("promo_codes").select("*").order("created_at", { ascending: false });
+    const { data } = await getSupabase().from("promo_codes").select("*").order("created_at", { ascending: false });
     setPromos(data ?? []);
     setLoading(false);
   }
@@ -52,20 +54,20 @@ export default function PromoPage() {
     if (form.max_uses) payload.max_uses = Number(form.max_uses);
     if (form.valid_from) payload.valid_from = form.valid_from;
     if (form.valid_until) payload.valid_until = form.valid_until;
-    const { error: err } = await supabase.from("promo_codes").insert(payload);
+    const { error: err } = await getSupabase().from("promo_codes").insert(payload);
     if (err) setError(err.message);
     else { setForm(emptyForm); fetchPromos(); }
     setSaving(false);
   }
 
   async function toggleActive(id: string, active: boolean) {
-    await supabase.from("promo_codes").update({ active }).eq("id", id);
+    await getSupabase().from("promo_codes").update({ active }).eq("id", id);
     setPromos((p) => p.map((x) => x.id === id ? { ...x, active } : x));
   }
 
   async function deletePromo(id: string) {
     if (!confirm("למחוק קוד הנחה זה?")) return;
-    await supabase.from("promo_codes").delete().eq("id", id);
+    await getSupabase().from("promo_codes").delete().eq("id", id);
     setPromos((p) => p.filter((x) => x.id !== id));
   }
 
