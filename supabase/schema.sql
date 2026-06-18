@@ -140,3 +140,16 @@ CREATE TABLE IF NOT EXISTS whatsapp_agent_queue (
   status       TEXT NOT NULL DEFAULT 'pending'
                CHECK (status IN ('pending', 'assigned', 'resolved'))
 );
+
+-- ─── Promo codes ──────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS promo_codes (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+  code             TEXT NOT NULL UNIQUE,
+  discount_percent INT  NOT NULL CHECK (discount_percent >= 1 AND discount_percent <= 100),
+  max_uses         INT,
+  used_count       INT  NOT NULL DEFAULT 0,
+  valid_from       DATE,
+  valid_until      DATE,
+  active           BOOLEAN NOT NULL DEFAULT true
+);
