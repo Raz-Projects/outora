@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admin/extras",       icon: "✨", label: "תוספות",       group: "תוכן" },
   { href: "/admin/locations",    icon: "📍", label: "לוקיישנים",   group: "תוכן" },
   { href: "/admin/faq",          icon: "❓", label: "FAQ",           group: "תוכן" },
+  { href: "/admin/agents",       icon: "👥", label: "סוכנים",        group: "הגדרות" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

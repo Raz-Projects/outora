@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/protected/", "/auth/", "/api/"],
+        disallow: ["/protected/", "/auth/", "/api/", "/admin/"],
       },
     ],
     sitemap: "https://outora.co.il/sitemap.xml",
