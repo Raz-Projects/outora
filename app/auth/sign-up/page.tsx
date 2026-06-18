@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 export default function SignUpPage() {
+  return <Suspense><SignUpForm /></Suspense>;
+}
+
+function SignUpForm() {
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/account";
 
