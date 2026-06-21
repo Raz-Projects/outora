@@ -156,11 +156,9 @@ export function Navbar() {
 }
 
 const navLinks = [
-  { href: "/tents",     label: "האוהלים"      },
-  { href: "/offers",    label: "מבצעים 🔥",   hot: true },
-  { href: "/locations", label: "לוקיישנים"    },
-  { href: "/compare",   label: "השוואה"       },
-  { href: "/shop",      label: "חנות"         },
-  { href: "/faq",       label: "שאלות נפוצות" },
-  { href: "/contact",   label: "צור קשר"     },
+  { href: "/tents",     label: "חוויות"      },
+  { href: "/events",    label: "אירועים",    hot: true },
+  { href: "/locations", label: "לוקיישנים"  },
+  { href: "/offers",    label: "חבילות"     },
+  { href: "/contact",   label: "צור קשר"   },
 ]

@@ -134,15 +134,15 @@ export function Footer() {
 }
 
 const navLinks = [
-  { href: "/",          label: "דף הבית"    },
-  { href: "/tents",     label: "האוהלים"    },
-  { href: "/offers",    label: "מבצעים"     },
-  { href: "/compare",   label: "השוואה"     },
-  { href: "/locations", label: "לוקיישנים"  },
-  { href: "/shop",      label: "חנות"       },
-  { href: "/faq",       label: "שאלות נפוצות" },
+  { href: "/",          label: "דף הבית"      },
+  { href: "/tents",     label: "חוויות"       },
+  { href: "/events",    label: "אירועים"      },
+  { href: "/locations", label: "לוקיישנים"   },
+  { href: "/offers",    label: "חבילות"      },
+  { href: "/shop",      label: "אביזרים"     },
+  { href: "/faq",       label: "שאלות נפוצות"},
   { href: "/contact",   label: "צור קשר"    },
-  { href: "/book",      label: "הזמנה"      },
+  { href: "/book",      label: "הזמנה"       },
 ];
 
 const legalLinks = [

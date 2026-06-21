@@ -107,38 +107,48 @@ export default function Home() {
               fontWeight: 500,
             }}
           >
-            חוויית קמפינג יוקרתית · ישראל
+            אתם בוחרים את המקום · אנחנו דואגים לכל השאר
           </p>
 
           <h1
             className="animate-fade-up delay-300 font-light text-center leading-none"
             style={{
               fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(4rem, 11vw, 9rem)",
+              fontSize: "clamp(3.8rem, 10vw, 8.5rem)",
               color: C.cream,
               letterSpacing: "-0.01em",
               textShadow: "0 2px 24px rgba(0,0,0,0.7)",
             }}
           >
-            הבית שלך <em style={{ color: C.gold, fontStyle: "italic" }}>בטבע</em>
+            הנופש שרציתם<br />
+            <em style={{ color: C.gold, fontStyle: "italic" }}>בלי הפשרות</em>
           </h1>
 
           <p
             className="animate-fade-up delay-400 font-light leading-relaxed max-w-lg"
             style={{
               fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(1.1rem, 1.5vw, 1.35rem)",
+              fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
               color: C.cream,
-              opacity: 0.88,
+              opacity: 0.9,
               textShadow: "0 1px 10px rgba(0,0,0,0.8)",
             }}
           >
-            חוויה של יוקרה בלב הטבע — אוהלים מאובזרים, שקט אמיתי, ורגעים שנשארים לנצח
+            OUTORA מגיעה אליכם לכל מקום בישראל —
+            מציבה, מעצבת, ומחכה שתגיעו.
+            אתם לא מרימים אצבע.
           </p>
 
           <div className="animate-fade-up delay-500 flex flex-col sm:flex-row items-center gap-4 mt-2">
-            <Link href="/tents" className="btn-fs-solid">גלו את האוהלים</Link>
-            <Link href="/book" className="btn-fs-ghost">הזמינו עכשיו</Link>
+            <Link href="/tents" className="btn-fs-solid">גלו את החוויות</Link>
+            <a
+              href="https://wa.me/972528448870?text=שלום! אני רוצה לשמוע על חוויית OUTORA"
+              target="_blank" rel="noopener noreferrer"
+              className="btn-fs-ghost flex items-center gap-2"
+            >
+              <MessageCircle size={16} strokeWidth={1.5} />
+              דברו איתנו
+            </a>
           </div>
         </div>
 
@@ -150,8 +160,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══════════════════════════════════════
+          TRUST BAR — key signals above fold
+      ══════════════════════════════════════ */}
+      <section style={{ backgroundColor: C.forest, borderBottom: `1px solid rgba(184,154,53,0.15)` }}>
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          {[
+            { icon: <Sparkles size={14} strokeWidth={1.5} />, text: "5 אוהלים פרימיום" },
+            { icon: <MapPin size={14} strokeWidth={1.5} />, text: "הגעה לכל ישראל" },
+            { icon: <Truck size={14} strokeWidth={1.5} />, text: "הקמה וסידור מלא" },
+            { icon: <ShieldCheck size={14} strokeWidth={1.5} />, text: "הכל כלול — אין הפתעות" },
+            { icon: <BedDouble size={14} strokeWidth={1.5} />, text: "החל מ-₪390 ללילה" },
+          ].map((item) => (
+            <div key={item.text} className="flex items-center gap-2">
+              <span style={{ color: C.gold }}>{item.icon}</span>
+              <span style={{ fontFamily: "var(--font-assistant)", fontSize: "0.82rem", color: C.cream, opacity: 0.85, letterSpacing: "0.04em" }}>
+                {item.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Gold divider ── */}
-      <div style={{ height: "2px", background: `linear-gradient(90deg, transparent 0%, ${C.gold} 50%, transparent 100%)`, opacity: 0.5 }} />
+      <div style={{ height: "1px", background: `linear-gradient(90deg, transparent 0%, ${C.gold} 50%, transparent 100%)`, opacity: 0.3 }} />
 
       {/* ══════════════════════════════════════
           BRAND STATEMENT — light section
@@ -173,8 +205,8 @@ export default function Home() {
                   lineHeight: 1.3,
                 }}
               >
-                יש מדינה שלמה<br />
-                <em style={{ color: C.gold, fontStyle: "italic" }}>שמחכה לכם.</em>
+                אתם מביאים את האנשים.<br />
+                <em style={{ color: C.gold, fontStyle: "italic" }}>אנחנו מביאים הכל.</em>
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={200}>
@@ -188,10 +220,10 @@ export default function Home() {
                   maxWidth: "440px",
                 }}
               >
-                חופים ריקים, הרים שקטים, מדבר שמשתיק הכל —
-                ישראל מלאה במקומות שלא ידעתם שהם קיימים.
-                OUTORA מביאה ציוד קומפקטי, איכותי ומתחשב,
-                כדי שסוף סוף תרגישו אדמה מתחת לרגליים.
+                בחרו מקום — חוף, הר, מדבר, גליל.
+                אנחנו מגיעים לפניכם, מציבים הכל ומעצבים
+                את החלל עד שהוא מושלם.
+                אתם מגיעים לנופש. לא להרכיב ציוד.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={300}>
