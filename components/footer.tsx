@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MessageCircle, Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#1C1410" }}>
+    <footer style={{ backgroundColor: "#1E3D1E" }}>
       <div
         className="border-t"
-        style={{ borderColor: "rgba(196,149,74,0.15)" }}
+        style={{ borderColor: "rgba(184,154,53,0.2)" }}
       />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
@@ -17,11 +18,11 @@ export function Footer() {
             alt="OUTORA"
             width={130}
             height={65}
-            className="object-contain brightness-0 invert opacity-80"
+            className="object-contain brightness-0 invert opacity-90"
           />
           <p
             className="text-sm leading-relaxed opacity-60"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
             חוויית קמפינג יוקרתית — אנחנו מגיעים אליך לכל מקום שתבחר בישראל.
           </p>
@@ -31,7 +32,7 @@ export function Footer() {
         <div className="flex flex-col gap-3">
           <h4
             className="text-xs uppercase tracking-widest mb-2 opacity-50"
-            style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}
           >
             ניווט
           </h4>
@@ -40,7 +41,7 @@ export function Footer() {
               key={l.href}
               href={l.href}
               className="text-sm opacity-70 hover:opacity-100 transition-opacity gold-underline w-fit"
-              style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+              style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
             >
               {l.label}
             </Link>
@@ -51,7 +52,7 @@ export function Footer() {
         <div className="flex flex-col gap-3">
           <h4
             className="text-xs uppercase tracking-widest mb-2 opacity-50"
-            style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}
           >
             משפטי
           </h4>
@@ -60,7 +61,7 @@ export function Footer() {
               key={l.href}
               href={l.href}
               className="text-sm opacity-70 hover:opacity-100 transition-opacity gold-underline w-fit"
-              style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+              style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
             >
               {l.label}
             </Link>
@@ -71,7 +72,7 @@ export function Footer() {
         <div className="flex flex-col gap-3">
           <h4
             className="text-xs uppercase tracking-widest mb-2 opacity-50"
-            style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}
           >
             צור קשר
           </h4>
@@ -80,20 +81,20 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
-            💬 WhatsApp
+            <MessageCircle size={14} strokeWidth={1.5} style={{ display:"inline", marginLeft:"5px" }} /> WhatsApp
           </a>
           <a
             href="mailto:Reservations@outora.co.il"
             className="text-sm opacity-70 hover:opacity-100 transition-opacity"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
-            ✉️ Reservations@outora.co.il
+            <Mail size={14} strokeWidth={1.5} style={{ display:"inline", marginLeft:"5px" }} /> Reservations@outora.co.il
           </a>
           <p
             className="text-sm opacity-50 mt-1"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
             זמינים א׳–ו׳ · 09:00–20:00
           </p>
@@ -102,12 +103,12 @@ export function Footer() {
 
       <div
         className="border-t"
-        style={{ borderColor: "rgba(196,149,74,0.12)" }}
+        style={{ borderColor: "rgba(184,154,53,0.2)" }}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
           <p
             className="text-xs opacity-40"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
             © 2026 OUTORA — כל הזכויות שמורות
             {" · "}
@@ -120,7 +121,7 @@ export function Footer() {
                 key={l.href}
                 href={l.href}
                 className="text-xs opacity-35 hover:opacity-60 transition-opacity"
-                style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}
+                style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
               >
                 {l.label}
               </Link>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { MapPin } from "lucide-react"
 import {
   carSizes,
   deliveryOptions,
@@ -235,7 +236,7 @@ export function DeliverySelector({
                               className="flex items-center gap-2 px-3 py-2"
                               style={{ backgroundColor: "rgba(28,22,16,0.05)", border: "1px solid rgba(28,22,16,0.1)" }}
                             >
-                              <span style={{ fontSize: "0.8rem" }}>📍</span>
+                              <MapPin size={13} stroke="#C4954A" strokeWidth={1.5} style={{ flexShrink: 0 }} />
                               <div>
                                 <p className="label-fs" style={{ color: "#F7F2E8" }}>{pl.city}</p>
                                 <p

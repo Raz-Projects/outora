@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { MessageCircle } from "lucide-react"
 import {
   locations,
   type CampingLocation,
@@ -458,7 +459,7 @@ function LocationCard({ location: loc, onClose }: { location: CampingLocation; o
           rel="noopener noreferrer"
           className="btn-fs-solid text-center mt-1"
         >
-          💬 הזמינו OUTORA למקום הזה
+          <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> הזמינו OUTORA למקום הזה</span>
         </a>
 
         <Link href="/book" className="btn-fs-ghost text-center" style={{ fontSize: "0.68rem" }}>

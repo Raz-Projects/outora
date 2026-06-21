@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import Image from "next/image";
@@ -40,7 +41,7 @@ export default function ForgotPasswordPage() {
         {sent ? (
           <div className="text-center p-6 rounded-sm"
             style={{ backgroundColor: "rgba(196,149,74,0.1)", border: "1px solid rgba(196,149,74,0.3)" }}>
-            <p className="text-2xl mb-3">✉️</p>
+            <Mail size={32} stroke="#C4954A" strokeWidth={1} className="mx-auto mb-3" />
             <p className="font-medium" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
               שלחנו לכם קישור לאיפוס ל-{email}
             </p>

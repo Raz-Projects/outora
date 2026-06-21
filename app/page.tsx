@@ -1,4 +1,4 @@
-﻿import Image from "next/image"
+import Image from "next/image"
 import Link from "next/link"
 import { Truck, BedDouble, Zap, MapPin, ShieldCheck, Sparkles, MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/navbar"
@@ -28,9 +28,24 @@ const jsonLd = {
   },
 }
 
+// ── Color tokens ────────────────────────────────────────────
+const C = {
+  cream:       "#FAFAF6",
+  sand:        "#F0EDE4",
+  earth:       "#E8E0D4",
+  forest:      "#1E3D1E",
+  forestMid:   "#2A5A2A",
+  night:       "#0D1A0D",
+  gold:        "#B89A35",
+  muted:       "#4A6A4A",
+  goldBorder:  "rgba(184,154,53,0.2)",
+  goldBorderS: "rgba(184,154,53,0.35)",
+  forestBorder:"rgba(30,61,30,0.12)",
+}
+
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col" style={{ backgroundColor: "transparent" }}>
+    <main className="min-h-screen flex flex-col" style={{ backgroundColor: C.cream }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -39,40 +54,32 @@ export default function Home() {
       <WhatsAppButton />
 
       {/* ══════════════════════════════════════
-          HERO — Full screen, editorial
+          HERO — Full screen dark nature photo
       ══════════════════════════════════════ */}
       <section className="grain relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
-        {/* Portrait image for mobile, landscape for desktop */}
         <Image
           src="/gallery/אורכי.jpeg"
           alt="OUTORA — הבית שלך בטבע"
-          fill
-          priority
+          fill priority
           className="object-cover md:hidden"
           sizes="100vw"
         />
         <Image
           src="/gallery/רוחבי.jpeg"
           alt="OUTORA — הבית שלך בטבע"
-          fill
-          priority
+          fill priority
           className="object-cover hidden md:block"
           sizes="100vw"
         />
-        {/* Layered overlays for depth */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(10,6,2,0.60) 0%, rgba(10,6,2,0.55) 40%, rgba(10,6,2,0.80) 100%)",
+            background: "linear-gradient(180deg, rgba(13,26,13,0.55) 0%, rgba(13,26,13,0.45) 40%, rgba(13,26,13,0.80) 100%)",
             zIndex: 1,
           }}
         />
 
-        {/* Content */}
         <div className="relative z-10 flex flex-col items-center px-6 max-w-4xl mx-auto" style={{ gap: "2rem" }}>
-
-          {/* Logo — symbol only, text rendered below as HTML */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo-transparent.png"
@@ -80,225 +87,155 @@ export default function Home() {
             className="animate-fade-in"
             style={{
               width: "clamp(180px, 22vw, 260px)",
-              opacity: 1,
-              filter: "brightness(0) invert(1) drop-shadow(0 2px 16px rgba(0,0,0,0.9))",
+              filter: "brightness(0) invert(1) drop-shadow(0 2px 16px rgba(0,0,0,0.8))",
             }}
           />
 
-          {/* Tagline */}
           <p
             className="animate-fade-up delay-200"
             style={{
-              color: "#C4954A",
+              color: C.gold,
               fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
-              letterSpacing: "0.32em",
+              fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
+              letterSpacing: "0.34em",
               textTransform: "uppercase",
-              textShadow: "0 1px 10px rgba(0,0,0,1)",
-              opacity: 1,
+              textShadow: "0 1px 10px rgba(0,0,0,0.9)",
               fontWeight: 400,
             }}
           >
             חוויית קמפינג יוקרתית · ישראל
           </p>
 
-          {/* Main headline */}
           <h1
             className="animate-fade-up delay-300 font-light text-center leading-none"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(4rem, 11vw, 9rem)",
-              color: "#F7F2E8",
+              color: C.cream,
               letterSpacing: "-0.01em",
-              textShadow: "0 2px 20px rgba(0,0,0,0.85)",
+              textShadow: "0 2px 24px rgba(0,0,0,0.7)",
             }}
           >
-            הבית שלך <em style={{ color: "#C4954A", fontStyle: "italic" }}>בטבע</em>
+            הבית שלך <em style={{ color: C.gold, fontStyle: "italic" }}>בטבע</em>
           </h1>
 
-          {/* Sub-headline */}
           <p
             className="animate-fade-up delay-400 font-light leading-relaxed max-w-lg"
             style={{
               fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(1.2rem, 1.6vw, 1.4rem)",
-              color: "#F7F2E8",
-              opacity: 0.92,
-              textShadow: "0 1px 10px rgba(0,0,0,0.9)",
+              fontSize: "clamp(1.1rem, 1.5vw, 1.35rem)",
+              color: C.cream,
+              opacity: 0.88,
+              textShadow: "0 1px 10px rgba(0,0,0,0.8)",
             }}
           >
             חוויה של יוקרה בלב הטבע — אוהלים מאובזרים, שקט אמיתי, ורגעים שנשארים לנצח
           </p>
 
-          {/* CTAs */}
           <div className="animate-fade-up delay-500 flex flex-col sm:flex-row items-center gap-4 mt-2">
-            <Link href="/tents" className="btn-fs-solid">
-              גלו את האוהלים
-            </Link>
-            <Link href="/book" className="btn-fs-ghost">
-              הזמינו עכשיו
-            </Link>
+            <Link href="/tents" className="btn-fs-solid">גלו את האוהלים</Link>
+            <Link href="/book" className="btn-fs-ghost">הזמינו עכשיו</Link>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div
-          className="animate-scroll-bounce absolute bottom-10 left-1/2 flex flex-col items-center gap-2"
-          style={{ zIndex: 10 }}
-        >
-          <span className="label-fs" style={{ color: "#C4954A" }}>גלול</span>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C4954A" strokeWidth="1.5">
+        <div className="animate-scroll-bounce absolute bottom-10 left-1/2 flex flex-col items-center gap-2" style={{ zIndex: 10 }}>
+          <span className="label-fs" style={{ color: C.gold }}>גלול</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke={C.gold} strokeWidth="1.5">
             <path d="M12 5v14M5 12l7 7 7-7" />
           </svg>
         </div>
       </section>
 
-      {/* ── Section transition ── */}
-      <div style={{ height: "3px", background: "linear-gradient(90deg, transparent 0%, rgba(196,149,74,0.5) 50%, transparent 100%)" }} />
+      {/* ── Gold divider ── */}
+      <div style={{ height: "2px", background: `linear-gradient(90deg, transparent 0%, ${C.gold} 50%, transparent 100%)`, opacity: 0.5 }} />
 
       {/* ══════════════════════════════════════
-          BRAND STATEMENT — about nature & the land
+          BRAND STATEMENT — light section
       ══════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#140E08" }}>
+      <section style={{ backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-0">
 
-          {/* Left — text */}
           <div className="flex flex-col justify-center px-8 md:px-16 py-16 md:py-28 gap-8">
             <ScrollReveal>
-            <div className="fs-divider" style={{ margin: "0" }} />
+              <div className="fs-divider" style={{ margin: "0", opacity: 0.5 }} />
             </ScrollReveal>
             <ScrollReveal delay={100}>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.4rem, 4vw, 3.8rem)",
-                color: "#F7F2E8",
-                lineHeight: 1.3,
-              }}
-            >
-              יש מדינה שלמה<br />
-              <em style={{ color: "#C4954A", fontStyle: "italic" }}>שמחכה לכם.</em>
-            </h2>
+              <h2
+                className="font-light"
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontSize: "clamp(2.4rem, 4vw, 3.8rem)",
+                  color: C.forest,
+                  lineHeight: 1.3,
+                }}
+              >
+                יש מדינה שלמה<br />
+                <em style={{ color: C.gold, fontStyle: "italic" }}>שמחכה לכם.</em>
+              </h2>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-            <p
-              className="font-light leading-relaxed"
-              style={{
-                fontFamily: "var(--font-assistant)",
-                fontSize: "clamp(1.05rem, 1.4vw, 1.2rem)",
-                color: "#F7F2E8",
-                opacity: 0.75,
-                lineHeight: 2,
-                maxWidth: "440px",
-              }}
-            >
-              חופים ריקים, הרים שקטים, מדבר שמשתיק הכל —
-              ישראל מלאה במקומות שלא ידעתם שהם קיימים.
-              OUTORA מביאה ציוד קומפקטי, איכותי ומתחשב,
-              כדי שסוף סוף תרגישו אדמה מתחת לרגליים,
-              בלי שכנים, בלי רעש, בלי פשרות.
-            </p>
+              <p
+                className="font-light leading-relaxed"
+                style={{
+                  fontFamily: "var(--font-assistant)",
+                  fontSize: "clamp(1.05rem, 1.4vw, 1.2rem)",
+                  color: C.muted,
+                  lineHeight: 2,
+                  maxWidth: "440px",
+                }}
+              >
+                חופים ריקים, הרים שקטים, מדבר שמשתיק הכל —
+                ישראל מלאה במקומות שלא ידעתם שהם קיימים.
+                OUTORA מביאה ציוד קומפקטי, איכותי ומתחשב,
+                כדי שסוף סוף תרגישו אדמה מתחת לרגליים.
+              </p>
             </ScrollReveal>
             <ScrollReveal delay={300}>
-            <div>
-              <Link href="/tents" className="btn-fs-gold">
+              <Link href="/tents" className="btn-fs-gold" style={{ color: C.gold, borderColor: C.gold }}>
                 גלו את האוהלים שלנו
               </Link>
-            </div>
             </ScrollReveal>
           </div>
 
-          {/* Right — two photos stacked */}
           <div className="grid grid-rows-2 gap-1" style={{ minHeight: "520px" }}>
             <div className="img-zoom relative overflow-hidden">
-              <Image
-                src="/gallery/tent-to-beach-view.jpg"
-                alt="נוף חוף מתוך האוהל"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <Image src="/gallery/tent-to-beach-view.jpg" alt="נוף חוף מתוך האוהל" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
             </div>
             <div className="img-zoom relative overflow-hidden">
-              <Image
-                src="/gallery/bonfire-beach.jpg"
-                alt="מדורה בחוף הים"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <Image src="/gallery/bonfire-beach.jpg" alt="מדורה בחוף הים" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
             </div>
           </div>
-
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          FOR WHOM — 4 editorial cards with icons
+          FOR WHOM — sand background
       ══════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#0E0904" }}>
+      <section style={{ backgroundColor: C.sand }}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-16 md:py-24">
           <ScrollReveal className="text-center mb-14">
-            <p className="label-fs mb-5" style={{ color: "#C4954A" }}>למי זה מתאים</p>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
-                color: "#F7F2E8",
-                lineHeight: 1.2,
-              }}
-            >
+            <p className="label-fs mb-5" style={{ color: C.gold }}>למי זה מתאים</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4vw, 3.4rem)", color: C.forest, lineHeight: 1.2 }}>
               לכל רגע יש מקום נכון.
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.2)" }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: C.goldBorder }}>
             {forWhomCards.map((card) => (
               <div
                 key={card.title}
                 className="flex flex-col items-center text-center gap-6 px-6 py-10 md:py-14"
-                style={{ backgroundColor: "#16100A" }}
+                style={{ backgroundColor: C.cream }}
               >
-                {/* Icon */}
-                <svg
-                  viewBox="0 0 48 48"
-                  width="44"
-                  height="44"
-                  fill="none"
-                  stroke="#C4954A"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke={C.gold} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
                   {card.iconPath}
                 </svg>
-
-                <div style={{ width: "28px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
-
+                <div style={{ width: "28px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
                 <div>
-                  <h3
-                    className="font-light mb-3"
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontSize: "clamp(1.25rem, 1.8vw, 1.6rem)",
-                      color: "#F7F2E8",
-                      lineHeight: 1.3,
-                    }}
-                  >
+                  <h3 className="font-light mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.2rem, 1.8vw, 1.6rem)", color: C.forest, lineHeight: 1.3 }}>
                     {card.title}
                   </h3>
-                  <p
-                    className="font-light"
-                    style={{
-                      fontFamily: "var(--font-assistant)",
-                      fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
-                      color: "#F7F2E8",
-                      opacity: 0.55,
-                      lineHeight: 1.8,
-                    }}
-                  >
+                  <p className="font-light" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.1vw, 1.1rem)", color: C.muted, lineHeight: 1.8 }}>
                     {card.desc}
                   </p>
                 </div>
@@ -309,67 +246,42 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          HOW IT WORKS — numbered editorial
+          HOW IT WORKS — forest dark
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#0A0602" }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.forest }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>איך מזמינים?</p>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.4rem, 4vw, 3.6rem)",
-                color: "#F7F2E8",
-              }}
-            >
+            <p className="label-fs mb-4" style={{ color: C.gold }}>איך מזמינים?</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4vw, 3.6rem)", color: C.cream }}>
               ארבעה צעדים לחוויה מושלמת
             </h2>
           </div>
 
-          {/* Flowchart — desktop: horizontal with arrows, mobile: vertical */}
           <div className="flex flex-col md:flex-row items-stretch">
             {steps.map((s, i) => (
               <div key={s.title} className="flex flex-col md:flex-row items-stretch flex-1">
-                {/* Step box */}
                 <div
                   className="flex flex-col gap-5 px-7 py-8 flex-1"
                   style={{
-                    border: "1px solid rgba(196,149,74,0.5)",
-                    backgroundColor: i === 3 ? "#2A1E0A" : "#1A1008",
+                    border: `1px solid ${C.goldBorderS}`,
+                    backgroundColor: i === 3 ? "rgba(184,154,53,0.08)" : "rgba(250,250,246,0.04)",
                   }}
                 >
-                  <span
-                    className="font-light"
-                    style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: "#C4954A", opacity: 0.45 }}
-                  >
+                  <span className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: C.gold, opacity: 0.45 }}>
                     0{i + 1}
                   </span>
-                  <div style={{ width: "32px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
-                  <h3
-                    className="font-light"
-                    style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 2vw, 1.9rem)", color: "#F7F2E8", lineHeight: 1.3 }}
-                  >
+                  <div style={{ width: "32px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
+                  <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 2vw, 1.9rem)", color: C.cream, lineHeight: 1.3 }}>
                     {s.title}
                   </h3>
-                  <p
-                    className="font-light leading-relaxed"
-                    style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.15vw, 1.05rem)", color: "#F7F2E8", opacity: 0.65, lineHeight: 1.85 }}
-                  >
+                  <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.15vw, 1.05rem)", color: C.cream, opacity: 0.65, lineHeight: 1.85 }}>
                     {s.desc}
                   </p>
                 </div>
-                {/* Arrow between steps */}
                 {i < steps.length - 1 && (
                   <>
-                    {/* Desktop arrow → */}
-                    <div className="hidden md:flex items-center justify-center px-1" style={{ color: "#C4954A", opacity: 0.5, fontSize: "1.4rem" }}>
-                      ←
-                    </div>
-                    {/* Mobile arrow ↓ */}
-                    <div className="flex md:hidden justify-center py-2" style={{ color: "#C4954A", opacity: 0.5, fontSize: "1.4rem" }}>
-                      ↓
-                    </div>
+                    <div className="hidden md:flex items-center justify-center px-1" style={{ color: C.gold, opacity: 0.5, fontSize: "1.4rem" }}>←</div>
+                    <div className="flex md:hidden justify-center py-2" style={{ color: C.gold, opacity: 0.5, fontSize: "1.4rem" }}>↓</div>
                   </>
                 )}
               </div>
@@ -379,25 +291,18 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          DELIVERY OPTIONS — 5 ways to receive
+          DELIVERY OPTIONS — cream/white
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#0A0602" }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>גמישות מלאה</p>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.5rem, 4.5vw, 4rem)",
-                color: "#F7F2E8",
-              }}
-            >
+            <p className="label-fs mb-4" style={{ color: C.gold }}>גמישות מלאה</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.5rem, 4.5vw, 4rem)", color: C.forest }}>
               איך מקבלים את הציוד?
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.4)" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px" style={{ backgroundColor: C.goldBorder }}>
             {deliveryOptionsList.map((opt, i) => (
               <a
                 key={opt.id}
@@ -406,174 +311,108 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className={`delivery-card${i === 4 ? " featured" : ""} flex flex-col gap-4 p-6`}
                 style={{
-                  backgroundColor: i === 4 ? "#2A1E0A" : "#1A1008",
+                  backgroundColor: i === 4 ? "rgba(184,154,53,0.07)" : "#ffffff",
                   textDecoration: "none",
                   cursor: "pointer",
-                  outline: "none",
                 }}
               >
                 <div className="flex items-start justify-between">
-                  <span
-                    className="font-light"
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontSize: "2.5rem",
-                      lineHeight: 1,
-                      color: "#C4954A",
-                      opacity: 0.35,
-                    }}
-                  >
+                  <span className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "2.5rem", lineHeight: 1, color: C.gold, opacity: 0.35 }}>
                     {opt.num}
                   </span>
                   {opt.badge && (
-                    <span
-                      className="label-fs px-2 py-1"
-                      style={{ backgroundColor: "#C4954A", color: "#fff", fontSize: "0.55rem" }}
-                    >
+                    <span className="label-fs px-2 py-1" style={{ backgroundColor: C.gold, color: "#fff", fontSize: "0.55rem" }}>
                       {opt.badge}
                     </span>
                   )}
                 </div>
 
-                <div className="fs-divider-full" style={{ maxWidth: "32px", opacity: 0.4 }} />
+                <div style={{ width: "32px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
 
-                <h3
-                  className="font-light"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "clamp(1.4rem, 1.7vw, 1.7rem)",
-                    color: "#F7F2E8",
-                    lineHeight: 1.3,
-                  }}
-                >
+                <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 1.7vw, 1.7rem)", color: C.forest, lineHeight: 1.3 }}>
                   {opt.title}
                 </h3>
 
-                <p
-                  className="font-light leading-relaxed flex-1"
-                  style={{
-                    fontFamily: "var(--font-assistant)",
-                    fontSize: "clamp(0.95rem, 1.1vw, 1.05rem)",
-                    color: "#F7F2E8",
-                    opacity: 0.7,
-                    lineHeight: 1.8,
-                  }}
-                >
+                <p className="font-light leading-relaxed flex-1" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.1vw, 1rem)", color: C.muted, lineHeight: 1.8 }}>
                   {opt.desc}
                 </p>
 
                 <div className="flex items-center justify-between mt-auto">
-                  <span className="label-fs" style={{ color: "#C4954A" }}>{opt.price}</span>
-                  <span className="pick-cta label-fs" style={{ color: "#C4954A", fontSize: "0.65rem" }}>
-                    בחרו ←
-                  </span>
+                  <span className="label-fs" style={{ color: C.gold }}>{opt.price}</span>
+                  <span className="pick-cta label-fs" style={{ color: C.gold, fontSize: "0.65rem" }}>בחרו ←</span>
                 </div>
               </a>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <Link href="/book" className="btn-fs-solid">
-              בחרו אפשרות בהזמנה
-            </Link>
+            <Link href="/book" className="btn-fs-solid">בחרו אפשרות בהזמנה</Link>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          TENTS SHOWCASE — horizontal editorial grid
+          TENTS SHOWCASE — sand background
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#1C1410" }}>
+      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: C.sand }}>
         <div className="max-w-7xl mx-auto">
-
-          {/* Header */}
           <ScrollReveal className="flex items-end justify-between mb-16">
             <div>
-              <p className="label-fs mb-3" style={{ color: "#C4954A" }}>הציוד שלנו</p>
-              <h2
-                className="font-light"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "clamp(2.8rem, 5.5vw, 4.8rem)",
-                  color: "#F7F2E8",
-                  lineHeight: 1.1,
-                }}
-              >
+              <p className="label-fs mb-3" style={{ color: C.gold }}>הציוד שלנו</p>
+              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 5.5vw, 4.8rem)", color: C.forest, lineHeight: 1.1 }}>
                 חמישה אוהלים.<br />
-                <em style={{ color: "#C4954A" }}>אין סוף אפשרויות.</em>
+                <em style={{ color: C.gold }}>אין סוף אפשרויות.</em>
               </h2>
             </div>
-            <Link
-              href="/tents"
-              className="btn-fs-gold hidden md:inline-block"
-              style={{ flexShrink: 0 }}
-            >
+            <Link href="/tents" className="btn-fs-gold hidden md:inline-block" style={{ flexShrink: 0, color: C.gold, borderColor: C.gold }}>
               כל האוהלים
             </Link>
           </ScrollReveal>
 
-          {/* 5 equal cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {tents.map((tent, i) => (
               <TentCard key={tent.slug} tent={tent} index={i} />
             ))}
           </div>
 
           <div className="text-center mt-12 md:hidden">
-            <Link href="/tents" className="btn-fs-gold">
-              כל האוהלים
-            </Link>
+            <Link href="/tents" className="btn-fs-gold" style={{ color: C.gold, borderColor: C.gold }}>כל האוהלים</Link>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          FULL-BLEED INTERIOR PHOTO
+          QUOTE — dark night, dramatic
       ══════════════════════════════════════ */}
       <section
-        className="flex flex-col items-center justify-center text-center px-8 py-24 md:py-32"
-        style={{ backgroundColor: "#140E08", minHeight: "320px" }}
+        className="flex flex-col items-center justify-center text-center px-8 py-24 md:py-36"
+        style={{ backgroundColor: C.night, minHeight: "300px" }}
       >
         <div className="fs-divider mb-8" />
         <blockquote
           className="font-light italic max-w-2xl"
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)",
-            color: "#F7F2E8",
-            lineHeight: 1.3,
-          }}
+          style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)", color: C.cream, lineHeight: 1.35 }}
         >
           כל מה שצריך מחכה לכם בפנים —
           <br />
-          <span style={{ color: "#C4954A" }}>אתם רק צריכים להגיע</span>
+          <span style={{ color: C.gold }}>אתם רק צריכים להגיע</span>
         </blockquote>
         <div className="fs-divider mt-8" />
       </section>
 
       {/* ══════════════════════════════════════
-          PHOTO STRIP — real OUTORA moments
+          PHOTO STRIP — real moments (dark overlay)
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-20 px-4 md:px-8" style={{ backgroundColor: "#1C1610" }}>
+      <section className="py-16 md:py-20 px-4 md:px-8" style={{ backgroundColor: C.night }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="label-fs mb-3" style={{ color: "#C4954A" }}>הרגעים שלנו</p>
-              <h2
-                className="font-light"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)",
-                  color: "#F7F2E8",
-                  lineHeight: 1.1,
-                }}
-              >
-                חוויה אמיתית.<br />
-                <em style={{ color: "#C4954A" }}>בכל מקום.</em>
+              <p className="label-fs mb-3" style={{ color: C.gold }}>הרגעים שלנו</p>
+              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)", color: C.cream, lineHeight: 1.1 }}>
+                חוויה אמיתית.<br /><em style={{ color: C.gold }}>בכל מקום.</em>
               </h2>
             </div>
           </div>
-          {/* Uniform grid — all same size 4:3 */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {[
               { src: "/gallery/tent-to-beach-view.jpg", alt: "נוף חוף מתוך האוהל" },
@@ -583,18 +422,8 @@ export default function Home() {
               { src: "/gallery/bonfire-closeup.jpg",    alt: "מדורה — אווירה חמה" },
               { src: "/gallery/interior-real-2.jpg",    alt: "נוחות בתוך האוהל" },
             ].map((photo, i) => (
-              <div
-                key={i}
-                className="img-zoom relative overflow-hidden"
-                style={{ aspectRatio: "4/3" }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
+              <div key={i} className="img-zoom relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="(max-width: 768px) 50vw, 33vw" />
               </div>
             ))}
           </div>
@@ -602,77 +431,33 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          ACCESSORIES — editorial grid
+          ACCESSORIES — sand bg (via CSS class)
       ══════════════════════════════════════ */}
       <section className="acc-section py-16 md:py-28 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>שדרוגים ותוספות</p>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.5rem, 4.5vw, 4rem)",
-                color: "#F7F2E8",
-              }}
-            >
+            <p className="label-fs mb-4" style={{ color: C.gold }}>שדרוגים ותוספות</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.5rem, 4.5vw, 4rem)", color: C.forest }}>
               עצבו את החוויה שלכם
             </h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {accessories.slice(0, 10).map((acc) => (
-              <div
-                key={acc.id}
-                className="acc-card group flex flex-col"
-                style={{ border: "1px solid rgba(196,149,74,0.35)" }}
-              >
-                {/* Image area — white bg */}
-                <div
-                  className="acc-img-box img-zoom relative w-full overflow-hidden"
-                  style={{ aspectRatio: "1/1" }}
-                >
+              <div key={acc.id} className="acc-card group flex flex-col" style={{ border: `1px solid ${C.goldBorder}` }}>
+                <div className="acc-img-box img-zoom relative w-full overflow-hidden" style={{ aspectRatio: "1/1" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={acc.image}
                     alt={acc.nameHe}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      padding: "16px",
-                      boxSizing: "border-box",
-                    }}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", padding: "16px", boxSizing: "border-box" }}
                   />
                 </div>
-
-                {/* Text area — dark bg */}
-                <div
-                  className="acc-card-text flex flex-col items-center text-center px-3 py-4 gap-1"
-                  style={{ borderTop: "1px solid rgba(196,149,74,0.3)" }}
-                >
-                  <p
-                    className="font-light"
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
-                      color: "#F7F2E8",
-                      lineHeight: 1.3,
-                    }}
-                  >
+                <div className="acc-card-text flex flex-col items-center text-center px-3 py-4 gap-1" style={{ borderTop: `1px solid ${C.goldBorder}` }}>
+                  <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1rem, 1.3vw, 1.2rem)", color: C.forest, lineHeight: 1.3 }}>
                     {acc.nameHe}
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-assistant)",
-                      fontSize: "0.85rem",
-                      letterSpacing: "0.15em",
-                      color: "#C4954A",
-                      opacity: 0.9,
-                    }}
-                  >
+                  <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.85rem", letterSpacing: "0.12em", color: C.gold }}>
                     ₪{acc.pricePerNight} / לחופשה
                   </p>
                 </div>
@@ -681,38 +466,36 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/book" className="btn-fs-solid">
-              הוסיפו תוספות בהזמנה
-            </Link>
+            <Link href="/book" className="btn-fs-solid">הוסיפו תוספות בהזמנה</Link>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          WHY OUTORA — Differentiators
+          WHY OUTORA — forest dark
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#0E0904" }}>
+      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: C.forest }}>
         <div className="max-w-7xl mx-auto">
           <ScrollReveal className="text-center mb-16">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>למה OUTORA</p>
-            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: "#F7F2E8" }}>
-              לא אוהל — <em style={{ color: "#C4954A" }}>חוויה שלמה.</em>
+            <p className="label-fs mb-4" style={{ color: C.gold }}>למה OUTORA</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: C.cream }}>
+              לא אוהל — <em style={{ color: C.gold }}>חוויה שלמה.</em>
             </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.15)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: C.goldBorder }}>
             {whyOutora.map((item, i) => (
               <ScrollReveal
                 key={item.title}
                 delay={i * 80}
                 className="flex flex-col gap-4 px-7 py-10"
-                style={{ backgroundColor: "#0E0904" }}
+                style={{ backgroundColor: C.forest }}
               >
-                <item.Icon size={26} stroke="#C4954A" strokeWidth={1.25} />
-                <div style={{ width: "32px", height: "1px", backgroundColor: "#C4954A", opacity: 0.4 }} />
-                <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 2vw, 1.8rem)", color: "#F7F2E8", lineHeight: 1.2 }}>
+                <item.Icon size={24} stroke={C.gold} strokeWidth={1.25} />
+                <div style={{ width: "32px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
+                <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 2vw, 1.8rem)", color: C.cream, lineHeight: 1.2 }}>
                   {item.title}
                 </h3>
-                <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "1rem", color: "#F7F2E8", opacity: 0.62, lineHeight: 1.85 }}>
+                <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "1rem", color: C.cream, opacity: 0.65, lineHeight: 1.85 }}>
                   {item.desc}
                 </p>
               </ScrollReveal>
@@ -722,19 +505,19 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          LOCATIONS PREVIEW
+          LOCATIONS PREVIEW — cream
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#140E08" }}>
+      <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-14">
             <div>
-              <p className="label-fs mb-3" style={{ color: "#C4954A" }}>המקומות שלנו</p>
-              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: "#F7F2E8", lineHeight: 1.1 }}>
+              <p className="label-fs mb-3" style={{ color: C.gold }}>המקומות שלנו</p>
+              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: C.forest, lineHeight: 1.1 }}>
                 מצפון לדרום.<br />
-                <em style={{ color: "#C4954A" }}>כל ישראל בידיים שלנו.</em>
+                <em style={{ color: C.gold }}>כל ישראל בידיים שלנו.</em>
               </h2>
             </div>
-            <Link href="/locations" className="btn-fs-gold hidden md:inline-block" style={{ flexShrink: 0 }}>
+            <Link href="/locations" className="btn-fs-gold hidden md:inline-block" style={{ flexShrink: 0, color: C.gold, borderColor: C.gold }}>
               כל הלוקיישנים
             </Link>
           </div>
@@ -754,12 +537,12 @@ export default function Home() {
                   style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s ease" }}
                   className="group-hover:scale-110"
                 />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(14,9,4,0.9) 0%, rgba(14,9,4,0.1) 55%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.88) 0%, rgba(13,26,13,0.1) 55%)" }} />
                 <div className="absolute bottom-0 right-0 p-3">
-                  <p className="text-xs opacity-60 mb-0.5" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)", letterSpacing: "0.1em" }}>
+                  <p className="text-xs opacity-70 mb-0.5" style={{ color: C.gold, fontFamily: "var(--font-assistant)", letterSpacing: "0.1em" }}>
                     {loc.region}
                   </p>
-                  <p className="font-light leading-tight" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(0.9rem, 1.2vw, 1.1rem)", color: "#F7F2E8" }}>
+                  <p className="font-light leading-tight" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(0.9rem, 1.2vw, 1.1rem)", color: C.cream }}>
                     {loc.name}
                   </p>
                 </div>
@@ -768,113 +551,78 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10 md:hidden">
-            <Link href="/locations" className="btn-fs-gold">כל הלוקיישנים</Link>
+            <Link href="/locations" className="btn-fs-gold" style={{ color: C.gold, borderColor: C.gold }}>כל הלוקיישנים</Link>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          STATS — By the Numbers
+          STATS — sand
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#1C1610" }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.sand }}>
         <div className="max-w-5xl mx-auto">
-          <div className="fs-divider-full mb-16" />
+          <div className="fs-divider-full mb-16" style={{ opacity: 0.3 }} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             {stats.map((s, i) => (
               <div
                 key={s.label}
                 className={`flex flex-col items-center text-center px-8 py-6 ${i < stats.length - 1 ? "border-b md:border-b-0 md:border-r" : ""}`}
-                style={{ borderColor: "rgba(196,149,74,0.2)" }}
+                style={{ borderColor: C.goldBorder }}
               >
-                <span
-                  className="font-light leading-none mb-3"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "clamp(3.5rem, 7vw, 6rem)",
-                    color: "#C4954A",
-                  }}
-                >
+                <span className="font-light leading-none mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3.5rem, 7vw, 6rem)", color: C.gold }}>
                   {s.value}
                 </span>
-                <span
-                  className="label-fs"
-                  style={{ color: "#F7F2E8" }}
-                >
-                  {s.label}
-                </span>
+                <span className="label-fs" style={{ color: C.forest }}>{s.label}</span>
               </div>
             ))}
           </div>
-          <div className="fs-divider-full mt-16" />
+          <div className="fs-divider-full mt-16" style={{ opacity: 0.3 }} />
         </div>
       </section>
 
-
       {/* ══════════════════════════════════════
-          FAQ
+          FAQ — cream
       ══════════════════════════════════════ */}
       <FAQSection />
 
       {/* ══════════════════════════════════════
-          FINAL CTA
+          FINAL CTA — forest night
       ══════════════════════════════════════ */}
-      <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: "#1C1410" }}>
+      <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: C.night }}>
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-8">
-          <p className="label-fs" style={{ color: "#C4954A", opacity: 1, letterSpacing: "0.3em" }}>מוכנים?</p>
+          <p className="label-fs" style={{ color: C.gold, opacity: 1, letterSpacing: "0.3em" }}>מוכנים?</p>
           <h2
             className="font-light"
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(3.5rem, 8vw, 7rem)",
-              color: "#F7F2E8",
-              lineHeight: 1,
-            }}
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3.5rem, 8vw, 7rem)", color: C.cream, lineHeight: 1 }}
           >
             הטבע מחכה לכם
           </h2>
-          <p
-            className="font-light leading-relaxed"
-            style={{
-              fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(1.1rem, 1.6vw, 1.3rem)",
-              color: "#F7F2E8",
-              opacity: 0.65,
-            }}
-          >
+          <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(1.1rem, 1.6vw, 1.3rem)", color: C.cream, opacity: 0.65 }}>
             בחרו אוהל, ספרו לנו איפה ומתי — אנחנו מגיעים ומכינים הכל
           </p>
           <div className="fs-divider" />
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <Link href="/book" className="btn-fs-solid">
-              להזמנה
-            </Link>
+            <Link href="/book" className="btn-fs-solid">להזמנה</Link>
             <a
               href="https://wa.me/972528448870?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%90%D7%95%D7%94%D7%9C"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-fs-ghost"
+              className="btn-fs-ghost flex items-center gap-2"
             >
-              💬 WhatsApp
+              <MessageCircle size={16} strokeWidth={1.5} /> WhatsApp
             </a>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════
-          TENT VIDEOS — YouTube embeds (bottom)
+          VIDEOS — cream
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#0A0602" }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <p className="label-fs mb-4" style={{ color: "#C4954A" }}>צפו באוהלים</p>
-            <h2
-              className="font-light"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(2.4rem, 4.5vw, 4rem)",
-                color: "#F7F2E8",
-              }}
-            >
+            <p className="label-fs mb-4" style={{ color: C.gold }}>צפו באוהלים</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: C.forest }}>
               האוהלים שלנו — בפעולה
             </h2>
           </div>
@@ -882,10 +630,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tentVideos.map((v) => (
               <div key={v.id} className="flex flex-col gap-3">
-                <div
-                  className="relative w-full overflow-hidden"
-                  style={{ aspectRatio: "16/9", backgroundColor: "#0a0604" }}
-                >
+                <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9", backgroundColor: C.earth, borderRadius: "2px" }}>
                   <iframe
                     src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?rel=0&modestbranding=1`}
                     title={v.title}
@@ -895,15 +640,7 @@ export default function Home() {
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
                   />
                 </div>
-                <p
-                  className="font-light"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.1rem",
-                    color: "#F7F2E8",
-                    opacity: 0.75,
-                  }}
-                >
+                <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", color: C.muted }}>
                   {v.title}
                 </p>
               </div>
@@ -917,140 +654,65 @@ export default function Home() {
   )
 }
 
+// ── Data ────────────────────────────────────────────────────
+
 const forWhomCards = [
   {
     title: "וויקנד עם הבת זוג",
     desc: "בורחים ממולטון. רק שניכם, שקט אמיתי, ושמיים מלאי כוכבים.",
-    iconPath: (
-      <>
-        <circle cx="18" cy="20" r="8" />
-        <circle cx="30" cy="20" r="8" />
-        <path d="M24 14 C24 14 24 10 24 8" />
-        <path d="M21 10 L24 8 L27 10" />
-      </>
-    ),
+    iconPath: (<><circle cx="18" cy="20" r="8" /><circle cx="30" cy="20" r="8" /><path d="M24 14 C24 14 24 10 24 8" /><path d="M21 10 L24 8 L27 10" /></>),
   },
   {
     title: "מסיבת רווקות",
     desc: "הלילה הכי טוב לפני ה-big day — רק הבנות, הטבע, והכוסות הנכונות.",
-    iconPath: (
-      <>
-        <path d="M18 8 L18 34 M14 34 L22 34" />
-        <path d="M14 8 L22 8 L20 22 L16 22 Z" />
-        <path d="M30 6 L33 12 M30 6 L27 12" />
-        <path d="M38 10 L35 16 M38 10 L41 16" />
-        <path d="M34 2 L34 5" />
-      </>
-    ),
+    iconPath: (<><path d="M18 8 L18 34 M14 34 L22 34" /><path d="M14 8 L22 8 L20 22 L16 22 Z" /><path d="M30 6 L33 12 M30 6 L27 12" /><path d="M38 10 L35 16 M38 10 L41 16" /><path d="M34 2 L34 5" /></>),
   },
   {
     title: "יום הולדת עם החברים",
     desc: "30, 40, 50 — חגיגה שלא שוכחים, במקום שבחרתם, עם אנשים שאוהבים.",
-    iconPath: (
-      <>
-        <circle cx="24" cy="22" r="12" />
-        <path d="M24 10 L24 6" />
-        <path d="M18 12 L15 9" />
-        <path d="M30 12 L33 9" />
-        <path d="M20 22 L24 18 L28 22" />
-        <path d="M24 18 L24 26" />
-      </>
-    ),
+    iconPath: (<><circle cx="24" cy="22" r="12" /><path d="M24 10 L24 6" /><path d="M18 12 L15 9" /><path d="M30 12 L33 9" /><path d="M20 22 L24 18 L28 22" /><path d="M24 18 L24 26" /></>),
   },
   {
     title: "חופשה משפחתית",
     desc: "הילדים בטבע, ההורים נושמים — הוויקנד שכולם מדברים עליו אחר כך.",
-    iconPath: (
-      <>
-        <path d="M8 38 L24 10 L40 38 Z" />
-        <path d="M19 38 L19 28 L29 28 L29 38" />
-        <path d="M24 10 L24 6" />
-        <circle cx="24" cy="4" r="2" />
-      </>
-    ),
+    iconPath: (<><path d="M8 38 L24 10 L40 38 Z" /><path d="M19 38 L19 28 L29 28 L29 38" /><path d="M24 10 L24 6" /><circle cx="24" cy="4" r="2" /></>),
   },
 ]
 
 const steps = [
-  {
-    title: "בחרו אוהל",
-    desc: "עיינו בחמישה דגמי האוהלים המתנפחים שלנו ובחרו את זה שמתאים לכם — לפי גודל, סגנון וצרכים.",
-  },
-  {
-    title: "בחרו מיקום ותאריכים",
-    desc: "ים, הרים, מדבר, שדה — אנחנו מגיעים לכל מקום שתבחרו בישראל. אין מגבלות.",
-  },
-  {
-    title: "בחרו איך לקבל",
-    desc: "איסוף עצמי בעומר / ת\"א, תיק גג, עגלת נגרר, משלוח, או שאנחנו מגיעים ומקימים הכל — אתם בוחרים.",
-  },
-  {
-    title: "תגיעו ותיהנו",
-    desc: "הכל מוכן ומסודר. אתם רק צריכים להגיע, לנשום ולהתחיל לחיות.",
-  },
+  { title: "בחרו אוהל",           desc: "עיינו בחמישה דגמי האוהלים המתנפחים שלנו ובחרו את זה שמתאים לכם — לפי גודל, סגנון וצרכים." },
+  { title: "בחרו מיקום ותאריכים", desc: "ים, הרים, מדבר, שדה — אנחנו מגיעים לכל מקום שתבחרו בישראל. אין מגבלות." },
+  { title: "בחרו איך לקבל",       desc: "איסוף עצמי, תיק גג, עגלת נגרר, משלוח, או שאנחנו מגיעים ומקימים הכל — אתם בוחרים." },
+  { title: "תגיעו ותיהנו",        desc: "הכל מוכן ומסודר. אתם רק צריכים להגיע, לנשום ולהתחיל לחיות." },
 ]
 
 const deliveryOptionsList = [
-  {
-    id:    "pickup",
-    num:   "01",
-    title: "איסוף עצמי",
-    desc:  "מגיעים לתחנות שלנו בעומר או בתל אביב ואוספים חבילה מוכנה — האוהל + כל התוספות שהזמנתם, ארוזים ומסודרים.",
-    price: "חינמי",
-    badge: null,
-  },
-  {
-    id:    "roof-bag",
-    num:   "02",
-    title: "תיק גג",
-    desc:  "תיק גג גדול שמונח על הגג — ללא שום התקנה. מוסיפים עשרות ליטר, המקום בפנים נשאר לאנשים.",
-    price: "+₪150",
-    badge: null,
-  },
-  {
-    id:    "trailer",
-    num:   "03",
-    title: "עגלת נגרר",
-    desc:  "כל המארז בעגלת נגרר קלה — למי שיש תפוח גרירה ברכב. הרכב נשאר רווח ומלא נוחות.",
-    price: "+₪220",
-    badge: "תפוח גרירה",
-  },
-  {
-    id:    "delivery",
-    num:   "04",
-    title: "משלוח עד אליכם",
-    desc:  "אנחנו מגיעים עם כל החבילה לנקודה שתציינו — בית, חוף, מגרש. אתם רק אומרים לאן.",
-    price: "+₪200",
-    badge: null,
-  },
-  {
-    id:    "full-service",
-    num:   "05",
-    title: "משלוח + הקמה מלאה",
-    desc:  "הצוות שלנו מגיע, מקים, מסדר הכל עד לפרט האחרון — אתם מגיעים למחנה מוכן לחלוטין.",
-    price: "+₪550",
-    badge: "מומלץ",
-  },
+  { id: "pickup",       num: "01", title: "איסוף עצמי",         desc: "מגיעים לתחנות שלנו בעומר או בתל אביב ואוספים חבילה מוכנה.",                                                  price: "חינמי",  badge: null       },
+  { id: "roof-bag",     num: "02", title: "תיק גג",              desc: "תיק גג גדול שמונח על הגג — ללא שום התקנה. מוסיפים עשרות ליטר, המקום בפנים נשאר לאנשים.",                 price: "+₪150",  badge: null       },
+  { id: "trailer",      num: "03", title: "עגלת נגרר",           desc: "כל המארז בעגלת נגרר קלה — למי שיש תפוח גרירה ברכב. הרכב נשאר רווח.",                                     price: "+₪220",  badge: "תפוח גרירה" },
+  { id: "delivery",     num: "04", title: "משלוח עד אליכם",      desc: "אנחנו מגיעים עם כל החבילה לנקודה שתציינו — בית, חוף, מגרש.",                                              price: "+₪200",  badge: null       },
+  { id: "full-service", num: "05", title: "משלוח + הקמה מלאה",  desc: "הצוות שלנו מגיע, מקים, מסדר הכל — אתם מגיעים למחנה מוכן לחלוטין.",                                        price: "+₪550",  badge: "מומלץ"    },
 ]
 
 const stats = [
-  { value: "5",          label: "דגמי אוהלים יוקרתיים" },
-  { value: "כל הארץ",   label: "אנחנו מגיעים לכל מקום" },
-  { value: "48h",        label: "זמן הכנה מרגע ההזמנה" },
+  { value: "5",        label: "דגמי אוהלים יוקרתיים" },
+  { value: "כל הארץ", label: "אנחנו מגיעים לכל מקום" },
+  { value: "48h",      label: "זמן הכנה מרגע ההזמנה"  },
 ]
 
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 
 function FAQSection() {
+  const C_local = {
+    cream: "#FAFAF6", gold: "#B89A35", forest: "#1E3D1E", muted: "#4A6A4A",
+    goldBorder: "rgba(184,154,53,0.18)", forestBorder: "rgba(30,61,30,0.1)",
+  }
   return (
-    <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: "#140E08" }}>
+    <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: C_local.cream }}>
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-14">
-          <p className="label-fs mb-4" style={{ color: "#C4954A" }}>שאלות נפוצות</p>
-          <h2
-            className="font-light"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)", color: "#F7F2E8" }}
-          >
+          <p className="label-fs mb-4" style={{ color: C_local.gold }}>שאלות נפוצות</p>
+          <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)", color: C_local.forest }}>
             כל מה שרציתם לדעת
           </h2>
         </div>
@@ -1060,27 +722,19 @@ function FAQSection() {
             <details
               key={i}
               className="group"
-              style={{ border: "1px solid rgba(196,149,74,0.2)", backgroundColor: "rgba(247,242,232,0.025)" }}
+              style={{ border: `1px solid ${C_local.goldBorder}`, backgroundColor: "#fff" }}
             >
               <summary
                 className="flex items-center justify-between px-5 py-4 cursor-pointer list-none"
-                style={{ fontFamily: "var(--font-assistant)", fontSize: "1.05rem", color: "#F7F2E8" }}
+                style={{ fontFamily: "var(--font-assistant)", fontSize: "1.05rem", color: C_local.forest }}
               >
                 <span>{item.q}</span>
-                <svg
-                  className="shrink-0 mr-4 transition-transform group-open:rotate-180"
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="#C4954A"
-                  strokeWidth="1.5"
-                >
+                <svg className="shrink-0 mr-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke={C_local.gold} strokeWidth="1.5">
                   <path d="M6 9l6 6 6-6" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 pt-1">
-                <p className="leading-relaxed opacity-70" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8", fontSize: "0.97rem", lineHeight: 1.85 }}>
+              <div className="px-5 pb-5 pt-1" style={{ borderTop: `1px solid ${C_local.goldBorder}` }}>
+                <p className="leading-relaxed" style={{ fontFamily: "var(--font-assistant)", color: C_local.muted, fontSize: "0.97rem", lineHeight: 1.85 }}>
                   {item.a}
                 </p>
               </div>
@@ -1089,105 +743,52 @@ function FAQSection() {
         </div>
 
         <div className="text-center mt-10">
-          <p className="opacity-50 text-sm mb-4" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+          <p className="opacity-50 text-sm mb-4" style={{ fontFamily: "var(--font-assistant)", color: C_local.forest }}>
             לא מצאתם תשובה?
           </p>
-          <a
-            href="https://wa.me/972528448870"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-fs-ghost"
-          >
-            <MessageCircle size={16} style={{ display: "inline", marginLeft: "6px", verticalAlign: "middle" }} /> שאלו אותנו בוואטסאפ
+          <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer" className="btn-fs-gold flex items-center gap-2 justify-center w-fit mx-auto" style={{ color: C_local.gold, borderColor: C_local.gold }}>
+            <MessageCircle size={16} strokeWidth={1.5} /> שאלו אותנו בוואטסאפ
           </a>
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 const faqItems = [
-  {
-    q: "האם אתם מגיעים לכל מקום בישראל?",
-    a: "כן — ים, הרים, מדבר, חוף, גולן, ערבה, אילת. אין מגבלה גיאוגרפית. בהזמנה תציינו את המיקום הרצוי ואנחנו נאשר עלויות הגעה בהתאם."
-  },
-  {
-    q: "מה כלול בחבילה הבסיסית?",
-    a: "כל חבילה כוללת את האוהל המתנפח, ספה מתנפחת, מזרנים זוגיים, כריות, ציפות, כיסאות ושולחן קמפינג. ניתן להוסיף תוספות כמו מכונת קפה, מקרן כוכבים, קערת אש ועוד."
-  },
-  {
-    q: "כמה זמן לוקח להקמת האוהל?",
-    a: "אוהלי COODY מתנפחים תוך 3–5 דקות בלבד עם משאבת חשמל. אם בחרתם בשירות הקמה מלאה — הצוות שלנו מגיע, מקים ומסדר הכל לפני שאתם מגיעים."
-  },
-  {
-    q: "מהו המחיר ואיך עובד התשלום?",
-    a: "המחיר נקבע לפי דגם האוהל, מספר הלילות והתוספות שתבחרו. לאחר אישור ההזמנה תשלמו מקדמה של 30%, והיתרה עם קבלת הציוד. בעת קבלה תחתמו על שובר פיקדון שמוחזר בסיום."
-  },
-  {
-    q: "מה קורה אם הציוד נפגע?",
-    a: "יש לנו מחירון נזקים שקוף — ניתן לראות אותו בדף ההזמנה. הפיקדון נועד לכסות נזקים שמעבר לבלאי סביר. אוהלים שלנו עשויים לעמוד בתנאי שטח קשים."
-  },
-  {
-    q: "האם ניתן לבטל הזמנה?",
-    a: "ביטול עד 7 ימים לפני — החזר מלא. ביטול 3–6 ימים לפני — החזר 50%. ביטול פחות מ-48 שעות — ללא החזר. מדיניות הביטולים המלאה זמינה בדף התקנון."
-  },
-  {
-    q: "לכמה אנשים מתאים כל אוהל?",
-    a: "יש לנו דגמים ל-2 עד 17 אנשים. Dome (2-4), Hub Station (4-6), Familia (4-8), Hub Shelter Pro (6-10), Familia Pro (8-17). ניתן לחבר כמה אוהלים לאירוע גדול."
-  },
-  {
-    q: "האם אפשר להשכיר לאירועים — בר מצווה, חתונה, רווקות?",
-    a: "בהחלט! אנחנו מתמחים באירועים. ניתן לשלב כמה אוהלים, להוסיף תאורה, שטיחים, מוזיקה ועוד. צרו קשר בוואטסאפ לתפריט מיוחד לאירועים."
-  },
-];
+  { q: "האם אתם מגיעים לכל מקום בישראל?", a: "כן — ים, הרים, מדבר, חוף, גולן, ערבה, אילת. אין מגבלה גיאוגרפית. בהזמנה תציינו את המיקום הרצוי ואנחנו נאשר עלויות הגעה בהתאם." },
+  { q: "מה כלול בחבילה הבסיסית?", a: "כל חבילה כוללת את האוהל המתנפח, ספה מתנפחת, מזרנים זוגיים, כריות, ציפות, כיסאות ושולחן קמפינג. ניתן להוסיף תוספות כמו מכונת קפה, מקרן כוכבים, קערת אש ועוד." },
+  { q: "כמה זמן לוקח להקמת האוהל?", a: "אוהלי COODY מתנפחים תוך 3–5 דקות בלבד עם משאבת חשמל. אם בחרתם בשירות הקמה מלאה — הצוות שלנו מגיע, מקים ומסדר הכל לפני שאתם מגיעים." },
+  { q: "מהו המחיר ואיך עובד התשלום?", a: "המחיר נקבע לפי דגם האוהל, מספר הלילות והתוספות שתבחרו. לאחר אישור ההזמנה תשלמו מקדמה של 30%, והיתרה עם קבלת הציוד." },
+  { q: "מה קורה אם הציוד נפגע?", a: "יש לנו מחירון נזקים שקוף — ניתן לראות אותו בדף ההזמנה. הפיקדון נועד לכסות נזקים שמעבר לבלאי סביר." },
+  { q: "האם ניתן לבטל הזמנה?", a: "ביטול עד 7 ימים לפני — החזר מלא. ביטול 3–6 ימים לפני — החזר 50%. ביטול פחות מ-48 שעות — ללא החזר." },
+  { q: "לכמה אנשים מתאים כל אוהל?", a: "יש לנו דגמים ל-2 עד 17 אנשים. Dome (2-4), Hub Station (4-6), Familia (4-8), Hub Shelter Pro (6-10), Familia Pro (8-17). ניתן לחבר כמה אוהלים לאירוע גדול." },
+  { q: "האם אפשר להשכיר לאירועים?", a: "בהחלט! אנחנו מתמחים באירועים. ניתן לשלב כמה אוהלים, להוסיף תאורה, שטיחים, מוזיקה ועוד. צרו קשר בוואטסאפ לתפריט מיוחד לאירועים." },
+]
 
 const whyOutora = [
-  {
-    Icon: Truck,
-    title: "אנחנו מגיעים אליכם",
-    desc: "לא צריך לגרור ציוד. הצוות שלנו מקים את האוהל לפני הגעתכם ומפנה לאחר היציאה — אתם רק נהנים.",
-  },
-  {
-    Icon: BedDouble,
-    title: "ריהוט שלם, ברמת מלון",
-    desc: "מיטות, ספות, שטיחים, שולחן, כיסאות — כל ערכת COODY מצוידת מלא. אין צורך לקנות, לשאול, להביא.",
-  },
-  {
-    Icon: Zap,
-    title: "הקמה תוך דקות",
-    desc: "האוהל המתנפח עולה בפחות מ-3 דקות בכוח אוויר. ללא פרוץ, ללא בלבול — מקסימום זמן לטבע.",
-  },
-  {
-    Icon: MapPin,
-    title: "כל ישראל — כולל מקומות רחוקים",
-    desc: "ים המלח, ערד, הרי הגולן, חוף הים הצפוני — מגיעים לכל מקום. ממזרח למערב, מצפון לדרום.",
-  },
-  {
-    Icon: ShieldCheck,
-    title: "ביטוח ואחריות כלולים",
-    desc: "הציוד מבוטח, הצוות מוסמך, ואנחנו מספקים תמיכה טלפונית 24 שעות לאורך כל ההזמנה.",
-  },
-  {
-    Icon: Sparkles,
-    title: "חוויה ייחודית — לא רק לינה",
-    desc: "OUTORA היא לא השכרת ציוד — זו חוויה שלמה. מהבחירה ועד הפינוי, אתם בידיים טובות.",
-  },
+  { Icon: Truck,       title: "אנחנו מגיעים אליכם",     desc: "לא צריך לגרור ציוד. הצוות שלנו מקים את האוהל לפני הגעתכם ומפנה לאחר היציאה — אתם רק נהנים." },
+  { Icon: BedDouble,   title: "ריהוט שלם, ברמת מלון",   desc: "מיטות, ספות, שטיחים, שולחן, כיסאות — כל ערכת COODY מצוידת מלא. אין צורך לקנות, לשאול, להביא." },
+  { Icon: Zap,         title: "הקמה תוך דקות",           desc: "האוהל המתנפח עולה בפחות מ-3 דקות בכוח אוויר. ללא פרוץ, ללא בלבול — מקסימום זמן לטבע." },
+  { Icon: MapPin,      title: "כל ישראל — כולל רחוקים", desc: "ים המלח, ערד, הרי הגולן, חוף הים הצפוני — מגיעים לכל מקום. ממזרח למערב, מצפון לדרום." },
+  { Icon: ShieldCheck, title: "ביטוח ואחריות כלולים",   desc: "הציוד מבוטח, הצוות מוסמך, ואנחנו מספקים תמיכה טלפונית 24 שעות לאורך כל ההזמנה." },
+  { Icon: Sparkles,    title: "חוויה ייחודית — לא רק לינה", desc: "OUTORA היא לא השכרת ציוד — זו חוויה שלמה. מהבחירה ועד הפינוי, אתם בידיים טובות." },
 ]
 
 const featuredLocations = [
-  { id: "beach-dor",         name: "חוף דור",      region: "חוף הכרמל",  img: "/gallery/tent-real-2.jpg" },
-  { id: "sea-of-galilee",    name: "כינרת",         region: "צפון",        img: "/gallery/tent-real-3.jpg" },
-  { id: "ramon-crater",      name: "מכתש רמון",     region: "נגב",         img: "/gallery/tent-real-5.jpg" },
-  { id: "dead-sea-north",    name: "ים המלח",       region: "ים המלח",    img: "/gallery/רוחבי.jpeg" },
-  { id: "mt-hermon-foothills",name: "רגלי החרמון",  region: "צפון",        img: "/gallery/tent-real-4.jpg" },
-  { id: "red-sea-eilat",     name: "אילת",          region: "דרום",        img: "/gallery/tent-real-6.jpg" },
+  { id: "beach-dor",          name: "חוף דור",       region: "חוף הכרמל", img: "/gallery/tent-real-2.jpg"  },
+  { id: "sea-of-galilee",     name: "כינרת",          region: "צפון",       img: "/gallery/tent-real-3.jpg"  },
+  { id: "ramon-crater",       name: "מכתש רמון",      region: "נגב",        img: "/gallery/tent-real-5.jpg"  },
+  { id: "dead-sea-north",     name: "ים המלח",        region: "ים המלח",   img: "/gallery/רוחבי.jpeg"       },
+  { id: "mt-hermon-foothills",name: "רגלי החרמון",   region: "צפון",       img: "/gallery/tent-real-4.jpg"  },
+  { id: "red-sea-eilat",      name: "אילת",           region: "דרום",       img: "/gallery/tent-real-6.jpg"  },
 ]
 
 const tentVideos = [
-  { id: "familia-pro",    youtubeId: "c-PEVAPCv9I",  title: "Familia Pro — הסוויטה הגדולה" },
-  { id: "hub-shelter-pro",youtubeId: "LO3zACYmPO4",  title: "Hub Shelter Pro — חיבור אוהלים" },
-  { id: "dome",           youtubeId: "3EDIM1NpvCg",  title: "Aurora Dome — כיפת הפלא" },
-  { id: "hub-station",    youtubeId: "T4zl7-SRW8Y",  title: "Hub Station — העגינה המרכזית" },
-  { id: "familia",        youtubeId: "S4nSEjQviws",  title: "Familia — הבית המשפחתי" },
-  { id: "setup",          youtubeId: "liSE-zQLK10",  title: "הקמה קלה — סולו בדקות" },
+  { id: "familia-pro",     youtubeId: "c-PEVAPCv9I",  title: "Familia Pro — הסוויטה הגדולה"    },
+  { id: "hub-shelter-pro", youtubeId: "LO3zACYmPO4",  title: "Hub Shelter Pro — חיבור אוהלים" },
+  { id: "dome",            youtubeId: "3EDIM1NpvCg",  title: "Aurora Dome — כיפת הפלא"         },
+  { id: "hub-station",     youtubeId: "T4zl7-SRW8Y",  title: "Hub Station — העגינה המרכזית"   },
+  { id: "familia",         youtubeId: "S4nSEjQviws",  title: "Familia — הבית המשפחתי"          },
+  { id: "setup",           youtubeId: "liSE-zQLK10",  title: "הקמה קלה — סולו בדקות"           },
 ]

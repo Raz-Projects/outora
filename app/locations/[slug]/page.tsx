@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Navigation, MapPin, MessageCircle, Waves, TreePine, Mountain, Droplet, Leaf, Route, Eye, Star, Landmark, Anchor, type LucideIcon } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -21,51 +22,51 @@ const landscapeImages: Record<string, string> = {
   lake:      "/gallery/bonfire-beach.jpg",
 };
 
-const landscapeIcons: Record<string, string> = {
-  beach:     "🏖️",
-  forest:    "🌲",
-  desert:    "🏜️",
-  mountains: "⛰️",
-  river:     "💧",
-  lake:      "🌊",
+const landscapeIcons: Record<string, LucideIcon> = {
+  beach:     Waves,
+  forest:    TreePine,
+  desert:    Mountain,
+  mountains: Mountain,
+  river:     Droplet,
+  lake:      Waves,
 };
 
 // Attractions per location (curated editorial content)
-const locationAttractions: Record<string, { title: string; desc: string; icon: string }[]> = {
+const locationAttractions: Record<string, { title: string; desc: string; Icon: LucideIcon }[]> = {
   "dor-beach":       [
-    { title: "שמורת דור-הבונים", icon: "🌿", desc: "שמורת טבע ימית עם אלמוגים, בריכות גיר ועושר ביולוגי ים-תיכוני." },
-    { title: "תל דור",           icon: "🏛️", desc: "אתר חפירות ארכיאולוגיות מרתק על גבעה מעל הים." },
-    { title: "חוף עתלית",        icon: "🚢", desc: "עגינה עתיקה ומצודה צלבנית — ממש ממול." },
+    { title: "שמורת דור-הבונים", Icon: Leaf,     desc: "שמורת טבע ימית עם אלמוגים, בריכות גיר ועושר ביולוגי ים-תיכוני." },
+    { title: "תל דור",           Icon: Landmark, desc: "אתר חפירות ארכיאולוגיות מרתק על גבעה מעל הים." },
+    { title: "חוף עתלית",        Icon: Anchor,   desc: "עגינה עתיקה ומצודה צלבנית — ממש ממול." },
   ],
   "achziv-beach":    [
-    { title: "שמורת טבע אכזיב",  icon: "🌊", desc: "כיכרות סלע-ים עם בריכות טבעיות, שרצים ימיים וצמחייה ים-תיכונית ייחודית." },
-    { title: "עכו העתיקה",       icon: "🏛️", desc: "30 דקות נסיעה — העיר ההיסטורית הכי יפה בישראל." },
-    { title: "ראש הנקרה",        icon: "🏔️", desc: "מערות הגיר הדרמטיות בגבול לבנון — טלפריק ורגל." },
+    { title: "שמורת טבע אכזיב",  Icon: Waves,    desc: "כיכרות סלע-ים עם בריכות טבעיות, שרצים ימיים וצמחייה ים-תיכונית ייחודית." },
+    { title: "עכו העתיקה",       Icon: Landmark, desc: "30 דקות נסיעה — העיר ההיסטורית הכי יפה בישראל." },
+    { title: "ראש הנקרה",        Icon: Mountain, desc: "מערות הגיר הדרמטיות בגבול לבנון — טלפריק ורגל." },
   ],
   "horshat-tal":     [
-    { title: "נחל חרמון (בניאס)", icon: "💧", desc: "הנחל הכי עשיר מים בישראל — בריכות, מפלים וגשרי קפה." },
-    { title: "חצר הכפר",          icon: "🌿", desc: "מסעדות ואטרקציות כפריות בצמוד לחורשה." },
-    { title: "בניאס — שמורת טבע", icon: "🏛️", desc: "מקדש פאן ומקורות נהר הירדן — מרחק קצר." },
+    { title: "נחל חרמון (בניאס)", Icon: Droplet,  desc: "הנחל הכי עשיר מים בישראל — בריכות, מפלים וגשרי קפה." },
+    { title: "חצר הכפר",          Icon: Leaf,     desc: "מסעדות ואטרקציות כפריות בצמוד לחורשה." },
+    { title: "בניאס — שמורת טבע", Icon: Landmark, desc: "מקדש פאן ומקורות נהר הירדן — מרחק קצר." },
   ],
   "ramon-crater":    [
-    { title: "שביל ישראל",        icon: "🥾", desc: "מסלולי טיול מרהיבים בתוך המכתש וסביבו." },
-    { title: "מצפה רמון",         icon: "🔭", desc: "מרכז מבקרים, נקודות תצפית וגינת הנחות — כ-2 ק\"מ." },
-    { title: "כוכבים בדרגה AAA",  icon: "⭐", desc: "אחד מהשמיים הכהים ביותר בישראל — ציון Gold Tier." },
+    { title: "שביל ישראל",        Icon: Route,    desc: "מסלולי טיול מרהיבים בתוך המכתש וסביבו." },
+    { title: "מצפה רמון",         Icon: Eye,      desc: "מרכז מבקרים, נקודות תצפית וגינת הנחות — כ-2 ק\"מ." },
+    { title: "כוכבים בדרגה AAA",  Icon: Star,     desc: "אחד מהשמיים הכהים ביותר בישראל — ציון Gold Tier." },
   ],
   "ein-gedi":        [
-    { title: "שמורת עין גדי",     icon: "🌿", desc: "נחל דוד, נחל עין גדי — מפלים, בריכות ויעלים בכל פינה." },
-    { title: "ים המלח",           icon: "🌊", desc: "שחייה ייחודית בעולם — 5 דקות נסיעה." },
-    { title: "מצדה",              icon: "🏔️", desc: "עלייה בשביל הנחש או בכבלית — תצפית היסטורית ענקית." },
+    { title: "שמורת עין גדי",     Icon: Leaf,     desc: "נחל דוד, נחל עין גדי — מפלים, בריכות ויעלים בכל פינה." },
+    { title: "ים המלח",           Icon: Waves,    desc: "שחייה ייחודית בעולם — 5 דקות נסיעה." },
+    { title: "מצדה",              Icon: Mountain, desc: "עלייה בשביל הנחש או בכבלית — תצפית היסטורית ענקית." },
   ],
   "masada":          [
-    { title: "שביל הנחש",         icon: "🥾", desc: "עלייה מרגשת בשביל מפורסם — 45 דקות ונוף אינסופי." },
-    { title: "שמורת עין גדי",     icon: "🌿", desc: "מפלים, בריכות ויעלים — 20 ק\"מ צפונה." },
-    { title: "ים המלח",           icon: "🌊", desc: "שחיה ייחודית וצפייה בשקיעה הגדולה." },
+    { title: "שביל הנחש",         Icon: Route,    desc: "עלייה מרגשת בשביל מפורסם — 45 דקות ונוף אינסופי." },
+    { title: "שמורת עין גדי",     Icon: Leaf,     desc: "מפלים, בריכות ויעלים — 20 ק\"מ צפונה." },
+    { title: "ים המלח",           Icon: Waves,    desc: "שחיה ייחודית וצפייה בשקיעה הגדולה." },
   ],
   "timna":           [
-    { title: "פטריות הסלע",        icon: "🍄", desc: "תצורות גיאולוגיות מרהיבות בתוך הפארק — ציורי מדבר." },
-    { title: "מכרות נחושת קדומים", icon: "🏛️", desc: "אתרים ארכיאולוגיים של ממלכת מצרים ועמלק בפארק." },
-    { title: "שמיים של תמנע",      icon: "⭐", desc: "אחד מהשמיים הכהים בעולם — כוכבים ירוקים ועמוקים." },
+    { title: "פטריות הסלע",        Icon: TreePine,  desc: "תצורות גיאולוגיות מרהיבות בתוך הפארק — ציורי מדבר." },
+    { title: "מכרות נחושת קדומים", Icon: Landmark,  desc: "אתרים ארכיאולוגיים של ממלכת מצרים ועמלק בפארק." },
+    { title: "שמיים של תמנע",      Icon: Star,      desc: "אחד מהשמיים הכהים בעולם — כוכבים ירוקים ועמוקים." },
   ],
 };
 
@@ -154,24 +155,24 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
       <section className="relative overflow-hidden" style={{ height: "clamp(300px, 45vw, 520px)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={heroImg} alt={loc.nameHe} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(14,9,4,0.92) 0%, rgba(14,9,4,0.35) 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.88) 0%, rgba(13,26,13,0.3) 60%)" }} />
         <div className="absolute inset-0 flex flex-col justify-end px-6 md:px-16 pb-10 md:pb-14 max-w-4xl">
           <Link href="/locations" className="flex items-center gap-2 mb-5 text-sm opacity-60 hover:opacity-100 transition-opacity"
-            style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
+            style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}>
             ← חזרה לכל המקומות
           </Link>
-          <p className="label-fs mb-2" style={{ color: "#C4954A" }}>
-            {landscapeIcons[loc.landscape]} {loc.landscapeHe} · {loc.regionHe}
+          <p className="label-fs mb-2 flex items-center gap-2" style={{ color: "#B89A35" }}>
+            {(() => { const Li = landscapeIcons[loc.landscape]; return Li ? <Li size={14} strokeWidth={1.5} /> : null; })()} {loc.landscapeHe} · {loc.regionHe}
           </p>
           <h1
             className="font-light leading-none"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 8vw, 6rem)", color: "#F7F2E8" }}
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 8vw, 6rem)", color: "#FAFAF6" }}
           >
             {loc.nameHe}
           </h1>
           <p
             className="mt-3 max-w-lg leading-relaxed"
-            style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(1rem, 1.4vw, 1.2rem)", color: "#F7F2E8", opacity: 0.75 }}
+            style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(1rem, 1.4vw, 1.2rem)", color: "#FAFAF6", opacity: 0.75 }}
           >
             {loc.descriptionHe}
           </p>
@@ -179,7 +180,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
       </section>
 
       {/* ── Quick info bar ── */}
-      <div style={{ backgroundColor: "#1C1410", borderBottom: "1px solid rgba(196,149,74,0.15)" }}>
+      <div style={{ backgroundColor: "#1E3D1E", borderBottom: "1px solid rgba(184,154,53,0.2)" }}>
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex flex-wrap gap-4">
             {[
@@ -191,8 +192,8 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
               ...(loc.vehicle4x4 ? [{ label: "דרישה", value: "4×4 נדרש" }] : []),
             ].map((item) => (
               <div key={item.label} className="flex flex-col gap-0.5">
-                <span className="text-xs opacity-45" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>{item.label}</span>
-                <span className="text-sm" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}>{item.value}</span>
+                <span className="text-xs opacity-45" style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}>{item.label}</span>
+                <span className="text-sm" style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}>{item.value}</span>
               </div>
             ))}
           </div>
@@ -202,25 +203,25 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 text-sm transition-all hover:opacity-80"
-              style={{ backgroundColor: "#C4954A", color: "#1C1410", fontFamily: "var(--font-assistant)", fontWeight: 600 }}
+              style={{ backgroundColor: "#B89A35", color: "#1E3D1E", fontFamily: "var(--font-assistant)", fontWeight: 600 }}
             >
-              🗺️ ניווט Google
+              <Navigation size={14} strokeWidth={2} /> ניווט Google
             </a>
             <a
               href={getWazeLink(loc)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 text-sm transition-all hover:opacity-80"
-              style={{ border: "1px solid rgba(196,149,74,0.4)", color: "#C4954A", fontFamily: "var(--font-assistant)" }}
+              style={{ border: "1px solid rgba(184,154,53,0.4)", color: "#B89A35", fontFamily: "var(--font-assistant)" }}
             >
-              📍 Waze
+              <MapPin size={14} strokeWidth={2} /> Waze
             </a>
           </div>
         </div>
       </div>
 
       {/* ── Main content ── */}
-      <section className="py-12 md:py-16 px-4 md:px-8" style={{ backgroundColor: "#0A0602" }}>
+      <section className="py-12 md:py-16 px-4 md:px-8" style={{ backgroundColor: "#FAFAF6" }}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
 
           {/* Left column — main info */}
@@ -229,16 +230,16 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
             {/* Amenities */}
             {loc.amenities.length > 0 && (
               <div>
-                <p className="label-fs mb-4" style={{ color: "#C4954A" }}>מה יש במקום</p>
+                <p className="label-fs mb-4" style={{ color: "#B89A35" }}>מה יש במקום</p>
                 <div className="flex flex-wrap gap-2">
                   {loc.amenities.map((a) => (
                     <span
                       key={a}
                       className="px-3 py-1.5 text-sm"
                       style={{
-                        backgroundColor: "rgba(196,149,74,0.08)",
-                        border: "1px solid rgba(196,149,74,0.25)",
-                        color: "#F7F2E8",
+                        backgroundColor: "rgba(30,61,30,0.05)",
+                        border: "1px solid rgba(30,61,30,0.15)",
+                        color: "#1E3D1E",
                         fontFamily: "var(--font-assistant)",
                       }}
                     >
@@ -252,20 +253,20 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
             {/* Attractions */}
             {attractions.length > 0 && (
               <div>
-                <p className="label-fs mb-4" style={{ color: "#C4954A" }}>אטרקציות ומסלולים בסביבה</p>
+                <p className="label-fs mb-4" style={{ color: "#B89A35" }}>אטרקציות ומסלולים בסביבה</p>
                 <div className="flex flex-col gap-3">
                   {attractions.map((att) => (
                     <div
                       key={att.title}
                       className="flex gap-4 p-4"
-                      style={{ backgroundColor: "rgba(247,242,232,0.03)", border: "1px solid rgba(196,149,74,0.15)" }}
+                      style={{ backgroundColor: "rgba(30,61,30,0.03)", border: "1px solid rgba(30,61,30,0.12)" }}
                     >
-                      <span className="text-2xl mt-0.5">{att.icon}</span>
+                      <att.Icon size={20} stroke="#B89A35" strokeWidth={1.5} style={{ flexShrink: 0, marginTop: "2px" }} />
                       <div>
-                        <p className="font-medium mb-1" style={{ fontFamily: "var(--font-assistant)", color: "#C4954A", fontSize: "0.95rem" }}>
+                        <p className="font-medium mb-1" style={{ fontFamily: "var(--font-assistant)", color: "#B89A35", fontSize: "0.95rem" }}>
                           {att.title}
                         </p>
-                        <p className="text-sm leading-relaxed opacity-70" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+                        <p className="text-sm leading-relaxed" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", opacity: 0.85 }}>
                           {att.desc}
                         </p>
                       </div>
@@ -277,7 +278,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             {/* Gallery strip */}
             <div>
-              <p className="label-fs mb-4" style={{ color: "#C4954A" }}>גלריה</p>
+              <p className="label-fs mb-4" style={{ color: "#B89A35" }}>גלריה</p>
               <div className="grid grid-cols-3 gap-2">
                 {[
                   "/gallery/tent-to-beach-view.jpg",
@@ -301,8 +302,8 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             {/* Recommended tents */}
             {recTents.length > 0 && (
-              <div className="p-5" style={{ backgroundColor: "rgba(247,242,232,0.03)", border: "1px solid rgba(196,149,74,0.2)" }}>
-                <p className="label-fs mb-4" style={{ color: "#C4954A" }}>אוהלים מומלצים למקום זה</p>
+              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(30,61,30,0.1)" }}>
+                <p className="label-fs mb-4" style={{ color: "#B89A35" }}>אוהלים מומלצים למקום זה</p>
                 <div className="flex flex-col gap-3">
                   {recTents.map((t) => (
                     <Link
@@ -315,13 +316,13 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                       <img
                         src={t.image}
                         alt={t.nameHe}
-                        style={{ width: 52, height: 52, objectFit: "cover", flexShrink: 0 }}
+                        style={{ width: 52, height: 52, objectFit: "contain", flexShrink: 0, backgroundColor: "#f5f5f5", padding: "4px" }}
                       />
                       <div>
-                        <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", color: "#F7F2E8" }}>
+                        <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", color: "#1E3D1E" }}>
                           {t.nameHe}
                         </p>
-                        <p className="text-xs opacity-50" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+                        <p className="text-xs" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", opacity: 0.7 }}>
                           עד {t.capacity} אנשים · מ-₪{t.priceFrom}/לילה
                         </p>
                       </div>
@@ -333,15 +334,15 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             {/* Recommended accessories */}
             {recAccs.length > 0 && (
-              <div className="p-5" style={{ backgroundColor: "rgba(247,242,232,0.03)", border: "1px solid rgba(196,149,74,0.2)" }}>
-                <p className="label-fs mb-4" style={{ color: "#C4954A" }}>תוספות מומלצות</p>
+              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(30,61,30,0.1)" }}>
+                <p className="label-fs mb-4" style={{ color: "#B89A35" }}>תוספות מומלצות</p>
                 <div className="flex flex-col gap-2">
                   {recAccs.map((a) => (
                     <div key={a.id} className="flex items-center gap-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={a.image} alt={a.nameHe} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                      <span className="text-sm opacity-80" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>{a.nameHe}</span>
-                      <span className="text-xs mr-auto" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}>+₪{a.pricePerNight}</span>
+                      <span className="text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A" }}>{a.nameHe}</span>
+                      <span className="text-xs mr-auto" style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}>+₪{a.pricePerNight}</span>
                     </div>
                   ))}
                 </div>
@@ -349,11 +350,11 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
             )}
 
             {/* Book CTA */}
-            <div className="p-5" style={{ backgroundColor: "rgba(196,149,74,0.08)", border: "1px solid rgba(196,149,74,0.3)" }}>
-              <p className="font-light mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", color: "#F7F2E8" }}>
+            <div className="p-5" style={{ backgroundColor: "#1E3D1E", border: "none" }}>
+              <p className="font-light mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", color: "#FAFAF6" }}>
                 מוכנים לשמור מקום?
               </p>
-              <p className="text-sm opacity-65 mb-4" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+              <p className="text-sm opacity-65 mb-4" style={{ fontFamily: "var(--font-assistant)", color: "#FAFAF6" }}>
                 הזמינו {loc.nameHe} עם כל הציוד — אנחנו מגיעים ומקימים הכל.
               </p>
               <Link
@@ -368,9 +369,9 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 block text-center text-sm py-2.5 transition-opacity hover:opacity-80"
-                style={{ border: "1px solid rgba(196,149,74,0.3)", color: "#C4954A", fontFamily: "var(--font-assistant)" }}
+                style={{ border: "1px solid rgba(184,154,53,0.25)", color: "#B89A35", fontFamily: "var(--font-assistant)" }}
               >
-                💬 שאלו בוואטסאפ
+                <span className="flex items-center gap-2 justify-center"><MessageCircle size={14} strokeWidth={1.5} /> שאלו בוואטסאפ</span>
               </a>
             </div>
           </div>
@@ -379,16 +380,16 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
       {/* ── Nearby locations ── */}
       {nearby.length > 0 && (
-        <section className="py-12 md:py-16 px-4 md:px-8" style={{ backgroundColor: "#1C1410" }}>
+        <section className="py-12 md:py-16 px-4 md:px-8" style={{ backgroundColor: "#F0EDE4" }}>
           <div className="max-w-6xl mx-auto">
-            <p className="label-fs mb-6" style={{ color: "#C4954A" }}>מקומות נוספים באזור {loc.regionHe}</p>
+            <p className="label-fs mb-6" style={{ color: "#B89A35" }}>מקומות נוספים באזור {loc.regionHe}</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {nearby.map((nb) => (
                 <Link
                   key={nb.id}
                   href={`/locations/${nb.id}`}
                   className="group transition-all"
-                  style={{ textDecoration: "none", border: "1px solid rgba(196,149,74,0.2)" }}
+                  style={{ textDecoration: "none", border: "1px solid rgba(184,154,53,0.2)" }}
                 >
                   <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -398,10 +399,10 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                       style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }}
                       className="group-hover:scale-105"
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,20,16,0.65) 0%, transparent 50%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.65) 0%, transparent 50%)" }} />
                     <p
                       className="absolute bottom-3 right-3 font-light"
-                      style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", color: "#F7F2E8" }}
+                      style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", color: "#FAFAF6" }}
                     >
                       {nb.nameHe}
                     </p>

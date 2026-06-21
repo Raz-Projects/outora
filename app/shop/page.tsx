@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
@@ -242,7 +243,7 @@ export default function ShopPage() {
       <section style={{ backgroundColor: "#140E08", borderBottom: "1px solid rgba(196,149,74,0.15)" }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-wrap items-center justify-between gap-3">
           <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#F7F2E8", opacity: 0.7 }}>
-            💬 כל הזמנה מלווה בייעוץ אישי — נעזור לכם לבחור את הדגם הנכון
+            <span className="flex items-center gap-2"><MessageCircle size={14} strokeWidth={1.5} style={{ flexShrink:0 }} /> כל הזמנה מלווה בייעוץ אישי — נעזור לכם לבחור את הדגם הנכון</span>
           </p>
           <a
             href="https://wa.me/972528448870?text=שלום, אני מעוניין לרכוש ציוד COODY"
@@ -251,7 +252,7 @@ export default function ShopPage() {
             className="btn-fs-solid"
             style={{ padding: "10px 28px", fontSize: "0.85rem" }}
           >
-            💬 דברו איתנו
+            <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> דברו איתנו</span>
           </a>
         </div>
       </section>
@@ -560,7 +561,7 @@ export default function ShopPage() {
             rel="noopener noreferrer"
             className="btn-fs-solid"
           >
-            💬 ייעוץ חינמי בוואטסאפ
+            <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> ייעוץ חינמי בוואטסאפ</span>
           </a>
           <Link href="/book" className="btn-fs-ghost">
             להשכרה במקום

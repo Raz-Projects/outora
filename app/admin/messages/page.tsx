@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MessageCircle, CheckCircle } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
 function getSupabase() {
@@ -105,7 +106,7 @@ export default function MessagesPage() {
         <div className="flex flex-col gap-3">
           {queue.filter(q => q.status === "pending").length === 0 && (
             <div className="text-center py-10 opacity-40" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
-              ✅ אין הודעות הממתינות לטיפול
+              <span className="flex items-center gap-2 justify-center"><CheckCircle size={16} strokeWidth={1.5} /> אין הודעות הממתינות לטיפול</span>
             </div>
           )}
           {queue.map((item) => (
@@ -136,7 +137,7 @@ export default function MessagesPage() {
                     <button onClick={() => setReply({ phone: item.phone, name: item.contact_name || item.phone })}
                       className="text-xs px-3 py-1.5 transition-opacity hover:opacity-80"
                       style={{ backgroundColor: "#25D366", color: "#fff", fontFamily: "var(--font-assistant)" }}>
-                      💬 השב
+                      <span className="flex items-center gap-1"><MessageCircle size={12} strokeWidth={1.5} /> השב</span>
                     </button>
                     <button onClick={() => resolve(item.id)}
                       className="text-xs px-3 py-1.5 transition-opacity hover:opacity-80"
@@ -202,7 +203,7 @@ export default function MessagesPage() {
               <button onClick={sendReply} disabled={sending || !replyText.trim()}
                 className="flex-1 py-2.5 text-sm font-medium disabled:opacity-50"
                 style={{ backgroundColor: "#25D366", color: "#fff", fontFamily: "var(--font-assistant)" }}>
-                {sending ? "שולח..." : "💬 שלח ווטסאפ"}
+                {sending ? "שולח..." : <span className="flex items-center gap-2 justify-center"><MessageCircle size={14} strokeWidth={1.5} /> שלח ווטסאפ</span>}
               </button>
               <button onClick={() => { setReply(null); setReplyText(""); }}
                 className="px-5 py-2.5 text-sm"

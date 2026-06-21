@@ -4,33 +4,40 @@
 
 @layer base {
   :root {
-    --color-forest-deep:  #1C1410;
-    --color-forest:       #1C1610;
-    --color-forest-light: #2A2218;
-    --color-gold:         #C4954A;
-    --color-gold-light:   #D4A860;
-    --color-cream:        #F7F2E8;
-    --color-sand:         #EEE8DA;
+    /* ── OUTORA Nature-Luxury Palette ── */
+    --color-forest-deep:  #1E3D1E;   /* deep forest green — primary dark */
+    --color-forest:       #2A5A2A;   /* mid forest green */
+    --color-forest-light: #3D7A3D;   /* lighter forest */
+    --color-night:        #0D1A0D;   /* forest night — for hero/dramatic sections */
+    --color-gold:         #B89A35;   /* logo gold */
+    --color-gold-light:   #D4B458;   /* hover/lighter gold */
+    --color-cream:        #FAFAF6;   /* warm white — main background */
+    --color-sand:         #F0EDE4;   /* secondary section background */
+    --color-earth:        #E8E0D4;   /* borders, dividers on light bg */
+    --color-amber:        #C4722A;   /* campfire / warm accent */
+    --color-text:         #1A2E1A;   /* primary text (on light) */
+    --color-text-muted:   #4A6A4A;   /* secondary text (on light) */
 
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    /* shadcn/tailwind base tokens */
+    --background: 60 30% 98%;
+    --foreground: 120 30% 15%;
+    --card: 60 25% 97%;
+    --card-foreground: 120 30% 15%;
+    --popover: 60 25% 97%;
+    --popover-foreground: 120 30% 15%;
+    --primary: 120 35% 18%;
+    --primary-foreground: 60 30% 98%;
+    --secondary: 60 20% 94%;
+    --secondary-foreground: 120 30% 15%;
+    --muted: 60 15% 92%;
+    --muted-foreground: 120 15% 40%;
+    --accent: 42 60% 45%;
+    --accent-foreground: 120 30% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 60 15% 88%;
+    --input: 60 15% 88%;
+    --ring: 42 60% 45%;
     --radius: 0.5rem;
   }
 }
@@ -45,26 +52,12 @@
   }
   body {
     font-family: var(--font-assistant), sans-serif;
-    background-color: transparent;
-  }
-  /* Layer 1 — nature photo fixed behind everything */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    background: url('/gallery/bg-nature.jpg') center center / cover no-repeat;
-  }
-  /* Layer 2 — warm dark tint, lets nature show through */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -9;
-    background: rgba(10, 6, 2, 0.60);
+    background-color: var(--color-cream);
+    color: var(--color-text);
   }
   h1, h2, h3, h4 {
     font-family: var(--font-cormorant), serif;
+    color: var(--color-forest-deep);
   }
 }
 
@@ -75,7 +68,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 128px 128px;
   pointer-events: none;
@@ -83,7 +76,7 @@
 }
 
 /* ─────────────────────────────────────────
-   IMAGE HOVER ZOOM (Four Seasons style)
+   IMAGE HOVER ZOOM
 ───────────────────────────────────────── */
 .img-zoom {
   overflow: hidden;
@@ -104,19 +97,75 @@
   width: 48px;
   height: 1px;
   background: var(--color-gold);
-  opacity: 0.5;
+  opacity: 0.6;
   margin: 0 auto;
 }
 .fs-divider-full {
   width: 100%;
   height: 1px;
   background: var(--color-gold);
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 /* ─────────────────────────────────────────
-   FOUR SEASONS BUTTON STYLES
+   BUTTON STYLES
 ───────────────────────────────────────── */
+
+/* Solid gold button — works on any background */
+.btn-fs-solid {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--color-gold);
+  color: var(--color-forest-deep);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.btn-fs-solid:hover {
+  background: var(--color-gold-light);
+}
+
+/* Ghost button — for DARK backgrounds (hero sections) */
+.btn-fs-ghost {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 1px solid rgba(250, 250, 246, 0.45);
+  color: var(--color-cream);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+.btn-fs-ghost:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* Ghost button — for LIGHT backgrounds */
+.btn-fs-ghost-dark {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 1px solid rgba(30, 61, 30, 0.35);
+  color: var(--color-forest-deep);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+.btn-fs-ghost-dark:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* Gold outline button */
 .btn-fs-gold {
   display: inline-block;
   padding: 14px 40px;
@@ -133,54 +182,31 @@
   background: var(--color-gold);
   color: var(--color-forest-deep);
 }
-.btn-fs-solid {
-  display: inline-block;
-  padding: 14px 40px;
-  background: var(--color-gold);
-  color: var(--color-forest-deep);
-  font-family: var(--font-assistant), sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
-}
-.btn-fs-solid:hover {
-  opacity: 0.88;
-}
-.btn-fs-ghost {
-  display: inline-block;
-  padding: 14px 40px;
-  border: 1px solid rgba(248, 246, 242, 0.35);
-  color: var(--color-cream);
-  font-family: var(--font-assistant), sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition: border-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-}
-.btn-fs-ghost:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
-}
 
 /* ─────────────────────────────────────────
    LABEL / EYEBROW TEXT
 ───────────────────────────────────────── */
 .label-fs {
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.88rem;
-  letter-spacing: 0.25em;
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  opacity: 0.9;
+  opacity: 0.85;
 }
+
+/* ─────────────────────────────────────────
+   SECTION BACKGROUNDS
+───────────────────────────────────────── */
+.section-light   { background-color: var(--color-cream); }
+.section-sand    { background-color: var(--color-sand); }
+.section-night   { background-color: var(--color-night); }
+.section-forest  { background-color: var(--color-forest-deep); }
 
 /* ─────────────────────────────────────────
    SCROLL-REVEAL ANIMATIONS
 ───────────────────────────────────────── */
 @keyframes revealUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
 @keyframes revealIn {
@@ -224,9 +250,9 @@
 /* Intersection-observer driven reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible {
   opacity: 1;
@@ -246,8 +272,8 @@
    NAVBAR CTA — subtle gold pulse
 ───────────────────────────────────────── */
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(196,149,74,0.55); }
-  50%       { box-shadow: 0 0 0 6px rgba(196,149,74,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184,154,53,0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(184,154,53,0); }
 }
 .navbar-cta {
   animation: goldPulse 2.8s ease-in-out infinite;
@@ -280,41 +306,60 @@
 }
 
 /* ─────────────────────────────────────────
-   TENT CARD — editorial no-border style
+   TENT CARD — COODY-style hover reveal
 ───────────────────────────────────────── */
 .tent-card-number {
   font-family: var(--font-cormorant), serif;
   font-size: 0.8rem;
   letter-spacing: 0.25em;
-  opacity: 0.4;
+  opacity: 0.35;
+}
+.tent-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffffff;
+  transition: box-shadow 0.4s ease;
+}
+.tent-card:hover {
+  box-shadow: 0 12px 48px rgba(30, 61, 30, 0.15);
+}
+.tent-card .card-cta {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.tent-card:hover .card-cta {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ─────────────────────────────────────────
-   SCROLLBAR (subtle)
+   SCROLLBAR (subtle gold)
 ───────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-sand); }
 ::-webkit-scrollbar-thumb {
   background: var(--color-gold);
-  opacity: 0.4;
+  opacity: 0.5;
   border-radius: 3px;
 }
 
 /* ─────────────────────────────────────────
    DELIVERY OPTION CARDS — hover effect
 ───────────────────────────────────────── */
-.delivery-card          { transition: background-color 0.25s ease; }
-.delivery-card:hover    { background-color: #251808 !important; }
-.delivery-card.featured { background-color: #2A1E0A; }
-.delivery-card.featured:hover { background-color: #3A2A0E !important; }
+.delivery-card          { transition: background-color 0.25s ease, box-shadow 0.25s ease; }
+.delivery-card:hover    { background-color: rgba(30,61,30,0.06) !important; box-shadow: 0 4px 20px rgba(30,61,30,0.1); }
+.delivery-card.featured { background-color: rgba(184,154,53,0.08); }
+.delivery-card.featured:hover { background-color: rgba(184,154,53,0.14) !important; }
 .delivery-card .pick-cta { opacity: 0; transition: opacity 0.25s ease; }
 .delivery-card:hover .pick-cta { opacity: 1; }
 
 /* ─────────────────────────────────────────
-   ACCESSORIES CARDS — force white bg
+   ACCESSORIES SECTION
 ───────────────────────────────────────── */
 .acc-section {
-  background-color: #1C1410 !important;
+  background-color: var(--color-sand) !important;
   position: relative;
   z-index: 1;
   isolation: isolate;
@@ -323,7 +368,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-color: #1C1410;
+  background-color: var(--color-sand);
   z-index: 0;
 }
 .acc-section > * {
@@ -335,6 +380,11 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
+  box-shadow: 0 2px 16px rgba(30,61,30,0.08);
+  transition: box-shadow 0.3s ease;
+}
+.acc-card:hover {
+  box-shadow: 0 8px 32px rgba(30,61,30,0.15);
 }
 .acc-img-box {
   background-color: #ffffff !important;
@@ -342,7 +392,7 @@
   z-index: 2;
 }
 .acc-card-text {
-  background-color: #1C1410 !important;
+  background-color: #ffffff !important;
   position: relative;
   z-index: 2;
 }
@@ -350,8 +400,6 @@
 /* ─────────────────────────────────────────
    ACCESSIBILITY
 ───────────────────────────────────────── */
-
-/* Skip to main content link */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -372,19 +420,16 @@
   top: 0;
 }
 
-/* Visible focus ring for keyboard navigation */
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Remove focus ring for mouse users */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* High contrast text helpers */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -397,7 +442,6 @@
   border: 0;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

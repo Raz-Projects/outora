@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -223,7 +224,7 @@ export default function ComparePage() {
               rel="noopener noreferrer"
               className="btn-fs-solid"
             >
-              💬 ייעצו לי בוואטסאפ
+              <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> ייעצו לי בוואטסאפ</span>
             </a>
             <Link href="/tents" className="btn-fs-ghost">
               כל פרטי האוהלים

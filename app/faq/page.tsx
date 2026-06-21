@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { MessageCircle } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -193,7 +194,7 @@ export default async function FAQPage() {
                 rel="noopener noreferrer"
                 className="btn-fs-solid"
               >
-                💬 שאלו אותנו בוואטסאפ
+                <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> שאלו אותנו בוואטסאפ</span>
               </a>
               <Link href="/book" className="btn-fs-ghost">
                 להזמנה

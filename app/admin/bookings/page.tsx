@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
 function getSupabase() {
@@ -228,7 +229,7 @@ export default function BookingsPage() {
                       target="_blank" rel="noopener noreferrer"
                       className="mt-4 block text-center text-sm py-2 transition-opacity hover:opacity-80"
                       style={{ backgroundColor: "#25D366", color: "#fff", fontFamily: "var(--font-assistant)" }}>
-                      💬 ווטסאפ ללקוח
+                      <span className="flex items-center gap-2 justify-center"><MessageCircle size={14} strokeWidth={1.5} /> ווטסאפ ללקוח</span>
                     </a>
                   )}
                 </>

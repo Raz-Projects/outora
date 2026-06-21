@@ -1,7 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { CheckCircle2, MessageCircle, CreditCard, AlertTriangle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -65,6 +67,10 @@ function calcTotal(form: FormState, promoCode: string) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function BookPage() {
+  return <Suspense fallback={null}><BookContent /></Suspense>;
+}
+
+function BookContent() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<FormState>({
@@ -202,7 +208,7 @@ export default function BookPage() {
       <main style={{ minHeight: "100vh" }}>
         <Navbar />
         <section className="flex flex-col items-center justify-center text-center px-4" style={{ minHeight: "80vh" }}>
-          <div className="text-5xl mb-6">🎉</div>
+          <CheckCircle2 size={52} stroke="#C4954A" strokeWidth={1} className="mb-6" />
           <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "2.4rem", color: "#F7F2E8", fontWeight: 300 }}>
             ההודעה נשלחה!
           </h2>
@@ -210,7 +216,7 @@ export default function BookPage() {
             נחזור אליכם תוך שעה לאישור ותיאום הפרטים הסופיים.
           </p>
           <a href={`https://wa.me/972528448870?text=${buildWAMessage()}`} target="_blank" rel="noopener noreferrer" className="btn-fs-solid" style={{ padding: "14px 36px" }}>
-            💬 שלחו שוב בוואטסאפ
+            <span className="flex items-center gap-2 justify-center"><MessageCircle size={16} strokeWidth={1.5} /> שלחו שוב בוואטסאפ</span>
           </a>
         </section>
         <Footer />
@@ -341,7 +347,7 @@ export default function BookPage() {
                 )}
                 {availStatus === "unavailable" && (
                   <div className="p-3 text-sm" style={{ backgroundColor: "rgba(239,83,80,0.1)", border: "1px solid rgba(239,83,80,0.35)", color: "#ef5350", fontFamily: "var(--font-assistant)", lineHeight: 1.6 }}>
-                    ⚠️ האוהל תפוס בתאריכים אלה. נסו תאריכים אחרים, או{" "}
+                    <AlertTriangle size={14} strokeWidth={1.5} style={{ display:"inline", marginLeft:"4px", verticalAlign:"middle" }} /> האוהל תפוס בתאריכים אלה. נסו תאריכים אחרים, או{" "}
                     <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer" style={{ color: "#ef5350", textDecoration: "underline" }}>
                       צרו קשר בוואטסאפ
                     </a>
@@ -562,7 +568,7 @@ export default function BookPage() {
 
                 {/* Deposit notice */}
                 <div className="p-4 flex gap-3 items-start" style={{ backgroundColor: "rgba(196,149,74,0.07)", border: "1px solid rgba(196,149,74,0.25)" }}>
-                  <span style={{ fontSize: "1.2rem" }}>💳</span>
+                  <CreditCard size={20} stroke="#C4954A" strokeWidth={1.5} style={{ flexShrink: 0, marginTop:"2px" }} />
                   <p className="text-sm leading-relaxed" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)", opacity: 0.8 }}>
                     בעת קבלת הציוד תידרש חתימה על שובר אשראי כפיקדון. הפיקדון מוחזר במלואו בסיום השכירות, בכפוף להחזרת הציוד תקין.
                   </p>
@@ -571,7 +577,7 @@ export default function BookPage() {
                 {/* Damage list */}
                 <details className="p-4" style={{ backgroundColor: "rgba(28,20,16,0.5)", border: "1px solid rgba(196,149,74,0.2)", cursor: "pointer" }}>
                   <summary className="text-sm font-medium list-none flex justify-between items-center" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
-                    <span>⚠️ מחירון נזקים ואובדן ציוד</span>
+                    <span className="flex items-center gap-2"><AlertTriangle size={15} stroke="#C4954A" strokeWidth={1.5} /> מחירון נזקים ואובדן ציוד</span>
                     <span style={{ color: "#C4954A", fontSize: "0.7rem", letterSpacing: "0.1em" }}>לחצו לפתיחה</span>
                   </summary>
                   <div className="mt-4 flex flex-col gap-1.5">
@@ -647,7 +653,7 @@ export default function BookPage() {
                   className="btn-fs-solid w-full disabled:opacity-50"
                   style={{ padding: "16px" }}
                 >
-                  {loading ? "שולח..." : "💬 שלחו הזמנה בוואטסאפ"}
+                  {loading ? "שולח..." : <span className="flex items-center gap-2 justify-center"><MessageCircle size={16} strokeWidth={1.5} /> שלחו הזמנה בוואטסאפ</span>}
                 </button>
                 <p className="text-center text-sm opacity-40" style={{ color: "#F7F2E8", fontFamily: "var(--font-assistant)" }}>
                   ההזמנה תישלח לוואטסאפ שלנו — נחזור אליכם לאישור ותיאום תשלום.

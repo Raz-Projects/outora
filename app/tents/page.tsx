@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
@@ -33,38 +34,38 @@ export default function TentsPage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, #1C1410 0%, rgba(28,20,16,0.35) 55%, rgba(28,20,16,0.15) 100%)",
+              "linear-gradient(to top, #0D1A0D 0%, rgba(13,26,13,0.35) 55%, rgba(13,26,13,0.1) 100%)",
           }}
         />
         <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-20 px-6 md:px-12">
           <div className="max-w-7xl mx-auto w-full">
-            <p className="label-fs mb-5" style={{ color: "#C4954A", letterSpacing: "0.3em" }}>OUTORA TENTS</p>
+            <p className="label-fs mb-5" style={{ color: "#B89A35", letterSpacing: "0.3em" }}>OUTORA TENTS</p>
             <h1
               className="font-light"
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontSize: "clamp(3.5rem, 8vw, 7rem)",
-                color: "#F7F2E8",
+                color: "#FAFAF6",
                 lineHeight: 1,
               }}
             >
               חמישה אוהלים.<br />
-              <em style={{ color: "#C4954A", fontStyle: "italic" }}>אין סוף אפשרויות.</em>
+              <em style={{ color: "#B89A35", fontStyle: "italic" }}>אין סוף אפשרויות.</em>
             </h1>
             <div className="fs-divider mt-8" style={{ margin: "2rem 0 0 0" }} />
           </div>
         </div>
       </section>
 
-      {/* ── Intro strip ── */}
-      <section className="py-14 md:py-20 px-6 md:px-12" style={{ backgroundColor: "#140E08" }}>
+      {/* ── Intro strip — cream ── */}
+      <section className="py-14 md:py-20 px-6 md:px-12" style={{ backgroundColor: "#FAFAF6" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
           <p
             className="font-light leading-relaxed max-w-2xl"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(1.35rem, 2.2vw, 1.7rem)",
-              color: "#F7F2E8",
+              color: "#1E3D1E",
               fontStyle: "italic",
               opacity: 0.85,
               lineHeight: 1.7,
@@ -81,12 +82,12 @@ export default function TentsPage() {
         </div>
       </section>
 
-      {/* ── Featured tent — dramatic full layout ── */}
-      <section className="px-6 md:px-12 py-14 md:py-20" style={{ backgroundColor: "#1C1410" }}>
+      {/* ── Featured tent — forest dark ── */}
+      <section className="px-6 md:px-12 py-14 md:py-20" style={{ backgroundColor: "#1E3D1E" }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-10">
-            <p className="label-fs" style={{ color: "#C4954A", letterSpacing: "0.25em" }}>המומלץ שלנו</p>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(196,149,74,0.25)" }} />
+            <p className="label-fs" style={{ color: "#B89A35", letterSpacing: "0.25em" }}>המומלץ שלנו</p>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(184,154,53,0.25)" }} />
           </div>
 
           <Link
@@ -97,7 +98,7 @@ export default function TentsPage() {
             {/* Image */}
             <div
               className="overflow-hidden flex items-center justify-center relative"
-              style={{ minHeight: "420px", backgroundColor: "#110c08", padding: "24px" }}
+              style={{ minHeight: "420px", backgroundColor: "#ffffff", padding: "24px" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -106,26 +107,9 @@ export default function TentsPage() {
                 className="transition-transform duration-700 group-hover:scale-105"
                 style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", maxHeight: "400px" }}
               />
-              {/* Logo overlay */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-transparent.png"
-                alt=""
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  bottom: "20px",
-                  left: "20px",
-                  width: "64px",
-                  opacity: 0.45,
-                  mixBlendMode: "overlay",
-                  filter: "brightness(0) invert(1)",
-                  pointerEvents: "none",
-                }}
-              />
               <span
                 className="absolute top-4 right-4 tent-card-number"
-                style={{ color: "#C4954A", opacity: 0.6 }}
+                style={{ color: "#B89A35", opacity: 0.7 }}
               >
                 No. 01
               </span>
@@ -134,14 +118,14 @@ export default function TentsPage() {
             {/* Info panel */}
             <div
               className="flex flex-col justify-center px-8 py-10 md:px-14 md:py-14"
-              style={{ borderRight: "1px solid rgba(196,149,74,0.15)", backgroundColor: "#1C1410" }}
+              style={{ borderRight: "1px solid rgba(184,154,53,0.15)", backgroundColor: "#1E3D1E" }}
             >
               <h2
                 className="font-light mb-3"
                 style={{
                   fontFamily: "var(--font-cormorant)",
                   fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)",
-                  color: "#F7F2E8",
+                  color: "#FAFAF6",
                   letterSpacing: "0.04em",
                   lineHeight: 1.1,
                 }}
@@ -153,8 +137,8 @@ export default function TentsPage() {
                 style={{
                   fontFamily: "var(--font-cormorant)",
                   fontSize: "clamp(1.1rem, 1.6vw, 1.3rem)",
-                  color: "#C4954A",
-                  opacity: 0.85,
+                  color: "#B89A35",
+                  opacity: 0.9,
                 }}
               >
                 {featured.taglineHe}
@@ -164,7 +148,7 @@ export default function TentsPage() {
                 style={{
                   fontFamily: "var(--font-assistant)",
                   fontSize: "clamp(0.95rem, 1.2vw, 1.05rem)",
-                  color: "#F7F2E8",
+                  color: "#FAFAF6",
                   opacity: 0.65,
                   lineHeight: 1.9,
                 }}
@@ -183,8 +167,8 @@ export default function TentsPage() {
                     key={tag}
                     className="label-fs"
                     style={{
-                      color: "#C4954A",
-                      border: "1px solid rgba(196,149,74,0.4)",
+                      color: "#B89A35",
+                      border: "1px solid rgba(184,154,53,0.4)",
                       padding: "7px 16px",
                     }}
                   >
@@ -193,12 +177,12 @@ export default function TentsPage() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between border-t pt-8" style={{ borderColor: "rgba(196,149,74,0.2)" }}>
+              <div className="flex items-center justify-between border-t pt-8" style={{ borderColor: "rgba(184,154,53,0.2)" }}>
                 <span
                   style={{
                     fontFamily: "var(--font-cormorant)",
                     fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
-                    color: "#C4954A",
+                    color: "#B89A35",
                     fontWeight: 300,
                   }}
                 >
@@ -214,12 +198,12 @@ export default function TentsPage() {
         </div>
       </section>
 
-      {/* ── Specs comparison strip ── */}
-      <section style={{ backgroundColor: "#0C0804" }}>
+      {/* ── Stats strip — sand ── */}
+      <section style={{ backgroundColor: "#F0EDE4" }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div
             className="grid grid-cols-2 md:grid-cols-4 gap-px"
-            style={{ backgroundColor: "#221608" }}
+            style={{ backgroundColor: "rgba(30,61,30,0.08)" }}
           >
             {[
               { label: "אוהלים", value: "5" },
@@ -227,26 +211,26 @@ export default function TentsPage() {
               { label: "שטח גדול ביותר", value: "17.2 מ\"ר" },
               { label: "הקמה עצמית", value: "≈ 5 דק'" },
             ].map((s) => (
-              <div key={s.label} className="flex flex-col items-center text-center px-6 py-8" style={{ backgroundColor: "#1C1410" }}>
+              <div key={s.label} className="flex flex-col items-center text-center px-6 py-8" style={{ backgroundColor: "#F0EDE4" }}>
                 <span
                   className="font-light mb-1"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#C4954A" }}
+                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#B89A35" }}
                 >
                   {s.value}
                 </span>
-                <span className="label-fs" style={{ color: "#F7F2E8", opacity: 0.5 }}>{s.label}</span>
+                <span className="label-fs" style={{ color: "#1E3D1E", opacity: 0.55 }}>{s.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Remaining 4 tents — editorial grid ── */}
-      <section className="px-6 md:px-12 py-16 md:py-28" style={{ backgroundColor: "#1C1410" }}>
+      {/* ── Remaining 4 tents — sand grid ── */}
+      <section className="px-6 md:px-12 py-16 md:py-28" style={{ backgroundColor: "#F0EDE4" }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-14">
-            <p className="label-fs" style={{ color: "#C4954A", letterSpacing: "0.25em" }}>כל הדגמים</p>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(196,149,74,0.25)" }} />
+            <p className="label-fs" style={{ color: "#1E3D1E", letterSpacing: "0.25em" }}>כל הדגמים</p>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(30,61,30,0.15)" }} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -257,8 +241,8 @@ export default function TentsPage() {
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <section className="py-20 md:py-32 px-6 md:px-12 text-center" style={{ backgroundColor: "#100A06" }}>
+      {/* ── Bottom CTA — night ── */}
+      <section className="py-20 md:py-32 px-6 md:px-12 text-center" style={{ backgroundColor: "#0D1A0D" }}>
         <div className="max-w-xl mx-auto flex flex-col items-center gap-8">
           <div className="fs-divider" />
           <h2
@@ -266,19 +250,19 @@ export default function TentsPage() {
             style={{
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(2.4rem, 5vw, 4rem)",
-              color: "#F7F2E8",
+              color: "#FAFAF6",
               lineHeight: 1.1,
             }}
           >
             לא בטוחים איזה אוהל?<br />
-            <em style={{ color: "#C4954A" }}>נשמח לעזור.</em>
+            <em style={{ color: "#B89A35" }}>נשמח לעזור.</em>
           </h2>
           <p
             className="font-light"
             style={{
               fontFamily: "var(--font-assistant)",
               fontSize: "clamp(1rem, 1.4vw, 1.15rem)",
-              color: "#F7F2E8",
+              color: "#FAFAF6",
               opacity: 0.6,
             }}
           >
@@ -293,31 +277,31 @@ export default function TentsPage() {
               rel="noopener noreferrer"
               className="btn-fs-ghost"
             >
-              💬 ייעצו לי
+              <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> ייעצו לי</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── Accessories / Extras ── */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#0E0904", borderTop: "1px solid rgba(196,149,74,0.12)" }}>
+      {/* ── Accessories / Extras — cream ── */}
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#FAFAF6", borderTop: "1px solid rgba(30,61,30,0.08)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <p className="label-fs mb-3" style={{ color: "#C4954A" }}>תוספות</p>
-            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#F7F2E8" }}>
+            <p className="label-fs mb-3" style={{ color: "#B89A35" }}>תוספות</p>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1E3D1E" }}>
               שדרגו את הלילה
             </h2>
-            <p className="mt-4 opacity-60 max-w-xl mx-auto" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8", fontSize: "1rem", lineHeight: 1.75 }}>
+            <p className="mt-4 max-w-xl mx-auto" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", fontSize: "1rem", lineHeight: 1.75, opacity: 0.85 }}>
               לכל הזמנה ניתן להוסיף ציוד ושירותים נוספים — ממוקד אש ועד מכונת קפה.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(196,149,74,0.12)" }}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(30,61,30,0.08)" }}>
             {accessories.map((acc) => (
               <div
                 key={acc.id}
                 className="flex flex-col gap-3 p-5"
-                style={{ backgroundColor: "#0E0904" }}
+                style={{ backgroundColor: "#FAFAF6" }}
               >
                 <div style={{ width: "100%", aspectRatio: "4/3", position: "relative", overflow: "hidden" }}>
                   <Image
@@ -329,10 +313,10 @@ export default function TentsPage() {
                   />
                 </div>
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="font-medium text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#F7F2E8" }}>
+                  <span className="font-medium text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#1E3D1E" }}>
                     {acc.nameHe}
                   </span>
-                  <span className="shrink-0 font-light text-sm" style={{ color: "#C4954A", fontFamily: "var(--font-assistant)" }}>
+                  <span className="shrink-0 font-light text-sm" style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}>
                     +₪{acc.pricePerNight}/לילה
                   </span>
                 </div>

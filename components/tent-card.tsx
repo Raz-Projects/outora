@@ -43,17 +43,16 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
   return (
     <Link
       href={`/tents/${tent.slug}`}
-      className="group block"
-      style={{ color: "inherit", textDecoration: "none" }}
+      className="tent-card group block"
+      style={{ color: "inherit", textDecoration: "none", border: "1px solid rgba(184,154,53,0.18)" }}
       onMouseEnter={startCycle}
       onMouseLeave={stopCycle}
     >
-      {/* ── Image box ── */}
+      {/* ── Image box — white, product-on-white (COODY style) ── */}
       <div
         className="relative overflow-hidden w-full flex items-center justify-center"
-        style={{ height: "300px", backgroundColor: "#1C1410", padding: "12px" }}
+        style={{ height: "260px", backgroundColor: "#ffffff", padding: "16px" }}
       >
-        {/* All images stacked, fade between them */}
         {images.map((src, i) => (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
@@ -62,9 +61,9 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
             alt={tent.nameEn}
             style={{
               position: "absolute",
-              inset: "12px",
-              width: "calc(100% - 24px)",
-              height: "calc(100% - 24px)",
+              inset: "16px",
+              width: "calc(100% - 32px)",
+              height: "calc(100% - 32px)",
               objectFit: "contain",
               display: "block",
               transition: "opacity 0.5s ease",
@@ -73,31 +72,13 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           />
         ))}
 
-        {/* Logo printed-on-fabric effect */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-transparent.png"
-          alt=""
-          aria-hidden
-          style={{
-            position: "absolute",
-            bottom: "14px",
-            left: "14px",
-            width: "54px",
-            opacity: 0.55,
-            mixBlendMode: "overlay",
-            filter: "brightness(0) invert(1)",
-            pointerEvents: "none",
-            zIndex: 2,
-          }}
-        />
-
+        {/* Number badge */}
         {num && (
           <span
             className="absolute top-3 right-3 tent-card-number"
-            style={{ color: "#C4954A", opacity: 0.7, zIndex: 2 }}
+            style={{ color: "#B89A35", opacity: 0.8, zIndex: 2 }}
           >
-            No. {num}
+            No.{num}
           </span>
         )}
 
@@ -108,11 +89,9 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
               <span
                 key={i}
                 style={{
-                  width: "5px",
-                  height: "5px",
-                  borderRadius: "50%",
-                  backgroundColor: "#C4954A",
-                  opacity: i === imgIdx ? 1 : 0.3,
+                  width: "5px", height: "5px", borderRadius: "50%",
+                  backgroundColor: "#B89A35",
+                  opacity: i === imgIdx ? 1 : 0.25,
                   transition: "opacity 0.3s",
                   display: "block",
                 }}
@@ -121,38 +100,46 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           </div>
         )}
 
-        {/* Add-to-cart overlay button */}
-        <button
-          onClick={handleAddToCart}
-          className="absolute bottom-3 left-3 px-3 py-1.5 text-sm transition-all duration-300"
-          style={{
-            fontFamily: "var(--font-assistant)",
-            letterSpacing: "0.1em",
-            backgroundColor: inCart ? "#C4954A" : "rgba(28,20,16,0.85)",
-            border: "1px solid #C4954A",
-            color: inCart ? "#1C1410" : "#C4954A",
-            opacity: inCart ? 1 : 0,
-            zIndex: 3,
-          }}
-          onMouseEnter={(e) => { if (!inCart) (e.currentTarget as HTMLElement).style.opacity = "1"; }}
-          onMouseLeave={(e) => { if (!inCart) (e.currentTarget as HTMLElement).style.opacity = "0"; }}
+        {/* COODY-style hover CTA — reveal on hover */}
+        <div
+          className="card-cta absolute bottom-0 left-0 right-0 flex items-center justify-between px-4 py-3"
+          style={{ backgroundColor: "rgba(250,250,246,0.96)", borderTop: "1px solid rgba(184,154,53,0.2)" }}
         >
-          {inCart ? "✓ בסל" : "+ הוסיפו לסל"}
-        </button>
+          <button
+            onClick={handleAddToCart}
+            className="text-xs transition-colors"
+            style={{
+              fontFamily: "var(--font-assistant)",
+              letterSpacing: "0.12em",
+              color: inCart ? "#B89A35" : "#1E3D1E",
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
+              textTransform: "uppercase",
+            }}
+          >
+            {inCart ? "✓ בסל" : "+ הוסיפו לסל"}
+          </button>
+          <span
+            style={{ fontFamily: "var(--font-assistant)", fontSize: "0.7rem", letterSpacing: "0.14em", color: "#B89A35", textTransform: "uppercase" }}
+          >
+            גלו עוד ←
+          </span>
+        </div>
       </div>
 
-      {/* ── Text block ── */}
+      {/* ── Text block — light background ── */}
       <div
-        className="pt-5 pb-2"
-        style={{ borderTop: "1px solid rgba(196,149,74,0.25)" }}
+        className="pt-4 pb-3 px-1"
+        style={{ borderTop: "1px solid rgba(184,154,53,0.18)", backgroundColor: "#ffffff" }}
       >
         <h3
-          className="font-light leading-tight mb-1 tracking-wide"
+          className="font-light leading-tight mb-1"
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(1.5rem, 2vw, 1.9rem)",
-            color: "#F7F2E8",
-            letterSpacing: "0.06em",
+            fontSize: "clamp(1.4rem, 2vw, 1.8rem)",
+            color: "#1E3D1E",
+            letterSpacing: "0.04em",
           }}
         >
           {tent.nameEn}
@@ -162,37 +149,30 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           className="font-light italic mb-4"
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "1.2rem",
-            color: "#F7F2E8",
-            opacity: 0.45,
+            fontSize: "1.05rem",
+            color: "#4A6A4A",
+            opacity: 0.8,
           }}
         >
           {tent.taglineHe}
         </p>
 
         <div className="flex items-end justify-between">
-          <span className="label-fs" style={{ color: "#F7F2E8", opacity: 0.5, fontSize: "0.9rem" }}>
+          <span className="label-fs" style={{ color: "#4A6A4A", fontSize: "0.78rem", opacity: 0.8 }}>
             {tent.sizeSqm} מ״ר · עד {tent.capacity}
           </span>
           <span
             className="flex items-center gap-2 transition-all duration-300 group-hover:gap-3"
             style={{
               fontFamily: "var(--font-assistant)",
-              fontSize: "0.95rem",
-              letterSpacing: "0.12em",
-              color: "#C4954A",
+              fontSize: "0.9rem",
+              letterSpacing: "0.1em",
+              color: "#B89A35",
+              fontWeight: 600,
             }}
           >
             מ-₪{tent.priceFrom}
-            <svg
-              viewBox="0 0 16 16"
-              width="12"
-              height="12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              style={{ transform: "rotate(180deg)" }}
-            >
+            <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ transform: "rotate(180deg)" }}>
               <path d="M3 8h10M9 4l4 4-4 4" />
             </svg>
           </span>
