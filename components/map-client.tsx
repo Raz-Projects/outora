@@ -1,5 +1,6 @@
 "use client"
 
+import "leaflet/dist/leaflet.css"
 import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -314,10 +315,6 @@ export default function MapClient() {
 
         {/* Map */}
         <div className="flex-1 relative" style={{ minHeight: "400px" }}>
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          />
           <div ref={mapDivRef} className="absolute inset-0" />
         </div>
 
