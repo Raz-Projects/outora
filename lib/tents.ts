@@ -76,7 +76,7 @@ export const tents: Tent[] = [
     waterproofMm: 1000,
     material: "קנבס TC 210gsm (65% פוליאסטר / 35% כותנה)",
     image: "/tents/familia-pro/img-01.jpg",
-    gallery: Array.from({length: 22}, (_, i) => `/tents/familia-pro/img-${String(i+1).padStart(2,'0')}.jpg`),
+    gallery: Array.from({length: 18}, (_, i) => `/tents/familia-pro/img-${String(i+1).padStart(2,'0')}.jpg`),
     features: [
       "17.2 מ״ר שטח פנימי",
       "2 חדרים נפרדים — מחיצה נשלפת ביניהם",
@@ -123,7 +123,7 @@ export const tents: Tent[] = [
     waterproofMm: 1000,
     material: "קנבס TC 210gsm (65% פוליאסטר / 35% כותנה)",
     image: "/tents/hub-shelter-pro/hero-branded.png",
-    gallery: Array.from({length: 20}, (_, i) => `/tents/hub-shelter-pro/img-${String(i+1).padStart(2,'0')}.jpg`),
+    gallery: Array.from({length: 8}, (_, i) => `/tents/hub-shelter-pro/img-${String(i+1).padStart(2,'0')}.jpg`),
     features: [
       "13.7 מ״ר שטח פנימי",
       "גובה פנים 2.7 מ׳ — הגבוה בסדרה",
@@ -171,7 +171,7 @@ export const tents: Tent[] = [
     waterproofMm: 1000,
     material: "קנבס TC 210gsm (65% פוליאסטר / 35% כותנה)",
     image: "/tents/dome/hero-branded.png",
-    gallery: Array.from({length: 11}, (_, i) => `/tents/dome/img-${String(i+1).padStart(2,'0')}.jpg`),
+    gallery: Array.from({length: 6}, (_, i) => `/tents/dome/img-${String(i+1).padStart(2,'0')}.jpg`),
     features: [
       "כ-20 מ״ר שטח פנימי (קוטר 5 מ׳)",
       "גובה מרכזי 2.7 מ׳",
