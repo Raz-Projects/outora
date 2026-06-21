@@ -218,9 +218,9 @@ export default function Home() {
       <section style={{ backgroundColor: C.sand }}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-16 md:py-24">
           <ScrollReveal className="text-center mb-14">
-            <p className="label-fs mb-5" style={{ color: C.gold }}>למי זה מתאים</p>
+            <p className="label-fs mb-5" style={{ color: C.gold }}>לכל סיבה</p>
             <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4vw, 3.4rem)", color: C.forest, lineHeight: 1.2 }}>
-              לכל רגע יש מקום נכון.
+              כל סיבה היא סיבה טובה.
             </h2>
           </ScrollReveal>
 
@@ -228,18 +228,19 @@ export default function Home() {
             {forWhomCards.map((card) => (
               <div
                 key={card.title}
-                className="flex flex-col items-center text-center gap-6 px-6 py-10 md:py-14"
+                className="flex flex-col items-center text-center gap-7 px-6 py-12 md:py-16 group cursor-pointer transition-all duration-500"
                 style={{ backgroundColor: C.cream }}
               >
-                <svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke={C.gold} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={C.gold} strokeWidth="0.85" strokeLinecap="round" strokeLinejoin="round"
+                  style={{ transition: "opacity 0.4s", opacity: 0.85 }}>
                   {card.iconPath}
                 </svg>
-                <div style={{ width: "28px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
+                <div style={{ width: "24px", height: "1px", backgroundColor: C.gold, opacity: 0.35 }} />
                 <div>
-                  <h3 className="font-light mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.2rem, 1.8vw, 1.6rem)", color: C.forest, lineHeight: 1.3 }}>
+                  <h3 className="font-light mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.25rem, 1.8vw, 1.65rem)", color: C.forest, lineHeight: 1.3 }}>
                     {card.title}
                   </h3>
-                  <p className="font-light" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.1vw, 1.1rem)", color: C.muted, lineHeight: 1.8 }}>
+                  <p className="font-light" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.9rem, 1vw, 1rem)", color: C.muted, lineHeight: 1.9 }}>
                     {card.desc}
                   </p>
                 </div>
@@ -819,24 +820,102 @@ export default function Home() {
 
 const forWhomCards = [
   {
-    title: "וויקנד עם הבת זוג",
-    desc: "בורחים ממולטון. רק שניכם, שקט אמיתי, ושמיים מלאי כוכבים.",
-    iconPath: (<><circle cx="18" cy="20" r="8" /><circle cx="30" cy="20" r="8" /><path d="M24 14 C24 14 24 10 24 8" /><path d="M21 10 L24 8 L27 10" /></>),
+    title: "ילדים שמחים. הורים נושמים.",
+    desc: "בלי מסך, בלי אנימטור, בלי 'מתי מגיעים'. פשוט טבע — והוויקנד שהם יספרו עליו שנה.",
+    iconPath: (
+      <>
+        {/* Three pine trees of graduated height */}
+        <path d="M10 52 L10 42 M7 46 L13 46 M8 42 L12 42 L10 34 Z" />
+        <path d="M32 52 L32 38 M27 44 L37 44 M28 38 L36 38 L32 26 Z" />
+        <path d="M54 52 L54 42 M51 46 L57 46 M52 42 L56 42 L54 34 Z" />
+        {/* Ground line */}
+        <path d="M4 52 L60 52" strokeOpacity="0.4" />
+        {/* Stars scattered above */}
+        <circle cx="18" cy="14" r="1.4" />
+        <circle cx="32" cy="8" r="2" />
+        <circle cx="46" cy="14" r="1.2" />
+        <circle cx="10" cy="22" r="0.8" />
+        <circle cx="54" cy="20" r="0.9" />
+        {/* Moon crescent — outer arc minus inner offset */}
+        <path d="M52 6 C56 9 56 17 52 20 C55 17 55 9 52 6 Z" />
+      </>
+    ),
   },
   {
-    title: "מסיבת רווקות",
-    desc: "הלילה הכי טוב לפני ה-big day — רק הבנות, הטבע, והכוסות הנכונות.",
-    iconPath: (<><path d="M18 8 L18 34 M14 34 L22 34" /><path d="M14 8 L22 8 L20 22 L16 22 Z" /><path d="M30 6 L33 12 M30 6 L27 12" /><path d="M38 10 L35 16 M38 10 L41 16" /><path d="M34 2 L34 5" /></>),
+    title: "הלילה האחרון של החופש שלה",
+    desc: "היא ביקשה 'משהו שאזכור'. אז לא YES PLANET. חוף, כוכבים, בנות — ואוהל שמכיל את כולן.",
+    iconPath: (
+      <>
+        {/* Elegant champagne flute */}
+        <path d="M32 54 L32 36" />
+        <path d="M24 54 L40 54" />
+        <path d="M24 20 L40 20 L37 36 L27 36 Z" />
+        <path d="M24 20 L28 10 L36 10 L40 20" />
+        {/* Bubbles rising in glass */}
+        <circle cx="30" cy="32" r="1.2" />
+        <circle cx="33" cy="27" r="0.9" />
+        <circle cx="31" cy="22" r="0.7" />
+        {/* Sparkle star left */}
+        <path d="M14 16 L16 20 L14 24 L12 20 Z" />
+        <path d="M10 20 L18 20" strokeOpacity="0.6" />
+        {/* Sparkle cross right */}
+        <path d="M46 10 L50 10" />
+        <path d="M48 8 L48 12" />
+        <circle cx="48" cy="10" r="3" strokeOpacity="0.25" />
+        {/* Diamond above flute */}
+        <path d="M32 6 L36 10 L32 16 L28 10 Z" />
+        <path d="M28 10 L36 10" strokeOpacity="0.4" />
+      </>
+    ),
   },
   {
-    title: "יום הולדת עם החברים",
-    desc: "30, 40, 50 — חגיגה שלא שוכחים, במקום שבחרתם, עם אנשים שאוהבים.",
-    iconPath: (<><circle cx="24" cy="22" r="12" /><path d="M24 10 L24 6" /><path d="M18 12 L15 9" /><path d="M30 12 L33 9" /><path d="M20 22 L24 18 L28 22" /><path d="M24 18 L24 26" /></>),
+    title: "20 חברים. אוהל. מדורה.",
+    desc: "בגיל הזה — לא מסעדה. לא קראוקי. לילה שחברים שלך יזכרו בחתונה שלך.",
+    iconPath: (
+      <>
+        {/* Campfire logs */}
+        <path d="M20 52 L44 52" />
+        <path d="M18 52 L26 44" />
+        <path d="M46 52 L38 44" />
+        <path d="M22 52 L30 44" />
+        <path d="M42 52 L34 44" />
+        {/* Fire — outer flame */}
+        <path d="M32 44 C32 44 22 38 26 28 C28 22 32 24 32 18 C32 24 36 22 38 28 C42 38 32 44 32 44 Z" />
+        {/* Fire — inner flame */}
+        <path d="M32 38 C32 38 27 34 29 28 C30 24 32 26 32 22 C32 26 34 24 35 28 C37 34 32 38 32 38 Z" strokeOpacity="0.4" />
+        {/* Sparks floating up */}
+        <circle cx="26" cy="14" r="1.2" />
+        <circle cx="32" cy="10" r="0.8" />
+        <circle cx="38" cy="14" r="1" />
+        <circle cx="22" cy="20" r="0.7" />
+        <circle cx="42" cy="20" r="0.7" />
+        {/* Rising spark lines */}
+        <path d="M26 18 L24 14" strokeOpacity="0.5" />
+        <path d="M38 18 L40 14" strokeOpacity="0.5" />
+      </>
+    ),
   },
   {
-    title: "חופשה משפחתית",
-    desc: "הילדים בטבע, ההורים נושמים — הוויקנד שכולם מדברים עליו אחר כך.",
-    iconPath: (<><path d="M8 38 L24 10 L40 38 Z" /><path d="M19 38 L19 28 L29 28 L29 38" /><path d="M24 10 L24 6" /><circle cx="24" cy="4" r="2" /></>),
+    title: "כבו את הנוטיפיקציות",
+    desc: "40 דקות מתל אביב. עולם אחר לגמרי. חוזרים בני אדם — ואנחנו מבטיחים.",
+    iconPath: (
+      <>
+        {/* Two interlocking rings — symbol of partnership */}
+        <circle cx="22" cy="36" r="12" />
+        <circle cx="42" cy="36" r="12" />
+        {/* Moon — elegant thin crescent */}
+        <path d="M38 8 C42 11 42 19 38 22 C41 19 41 11 38 8 Z" />
+        {/* Stars */}
+        <circle cx="18" cy="12" r="1.5" />
+        <circle cx="26" cy="6" r="1" />
+        <circle cx="12" cy="20" r="0.8" />
+        <circle cx="52" cy="16" r="1.2" />
+        <circle cx="48" cy="8" r="0.7" />
+        {/* Constellation lines between stars */}
+        <path d="M18 12 L26 6" strokeOpacity="0.25" />
+        <path d="M18 12 L12 20" strokeOpacity="0.25" />
+      </>
+    ),
   },
 ]
 
