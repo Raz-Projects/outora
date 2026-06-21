@@ -171,7 +171,8 @@ export default function MapClient() {
   const activeCount = Object.values(filters).filter(Boolean).length
 
   return (
-    <div className="flex flex-col lg:flex-row h-full" dir="rtl">
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "500px" }} dir="rtl">
+    <div className="flex flex-col lg:flex-row" style={{ flex: 1 }}>
 
       {/* ── FILTER SIDEBAR ─────────────────────────────────────────────────── */}
       {/* Mobile toggle */}
@@ -331,6 +332,7 @@ export default function MapClient() {
           </div>
         )}
       </div>
+    </div>
     </div>
   )
 }

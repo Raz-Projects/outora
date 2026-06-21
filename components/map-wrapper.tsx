@@ -21,5 +21,9 @@ const MapClient = dynamic(() => import("@/components/map-client"), {
 })
 
 export function MapWrapper() {
-  return <MapClient />
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "500px" }}>
+      <MapClient />
+    </div>
+  )
 }
