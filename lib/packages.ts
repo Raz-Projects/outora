@@ -151,8 +151,8 @@ export const packages: ExperiencePackage[] = [
 export const BADGE_CONFIG: Record<PackageBadge, { label: string; bg: string; text: string }> = {
   HOT:      { label: "הכי מבוקש",   bg: "#C4341A", text: "#ffffff" },
   ROMANTIC: { label: "רומנטי",       bg: "#8B2252", text: "#ffffff" },
-  NEW:      { label: "חדש",          bg: "#1E3D1E", text: "#B89A35" },
-  FAMILY:   { label: "משפחתי",       bg: "#2A5A2A", text: "#ffffff" },
-  VIP:      { label: "VIP",          bg: "#B89A35", text: "#1E3D1E" },
-  WEEKEND:  { label: "סוף שבוע",     bg: "#0D1A0D", text: "#B89A35" },
+  NEW:      { label: "חדש",          bg: "#1C1814", text: "#B89A35" },
+  FAMILY:   { label: "משפחתי",       bg: "#2C2218", text: "#ffffff" },
+  VIP:      { label: "VIP",          bg: "#B89A35", text: "#1C1814" },
+  WEEKEND:  { label: "סוף שבוע",     bg: "#0F0D0A", text: "#B89A35" },
 }

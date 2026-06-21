@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 import { MessageCircle, Mail, Phone, type LucideIcon } from "lucide-react"
@@ -63,7 +63,7 @@ export default function ContactPage() {
       {/* ── Hero ── */}
       <section
         className="pt-32 pb-12 px-4 md:px-8"
-        style={{ backgroundColor: "#1E3D1E", borderBottom: "1px solid rgba(184,154,53,0.2)" }}
+        style={{ backgroundColor: "#1C1814", borderBottom: "1px solid rgba(184,154,53,0.2)" }}
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -96,7 +96,7 @@ export default function ContactPage() {
           <div>
             <h2
               className="font-light mb-8"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.9rem", color: "#1E3D1E" }}
+              style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.9rem", color: "#1C1814" }}
             >
               שלחו הודעה
             </h2>
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 >
                   הועברתם לווטסאפ!
                 </p>
-                <p className="text-sm opacity-70" style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)" }}>
+                <p className="text-sm opacity-70" style={{ color: "#1C1814", fontFamily: "var(--font-assistant)" }}>
                   ההודעה מוכנה לשליחה — לחצו שלח בווטסאפ ונחזור אליכם בהקדם.
                 </p>
                 <button
@@ -130,7 +130,7 @@ export default function ContactPage() {
                   <label
                     htmlFor="name"
                     className="text-sm"
-                    style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
+                    style={{ color: "#1C1814", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
                   >
                     שם מלא
                   </label>
@@ -144,8 +144,8 @@ export default function ContactPage() {
                     placeholder="ישראל ישראלי"
                     style={{
                       backgroundColor: "#ffffff",
-                      border: "1px solid rgba(30,61,30,0.2)",
-                      color: "#1E3D1E",
+                      border: "1px solid rgba(28,24,20,0.2)",
+                      color: "#1C1814",
                       fontFamily: "var(--font-assistant)",
                       fontSize: "16px",
                       padding: "12px 16px",
@@ -153,8 +153,8 @@ export default function ContactPage() {
                       borderRadius: "2px",
                       width: "100%",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#1E3D1E")}
-                    onBlur={(e) => (e.target.style.borderColor = "rgba(30,61,30,0.2)")}
+                    onFocus={(e) => (e.target.style.borderColor = "#1C1814")}
+                    onBlur={(e) => (e.target.style.borderColor = "rgba(28,24,20,0.2)")}
                   />
                 </div>
 
@@ -162,7 +162,7 @@ export default function ContactPage() {
                   <label
                     htmlFor="phone"
                     className="text-sm"
-                    style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
+                    style={{ color: "#1C1814", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
                   >
                     מספר טלפון
                   </label>
@@ -177,8 +177,8 @@ export default function ContactPage() {
                     dir="ltr"
                     style={{
                       backgroundColor: "#ffffff",
-                      border: "1px solid rgba(30,61,30,0.2)",
-                      color: "#1E3D1E",
+                      border: "1px solid rgba(28,24,20,0.2)",
+                      color: "#1C1814",
                       fontFamily: "var(--font-assistant)",
                       fontSize: "16px",
                       padding: "12px 16px",
@@ -186,8 +186,8 @@ export default function ContactPage() {
                       borderRadius: "2px",
                       width: "100%",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#1E3D1E")}
-                    onBlur={(e) => (e.target.style.borderColor = "rgba(30,61,30,0.2)")}
+                    onFocus={(e) => (e.target.style.borderColor = "#1C1814")}
+                    onBlur={(e) => (e.target.style.borderColor = "rgba(28,24,20,0.2)")}
                   />
                 </div>
 
@@ -195,7 +195,7 @@ export default function ContactPage() {
                   <label
                     htmlFor="message"
                     className="text-sm"
-                    style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
+                    style={{ color: "#1C1814", fontFamily: "var(--font-assistant)", opacity: 0.7 }}
                   >
                     ההודעה שלכם
                   </label>
@@ -209,8 +209,8 @@ export default function ContactPage() {
                     placeholder="שאלה, בקשה מיוחדת, או רק להגיד שלום..."
                     style={{
                       backgroundColor: "#ffffff",
-                      border: "1px solid rgba(30,61,30,0.2)",
-                      color: "#1E3D1E",
+                      border: "1px solid rgba(28,24,20,0.2)",
+                      color: "#1C1814",
                       fontFamily: "var(--font-assistant)",
                       fontSize: "16px",
                       padding: "12px 16px",
@@ -219,8 +219,8 @@ export default function ContactPage() {
                       width: "100%",
                       resize: "vertical",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#1E3D1E")}
-                    onBlur={(e) => (e.target.style.borderColor = "rgba(30,61,30,0.2)")}
+                    onFocus={(e) => (e.target.style.borderColor = "#1C1814")}
+                    onBlur={(e) => (e.target.style.borderColor = "rgba(28,24,20,0.2)")}
                   />
                 </div>
 
@@ -244,7 +244,7 @@ export default function ContactPage() {
                   <span className="flex items-center gap-2">שליחה דרך ווטסאפ <MessageCircle size={15} strokeWidth={1.5} /></span>
                 </button>
 
-                <p className="text-xs opacity-40" style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)" }}>
+                <p className="text-xs opacity-40" style={{ color: "#1C1814", fontFamily: "var(--font-assistant)" }}>
                   ההודעה תיפתח בווטסאפ לשליחה ישירה אלינו.
                 </p>
               </form>
@@ -256,7 +256,7 @@ export default function ContactPage() {
             <div>
               <h2
                 className="font-light mb-6"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.9rem", color: "#1E3D1E" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.9rem", color: "#1C1814" }}
               >
                 דרכי יצירת קשר
               </h2>
@@ -271,10 +271,10 @@ export default function ContactPage() {
                     className="flex items-start gap-4 group p-4 rounded-sm transition-all"
                     style={{
                       backgroundColor: "#ffffff",
-                      border: "1px solid rgba(30,61,30,0.1)",
+                      border: "1px solid rgba(28,24,20,0.1)",
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.backgroundColor = "rgba(30,61,30,0.05)")
+                      (e.currentTarget.style.backgroundColor = "rgba(28,24,20,0.05)")
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.backgroundColor = "#ffffff")
@@ -284,7 +284,7 @@ export default function ContactPage() {
                     <div>
                       <p
                         className="text-sm opacity-50 mb-0.5"
-                        style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)" }}
+                        style={{ color: "#1C1814", fontFamily: "var(--font-assistant)" }}
                       >
                         {item.label}
                       </p>
@@ -303,7 +303,7 @@ export default function ContactPage() {
             {/* Hours */}
             <div
               className="p-5 rounded-sm"
-              style={{ backgroundColor: "rgba(30,61,30,0.04)", border: "1px solid rgba(30,61,30,0.1)" }}
+              style={{ backgroundColor: "rgba(28,24,20,0.04)", border: "1px solid rgba(28,24,20,0.1)" }}
             >
               <h3
                 className="mb-3 font-medium"
@@ -318,8 +318,8 @@ export default function ContactPage() {
                   { day: "שבת",            hours: "סגור (מענה בווטסאפ)" },
                 ].map((r) => (
                   <div key={r.day} className="flex justify-between text-sm">
-                    <span style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)", opacity: 0.7 }}>{r.day}</span>
-                    <span style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)", opacity: 0.9 }}>{r.hours}</span>
+                    <span style={{ color: "#1C1814", fontFamily: "var(--font-assistant)", opacity: 0.7 }}>{r.day}</span>
+                    <span style={{ color: "#1C1814", fontFamily: "var(--font-assistant)", opacity: 0.9 }}>{r.hours}</span>
                   </div>
                 ))}
               </div>
@@ -331,13 +331,13 @@ export default function ContactPage() {
       {/* ── FAQ ── */}
       <section
         className="py-16 px-4 md:px-8"
-        style={{ borderTop: "1px solid rgba(30,61,30,0.1)" }}
+        style={{ borderTop: "1px solid rgba(28,24,20,0.1)" }}
       >
         <div className="max-w-3xl mx-auto">
           <p className="label-fs mb-3" style={{ color: "#B89A35" }}>FAQ</p>
           <h2
             className="font-light mb-10"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: "#1E3D1E" }}
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: "#1C1814" }}
           >
             שאלות נפוצות
           </h2>
@@ -347,14 +347,14 @@ export default function ContactPage() {
               <div
                 key={i}
                 className="rounded-sm overflow-hidden"
-                style={{ border: "1px solid rgba(30,61,30,0.1)" }}
+                style={{ border: "1px solid rgba(28,24,20,0.1)" }}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between gap-4 p-5 text-right transition-colors"
                   style={{
-                    backgroundColor: openFaq === i ? "rgba(30,61,30,0.05)" : "#ffffff",
-                    color: "#1E3D1E",
+                    backgroundColor: openFaq === i ? "rgba(28,24,20,0.05)" : "#ffffff",
+                    color: "#1C1814",
                     fontFamily: "var(--font-assistant)",
                     fontSize: "1rem",
                     fontWeight: 500,
@@ -379,7 +379,7 @@ export default function ContactPage() {
                 {openFaq === i && (
                   <div
                     className="px-5 pb-5 text-sm leading-relaxed"
-                    style={{ color: "#4A6A4A", fontFamily: "var(--font-assistant)" }}
+                    style={{ color: "#6B5E4E", fontFamily: "var(--font-assistant)" }}
                   >
                     {item.a}
                   </div>

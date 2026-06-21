@@ -4,7 +4,7 @@ import { MessageCircle, Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#1E3D1E" }}>
+    <footer style={{ backgroundColor: "#1C1814" }}>
       <div
         className="border-t"
         style={{ borderColor: "rgba(184,154,53,0.2)" }}

@@ -34,7 +34,7 @@ export default function TentsPage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, #0D1A0D 0%, rgba(13,26,13,0.35) 55%, rgba(13,26,13,0.1) 100%)",
+              "linear-gradient(to top, #0F0D0A 0%, rgba(15,13,10,0.35) 55%, rgba(15,13,10,0.1) 100%)",
           }}
         />
         <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-20 px-6 md:px-12">
@@ -65,7 +65,7 @@ export default function TentsPage() {
             style={{
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(1.35rem, 2.2vw, 1.7rem)",
-              color: "#1E3D1E",
+              color: "#1C1814",
               fontStyle: "italic",
               opacity: 0.85,
               lineHeight: 1.7,
@@ -83,7 +83,7 @@ export default function TentsPage() {
       </section>
 
       {/* ── Featured tent — forest dark ── */}
-      <section className="px-6 md:px-12 py-14 md:py-20" style={{ backgroundColor: "#1E3D1E" }}>
+      <section className="px-6 md:px-12 py-14 md:py-20" style={{ backgroundColor: "#1C1814" }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-10">
             <p className="label-fs" style={{ color: "#B89A35", letterSpacing: "0.25em" }}>המומלץ שלנו</p>
@@ -118,7 +118,7 @@ export default function TentsPage() {
             {/* Info panel */}
             <div
               className="flex flex-col justify-center px-8 py-10 md:px-14 md:py-14"
-              style={{ borderRight: "1px solid rgba(184,154,53,0.15)", backgroundColor: "#1E3D1E" }}
+              style={{ borderRight: "1px solid rgba(184,154,53,0.15)", backgroundColor: "#1C1814" }}
             >
               <h2
                 className="font-light mb-3"
@@ -203,7 +203,7 @@ export default function TentsPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div
             className="grid grid-cols-2 md:grid-cols-4 gap-px"
-            style={{ backgroundColor: "rgba(30,61,30,0.08)" }}
+            style={{ backgroundColor: "rgba(28,24,20,0.08)" }}
           >
             {[
               { label: "אוהלים", value: "5" },
@@ -218,7 +218,7 @@ export default function TentsPage() {
                 >
                   {s.value}
                 </span>
-                <span className="label-fs" style={{ color: "#1E3D1E", opacity: 0.55 }}>{s.label}</span>
+                <span className="label-fs" style={{ color: "#1C1814", opacity: 0.55 }}>{s.label}</span>
               </div>
             ))}
           </div>
@@ -229,8 +229,8 @@ export default function TentsPage() {
       <section className="px-6 md:px-12 py-16 md:py-28" style={{ backgroundColor: "#F0EDE4" }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-14">
-            <p className="label-fs" style={{ color: "#1E3D1E", letterSpacing: "0.25em" }}>כל הדגמים</p>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(30,61,30,0.15)" }} />
+            <p className="label-fs" style={{ color: "#1C1814", letterSpacing: "0.25em" }}>כל הדגמים</p>
+            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(28,24,20,0.15)" }} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -242,7 +242,7 @@ export default function TentsPage() {
       </section>
 
       {/* ── Bottom CTA — night ── */}
-      <section className="py-20 md:py-32 px-6 md:px-12 text-center" style={{ backgroundColor: "#0D1A0D" }}>
+      <section className="py-20 md:py-32 px-6 md:px-12 text-center" style={{ backgroundColor: "#0F0D0A" }}>
         <div className="max-w-xl mx-auto flex flex-col items-center gap-8">
           <div className="fs-divider" />
           <h2
@@ -284,19 +284,19 @@ export default function TentsPage() {
       </section>
 
       {/* ── Accessories / Extras — cream ── */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#FAFAF6", borderTop: "1px solid rgba(30,61,30,0.08)" }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#FAFAF6", borderTop: "1px solid rgba(28,24,20,0.08)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <p className="label-fs mb-3" style={{ color: "#B89A35" }}>תוספות</p>
-            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1E3D1E" }}>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1C1814" }}>
               שדרגו את הלילה
             </h2>
-            <p className="mt-4 max-w-xl mx-auto" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", fontSize: "1rem", lineHeight: 1.75, opacity: 0.85 }}>
+            <p className="mt-4 max-w-xl mx-auto" style={{ fontFamily: "var(--font-assistant)", color: "#6B5E4E", fontSize: "1rem", lineHeight: 1.75, opacity: 0.85 }}>
               לכל הזמנה ניתן להוסיף ציוד ושירותים נוספים — ממוקד אש ועד מכונת קפה.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(30,61,30,0.08)" }}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px" style={{ backgroundColor: "rgba(28,24,20,0.08)" }}>
             {accessories.map((acc) => (
               <div
                 key={acc.id}
@@ -313,7 +313,7 @@ export default function TentsPage() {
                   />
                 </div>
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="font-medium text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#1E3D1E" }}>
+                  <span className="font-medium text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#1C1814" }}>
                     {acc.nameHe}
                   </span>
                   <span className="shrink-0 font-light text-sm" style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}>

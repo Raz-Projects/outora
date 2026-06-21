@@ -155,7 +155,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
       <section className="relative overflow-hidden" style={{ height: "clamp(300px, 45vw, 520px)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={heroImg} alt={loc.nameHe} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.88) 0%, rgba(13,26,13,0.3) 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,13,10,0.88) 0%, rgba(15,13,10,0.3) 60%)" }} />
         <div className="absolute inset-0 flex flex-col justify-end px-6 md:px-16 pb-10 md:pb-14 max-w-4xl">
           <Link href="/locations" className="flex items-center gap-2 mb-5 text-sm opacity-60 hover:opacity-100 transition-opacity"
             style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}>
@@ -180,7 +180,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
       </section>
 
       {/* ── Quick info bar ── */}
-      <div style={{ backgroundColor: "#1E3D1E", borderBottom: "1px solid rgba(184,154,53,0.2)" }}>
+      <div style={{ backgroundColor: "#1C1814", borderBottom: "1px solid rgba(184,154,53,0.2)" }}>
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex flex-wrap gap-4">
             {[
@@ -203,7 +203,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 text-sm transition-all hover:opacity-80"
-              style={{ backgroundColor: "#B89A35", color: "#1E3D1E", fontFamily: "var(--font-assistant)", fontWeight: 600 }}
+              style={{ backgroundColor: "#B89A35", color: "#1C1814", fontFamily: "var(--font-assistant)", fontWeight: 600 }}
             >
               <Navigation size={14} strokeWidth={2} /> ניווט Google
             </a>
@@ -237,9 +237,9 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                       key={a}
                       className="px-3 py-1.5 text-sm"
                       style={{
-                        backgroundColor: "rgba(30,61,30,0.05)",
-                        border: "1px solid rgba(30,61,30,0.15)",
-                        color: "#1E3D1E",
+                        backgroundColor: "rgba(28,24,20,0.05)",
+                        border: "1px solid rgba(28,24,20,0.15)",
+                        color: "#1C1814",
                         fontFamily: "var(--font-assistant)",
                       }}
                     >
@@ -259,14 +259,14 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                     <div
                       key={att.title}
                       className="flex gap-4 p-4"
-                      style={{ backgroundColor: "rgba(30,61,30,0.03)", border: "1px solid rgba(30,61,30,0.12)" }}
+                      style={{ backgroundColor: "rgba(28,24,20,0.03)", border: "1px solid rgba(28,24,20,0.12)" }}
                     >
                       <att.Icon size={20} stroke="#B89A35" strokeWidth={1.5} style={{ flexShrink: 0, marginTop: "2px" }} />
                       <div>
                         <p className="font-medium mb-1" style={{ fontFamily: "var(--font-assistant)", color: "#B89A35", fontSize: "0.95rem" }}>
                           {att.title}
                         </p>
-                        <p className="text-sm leading-relaxed" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", opacity: 0.85 }}>
+                        <p className="text-sm leading-relaxed" style={{ fontFamily: "var(--font-assistant)", color: "#6B5E4E", opacity: 0.85 }}>
                           {att.desc}
                         </p>
                       </div>
@@ -302,7 +302,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             {/* Recommended tents */}
             {recTents.length > 0 && (
-              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(30,61,30,0.1)" }}>
+              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(28,24,20,0.1)" }}>
                 <p className="label-fs mb-4" style={{ color: "#B89A35" }}>אוהלים מומלצים למקום זה</p>
                 <div className="flex flex-col gap-3">
                   {recTents.map((t) => (
@@ -319,10 +319,10 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                         style={{ width: 52, height: 52, objectFit: "contain", flexShrink: 0, backgroundColor: "#f5f5f5", padding: "4px" }}
                       />
                       <div>
-                        <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", color: "#1E3D1E" }}>
+                        <p className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", color: "#1C1814" }}>
                           {t.nameHe}
                         </p>
-                        <p className="text-xs" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A", opacity: 0.7 }}>
+                        <p className="text-xs" style={{ fontFamily: "var(--font-assistant)", color: "#6B5E4E", opacity: 0.7 }}>
                           עד {t.capacity} אנשים · מ-₪{t.priceFrom}/לילה
                         </p>
                       </div>
@@ -334,14 +334,14 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             {/* Recommended accessories */}
             {recAccs.length > 0 && (
-              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(30,61,30,0.1)" }}>
+              <div className="p-5" style={{ backgroundColor: "#ffffff", border: "1px solid rgba(28,24,20,0.1)" }}>
                 <p className="label-fs mb-4" style={{ color: "#B89A35" }}>תוספות מומלצות</p>
                 <div className="flex flex-col gap-2">
                   {recAccs.map((a) => (
                     <div key={a.id} className="flex items-center gap-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={a.image} alt={a.nameHe} style={{ width: 36, height: 36, objectFit: "contain" }} />
-                      <span className="text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#4A6A4A" }}>{a.nameHe}</span>
+                      <span className="text-sm" style={{ fontFamily: "var(--font-assistant)", color: "#6B5E4E" }}>{a.nameHe}</span>
                       <span className="text-xs mr-auto" style={{ color: "#B89A35", fontFamily: "var(--font-assistant)" }}>+₪{a.pricePerNight}</span>
                     </div>
                   ))}
@@ -350,7 +350,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
             )}
 
             {/* Book CTA */}
-            <div className="p-5" style={{ backgroundColor: "#1E3D1E", border: "none" }}>
+            <div className="p-5" style={{ backgroundColor: "#1C1814", border: "none" }}>
               <p className="font-light mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", color: "#FAFAF6" }}>
                 מוכנים לשמור מקום?
               </p>
@@ -399,7 +399,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                       style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }}
                       className="group-hover:scale-105"
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.65) 0%, transparent 50%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,13,10,0.65) 0%, transparent 50%)" }} />
                     <p
                       className="absolute bottom-3 right-3 font-light"
                       style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", color: "#FAFAF6" }}

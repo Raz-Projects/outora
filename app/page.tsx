@@ -35,14 +35,14 @@ const C = {
   cream:       "#FAFAF6",
   sand:        "#F0EDE4",
   earth:       "#E8E0D4",
-  forest:      "#1E3D1E",
-  forestMid:   "#2A5A2A",
-  night:       "#0D1A0D",
+  forest:      "#1C1814",
+  forestMid:   "#2C2218",
+  night:       "#0F0D0A",
   gold:        "#B89A35",
-  muted:       "#4A6A4A",
+  muted:       "#6B5E4E",
   goldBorder:  "rgba(184,154,53,0.2)",
   goldBorderS: "rgba(184,154,53,0.35)",
-  forestBorder:"rgba(30,61,30,0.12)",
+  forestBorder:"rgba(28,24,20,0.12)",
 }
 
 export default function Home() {
@@ -62,21 +62,23 @@ export default function Home() {
         <Image
           src="/gallery/אורכי.jpeg"
           alt="OUTORA — הבית שלך בטבע"
-          fill priority
+          fill priority quality={100}
           className="object-cover md:hidden"
           sizes="100vw"
+          style={{ imageRendering: "crisp-edges" }}
         />
         <Image
           src="/gallery/רוחבי.jpeg"
           alt="OUTORA — הבית שלך בטבע"
-          fill priority
+          fill priority quality={100}
           className="object-cover hidden md:block"
           sizes="100vw"
+          style={{ imageRendering: "crisp-edges" }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(180deg, rgba(13,26,13,0.55) 0%, rgba(13,26,13,0.45) 40%, rgba(13,26,13,0.80) 100%)",
+            background: "linear-gradient(180deg, rgba(15,13,10,0.55) 0%, rgba(15,13,10,0.45) 40%, rgba(15,13,10,0.80) 100%)",
             zIndex: 1,
           }}
         />
@@ -88,8 +90,8 @@ export default function Home() {
             alt="OUTORA"
             className="animate-fade-in"
             style={{
-              width: "clamp(180px, 22vw, 260px)",
-              filter: "brightness(0) invert(1) drop-shadow(0 2px 16px rgba(0,0,0,0.8))",
+              width: "clamp(200px, 26vw, 320px)",
+              filter: "brightness(0) invert(1) drop-shadow(0 4px 24px rgba(0,0,0,0.85))",
             }}
           />
 
@@ -98,11 +100,11 @@ export default function Home() {
             style={{
               color: C.gold,
               fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
-              letterSpacing: "0.34em",
+              fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
-              textShadow: "0 1px 10px rgba(0,0,0,0.9)",
-              fontWeight: 400,
+              textShadow: "0 1px 12px rgba(0,0,0,0.95)",
+              fontWeight: 500,
             }}
           >
             חוויית קמפינג יוקרתית · ישראל
@@ -452,7 +454,7 @@ export default function Home() {
                   <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={pkg.image} alt={pkg.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(13,26,13,0.75) 0%, transparent 50%)" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(15,13,10,0.75) 0%, transparent 50%)" }} />
 
                     {/* Badge */}
                     <div
@@ -467,7 +469,7 @@ export default function Home() {
                     {pkg.spotsLeft && pkg.spotsLeft <= 5 && (
                       <div
                         className="absolute top-3 left-3 flex items-center gap-1 px-2 py-0.5 text-xs"
-                        style={{ backgroundColor: "rgba(13,26,13,0.9)", color: "#fbbf24", fontFamily: "var(--font-assistant)" }}
+                        style={{ backgroundColor: "rgba(15,13,10,0.9)", color: "#fbbf24", fontFamily: "var(--font-assistant)" }}
                       >
                         <Clock size={9} strokeWidth={2} />
                         <span className="mr-0.5">{pkg.spotsLeft} מקומות</span>
@@ -696,7 +698,7 @@ export default function Home() {
                   style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s ease" }}
                   className="group-hover:scale-110"
                 />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,26,13,0.88) 0%, rgba(13,26,13,0.1) 55%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,13,10,0.88) 0%, rgba(15,13,10,0.1) 55%)" }} />
                 <div className="absolute bottom-0 right-0 p-3">
                   <p className="text-xs opacity-70 mb-0.5" style={{ color: C.gold, fontFamily: "var(--font-assistant)", letterSpacing: "0.1em" }}>
                     {loc.region}
@@ -863,8 +865,8 @@ const stats = [
 
 function FAQSection() {
   const C_local = {
-    cream: "#FAFAF6", gold: "#B89A35", forest: "#1E3D1E", muted: "#4A6A4A",
-    goldBorder: "rgba(184,154,53,0.18)", forestBorder: "rgba(30,61,30,0.1)",
+    cream: "#FAFAF6", gold: "#B89A35", forest: "#1C1814", muted: "#6B5E4E",
+    goldBorder: "rgba(184,154,53,0.18)", forestBorder: "rgba(28,24,20,0.1)",
   }
   return (
     <section className="py-16 md:py-28 px-4 md:px-8" style={{ backgroundColor: C_local.cream }}>

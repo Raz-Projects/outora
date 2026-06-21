@@ -5,18 +5,18 @@
 @layer base {
   :root {
     /* ── OUTORA Nature-Luxury Palette ── */
-    --color-forest-deep:  #1E3D1E;   /* deep forest green — primary dark */
-    --color-forest:       #2A5A2A;   /* mid forest green */
-    --color-forest-light: #3D7A3D;   /* lighter forest */
-    --color-night:        #0D1A0D;   /* forest night — for hero/dramatic sections */
+    --color-forest-deep:  #1C1814;   /* deep forest green — primary dark */
+    --color-forest:       #2C2218;   /* mid forest green */
+    --color-forest-light: #3A3028;   /* lighter forest */
+    --color-night:        #0F0D0A;   /* forest night — for hero/dramatic sections */
     --color-gold:         #B89A35;   /* logo gold */
     --color-gold-light:   #D4B458;   /* hover/lighter gold */
     --color-cream:        #FAFAF6;   /* warm white — main background */
     --color-sand:         #F0EDE4;   /* secondary section background */
     --color-earth:        #E8E0D4;   /* borders, dividers on light bg */
     --color-amber:        #C4722A;   /* campfire / warm accent */
-    --color-text:         #1A2E1A;   /* primary text (on light) */
-    --color-text-muted:   #4A6A4A;   /* secondary text (on light) */
+    --color-text:         #1C1814;   /* primary text (on light) */
+    --color-text-muted:   #6B5E4E;   /* secondary text (on light) */
 
     /* shadcn/tailwind base tokens */
     --background: 60 30% 98%;
@@ -349,7 +349,7 @@
    DELIVERY OPTION CARDS — hover effect
 ───────────────────────────────────────── */
 .delivery-card          { transition: background-color 0.25s ease, box-shadow 0.25s ease; }
-.delivery-card:hover    { background-color: rgba(30,61,30,0.06) !important; box-shadow: 0 4px 20px rgba(30,61,30,0.1); }
+.delivery-card:hover    { background-color: rgba(28,24,20,0.06) !important; box-shadow: 0 4px 20px rgba(28,24,20,0.1); }
 .delivery-card.featured { background-color: rgba(184,154,53,0.08); }
 .delivery-card.featured:hover { background-color: rgba(184,154,53,0.14) !important; }
 .delivery-card .pick-cta { opacity: 0; transition: opacity 0.25s ease; }
@@ -380,11 +380,11 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
-  box-shadow: 0 2px 16px rgba(30,61,30,0.08);
+  box-shadow: 0 2px 16px rgba(28,24,20,0.08);
   transition: box-shadow 0.3s ease;
 }
 .acc-card:hover {
-  box-shadow: 0 8px 32px rgba(30,61,30,0.15);
+  box-shadow: 0 8px 32px rgba(28,24,20,0.15);
 }
 .acc-img-box {
   background-color: #ffffff !important;

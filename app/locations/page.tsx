@@ -67,7 +67,7 @@ export default function LocationsPage() {
       {/* ── Hero — night dark ── */}
       <section
         className="relative flex flex-col items-center justify-center text-center overflow-hidden"
-        style={{ minHeight: "380px", paddingTop: "80px", paddingBottom: "60px", backgroundColor: "#0D1A0D" }}
+        style={{ minHeight: "380px", paddingTop: "80px", paddingBottom: "60px", backgroundColor: "#0F0D0A" }}
       >
         <div className="relative z-10 max-w-3xl mx-auto px-6 flex flex-col items-center gap-5">
           <p className="label-fs" style={{ color: "#B89A35" }}>OUTORA LOCATIONS</p>
@@ -91,7 +91,7 @@ export default function LocationsPage() {
       <div style={{ height: "2px", background: "linear-gradient(90deg, transparent 0%, rgba(184,154,53,0.5) 50%, transparent 100%)" }} />
 
       {/* ── Filters — cream sticky ── */}
-      <section style={{ backgroundColor: "#FAFAF6", borderBottom: "1px solid rgba(30,61,30,0.1)", position: "sticky", top: "72px", zIndex: 30 }}>
+      <section style={{ backgroundColor: "#FAFAF6", borderBottom: "1px solid rgba(28,24,20,0.1)", position: "sticky", top: "72px", zIndex: 30 }}>
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col gap-4">
 
           {/* Region tabs */}
@@ -102,9 +102,9 @@ export default function LocationsPage() {
                 onClick={() => setActiveRegion(tab.value)}
                 className="px-4 py-2 text-sm transition-all"
                 style={{
-                  backgroundColor: activeRegion === tab.value ? "#1E3D1E" : "rgba(30,61,30,0.04)",
-                  color: activeRegion === tab.value ? "#FAFAF6" : "#1E3D1E",
-                  border: `1px solid ${activeRegion === tab.value ? "#1E3D1E" : "rgba(30,61,30,0.2)"}`,
+                  backgroundColor: activeRegion === tab.value ? "#1C1814" : "rgba(28,24,20,0.04)",
+                  color: activeRegion === tab.value ? "#FAFAF6" : "#1C1814",
+                  border: `1px solid ${activeRegion === tab.value ? "#1C1814" : "rgba(28,24,20,0.2)"}`,
                   fontFamily: "var(--font-assistant)",
                   fontWeight: activeRegion === tab.value ? 600 : 400,
                 }}
@@ -125,9 +125,9 @@ export default function LocationsPage() {
                 onClick={() => setActiveLandscape(f.value)}
                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-all"
                 style={{
-                  backgroundColor: activeLandscape === f.value ? "rgba(30,61,30,0.1)" : "rgba(30,61,30,0.03)",
-                  color: activeLandscape === f.value ? "#1E3D1E" : "#4A6A4A",
-                  border: `1px solid ${activeLandscape === f.value ? "rgba(30,61,30,0.4)" : "rgba(30,61,30,0.15)"}`,
+                  backgroundColor: activeLandscape === f.value ? "rgba(28,24,20,0.1)" : "rgba(28,24,20,0.03)",
+                  color: activeLandscape === f.value ? "#1C1814" : "#6B5E4E",
+                  border: `1px solid ${activeLandscape === f.value ? "rgba(28,24,20,0.4)" : "rgba(28,24,20,0.15)"}`,
                   fontFamily: "var(--font-assistant)",
                 }}
               >
@@ -135,14 +135,14 @@ export default function LocationsPage() {
                 <span>{f.label}</span>
               </button>
             ))}
-            <div style={{ width: "1px", height: "20px", backgroundColor: "rgba(30,61,30,0.15)" }} />
+            <div style={{ width: "1px", height: "20px", backgroundColor: "rgba(28,24,20,0.15)" }} />
             <button
               onClick={() => setOvernightOnly(!overnightOnly)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-all"
               style={{
-                backgroundColor: overnightOnly ? "rgba(30,61,30,0.1)" : "rgba(30,61,30,0.03)",
-                color: overnightOnly ? "#1E3D1E" : "#4A6A4A",
-                border: `1px solid ${overnightOnly ? "rgba(30,61,30,0.4)" : "rgba(30,61,30,0.12)"}`,
+                backgroundColor: overnightOnly ? "rgba(28,24,20,0.1)" : "rgba(28,24,20,0.03)",
+                color: overnightOnly ? "#1C1814" : "#6B5E4E",
+                border: `1px solid ${overnightOnly ? "rgba(28,24,20,0.4)" : "rgba(28,24,20,0.12)"}`,
                 fontFamily: "var(--font-assistant)",
               }}
             >
@@ -152,9 +152,9 @@ export default function LocationsPage() {
               onClick={() => setOrganizedOnly(!organizedOnly)}
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm transition-all"
               style={{
-                backgroundColor: organizedOnly ? "rgba(30,61,30,0.1)" : "rgba(30,61,30,0.03)",
-                color: organizedOnly ? "#1E3D1E" : "#4A6A4A",
-                border: `1px solid ${organizedOnly ? "rgba(30,61,30,0.4)" : "rgba(30,61,30,0.12)"}`,
+                backgroundColor: organizedOnly ? "rgba(28,24,20,0.1)" : "rgba(28,24,20,0.03)",
+                color: organizedOnly ? "#1C1814" : "#6B5E4E",
+                border: `1px solid ${organizedOnly ? "rgba(28,24,20,0.4)" : "rgba(28,24,20,0.12)"}`,
                 fontFamily: "var(--font-assistant)",
               }}
             >
@@ -167,7 +167,7 @@ export default function LocationsPage() {
       {/* ── Results count + grid — sand ── */}
       <section className="py-10 md:py-14 px-4 md:px-8" style={{ backgroundColor: "#F0EDE4" }}>
         <div className="max-w-7xl mx-auto">
-          <p className="mb-8 text-sm" style={{ color: "#4A6A4A", fontFamily: "var(--font-assistant)", opacity: 0.7 }}>
+          <p className="mb-8 text-sm" style={{ color: "#6B5E4E", fontFamily: "var(--font-assistant)", opacity: 0.7 }}>
             {filtered.length} מקומות
             {activeRegion !== "all" ? ` · ${regionLabels[activeRegion as RegionType]}` : ""}
             {activeLandscape !== "all" ? ` · ${landscapeLabels[activeLandscape as LandscapeType]}` : ""}
@@ -175,7 +175,7 @@ export default function LocationsPage() {
 
           {filtered.length === 0 ? (
             <div className="text-center py-20">
-              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "rgba(30,61,30,0.35)" }}>
+              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "rgba(28,24,20,0.35)" }}>
                 לא נמצאו מקומות עם הסינון הנוכחי
               </p>
             </div>
@@ -187,10 +187,10 @@ export default function LocationsPage() {
                   href={`/locations/${loc.id}`}
                   className="group flex flex-col transition-all duration-300"
                   style={{
-                    border: "1px solid rgba(30,61,30,0.12)",
+                    border: "1px solid rgba(28,24,20,0.12)",
                     backgroundColor: "#ffffff",
                     textDecoration: "none",
-                    boxShadow: "0 2px 8px rgba(30,61,30,0.04)",
+                    boxShadow: "0 2px 8px rgba(28,24,20,0.04)",
                   }}
                 >
                   {/* Image */}
@@ -212,14 +212,14 @@ export default function LocationsPage() {
                     />
                     <div
                       className="absolute inset-0"
-                      style={{ background: "linear-gradient(to top, rgba(13,26,13,0.6) 0%, rgba(13,26,13,0.05) 55%)" }}
+                      style={{ background: "linear-gradient(to top, rgba(15,13,10,0.6) 0%, rgba(15,13,10,0.05) 55%)" }}
                     />
 
                     {/* Landscape badge */}
                     <div className="absolute top-3 right-3">
                       <span
                         className="flex items-center gap-1 px-2.5 py-1 text-xs"
-                        style={{ backgroundColor: "rgba(13,26,13,0.75)", color: "#B89A35", fontFamily: "var(--font-assistant)", backdropFilter: "blur(4px)" }}
+                        style={{ backgroundColor: "rgba(15,13,10,0.75)", color: "#B89A35", fontFamily: "var(--font-assistant)", backdropFilter: "blur(4px)" }}
                       >
                         {(() => { const f = LANDSCAPE_FILTERS.find(f => f.value === loc.landscape); return f ? <f.Icon size={11} strokeWidth={1.5} style={{ display:"inline", marginLeft:"3px" }} /> : null; })()}{" "}
                         {loc.landscapeHe}
@@ -234,7 +234,7 @@ export default function LocationsPage() {
                         </span>
                       )}
                       {!loc.fee && (
-                        <span className="text-xs px-2 py-0.5" style={{ backgroundColor: "rgba(30,61,30,0.5)", color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}>
+                        <span className="text-xs px-2 py-0.5" style={{ backgroundColor: "rgba(28,24,20,0.5)", color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}>
                           חינמי
                         </span>
                       )}
@@ -251,7 +251,7 @@ export default function LocationsPage() {
                     <div className="flex items-start justify-between gap-2">
                       <h3
                         className="font-light leading-tight"
-                        style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", color: "#1E3D1E" }}
+                        style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", color: "#1C1814" }}
                       >
                         {loc.nameHe}
                       </h3>
@@ -267,7 +267,7 @@ export default function LocationsPage() {
                       className="text-sm leading-relaxed"
                       style={{
                         fontFamily: "var(--font-assistant)",
-                        color: "#4A6A4A",
+                        color: "#6B5E4E",
                         opacity: 0.85,
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
@@ -280,7 +280,7 @@ export default function LocationsPage() {
 
                     {/* Amenities */}
                     {loc.amenities.length > 0 && (
-                      <div className="flex gap-1.5 flex-wrap mt-1" style={{ color: "#4A6A4A" }}>
+                      <div className="flex gap-1.5 flex-wrap mt-1" style={{ color: "#6B5E4E" }}>
                         {loc.amenities.slice(0, 5).map((a) => (
                           <span
                             key={a}
@@ -297,7 +297,7 @@ export default function LocationsPage() {
                     {/* Footer */}
                     <div
                       className="flex items-center justify-between pt-2 mt-auto"
-                      style={{ borderTop: "1px solid rgba(30,61,30,0.1)" }}
+                      style={{ borderTop: "1px solid rgba(28,24,20,0.1)" }}
                     >
                       <span
                         className="text-xs transition-all"
@@ -307,7 +307,7 @@ export default function LocationsPage() {
                       </span>
                       <span
                         className="text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ color: "#1E3D1E", fontFamily: "var(--font-assistant)" }}
+                        style={{ color: "#1C1814", fontFamily: "var(--font-assistant)" }}
                       >
                         ← פרטים
                       </span>
@@ -322,7 +322,7 @@ export default function LocationsPage() {
           <div className="mt-16 text-center">
             <p
               className="mb-5 font-light"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 3vw, 2.2rem)", color: "#1E3D1E", opacity: 0.8 }}
+              style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 3vw, 2.2rem)", color: "#1C1814", opacity: 0.8 }}
             >
               לא מוצאים את המקום שחלמתם עליו?
             </p>

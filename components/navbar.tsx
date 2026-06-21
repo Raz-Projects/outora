@@ -23,7 +23,7 @@ export function Navbar() {
   const navBg = isTransparent
     ? "rgba(0,0,0,0)"
     : "rgba(250, 250, 246, 0.97)"
-  const linkColor = isTransparent ? "#FAFAF6" : "#1E3D1E"
+  const linkColor = isTransparent ? "#FAFAF6" : "#1C1814"
   const borderColor = isTransparent
     ? "rgba(250,250,246,0.15)"
     : "rgba(184,154,53,0.2)"
@@ -35,12 +35,12 @@ export function Navbar() {
         backgroundColor: navBg,
         backdropFilter: isTransparent ? "none" : "blur(12px)",
         borderBottom: `1px solid ${borderColor}`,
-        boxShadow: isTransparent ? "none" : "0 1px 20px rgba(30,61,30,0.08)",
+        boxShadow: isTransparent ? "none" : "0 1px 20px rgba(28,24,20,0.08)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-2 flex items-center justify-between">
 
-        {/* Logo */}
+        {/* Logo — hidden on homepage hero, shown on scroll/other pages */}
         <Link
           href="/"
           className="flex items-center shrink-0 transition-all duration-500"
@@ -49,8 +49,8 @@ export function Navbar() {
           <Image
             src="/logo-transparent.png"
             alt="OUTORA"
-            width={150}
-            height={75}
+            width={110}
+            height={55}
             className="object-contain"
             style={{
               filter: isTransparent ? "brightness(0) invert(1)" : "none",
@@ -60,7 +60,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-5">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -70,20 +70,21 @@ export function Navbar() {
                 color: (l as {hot?: boolean}).hot ? "#B89A35" : linkColor,
                 opacity: (l as {hot?: boolean}).hot ? 1 : 0.88,
                 fontFamily: "var(--font-assistant)",
-                fontSize: "0.88rem",
-                letterSpacing: "0.16em",
+                fontSize: "0.78rem",
+                letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 fontWeight: (l as {hot?: boolean}).hot ? 700 : undefined,
+                whiteSpace: "nowrap",
               }}
             >
               {l.label}
             </Link>
           ))}
-          <div style={{ width: "1px", height: "18px", background: isTransparent ? "rgba(250,250,246,0.3)" : "rgba(30,61,30,0.2)" }} />
+          <div style={{ width: "1px", height: "16px", background: isTransparent ? "rgba(250,250,246,0.3)" : "rgba(28,24,20,0.2)" }} />
           <Link
             href="/book"
             className="btn-fs-solid navbar-cta"
-            style={{ padding: "10px 28px", fontSize: "0.82rem" }}
+            style={{ padding: "8px 22px", fontSize: "0.78rem" }}
           >
             הזמינו עכשיו
           </Link>
@@ -132,7 +133,7 @@ export function Navbar() {
               href={l.href}
               className="py-1 transition-opacity hover:opacity-100"
               style={{
-                color: "#1E3D1E",
+                color: "#1C1814",
                 opacity: 0.85,
                 fontFamily: "var(--font-assistant)",
                 fontSize: "1rem",

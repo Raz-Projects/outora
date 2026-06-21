@@ -111,7 +111,7 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
             style={{
               fontFamily: "var(--font-assistant)",
               letterSpacing: "0.12em",
-              color: inCart ? "#B89A35" : "#1E3D1E",
+              color: inCart ? "#B89A35" : "#1C1814",
               backgroundColor: "transparent",
               border: "none",
               cursor: "pointer",
@@ -138,7 +138,7 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           style={{
             fontFamily: "var(--font-cormorant)",
             fontSize: "clamp(1.4rem, 2vw, 1.8rem)",
-            color: "#1E3D1E",
+            color: "#1C1814",
             letterSpacing: "0.04em",
           }}
         >
@@ -150,7 +150,7 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
           style={{
             fontFamily: "var(--font-cormorant)",
             fontSize: "1.05rem",
-            color: "#4A6A4A",
+            color: "#6B5E4E",
             opacity: 0.8,
           }}
         >
@@ -158,7 +158,7 @@ export function TentCard({ tent, index, variant = "portrait" }: TentCardProps) {
         </p>
 
         <div className="flex items-end justify-between">
-          <span className="label-fs" style={{ color: "#4A6A4A", fontSize: "0.78rem", opacity: 0.8 }}>
+          <span className="label-fs" style={{ color: "#6B5E4E", fontSize: "0.78rem", opacity: 0.8 }}>
             {tent.sizeSqm} מ״ר · עד {tent.capacity}
           </span>
           <span

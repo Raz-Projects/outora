@@ -42,8 +42,8 @@ export default function OffersPage() {
   }
 
   const C = {
-    cream: "#FAFAF6", sand: "#F0EDE4", night: "#0D1A0D",
-    forest: "#1E3D1E", muted: "#4A6A4A", gold: "#B89A35",
+    cream: "#FAFAF6", sand: "#F0EDE4", night: "#0F0D0A",
+    forest: "#1C1814", muted: "#6B5E4E", gold: "#B89A35",
   };
 
   return (
@@ -116,7 +116,7 @@ export default function OffersPage() {
       <div
         style={{
           backgroundColor: "#ffffff",
-          borderBottom: "1px solid rgba(30,61,30,0.1)",
+          borderBottom: "1px solid rgba(28,24,20,0.1)",
           position: "sticky", top: "72px", zIndex: 30,
         }}
       >
@@ -129,9 +129,9 @@ export default function OffersPage() {
                 fontFamily: "var(--font-assistant)",
                 fontSize: "0.8rem",
                 padding: "6px 16px",
-                backgroundColor: activeFilter === f.value ? C.forest : "rgba(30,61,30,0.04)",
+                backgroundColor: activeFilter === f.value ? C.forest : "rgba(28,24,20,0.04)",
                 color: activeFilter === f.value ? C.cream : C.muted,
-                border: `1px solid ${activeFilter === f.value ? C.forest : "rgba(30,61,30,0.15)"}`,
+                border: `1px solid ${activeFilter === f.value ? C.forest : "rgba(28,24,20,0.15)"}`,
                 transition: "all 0.2s",
                 cursor: "pointer",
               }}
@@ -154,14 +154,14 @@ export default function OffersPage() {
                   key={pkg.id}
                   style={{
                     backgroundColor: "#ffffff",
-                    border: "1px solid rgba(30,61,30,0.1)",
+                    border: "1px solid rgba(28,24,20,0.1)",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                     transition: "box-shadow 0.3s ease, transform 0.3s ease",
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 48px rgba(30,61,30,0.12)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 48px rgba(28,24,20,0.12)";
                     (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={e => {
@@ -177,7 +177,7 @@ export default function OffersPage() {
                       alt={pkg.title}
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(13,26,13,0.7) 0%, transparent 55%)" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(15,13,10,0.7) 0%, transparent 55%)" }} />
 
                     {/* Badge */}
                     <div
@@ -192,7 +192,7 @@ export default function OffersPage() {
                     {pkg.spotsLeft && pkg.spotsLeft <= 5 && (
                       <div
                         className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 text-xs"
-                        style={{ backgroundColor: "rgba(13,26,13,0.85)", color: "#fbbf24", fontFamily: "var(--font-assistant)", backdropFilter: "blur(4px)" }}
+                        style={{ backgroundColor: "rgba(15,13,10,0.85)", color: "#fbbf24", fontFamily: "var(--font-assistant)", backdropFilter: "blur(4px)" }}
                       >
                         <Clock size={10} strokeWidth={2} />
                         <span className="mr-1">נותרו {pkg.spotsLeft} מקומות</span>
@@ -252,7 +252,7 @@ export default function OffersPage() {
                           <span
                             key={item}
                             className="text-xs px-2 py-0.5"
-                            style={{ backgroundColor: "rgba(30,61,30,0.06)", border: "1px solid rgba(30,61,30,0.1)", color: C.muted, fontFamily: "var(--font-assistant)" }}
+                            style={{ backgroundColor: "rgba(28,24,20,0.06)", border: "1px solid rgba(28,24,20,0.1)", color: C.muted, fontFamily: "var(--font-assistant)" }}
                           >
                             {item}
                           </span>
@@ -284,7 +284,7 @@ export default function OffersPage() {
                     {/* Price + CTA */}
                     <div
                       className="flex items-end justify-between mt-auto pt-4"
-                      style={{ borderTop: "1px solid rgba(30,61,30,0.08)" }}
+                      style={{ borderTop: "1px solid rgba(28,24,20,0.08)" }}
                     >
                       <div>
                         <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.7rem", color: C.muted, opacity: 0.6 }}>
@@ -333,7 +333,7 @@ export default function OffersPage() {
                         <Link
                           href={`/book?tent=${pkg.tentSlug}&promo=${pkg.promoCode}`}
                           className="text-center text-xs py-2 px-4 transition-colors"
-                          style={{ border: `1px solid rgba(30,61,30,0.2)`, color: C.muted, fontFamily: "var(--font-assistant)", textDecoration: "none" }}
+                          style={{ border: `1px solid rgba(28,24,20,0.2)`, color: C.muted, fontFamily: "var(--font-assistant)", textDecoration: "none" }}
                         >
                           טופס הזמנה
                         </Link>

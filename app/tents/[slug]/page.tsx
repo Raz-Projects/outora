@@ -1,4 +1,4 @@
-﻿import Image from "next/image"
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { MessageCircle } from "lucide-react"
@@ -100,7 +100,7 @@ export default async function TentDetailPage({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(13,26,13,0.85) 0%, rgba(13,26,13,0.1) 55%, transparent 100%)",
+              "linear-gradient(to top, rgba(15,13,10,0.85) 0%, rgba(15,13,10,0.1) 55%, transparent 100%)",
           }}
         />
 
@@ -178,7 +178,7 @@ export default async function TentDetailPage({
                 style={{
                   fontFamily: "var(--font-cormorant)",
                   fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                  color: "#1E3D1E",
+                  color: "#1C1814",
                   letterSpacing: "0.04em",
                 }}
               >
@@ -189,7 +189,7 @@ export default async function TentDetailPage({
                 style={{
                   fontFamily: "var(--font-cormorant)",
                   fontSize: "1.25rem",
-                  color: "#1E3D1E",
+                  color: "#1C1814",
                   opacity: 0.55,
                 }}
               >
@@ -210,15 +210,15 @@ export default async function TentDetailPage({
                 <div
                   key={spec.label}
                   className={`flex flex-col gap-2 px-6 py-5 border-b ${i < 3 ? "sm:border-r" : ""}`}
-                  style={{ borderColor: "rgba(30,61,30,0.12)" }}
+                  style={{ borderColor: "rgba(28,24,20,0.12)" }}
                 >
-                  <span className="label-fs" style={{ color: "#1E3D1E" }}>{spec.label}</span>
+                  <span className="label-fs" style={{ color: "#1C1814" }}>{spec.label}</span>
                   <span
                     className="font-light"
                     style={{
                       fontFamily: "var(--font-cormorant)",
                       fontSize: "1.4rem",
-                      color: "#1E3D1E",
+                      color: "#1C1814",
                     }}
                   >
                     {spec.value}
@@ -228,7 +228,7 @@ export default async function TentDetailPage({
             </div>
 
             {/* Spec strip — 4 secondary (technical) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border-b" style={{ borderColor: "rgba(30,61,30,0.12)" }}>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border-b" style={{ borderColor: "rgba(28,24,20,0.12)" }}>
               {[
                 { label: "מידות",      value: `${tent.dimensionsM} מ׳`         },
                 { label: "משקל",       value: `${tent.weightKg} ק״ג`            },
@@ -238,15 +238,15 @@ export default async function TentDetailPage({
                 <div
                   key={spec.label}
                   className={`flex flex-col gap-2 px-6 py-4 ${i < 3 ? "sm:border-r" : ""}`}
-                  style={{ borderColor: "rgba(30,61,30,0.08)", backgroundColor: "rgba(30,61,30,0.03)" }}
+                  style={{ borderColor: "rgba(28,24,20,0.08)", backgroundColor: "rgba(28,24,20,0.03)" }}
                 >
-                  <span className="label-fs" style={{ color: "#1E3D1E", opacity: 0.6 }}>{spec.label}</span>
+                  <span className="label-fs" style={{ color: "#1C1814", opacity: 0.6 }}>{spec.label}</span>
                   <span
                     className="font-light"
                     style={{
                       fontFamily: "var(--font-assistant)",
                       fontSize: "0.9rem",
-                      color: "#1E3D1E",
+                      color: "#1C1814",
                       opacity: 0.85,
                     }}
                   >
@@ -263,7 +263,7 @@ export default async function TentDetailPage({
                 style={{
                   fontFamily: "var(--font-assistant)",
                   fontSize: "1rem",
-                  color: "#1E3D1E",
+                  color: "#1C1814",
                   opacity: 0.75,
                   lineHeight: 2,
                 }}
@@ -278,7 +278,7 @@ export default async function TentDetailPage({
             <div>
               <h3
                 className="font-light mb-2"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1E3D1E" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1814" }}
               >
                 חבילת הבסיס — כלול במחיר
               </h3>
@@ -293,7 +293,7 @@ export default async function TentDetailPage({
                   <li
                     key={item}
                     className="flex items-center gap-3"
-                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1E3D1E", opacity: 0.8 }}
+                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1C1814", opacity: 0.8 }}
                   >
                     <span style={{ color: "#B89A35", fontSize: "1rem", flexShrink: 0 }}>✓</span>
                     {item}
@@ -308,7 +308,7 @@ export default async function TentDetailPage({
             <div>
               <h3
                 className="font-light mb-6"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1E3D1E" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1814" }}
               >
                 מאפייני האוהל
               </h3>
@@ -317,7 +317,7 @@ export default async function TentDetailPage({
                   <li
                     key={f}
                     className="flex items-center gap-3"
-                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1E3D1E", opacity: 0.75 }}
+                    style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#1C1814", opacity: 0.75 }}
                   >
                     <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#C4954A", flexShrink: 0 }} />
                     {f}
@@ -332,7 +332,7 @@ export default async function TentDetailPage({
             <div>
               <h3
                 className="font-light mb-6"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1E3D1E" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1814" }}
               >
                 מפרט טכני
               </h3>
@@ -354,17 +354,17 @@ export default async function TentDetailPage({
                   ].map(([label, value]) => (
                     <tr
                       key={label}
-                      style={{ borderBottom: "1px solid rgba(30,61,30,0.08)" }}
+                      style={{ borderBottom: "1px solid rgba(28,24,20,0.08)" }}
                     >
                       <td
                         className="py-3 pl-0 pr-4 font-medium"
-                        style={{ color: "#1E3D1E", opacity: 0.5, width: "40%", letterSpacing: "0.05em", fontSize: "0.78rem" }}
+                        style={{ color: "#1C1814", opacity: 0.5, width: "40%", letterSpacing: "0.05em", fontSize: "0.78rem" }}
                       >
                         {label}
                       </td>
                       <td
                         className="py-3"
-                        style={{ color: "#1E3D1E", opacity: 0.85 }}
+                        style={{ color: "#1C1814", opacity: 0.85 }}
                       >
                         {value}
                       </td>
@@ -382,7 +382,7 @@ export default async function TentDetailPage({
                   style={{
                     fontFamily: "var(--font-cormorant)",
                     fontSize: "1.8rem",
-                    color: "#1E3D1E",
+                    color: "#1C1814",
                   }}
                 >
                   צפו באוהל
@@ -405,21 +405,21 @@ export default async function TentDetailPage({
               <div className="fs-divider-full mb-8" />
               <h3
                 className="font-light mb-2"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1E3D1E" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", color: "#1C1814" }}
               >
                 שדרגו את החוויה
               </h3>
-              <p className="mb-8" style={{ fontFamily: "var(--font-assistant)", fontSize: "0.8rem", color: "#1E3D1E", opacity: 0.5, letterSpacing: "0.08em" }}>
+              <p className="mb-8" style={{ fontFamily: "var(--font-assistant)", fontSize: "0.8rem", color: "#1C1814", opacity: 0.5, letterSpacing: "0.08em" }}>
                 תוספות פרימיום — ניתן להוסיף בעת ההזמנה
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                 {upsells.map((a) => (
-                  <div key={a.id} className="flex flex-col gap-3 p-4" style={{ border: "1px solid rgba(30,61,30,0.08)" }}>
+                  <div key={a.id} className="flex flex-col gap-3 p-4" style={{ border: "1px solid rgba(28,24,20,0.08)" }}>
                     <div className="img-zoom relative w-full" style={{ aspectRatio: "4/3" }}>
                       <Image src={a.image} alt={a.nameHe} fill className="object-cover" sizes="20vw" />
                     </div>
                     <div className="flex items-center justify-between">
-                      <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem", color: "#1E3D1E" }}>
+                      <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem", color: "#1C1814" }}>
                         {a.nameHe}
                       </p>
                       <p className="label-fs" style={{ color: "#B89A35", whiteSpace: "nowrap" }}>
@@ -436,7 +436,7 @@ export default async function TentDetailPage({
           <div className="lg:col-span-1">
             <div
               className="lg:sticky lg:top-24 flex flex-col gap-6 p-6 md:p-8"
-              style={{ backgroundColor: "#1E3D1E" }}
+              style={{ backgroundColor: "#1C1814" }}
             >
               {/* Price */}
               <div>
@@ -533,13 +533,13 @@ export default async function TentDetailPage({
       {related.length > 0 && (
         <section className="py-12 md:py-20 px-4 md:px-10" style={{ backgroundColor: "#F0EDE4" }}>
           <div className="max-w-7xl mx-auto">
-            <p className="label-fs mb-4" style={{ color: "#1E3D1E" }}>גלו עוד</p>
+            <p className="label-fs mb-4" style={{ color: "#1C1814" }}>גלו עוד</p>
             <h2
               className="font-light mb-12"
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontSize: "clamp(2rem, 4vw, 3rem)",
-                color: "#1E3D1E",
+                color: "#1C1814",
               }}
             >
               אוהלים נוספים
