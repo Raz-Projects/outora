@@ -265,7 +265,7 @@ export const tents: Tent[] = [
     waterproofMm: 1000,
     material: "קנבס TC 210gsm (65% פוליאסטר / 35% כותנה)",
     image: "/tents/familia/hero-branded.png",
-    gallery: Array.from({length: 18}, (_, i) => `/tents/familia/img-${String(i+1).padStart(2,'0')}.jpg`),
+    gallery: Array.from({length: 18}, (_, i) => `/tents/familia/img-${String(i+1).padStart(2,'0')}.jpg`), // verified clean
     features: [
       "17.2 מ״ר שטח פנימי",
       "גובה מרכזי 2.2 מ׳",
