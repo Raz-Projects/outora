@@ -14,7 +14,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "OUTORA",
-  description: "חוויית קמפינג יוקרתית — אוהלי COODY מתנפחים, משלוח והקמה בכל ישראל",
+  description: "הבית שלך בטבע — חוויה מוכנה בכל מקום שתבחר בישראל. אוהלים מתנפחים, ציוד יוקרתי ומפנק.",
   url: "https://outora.co.il",
   telephone: "+972528448870",
   email: "Reservations@outora.co.il",
@@ -107,7 +107,7 @@ export default function Home() {
               fontWeight: 500,
             }}
           >
-            אתם בוחרים את המקום · אנחנו דואגים לכל השאר
+            חוויה מוכנה בטבע · בכל מקום שתבחרו
           </p>
 
           <h1
@@ -120,8 +120,8 @@ export default function Home() {
               textShadow: "0 2px 24px rgba(0,0,0,0.7)",
             }}
           >
-            הנופש שרציתם<br />
-            <em style={{ color: C.gold, fontStyle: "italic" }}>בלי הפשרות</em>
+            הבית שלך<br />
+            <em style={{ color: C.gold, fontStyle: "italic" }}>בטבע</em>
           </h1>
 
           <p
@@ -134,9 +134,9 @@ export default function Home() {
               textShadow: "0 1px 10px rgba(0,0,0,0.8)",
             }}
           >
-            OUTORA מגיעה אליכם לכל מקום בישראל —
-            מציבה, מעצבת, ומחכה שתגיעו.
-            אתם לא מרימים אצבע.
+            נמאס מ-4 קירות? OUTORA מביאה אליכם חבילה מוכנה —
+            אוהל מתוחכם, ציוד מפנק, ועיצוב שגורם לכם לשכוח
+            שאתם בטבע.
           </p>
 
           <div className="animate-fade-up delay-500 flex flex-col sm:flex-row items-center gap-4 mt-2">
@@ -166,10 +166,10 @@ export default function Home() {
       <section style={{ backgroundColor: C.forest, borderBottom: `1px solid rgba(184,154,53,0.15)` }}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
           {[
-            { icon: <Sparkles size={14} strokeWidth={1.5} />, text: "5 אוהלים פרימיום" },
-            { icon: <MapPin size={14} strokeWidth={1.5} />, text: "הגעה לכל ישראל" },
-            { icon: <Truck size={14} strokeWidth={1.5} />, text: "הקמה וסידור מלא" },
-            { icon: <ShieldCheck size={14} strokeWidth={1.5} />, text: "הכל כלול — אין הפתעות" },
+            { icon: <MapPin size={14} strokeWidth={1.5} />, text: "מקומות מרהיבים ברחבי ישראל" },
+            { icon: <Sparkles size={14} strokeWidth={1.5} />, text: "ציוד יוקרתי ומפנק" },
+            { icon: <Star size={14} strokeWidth={1.5} />, text: "חוויה בלתי נשכחת" },
+            { icon: <TreePine size={14} strokeWidth={1.5} />, text: "בטבע. נוחות. חופש." },
             { icon: <BedDouble size={14} strokeWidth={1.5} />, text: "החל מ-₪390 ללילה" },
           ].map((item) => (
             <div key={item.text} className="flex items-center gap-2">
@@ -220,10 +220,10 @@ export default function Home() {
                   maxWidth: "440px",
                 }}
               >
-                בחרו מקום — חוף, הר, מדבר, גליל.
-                אנחנו מגיעים לפניכם, מציבים הכל ומעצבים
-                את החלל עד שהוא מושלם.
-                אתם מגיעים לנופש. לא להרכיב ציוד.
+                אוהלים מתנפחים מתקדמים, ריהוט נוח,
+                תאורת אווירה, ציוד מטבח, שמיכות — כל מה
+                שצריך כדי שתרגישו בבית, גם אם אתם על חוף
+                הים או בלב המדבר.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={300}>
@@ -250,9 +250,10 @@ export default function Home() {
       <section style={{ backgroundColor: C.sand }}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-16 md:py-24">
           <ScrollReveal className="text-center mb-14">
-            <p className="label-fs mb-5" style={{ color: C.gold }}>לכל סיבה</p>
+            <p className="label-fs mb-5" style={{ color: C.gold }}>רגעים שיש רק בטבע</p>
             <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem, 4vw, 3.4rem)", color: C.forest, lineHeight: 1.2 }}>
-              כל סיבה היא סיבה טובה.
+              לכל אחד יש את<br />
+              <em style={{ color: C.gold }}>הרגע שלו.</em>
             </h2>
           </ScrollReveal>
 
@@ -290,7 +291,7 @@ export default function Home() {
           <div className="text-center mb-14">
             <p className="label-fs mb-4" style={{ color: C.gold }}>איך מזמינים?</p>
             <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4vw, 3.6rem)", color: C.cream }}>
-              ארבעה צעדים לחוויה מושלמת
+              ארבעה צעדים. לא יותר.
             </h2>
           </div>
 
@@ -708,7 +709,7 @@ export default function Home() {
               <p className="label-fs mb-3" style={{ color: C.gold }}>המקומות שלנו</p>
               <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 4rem)", color: C.forest, lineHeight: 1.1 }}>
                 מצפון לדרום.<br />
-                <em style={{ color: C.gold }}>כל ישראל בידיים שלנו.</em>
+                <em style={{ color: C.gold }}>מצפון עד דרום.</em>
               </h2>
             </div>
             <Link href="/locations" className="btn-fs-gold hidden md:inline-block" style={{ flexShrink: 0, color: C.gold, borderColor: C.gold }}>
@@ -952,10 +953,10 @@ const forWhomCards = [
 ]
 
 const steps = [
-  { title: "בחרו אוהל",           desc: "עיינו בחמישה דגמי האוהלים המתנפחים שלנו ובחרו את זה שמתאים לכם — לפי גודל, סגנון וצרכים." },
-  { title: "בחרו מיקום ותאריכים", desc: "ים, הרים, מדבר, שדה — אנחנו מגיעים לכל מקום שתבחרו בישראל. אין מגבלות." },
-  { title: "בחרו איך לקבל",       desc: "איסוף עצמי, תיק גג, עגלת נגרר, משלוח, או שאנחנו מגיעים ומקימים הכל — אתם בוחרים." },
-  { title: "תגיעו ותיהנו",        desc: "הכל מוכן ומסודר. אתם רק צריכים להגיע, לנשום ולהתחיל לחיות." },
+  { title: "בחרו חוויה",           desc: "עיינו בחמישה דגמי האוהלים המתנפחים ובחרו את האוהל שמתאים לכם — לפי גודל, סגנון וצרכים." },
+  { title: "בחרו מקום ותאריכים", desc: "ים, הרים, מדבר, שדה, יער — אנחנו מגיעים לכל מקום שתבחרו בישראל." },
+  { title: "הוסיפו תוספות",       desc: "מקרר, מזגן, מקרן קולנוע, רמקול, קערת אש — הרכיבו את החוויה שלכם." },
+  { title: "תגיעו ותיהנו",        desc: "הכל מוכן. אתם רק צריכים להגיע, לנשום, ולהיות שם." },
 ]
 
 const deliveryOptionsList = [

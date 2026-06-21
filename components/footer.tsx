@@ -24,7 +24,7 @@ export function Footer() {
             className="text-sm leading-relaxed opacity-60"
             style={{ color: "#FAFAF6", fontFamily: "var(--font-assistant)" }}
           >
-            חוויית קמפינג יוקרתית — אנחנו מגיעים אליך לכל מקום שתבחר בישראל.
+            הבית שלך בטבע — חוויה מוכנה, ציוד מפנק, בכל מקום שתבחר בישראל.
           </p>
         </div>
 
