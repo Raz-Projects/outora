@@ -284,13 +284,13 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          HOW IT WORKS — forest dark
+          HOW IT WORKS — earth warm light
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.forest }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.earth }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <p className="label-fs mb-4" style={{ color: C.gold }}>איך מזמינים?</p>
-            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4vw, 3.6rem)", color: C.cream }}>
+            <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4vw, 3.6rem)", color: C.forest }}>
               ארבעה צעדים. לא יותר.
             </h2>
           </div>
@@ -301,25 +301,25 @@ export default function Home() {
                 <div
                   className="flex flex-col gap-5 px-7 py-8 flex-1"
                   style={{
-                    border: `1px solid ${C.goldBorderS}`,
-                    backgroundColor: i === 3 ? "rgba(184,154,53,0.08)" : "rgba(250,250,246,0.04)",
+                    border: `1px solid ${C.goldBorder}`,
+                    backgroundColor: i === 3 ? "rgba(184,154,53,0.07)" : "#FAFAF6",
                   }}
                 >
-                  <span className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: C.gold, opacity: 0.45 }}>
+                  <span className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: C.gold, opacity: 0.4 }}>
                     0{i + 1}
                   </span>
-                  <div style={{ width: "32px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
-                  <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 2vw, 1.9rem)", color: C.cream, lineHeight: 1.3 }}>
+                  <div style={{ width: "32px", height: "1px", backgroundColor: C.gold, opacity: 0.35 }} />
+                  <h3 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.5rem, 2vw, 1.9rem)", color: C.forest, lineHeight: 1.3 }}>
                     {s.title}
                   </h3>
-                  <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.15vw, 1.05rem)", color: C.cream, opacity: 0.65, lineHeight: 1.85 }}>
+                  <p className="font-light leading-relaxed" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.15vw, 1.05rem)", color: C.muted, lineHeight: 1.85 }}>
                     {s.desc}
                   </p>
                 </div>
                 {i < steps.length - 1 && (
                   <>
-                    <div className="hidden md:flex items-center justify-center px-1" style={{ color: C.gold, opacity: 0.5, fontSize: "1.4rem" }}>←</div>
-                    <div className="flex md:hidden justify-center py-2" style={{ color: C.gold, opacity: 0.5, fontSize: "1.4rem" }}>↓</div>
+                    <div className="hidden md:flex items-center justify-center px-1" style={{ color: C.gold, opacity: 0.4, fontSize: "1.4rem" }}>←</div>
+                    <div className="flex md:hidden justify-center py-2" style={{ color: C.gold, opacity: 0.4, fontSize: "1.4rem" }}>↓</div>
                   </>
                 )}
               </div>
@@ -336,7 +336,7 @@ export default function Home() {
           <div className="text-center mb-14">
             <p className="label-fs mb-4" style={{ color: C.gold }}>גמישות מלאה</p>
             <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.5rem, 4.5vw, 4rem)", color: C.forest }}>
-              איך מקבלים את הציוד?
+              בחרו את הדרך שנוחה לכם.
             </h2>
           </div>
 
@@ -598,12 +598,12 @@ export default function Home() {
       {/* ══════════════════════════════════════
           PHOTO STRIP — real moments (dark overlay)
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-20 px-4 md:px-8" style={{ backgroundColor: C.night }}>
+      <section className="py-16 md:py-20 px-4 md:px-8" style={{ backgroundColor: C.sand }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-10">
             <div>
               <p className="label-fs mb-3" style={{ color: C.gold }}>הרגעים שלנו</p>
-              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)", color: C.cream, lineHeight: 1.1 }}>
+              <h2 className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)", color: C.forest, lineHeight: 1.1 }}>
                 חוויה אמיתית.<br /><em style={{ color: C.gold }}>בכל מקום.</em>
               </h2>
             </div>
@@ -661,7 +661,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/book" className="btn-fs-solid">הוסיפו תוספות בהזמנה</Link>
+            <Link href="/accessories" className="btn-fs-solid">כל הציוד והתוספות</Link>
           </div>
         </div>
       </section>

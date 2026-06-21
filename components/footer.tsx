@@ -139,7 +139,7 @@ const navLinks = [
   { href: "/events",    label: "אירועים"      },
   { href: "/locations", label: "לוקיישנים"   },
   { href: "/offers",    label: "חבילות"      },
-  { href: "/shop",      label: "אביזרים"     },
+  { href: "/accessories", label: "ציוד ותוספות" },
   { href: "/faq",       label: "שאלות נפוצות"},
   { href: "/contact",   label: "צור קשר"    },
   { href: "/book",      label: "הזמנה"       },

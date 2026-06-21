@@ -156,9 +156,10 @@ export function Navbar() {
 }
 
 const navLinks = [
-  { href: "/tents",     label: "חוויות"      },
-  { href: "/events",    label: "אירועים",    hot: true },
-  { href: "/locations", label: "לוקיישנים"  },
-  { href: "/offers",    label: "חבילות"     },
-  { href: "/contact",   label: "צור קשר"   },
+  { href: "/tents",       label: "חוויות"      },
+  { href: "/events",      label: "אירועים",    hot: true },
+  { href: "/accessories", label: "ציוד"        },
+  { href: "/locations",   label: "לוקיישנים"  },
+  { href: "/offers",      label: "חבילות"     },
+  { href: "/contact",     label: "צור קשר"   },
 ]
