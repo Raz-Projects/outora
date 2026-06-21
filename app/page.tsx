@@ -87,11 +87,11 @@ export default function Home() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo-transparent.png"
-            alt="OUTORA"
+            alt="OUTORA — הבית שלך בטבע"
             className="animate-fade-in"
             style={{
-              width: "clamp(200px, 26vw, 320px)",
-              filter: "brightness(0) invert(1) drop-shadow(0 4px 24px rgba(0,0,0,0.85))",
+              width: "clamp(260px, 32vw, 420px)",
+              filter: "brightness(0) invert(1) drop-shadow(0 1px 0px rgba(255,255,255,0.15)) drop-shadow(0 4px 28px rgba(0,0,0,0.95))",
             }}
           />
 
@@ -422,7 +422,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           DEALS — חבילות החודש
       ══════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.night }}>
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.forest }}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -581,7 +581,7 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section
         className="flex flex-col items-center justify-center text-center px-8 py-24 md:py-36"
-        style={{ backgroundColor: C.night, minHeight: "300px" }}
+        style={{ backgroundColor: C.forestMid, minHeight: "300px" }}
       >
         <div className="fs-divider mb-8" />
         <blockquote
@@ -783,7 +783,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           FINAL CTA — forest night
       ══════════════════════════════════════ */}
-      <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: C.night }}>
+      <section className="py-20 md:py-36 px-4 md:px-8 text-center" style={{ backgroundColor: C.forest }}>
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-8">
           <p className="label-fs" style={{ color: C.gold, opacity: 1, letterSpacing: "0.3em" }}>מוכנים?</p>
           <h2

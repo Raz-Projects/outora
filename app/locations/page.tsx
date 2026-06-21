@@ -338,6 +338,17 @@ export default function LocationsPage() {
         </div>
       </section>
 
+      {/* ── Legal disclaimer ── */}
+      <section style={{ backgroundColor: "#F0EDE4", borderTop: "1px solid rgba(184,154,53,0.15)" }}>
+        <div className="max-w-4xl mx-auto px-4 md:px-8 py-8 text-center">
+          <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.82rem", color: "#6B5E4E", lineHeight: 1.85, opacity: 0.85 }}>
+            <strong style={{ color: "#1C1814", fontWeight: 600 }}>הבהרה משפטית: </strong>
+            OUTORA מספקת המלצות על מקומות בילוי בטבע בלבד. באחריות המשתמש לבדוק את תנאי הלינה, ההיתרים והשהייה מול רשות הטבע והגנים, קק"ל, הרשות המקומית או מפעיל השטח הרלוונטי.
+            OUTORA אינה אחראית לשינויים ברגולציה, סגירת שטחים או הגבלות גישה.
+          </p>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );

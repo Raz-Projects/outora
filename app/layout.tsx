@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Assistant } from "next/font/google";
+import { Cormorant_Garamond, Heebo } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/lib/cart-context";
 import { StickyCart } from "@/components/sticky-cart";
@@ -48,7 +48,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const assistant = Assistant({
+const assistant = Heebo({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
   weight: ["300", "400", "500", "600", "700"],
