@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Heebo } from "next/font/google";
+import { Cormorant_Garamond, Rubik } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { CartProvider } from "@/lib/cart-context";
 import { StickyCart } from "@/components/sticky-cart";
-import { PromoBar } from "@/components/promo-bar";
 import { AudioToggle } from "@/components/audio-toggle";
 import { Analytics } from "@/components/analytics";
 import { CookieBanner } from "@/components/cookie-banner";
@@ -48,7 +47,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const assistant = Heebo({
+const assistant = Rubik({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -73,7 +72,6 @@ export default function RootLayout({
             <a href="#main-content" className="skip-link">
               דלגו לתוכן הראשי
             </a>
-            <PromoBar />
             {children}
             <StickyCart />
             <AudioToggle />

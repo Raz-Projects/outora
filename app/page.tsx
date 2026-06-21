@@ -100,11 +100,13 @@ export default function Home() {
             style={{
               color: C.gold,
               fontFamily: "var(--font-assistant)",
-              fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)",
-              letterSpacing: "0.18em",
+              fontSize: "clamp(1rem, 1.3vw, 1.15rem)",
+              letterSpacing: "0.16em",
               textTransform: "uppercase",
-              textShadow: "0 1px 12px rgba(0,0,0,0.95)",
-              fontWeight: 500,
+              fontWeight: 600,
+              backgroundColor: "rgba(0,0,0,0.4)",
+              backdropFilter: "blur(6px)",
+              padding: "7px 22px",
             }}
           >
             חוויה מוכנה בטבע · בכל מקום שתבחרו
@@ -257,23 +259,23 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: C.goldBorder }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px" style={{ backgroundColor: C.goldBorder }}>
             {forWhomCards.map((card) => (
               <div
                 key={card.title}
-                className="flex flex-col items-center text-center gap-7 px-6 py-12 md:py-16 group cursor-pointer transition-all duration-500"
-                style={{ backgroundColor: C.cream }}
+                className="flex flex-col items-center text-center gap-6 px-6 py-12 md:py-16 group cursor-pointer transition-all duration-500"
+                style={{ backgroundColor: C.sand }}
               >
-                <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={C.gold} strokeWidth="0.85" strokeLinecap="round" strokeLinejoin="round"
-                  style={{ transition: "opacity 0.4s", opacity: 0.85 }}>
+                <svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke={C.gold} strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round"
+                  style={{ transition: "opacity 0.4s", opacity: 0.9 }}>
                   {card.iconPath}
                 </svg>
-                <div style={{ width: "24px", height: "1px", backgroundColor: C.gold, opacity: 0.35 }} />
+                <div style={{ width: "28px", height: "1px", backgroundColor: C.gold, opacity: 0.4 }} />
                 <div>
-                  <h3 className="font-light mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.25rem, 1.8vw, 1.65rem)", color: C.forest, lineHeight: 1.3 }}>
+                  <h3 className="font-light mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.4rem, 2vw, 1.85rem)", color: C.forest, lineHeight: 1.2 }}>
                     {card.title}
                   </h3>
-                  <p className="font-light" style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.9rem, 1vw, 1rem)", color: C.muted, lineHeight: 1.9 }}>
+                  <p style={{ fontFamily: "var(--font-assistant)", fontSize: "clamp(0.95rem, 1.05vw, 1.05rem)", color: C.muted, lineHeight: 1.85 }}>
                     {card.desc}
                   </p>
                 </div>
@@ -302,7 +304,7 @@ export default function Home() {
                   className="flex flex-col gap-5 px-7 py-8 flex-1"
                   style={{
                     border: `1px solid ${C.goldBorder}`,
-                    backgroundColor: i === 3 ? "rgba(184,154,53,0.07)" : "#FAFAF6",
+                    backgroundColor: i === 3 ? "rgba(184,154,53,0.07)" : C.cream,
                   }}
                 >
                   <span className="font-light" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem, 4vw, 3.5rem)", lineHeight: 1, color: C.gold, opacity: 0.4 }}>
@@ -349,7 +351,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className={`delivery-card${i === 4 ? " featured" : ""} flex flex-col gap-4 p-6`}
                 style={{
-                  backgroundColor: i === 4 ? "rgba(184,154,53,0.07)" : "#ffffff",
+                  backgroundColor: i === 4 ? "rgba(184,154,53,0.09)" : "#FAFAF6",
                   textDecoration: "none",
                   cursor: "pointer",
                 }}
@@ -854,7 +856,7 @@ export default function Home() {
 const forWhomCards = [
   {
     title: "ילדים שמחים. הורים נושמים.",
-    desc: "בלי מסך, בלי אנימטור, בלי 'מתי מגיעים'. פשוט טבע — והוויקנד שהם יספרו עליו שנה.",
+    desc: "40 דקות מהבית. בלי מסכים, בלי אנימטור, בלי שאלות. רק טבע, מדורה, ושינה אמיתית — לכולם.",
     iconPath: (
       <>
         {/* Three pine trees of graduated height */}
@@ -876,7 +878,7 @@ const forWhomCards = [
   },
   {
     title: "הלילה האחרון של החופש שלה",
-    desc: "היא ביקשה 'משהו שאזכור'. אז לא YES PLANET. חוף, כוכבים, בנות — ואוהל שמכיל את כולן.",
+    desc: "היא ביקשה 'משהו שאזכור'. לא מסעדה. לא YES PLANET. חוף, כוכבים, בנות — ואוהל שמכיל את כולן.",
     iconPath: (
       <>
         {/* Elegant champagne flute */}
@@ -903,7 +905,7 @@ const forWhomCards = [
   },
   {
     title: "20 חברים. אוהל. מדורה.",
-    desc: "בגיל הזה — לא מסעדה. לא קראוקי. לילה שחברים שלך יזכרו בחתונה שלך.",
+    desc: "לא מסעדה. לא קראוקי. הלילה שכולם מצלמים, מפוסבקים ומדברים עליו עד החתונה.",
     iconPath: (
       <>
         {/* Campfire logs */}
@@ -930,7 +932,7 @@ const forWhomCards = [
   },
   {
     title: "כבו את הנוטיפיקציות",
-    desc: "40 דקות מתל אביב. עולם אחר לגמרי. חוזרים בני אדם — ואנחנו מבטיחים.",
+    desc: "40 דקות מתל אביב ועולם אחר לגמרי. שקט, אוויר, כוכבים. חוזרים בני אדם — מובטח.",
     iconPath: (
       <>
         {/* Two interlocking rings — symbol of partnership */}
@@ -995,7 +997,7 @@ function FAQSection() {
             <details
               key={i}
               className="group"
-              style={{ border: `1px solid ${C_local.goldBorder}`, backgroundColor: "#fff" }}
+              style={{ border: `1px solid ${C_local.goldBorder}`, backgroundColor: "#FAFAF6" }}
             >
               <summary
                 className="flex items-center justify-between px-5 py-4 cursor-pointer list-none"

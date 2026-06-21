@@ -49,7 +49,7 @@ export function PromoBar() {
 
   return (
     <div
-      className="relative z-50 flex items-center justify-center gap-4 px-4 py-2.5 flex-wrap text-center"
+      className="relative flex items-center justify-center gap-4 px-4 py-2.5 flex-wrap text-center"
       style={{
         backgroundColor: "#1C1410",
         borderBottom: "1px solid rgba(196,149,74,0.3)",
