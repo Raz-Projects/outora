@@ -1051,12 +1051,12 @@ const whyOutora = [
 ]
 
 const featuredLocations = [
-  { id: "beach-dor",          name: "חוף דור",       region: "חוף הכרמל", img: "/gallery/tent-real-2.jpg"  },
-  { id: "sea-of-galilee",     name: "כינרת",          region: "צפון",       img: "/gallery/tent-real-3.jpg"  },
-  { id: "ramon-crater",       name: "מכתש רמון",      region: "נגב",        img: "/gallery/tent-real-5.jpg"  },
-  { id: "dead-sea-north",     name: "ים המלח",        region: "ים המלח",   img: "/gallery/רוחבי.jpeg"       },
-  { id: "mt-hermon-foothills",name: "רגלי החרמון",   region: "צפון",       img: "/gallery/tent-real-4.jpg"  },
-  { id: "red-sea-eilat",      name: "אילת",           region: "דרום",       img: "/gallery/tent-real-6.jpg"  },
+  { id: "beach-dor",          name: "חוף דור",       region: "חוף הכרמל", img: "/gallery/locations/dor.jpg"      },
+  { id: "sea-of-galilee",     name: "כינרת",          region: "צפון",       img: "/gallery/locations/kinneret.jpg" },
+  { id: "ramon-crater",       name: "מכתש רמון",      region: "נגב",        img: "/gallery/locations/ramon.jpg"    },
+  { id: "dead-sea-north",     name: "ים המלח",        region: "ים המלח",   img: "/gallery/locations/dead-sea.jpg" },
+  { id: "mt-hermon-foothills",name: "רגלי החרמון",   region: "צפון",       img: "/gallery/locations/hermon.jpg"   },
+  { id: "red-sea-eilat",      name: "אילת",           region: "דרום",       img: "/gallery/locations/eilat.jpg"    },
 ]
 
 const tentVideos = [
