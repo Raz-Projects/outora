@@ -338,6 +338,32 @@ export default function LocationsPage() {
         </div>
       </section>
 
+      {/* ── Interactive Map CTA ── */}
+      <section style={{ backgroundColor: "#1C1814" }}>
+        <div className="max-w-5xl mx-auto px-4 md:px-8 py-14 text-center flex flex-col items-center gap-6">
+          <p className="label-fs" style={{ color: "#B89A35" }}>OUTORA MAP</p>
+          <h2
+            className="font-light leading-tight"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem,4vw,2.8rem)", color: "#FAFAF6" }}
+          >
+            רוצים לראות את כל המקומות על המפה?
+          </h2>
+          <p
+            className="font-light max-w-md"
+            style={{ fontFamily: "var(--font-assistant)", fontSize: "0.9rem", color: "#FAFAF6", opacity: 0.65, lineHeight: 1.75 }}
+          >
+            מפה אינטראקטיבית עם סינון לפי אזור, נוף ותנאים — לחצו על מקום לפרטים מלאים.
+          </p>
+          <Link
+            href="/map"
+            className="btn-fs-solid"
+            style={{ padding: "14px 36px", fontSize: "0.82rem", letterSpacing: "0.1em" }}
+          >
+            פתחו את המפה האינטראקטיבית
+          </Link>
+        </div>
+      </section>
+
       {/* ── Legal disclaimer ── */}
       <section style={{ backgroundColor: "#F0EDE4", borderTop: "1px solid rgba(184,154,53,0.15)" }}>
         <div className="max-w-4xl mx-auto px-4 md:px-8 py-8 text-center">

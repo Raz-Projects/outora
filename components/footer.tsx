@@ -137,6 +137,7 @@ const navLinks = [
   { href: "/",          label: "דף הבית"      },
   { href: "/tents",     label: "חוויות"       },
   { href: "/events",    label: "אירועים"      },
+  { href: "/map",      label: "מפת מיקומים" },
   { href: "/locations", label: "לוקיישנים"   },
   { href: "/offers",    label: "חבילות"      },
   { href: "/accessories", label: "ציוד ותוספות" },

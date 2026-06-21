@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { MessageCircle } from "lucide-react"
+import { MessageCircle, Navigation, ExternalLink } from "lucide-react"
 import {
   locations,
   type CampingLocation,
@@ -462,9 +462,42 @@ function LocationCard({ location: loc, onClose }: { location: CampingLocation; o
           <span className="flex items-center gap-2 justify-center"><MessageCircle size={15} strokeWidth={1.5} /> הזמינו OUTORA למקום הזה</span>
         </a>
 
-        <Link href="/book" className="btn-fs-ghost text-center" style={{ fontSize: "0.68rem" }}>
-          טופס הזמנה מפורט
-        </Link>
+        {/* Book via Israel Parks Authority */}
+        {loc.parksUrl && (
+          <a
+            href={loc.parksUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 py-3 px-4 transition-all hover:opacity-80"
+            style={{
+              border: "1px solid rgba(28,22,16,0.2)",
+              color: "#1C1814",
+              fontFamily: "var(--font-assistant)",
+              fontSize: "0.72rem",
+              letterSpacing: "0.08em",
+            }}
+          >
+            <ExternalLink size={13} strokeWidth={1.5} />
+            סגרו מקום ב-parks.org.il
+          </a>
+        )}
+
+        {/* Google Maps navigation */}
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 py-2.5 transition-opacity hover:opacity-70"
+          style={{
+            color: "#6B5E4E",
+            fontFamily: "var(--font-assistant)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.06em",
+          }}
+        >
+          <Navigation size={12} strokeWidth={1.5} />
+          נווטו ב-Google Maps
+        </a>
       </div>
     </div>
   )

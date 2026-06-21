@@ -159,7 +159,7 @@ const navLinks = [
   { href: "/tents",       label: "חוויות"      },
   { href: "/events",      label: "אירועים",    hot: true },
   { href: "/accessories", label: "ציוד"        },
-  { href: "/locations",   label: "לוקיישנים"  },
+  { href: "/map",         label: "מפה"         },
   { href: "/offers",      label: "חבילות"     },
   { href: "/contact",     label: "צור קשר"   },
 ]

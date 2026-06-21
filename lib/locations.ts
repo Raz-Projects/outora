@@ -19,6 +19,7 @@ export type CampingLocation = {
   descriptionHe: string
   recommendedTents: string[]
   recommendedAccessories: string[]
+  parksUrl?: string
 }
 
 export const landscapeLabels: Record<LandscapeType, string> = {
@@ -58,6 +59,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "אחד החופים היפים בצפון — חול לבן, מים צלולים ואווירה שקטה. מושלם לאוהל על שפת הים עם נוף ישיר לים התיכון.",
     recommendedTents: ["hub-shelter-pro", "familia", "hub-station"],
     recommendedAccessories: ["sup", "solar-lights", "garlands"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "achziv-beach",
@@ -77,6 +79,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "שמורת טבע עם חוף מדהים בגליל המערבי. כיכרות סלע ים, מים כחולים ושקיעות מרהיבות.",
     recommendedTents: ["dome", "hub-station"],
     recommendedAccessories: ["sup", "garlands", "solar-lights"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "horshat-tal",
@@ -96,6 +99,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "חורשת אלונים עתיקה בצפון הגולן — עצים ענקיים, נחל קריר ושטחי דשא ירוקים. אחד מאתרי הקמפינג המאורגנים הטובים בישראל.",
     recommendedTents: ["familia-pro", "hub-shelter-pro"],
     recommendedAccessories: ["fire-pit", "dining-set", "garlands"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "montfort",
@@ -134,6 +138,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "שפת הכנרת — שקיעות בצבעי זהב על פני המים, אוויר ים הכנרת הייחודי וזריחות מדהימות.",
     recommendedTents: ["dome", "familia"],
     recommendedAccessories: ["sup", "star-projector", "solar-lights"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "nahal-amud",
@@ -212,6 +217,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "חוף נקי ורחב בשמורת פלמחים — חולות רטובים, גלים מתונים ושקיעות ים תיכוניות קסומות.",
     recommendedTents: ["hub-shelter-pro", "familia"],
     recommendedAccessories: ["sup", "garlands", "solar-lights"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "gador-beach",
@@ -250,6 +256,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "יער ירוק ומרענן בלב ישראל — מושלם לאירועים, ימי כיף ומשפחות שרוצות להתנתק ליום-יומיים.",
     recommendedTents: ["hub-shelter-pro", "familia-pro"],
     recommendedAccessories: ["fire-pit", "dining-set", "garlands"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "nahal-sorek",
@@ -288,6 +295,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "חניון מאורגן ונוח בין השפלה להרים — עצים גדולים, שטחי דשא ומשפחות מסביב לאש.",
     recommendedTents: ["familia-pro", "familia"],
     recommendedAccessories: ["fire-pit", "dining-set", "speaker"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
 
   // ─── JERUSALEM ────────────────────────────────────────────────────────────
@@ -328,6 +336,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "גן לאומי יפהפה על גדות נחל שורק — עצים ירוקים, מים צוננים וקרבה מלאה לירושלים.",
     recommendedTents: ["hub-shelter-pro", "familia"],
     recommendedAccessories: ["dining-set", "garlands", "coffee-machine"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "nahal-prat",
@@ -366,6 +375,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "קיבוץ ואתר נופש בהרי ירושלים — שטח פתוח בין עצי אורן, נוף מרהיב לשפלה וכוכבים ירושלמיים.",
     recommendedTents: ["familia-pro", "hub-shelter-pro"],
     recommendedAccessories: ["fire-pit", "fur-blanket", "garlands"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
 
   // ─── SOUTH ────────────────────────────────────────────────────────────────
@@ -387,6 +397,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "נאות מדבר על שפת ים המלח — שמורת טבע עם מפלים, יעלים פראיים ולילות מדבר קסומים מתחת לשמיים.",
     recommendedTents: ["dome", "hub-station"],
     recommendedAccessories: ["star-projector", "telescope", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "masada",
@@ -406,6 +417,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "בצל מצדה — לילה מדברי בגובה ים המלח עם זריחה היסטורית על המדבר. חוויה שלא תישכח.",
     recommendedTents: ["dome", "familia"],
     recommendedAccessories: ["telescope", "star-projector", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "dead-sea-north",
@@ -425,6 +437,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "ים המלח הכחול — שחייה ללא מאמץ, בוץ ריפוי ושקיעות ענקיות על ההרים ממול. חוויה ייחודית בעולם.",
     recommendedTents: ["hub-station", "familia"],
     recommendedAccessories: ["solar-lights", "garlands", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "ramon-crater",
@@ -444,6 +457,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "המכתש הגדול בעולם — כוכבים בדרגה אחרת, שקטים שאין להם אח ורע, ונוף גיאולוגי עוצר נשימה.",
     recommendedTents: ["dome", "hub-station"],
     recommendedAccessories: ["telescope", "star-projector", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "sde-boker",
@@ -463,6 +477,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "נגב העמוק — קניון צין, מפל ניצנה, הביוגרמה של בן גוריון. מקום של שקט, מחשבה ואוויר מדברי נקי.",
     recommendedTents: ["dome", "hub-station"],
     recommendedAccessories: ["telescope", "coffee-machine", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "nahal-tzihor",
@@ -520,6 +535,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "נגב פתוח מול הרי ים המלח — נוף ענק, לילות מדבר שקטים ואפשרות לצאת לטיולים בנחלים הסמוכים.",
     recommendedTents: ["familia", "dome"],
     recommendedAccessories: ["star-projector", "telescope", "fire-pit"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
 
   // ─── ARAVA / EILAT ────────────────────────────────────────────────────────
@@ -541,6 +557,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "עמקי הנחושת הנגביים — כוכב הדרום של הקמפינג בישראל. נוף מדהים, פטריות סלע ושמיים פתוחים ב-360°.",
     recommendedTents: ["dome", "familia"],
     recommendedAccessories: ["telescope", "star-projector", "fur-blanket"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "eilat-north-beach",
@@ -560,6 +577,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "אגם האלמוגים — ים אדום צלול, שנורקלינג עוצר נשימה וחמימות שאין לה מתחרה בינואר. חוויה בינלאומית.",
     recommendedTents: ["hub-shelter-pro", "familia"],
     recommendedAccessories: ["sup", "solar-lights", "garlands"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "eilat-coral-beach",
@@ -579,6 +597,7 @@ export const locations: CampingLocation[] = [
     descriptionHe: "שמורת הים האלמוגים — אחת מ-4 שמורות האלמוגים בים האדום. מים כחולים צלולים ושקיעות דרמטיות.",
     recommendedTents: ["dome", "hub-station"],
     recommendedAccessories: ["sup", "telescope", "solar-lights"],
+    parksUrl: "https://www.parks.org.il/הזמנות-לחניוני-לילה/",
   },
   {
     id: "neot-hakikar",
