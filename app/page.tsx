@@ -1,12 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Truck, BedDouble, Zap, MapPin, ShieldCheck, Sparkles, MessageCircle } from "lucide-react"
+import { Truck, BedDouble, Zap, MapPin, ShieldCheck, Sparkles, MessageCircle, Tag, Users, Clock, Flame, Heart, Star, TreePine, Gift } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TentCard } from "@/components/tent-card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { CountdownTimer } from "@/components/countdown-timer"
 import { tents, accessories } from "@/lib/tents"
+import { packages, BADGE_CONFIG, type PackageBadge } from "@/lib/packages"
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -377,6 +379,163 @@ export default function Home() {
 
           <div className="text-center mt-12 md:hidden">
             <Link href="/tents" className="btn-fs-gold" style={{ color: C.gold, borderColor: C.gold }}>כל האוהלים</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          DEALS — חבילות החודש
+      ══════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4 md:px-8" style={{ backgroundColor: C.night }}>
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <p className="label-fs mb-2" style={{ color: C.gold }}>OUTORA DEALS</p>
+              <h2
+                className="font-light leading-none"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.4rem,5vw,3.8rem)", color: C.cream }}
+              >
+                חבילות שגורמות לך<br />
+                <em style={{ color: C.gold }}>להגיד כן בלי לחשוב פעמיים.</em>
+              </h2>
+            </div>
+            <div className="flex flex-col items-start md:items-end gap-3">
+              {/* Live countdown for SUMMER30 */}
+              <div
+                className="flex items-center gap-2 px-4 py-2.5"
+                style={{ border: "1px solid rgba(184,154,53,0.3)", backgroundColor: "rgba(184,154,53,0.06)" }}
+              >
+                <Tag size={12} stroke={C.gold} strokeWidth={1.5} />
+                <span style={{ fontFamily: "var(--font-assistant)", fontSize: "0.72rem", color: "rgba(250,250,246,0.7)" }}>
+                  קוד קיץ <strong style={{ color: C.gold, letterSpacing: "0.1em" }}>SUMMER30</strong> — עד:
+                </span>
+                <CountdownTimer
+                  targetDate="2026-09-30T23:59:59"
+                  style={{ color: C.gold }}
+                />
+              </div>
+              <Link
+                href="/offers"
+                className="flex items-center gap-2 text-sm"
+                style={{ color: C.gold, fontFamily: "var(--font-assistant)", letterSpacing: "0.08em" }}
+              >
+                כל החבילות והמבצעים ←
+              </Link>
+            </div>
+          </div>
+
+          {/* Package cards — 3 featured */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {packages.slice(0, 3).map((pkg) => {
+              const badge = BADGE_CONFIG[pkg.badge];
+              const BADGE_ICON: Record<PackageBadge, React.ReactNode> = {
+                HOT:      <Flame size={10} strokeWidth={2} />,
+                ROMANTIC: <Heart size={10} strokeWidth={2} />,
+                NEW:      <Star size={10} strokeWidth={2} />,
+                FAMILY:   <TreePine size={10} strokeWidth={2} />,
+                VIP:      <Gift size={10} strokeWidth={2} />,
+                WEEKEND:  <Flame size={10} strokeWidth={2} />,
+              };
+              return (
+                <div
+                  key={pkg.id}
+                  style={{
+                    backgroundColor: "rgba(250,250,246,0.04)",
+                    border: "1px solid rgba(184,154,53,0.15)",
+                    overflow: "hidden",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {/* Image */}
+                  <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={pkg.image} alt={pkg.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(13,26,13,0.75) 0%, transparent 50%)" }} />
+
+                    {/* Badge */}
+                    <div
+                      className="absolute top-3 right-3 flex items-center gap-1 px-2 py-0.5 text-xs"
+                      style={{ backgroundColor: badge.bg, color: badge.text, fontFamily: "var(--font-assistant)", fontWeight: 600 }}
+                    >
+                      {BADGE_ICON[pkg.badge]}
+                      <span className="mr-1">{badge.label}</span>
+                    </div>
+
+                    {/* Spots left */}
+                    {pkg.spotsLeft && pkg.spotsLeft <= 5 && (
+                      <div
+                        className="absolute top-3 left-3 flex items-center gap-1 px-2 py-0.5 text-xs"
+                        style={{ backgroundColor: "rgba(13,26,13,0.9)", color: "#fbbf24", fontFamily: "var(--font-assistant)" }}
+                      >
+                        <Clock size={9} strokeWidth={2} />
+                        <span className="mr-0.5">{pkg.spotsLeft} מקומות</span>
+                      </div>
+                    )}
+
+                    {/* Title overlay */}
+                    <div className="absolute bottom-0 inset-x-0 p-3">
+                      <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.35rem", color: C.cream, lineHeight: 1.1 }}>
+                        {pkg.title}
+                      </h3>
+                      <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.78rem", color: "rgba(250,250,246,0.65)", marginTop: "2px" }}>
+                        {pkg.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Price + CTA */}
+                  <div
+                    className="flex items-center justify-between p-4"
+                    style={{ borderTop: "1px solid rgba(184,154,53,0.12)" }}
+                  >
+                    <div>
+                      <div className="flex items-baseline gap-2">
+                        <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.6rem", color: C.gold, fontWeight: 300 }}>
+                          ₪{pkg.pricePerNight}
+                        </span>
+                        <span style={{ fontFamily: "var(--font-assistant)", fontSize: "0.8rem", color: "rgba(250,250,246,0.35)", textDecoration: "line-through" }}>
+                          ₪{pkg.priceFullPerNight}
+                        </span>
+                      </div>
+                      <p style={{ fontFamily: "var(--font-assistant)", fontSize: "0.65rem", color: "rgba(250,250,246,0.35)", marginTop: "1px" }}>
+                        <Users size={9} strokeWidth={1.5} style={{ display: "inline", marginLeft: "3px" }} />
+                        עד {pkg.maxGuests} · {pkg.nights === 1 ? "לילה" : `${pkg.nights} לילות`}
+                      </p>
+                    </div>
+                    <a
+                      href={`https://wa.me/972528448870?text=${encodeURIComponent(pkg.waText)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-2 text-xs"
+                      style={{
+                        backgroundColor: C.gold,
+                        color: C.night,
+                        fontFamily: "var(--font-assistant)",
+                        fontWeight: 700,
+                        textDecoration: "none",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      <MessageCircle size={12} strokeWidth={2} />
+                      הזמינו
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* CTA to all offers */}
+          <div className="text-center mt-10">
+            <Link
+              href="/offers"
+              className="btn-fs-gold"
+              style={{ color: C.gold, borderColor: "rgba(184,154,53,0.5)" }}
+            >
+              כל 6 החבילות — מבצעים נוספים ←
+            </Link>
           </div>
         </div>
       </section>

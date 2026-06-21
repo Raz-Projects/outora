@@ -136,6 +136,7 @@ export function Footer() {
 const navLinks = [
   { href: "/",          label: "דף הבית"    },
   { href: "/tents",     label: "האוהלים"    },
+  { href: "/offers",    label: "מבצעים"     },
   { href: "/compare",   label: "השוואה"     },
   { href: "/locations", label: "לוקיישנים"  },
   { href: "/shop",      label: "חנות"       },

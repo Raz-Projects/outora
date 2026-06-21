@@ -67,12 +67,13 @@ export function Navbar() {
               href={l.href}
               className="gold-underline transition-opacity hover:opacity-100"
               style={{
-                color: linkColor,
-                opacity: 0.88,
+                color: (l as {hot?: boolean}).hot ? "#B89A35" : linkColor,
+                opacity: (l as {hot?: boolean}).hot ? 1 : 0.88,
                 fontFamily: "var(--font-assistant)",
                 fontSize: "0.88rem",
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
+                fontWeight: (l as {hot?: boolean}).hot ? 700 : undefined,
               }}
             >
               {l.label}
@@ -155,8 +156,9 @@ export function Navbar() {
 
 const navLinks = [
   { href: "/tents",     label: "האוהלים"      },
-  { href: "/compare",   label: "השוואה"       },
+  { href: "/offers",    label: "מבצעים 🔥",   hot: true },
   { href: "/locations", label: "לוקיישנים"    },
+  { href: "/compare",   label: "השוואה"       },
   { href: "/shop",      label: "חנות"         },
   { href: "/faq",       label: "שאלות נפוצות" },
   { href: "/contact",   label: "צור קשר"     },

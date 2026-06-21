@@ -80,16 +80,26 @@ function BookContent() {
     agreedToTerms: false, agreedToAge: false, marketingConsent: false,
   });
 
-  // Pre-fill from URL params (e.g. ?region=north&tent=dome from location pages)
+  // Pre-fill from URL params (e.g. ?region=north&tent=dome&promo=FRIENDS20)
   useEffect(() => {
     const region = searchParams.get("region");
     const tent   = searchParams.get("tent");
+    const promo  = searchParams.get("promo");
     if (region || tent) {
       setForm((f) => ({
         ...f,
         ...(region ? { region } : {}),
         ...(tent   ? { tent   } : {}),
       }));
+    }
+    if (promo) {
+      const upper = promo.trim().toUpperCase();
+      setPromoInput(upper);
+      const result = validatePromoCode(upper);
+      if (result) {
+        setActivePromo(upper);
+        setPromoStatus({ ok: true, msg: `✓ ${result.label}` });
+      }
     }
   }, [searchParams]);
   const [promoInput, setPromoInput]     = useState("");
