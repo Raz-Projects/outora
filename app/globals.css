@@ -2,56 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─────────────────────────────────────────────────────────────
-   Design tokens — PLACEHOLDER.
-   Neutral baseline only. Replace wholesale with the token set
-   from Yotam's Figma rebrand. Nothing here is brand-approved.
-   ───────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   OUTORA — Design System
+   מקור: lib/design-tokens.ts  ·  אל תוסיף כאן צבעים חדשים
+   ═══════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 9%;
-    --radius: 0.5rem;
-  }
+    /* ── Colors (Figma) ── */
+    --white:      #FFFFFF;
+    --off-white:  #FBFBFB;
+    --stroke:     #E6E6E6;
+    --text-gray:  #666666;
+    --black:      #000000;
+    --beige:      #D9C18A;  /* Primary            */
+    --beige-dark: #C7AC71;  /* Primary · hover    */
+    --orange:     #D9652C;  /* Secondary */
 
-  .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 4%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 84%;
+    /* ⚠️ לא מהפיגמה — הצעה */
+    --error:      #B3261E;
+    --error-bg:   #FDECEA;
+    --success:    #2F7A55;
+    --success-bg: #EAF5EF;
+
+    /* ── shadcn/ui tokens (HSL) ── */
+    --background:            0 0% 100%;
+    --foreground:            0 0% 0%;
+    --card:                  0 0% 100%;
+    --card-foreground:       0 0% 0%;
+    --popover:               0 0% 100%;
+    --popover-foreground:    0 0% 0%;
+    --primary:              42 51% 70%;   /* beige  */
+    --primary-foreground:    0 0% 0%;
+    --secondary:            20 69% 51%;   /* orange */
+    --secondary-foreground:  0 0% 100%;
+    --muted:                 0 0% 98%;    /* off-white */
+    --muted-foreground:      0 0% 40%;    /* text gray */
+    --accent:               20 69% 51%;
+    --accent-foreground:     0 0% 100%;
+    --destructive:           0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border:                0 0% 90%;    /* stroke */
+    --input:                 0 0% 90%;
+    --ring:                 20 69% 51%;
+    --radius: 0.75rem;
+
+    /* ── Effects ── */
+    --shadow-drop: 0 5px 15px 2px #00000033;
   }
 }
 
@@ -59,7 +56,29 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  html {
+    scrollbar-gutter: stable;
   }
+
+  body {
+    background-color: var(--white);
+    color: var(--black);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Type scale (Figma) ── */
+  h1 { font-size: 48px; font-weight: 600; line-height: 1.15; }
+  h2 { font-size: 28px; font-weight: 600; line-height: 1.25; }
+  h3 { font-size: 22px; font-weight: 600; line-height: 1.3;  }
+}
+
+@layer components {
+  .text-subtitle { font-size: 20px; font-weight: 400; line-height: 1.5; }
+  .text-body     { font-size: 16px; font-weight: 400; line-height: 1.6; }
+  .text-button   { font-size: 16px; font-weight: 500; line-height: 1.2; }
+  .text-tag      { font-size: 12px; font-weight: 500; line-height: 1.3; }
 }
