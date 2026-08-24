@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { sans } from "./fonts";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { PreviewGate } from "@/components/layout/preview-gate";
+import { SiteChrome } from "@/components/layout/site-chrome";
+import { PageView } from "@/components/layout/page-view";
 import { BookingProvider } from "@/lib/booking-context";
+import { getCatalog } from "@/lib/catalog";
 import "./globals.css";
 
 const TITLE = "OUTORA · הבית שלך בטבע";
@@ -52,18 +54,19 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const catalog = await getCatalog();
+
   return (
     <html lang="he" dir="rtl" className={sans.variable}>
       <body>
-        <BookingProvider>
-          <PreviewGate>
-            <Header />
+        <PageView />
+        <BookingProvider catalog={catalog}>
+          <SiteChrome header={<Header />} footer={<Footer />}>
             {children}
-            <Footer />
-          </PreviewGate>
+          </SiteChrome>
         </BookingProvider>
       </body>
     </html>

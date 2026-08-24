@@ -19,9 +19,12 @@ function Chevron({ className }: { className?: string }) {
 }
 
 export default function ExtrasStep() {
-  const { state } = useBooking();
+  const { state, catalog } = useBooking();
   const router = useRouter();
-  const categories = React.useMemo(() => getExtraCategories(), []);
+  const categories = React.useMemo(
+    () => getExtraCategories(catalog.accessories),
+    [catalog.accessories]
+  );
   const [open, setOpen] = React.useState<string[]>([]);
 
   const toggle = (id: string) =>

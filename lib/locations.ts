@@ -20,6 +20,8 @@ export type CampingLocation = {
   recommendedTents: string[]
   recommendedAccessories: string[]
   parksUrl?: string
+  /** תצלומים · מהמסד. בקוד מגיע מ-lib/location-photos.ts */
+  photos?: string[]
 }
 
 export const landscapeLabels: Record<LandscapeType, string> = {

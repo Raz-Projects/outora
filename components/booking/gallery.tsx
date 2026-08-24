@@ -14,12 +14,15 @@ export function Gallery({
   className,
   sizes = "(min-width: 768px) 45vw, 100vw",
   priority,
+  fit = "cover",
 }: {
   images: string[];
   alt: string;
   className?: string;
   sizes?: string;
   priority?: boolean;
+  /** contain · למוצרים שצולמו על רקע לבן */
+  fit?: "cover" | "contain";
 }) {
   const list = images.filter(Boolean).slice(0, 8);
   const track = React.useRef<HTMLDivElement>(null);
@@ -60,7 +63,7 @@ export function Gallery({
               fill
               sizes={sizes}
               priority={priority && n === 0}
-              className="object-cover"
+              className={fit === "contain" ? "object-contain p-3 sm:p-4" : "object-cover"}
             />
           </div>
         ))}

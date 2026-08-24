@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
-
-const ADMIN_EMAILS = ["raz@outora.co.il", "arad@outora.co.il"];
+import { ADMIN_EMAILS } from "@/lib/admin/config";
 
 // ── Rate limiting (in-memory per Edge instance) ───────────────────
 // Limits: POST /api/* · 30 req / 60s per IP
@@ -31,14 +30,22 @@ export async function middleware(req: NextRequest) {
 
     const { pathname } = req.nextUrl;
 
+    // admin.outora.co.il · הכתובת הקצרה מגיעה לממשק הניהול
+    const host = (req.headers.get("host") ?? "").split(":")[0].toLowerCase();
+    if (host.startsWith("admin.") && pathname === "/") {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+
     // Apply rate limit to POST requests on /api routes
-    if (req.method === "POST" && pathname.startsWith("/api/")) {
+    // מדידת כניסות לא נספרת במגבלה · אחרת גלישה מהירה תחסום הזמנות
+    if (req.method === "POST" && pathname.startsWith("/api/") && pathname !== "/api/track") {
       const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
       if (isRateLimited(ip)) {
         return NextResponse.json({ error: "Too many requests" }, { status: 429 });
       }
     }
-    const isAdmin   = pathname.startsWith("/admin");
+    // בפיתוח מקומי ממשק הניהול פתוח בלי כניסה · בשרת תמיד נעול
+    const isAdmin   = pathname.startsWith("/admin") && process.env.NODE_ENV !== "development";
     const isAccount = pathname.startsWith("/account");
 
     const res = NextResponse.next();
@@ -65,7 +72,7 @@ export async function middleware(req: NextRequest) {
 
     // /admin · only OUTORA team emails
     if (!user) return NextResponse.redirect(new URL("/auth/login?next=/admin", req.url));
-    if (!ADMIN_EMAILS.includes(user.email ?? "")) return NextResponse.redirect(new URL("/", req.url));
+    if (!ADMIN_EMAILS.includes((user.email ?? "").toLowerCase())) return NextResponse.redirect(new URL("/", req.url));
 
     return res;
   } catch {

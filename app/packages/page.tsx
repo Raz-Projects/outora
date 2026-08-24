@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { packages, type PackageBadge, type ExperiencePackage } from "@/lib/packages";
+import type { PackageBadge, ExperiencePackage } from "@/lib/packages";
 import { getTentBySlug } from "@/lib/tents";
+import { getCatalog } from "@/lib/catalog";
 import { Gallery } from "@/components/booking/gallery";
 
 export const metadata: Metadata = {
@@ -23,12 +24,14 @@ const badgeLabels: Record<PackageBadge, string> = {
 /** תמונת החבילה ואחריה הגלריה של האוהל שלה */
 function images(pkg: ExperiencePackage) {
   const tent = getTentBySlug(pkg.tentSlug);
-  return [pkg.image, ...(tent?.gallery ?? [])].filter(
+  return [pkg.image, ...(pkg.gallery ?? []), ...(tent?.gallery ?? [])].filter(
     (v, i, arr) => v && arr.indexOf(v) === i
   );
 }
 
-export default function PackagesArchive() {
+export default async function PackagesArchive() {
+  const { packages } = await getCatalog();
+
   return (
     <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-32 md:px-[90px]">
       <p className="text-tag text-textgray">חבילות</p>

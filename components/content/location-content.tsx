@@ -1,6 +1,6 @@
-import { locations, amenityLabels } from "@/lib/locations";
-import { getTentBySlug } from "@/lib/tents";
-import { locationPhotos, LOCATION_FALLBACK } from "@/lib/location-photos";
+import { amenityLabels } from "@/lib/locations";
+import { getCatalog } from "@/lib/catalog";
+import { LOCATION_FALLBACK } from "@/lib/location-photos";
 import { Gallery } from "@/components/booking/gallery";
 import { LocationMap } from "./location-map";
 
@@ -8,12 +8,15 @@ import { LocationMap } from "./location-map";
  * התוכן של מיקום.
  * אותו רכיב משמש גם את הדף המלא וגם את הדיאלוג שנפתח בתוך האשף.
  */
-export function LocationContent({ id }: { id: string }) {
-  const loc = locations.find((l) => l.id === id);
+export async function LocationContent({ id }: { id: string }) {
+  const catalog = await getCatalog();
+  const loc = catalog.locations.find((l) => l.id === id);
   if (!loc) return null;
 
-  const photos = locationPhotos(loc.id);
-  const tents = loc.recommendedTents.map((slug) => getTentBySlug(slug)).filter(Boolean);
+  const photos = loc.photos ?? [];
+  const tents = loc.recommendedTents
+    .map((slug) => catalog.tents.find((t) => t.slug === slug))
+    .filter(Boolean);
 
   const facts: [string, string][] = [
     ["אזור", loc.regionHe],

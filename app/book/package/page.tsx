@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { packages } from "@/lib/packages";
 import { useBooking } from "@/lib/booking-context";
 import { BookingShell } from "@/components/booking/shell";
 import { PackageCard } from "@/components/booking/package-card";
 
 export default function PackageStep() {
-  const { state, set } = useBooking();
+  const { state, set, catalog } = useBooking();
+  const { packages } = catalog;
 
   // מי שנחת ישר על הדף עדיין צריך את השלבים של מסלול החבילות
   React.useEffect(() => {

@@ -19,6 +19,8 @@ export type ExperiencePackage = {
   includes: string[]
   badge: PackageBadge
   image: string
+  /** תמונות נוספות · מהמסד */
+  gallery?: string[]
   promoCode: string
   waText: string
   validUntil?: string   // ISO date string

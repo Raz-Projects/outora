@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { locations, type LandscapeType } from "@/lib/locations";
+import type { LandscapeType } from "@/lib/locations";
 import { useBooking } from "@/lib/booking-context";
 import { useGeo, distanceKm } from "@/lib/use-geo";
 import { IconLocation } from "@/components/icons";
@@ -19,7 +19,7 @@ const SEARCH_TO_LANDSCAPE: Record<string, LandscapeType> = {
   park:   "forest",
 };
 
-import { locationPhotos, LOCATION_FALLBACK as FALLBACK } from "@/lib/location-photos";
+import { LOCATION_FALLBACK as FALLBACK } from "@/lib/location-photos";
 
 function Arrow({
   side, onClick,
@@ -44,7 +44,8 @@ function Arrow({
 }
 
 export function LocationPicker() {
-  const { state, set } = useBooking();
+  const { state, set, catalog } = useBooking();
+  const { locations } = catalog;
   const { coords, status, ask } = useGeo(true);
   const track = React.useRef<HTMLDivElement>(null);
 
@@ -119,7 +120,7 @@ export function LocationPicker() {
             >
               <div className="relative aspect-[16/10]">
                 <Image
-                  src={locationPhotos(loc.id)[0] ?? FALLBACK}
+                  src={loc.photos?.[0] ?? FALLBACK}
                   alt={loc.nameHe}
                   fill
                   sizes="(min-width: 768px) 30vw, 240px"

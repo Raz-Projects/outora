@@ -8,7 +8,13 @@ import { ResultRow } from "@/components/ui/result-row";
 import { Alert } from "@/components/ui/alert";
 import { Field } from "@/components/ui/field";
 import { Toast } from "@/components/ui/toast";
-import { ToastDemo } from "./interactive";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Pagination } from "@/components/ui/pagination";
+import {
+  Table, TableHead, TableBody, TableRow, TableHeader, TableCell,
+} from "@/components/ui/table";
+import { ToastDemo, DialogDemo, SwitchDemo } from "./interactive";
 
 const swatches = [
   { name: "White",            hex: colors.white,    border: true },
@@ -164,6 +170,67 @@ export default function DesignSystemPage() {
           <Badge variant="beige">בז׳</Badge>
           <Badge variant="solid">מלא</Badge>
           <Badge variant="gray">אפור</Badge>
+          <Badge variant="success">מאושרת</Badge>
+          <Badge variant="error">בוטלה</Badge>
+        </div>
+        <p className="text-tag text-textgray mt-3">ירוק ואדום · לסטטוסים בממשק הניהול</p>
+      </Section>
+
+      <Section title="Admin · Select / Textarea">
+        <div className="max-w-xl space-y-4">
+          <Select defaultValue="confirmed">
+            <option value="pending">ממתינה</option>
+            <option value="confirmed">מאושרת</option>
+            <option value="cancelled">בוטלה</option>
+          </Select>
+          <Textarea placeholder="הערות פנימיות" />
+        </div>
+      </Section>
+
+      <Section title="Admin · Product list">
+        <p className="text-tag text-textgray">
+          רשימות המוצרים, טפסי העריכה והעלאת התמונות חיים בממשק הניהול תחת
+          <span className="mx-1 text-black">/admin/content</span>
+          ומשתמשים בקומפוננטות שבדף הזה.
+        </p>
+      </Section>
+
+      <Section title="Admin · Switch">
+        <SwitchDemo />
+      </Section>
+
+      <Section title="Admin · Dialog">
+        <DialogDemo />
+        <p className="text-tag text-textgray mt-3">לאישור פעולות שאי אפשר לבטל.</p>
+      </Section>
+
+      <Section title="Admin · Table">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeader>מספר</TableHeader>
+              <TableHeader>לקוח</TableHeader>
+              <TableHeader>תאריכים</TableHeader>
+              <TableHeader>סטטוס</TableHeader>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>OUT-1042</TableCell>
+              <TableCell>ישראל ישראלי</TableCell>
+              <TableCell>12.9.26 – 14.9.26</TableCell>
+              <TableCell><Badge variant="success">מאושרת</Badge></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>OUT-1041</TableCell>
+              <TableCell>דנה כהן</TableCell>
+              <TableCell>3.10.26 – 5.10.26</TableCell>
+              <TableCell><Badge variant="beige">ממתינה</Badge></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <div className="mt-6 max-w-xl">
+          <Pagination page={2} totalPages={5} href={(p) => `#page-${p}`} />
         </div>
       </Section>
 

@@ -1,8 +1,15 @@
 export type Accessory = {
   id: string
   nameHe: string
+  descriptionHe?: string
   image: string
+  /** תמונות נוספות · מהמסד */
+  gallery?: string[]
   pricePerNight: number
+  /** קטגוריה באשף · מזהה מ-lib/extras.ts */
+  category?: string
+  /** כמה יחידות יש במלאי */
+  quantity?: number
 }
 
 export type Tent = {
@@ -25,6 +32,8 @@ export type Tent = {
   features: string[]
   includedItems: string[]
   priceFrom: number
+  /** כמה יחידות יש במלאי */
+  quantity?: number
 }
 
 // ─── Premium add-ons (paid per night) ──────────────────────────────────────

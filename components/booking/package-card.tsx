@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { packages } from "@/lib/packages";
+import type { ExperiencePackage as Pkg } from "@/lib/packages";
 import { getTentBySlug } from "@/lib/tents";
 import { resolveItems } from "@/lib/items";
 import { Gallery } from "@/components/booking/gallery";
@@ -9,12 +9,10 @@ import { ils } from "@/components/booking/total-bar";
 import { IconGroup, IconLocation, IconCamping } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
-type Pkg = (typeof packages)[number];
-
 /** תמונת החבילה ואחריה הגלריה של האוהל שלה */
 function images(pkg: Pkg) {
   const tent = getTentBySlug(pkg.tentSlug);
-  return [pkg.image, ...(tent?.gallery ?? [])].filter(
+  return [pkg.image, ...(pkg.gallery ?? []), ...(tent?.gallery ?? [])].filter(
     (v, i, arr) => v && arr.indexOf(v) === i
   );
 }

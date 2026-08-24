@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { locations, regionLabels, type RegionType } from "@/lib/locations";
+import { regionLabels, type RegionType } from "@/lib/locations";
+import { getCatalog } from "@/lib/catalog";
 import { LocationMap } from "@/components/content/location-map";
 import { LandscapeIcon } from "@/components/content/landscape-icon";
-import { locationPhotos } from "@/lib/location-photos";
 import { Gallery } from "@/components/booking/gallery";
 
 export const metadata: Metadata = {
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 /** סדר האזורים בדף · מצפון לדרום */
 const REGION_ORDER: RegionType[] = ["north", "center", "jerusalem", "south", "arava"];
 
-export default function LocationsArchive() {
+export default async function LocationsArchive() {
+  const { locations } = await getCatalog();
   const byRegion = REGION_ORDER.map((region) => ({
     region,
     items: locations.filter((l) => l.region === region),
@@ -60,9 +61,9 @@ export default function LocationsArchive() {
                     ⚠️ רק ל-6 מיקומים יש תצלום, ולכל אחד מהם רק אחד.
                     למי שאין מוצג אייקון הנוף ולא תמונה גנרית, כדי לא להציג מקום שהוא לא.
                   */}
-                  {locationPhotos(loc.id).length > 0 ? (
+                  {(loc.photos ?? []).length > 0 ? (
                     <Gallery
-                      images={locationPhotos(loc.id)}
+                      images={loc.photos ?? []}
                       alt={loc.nameHe}
                       className="aspect-[4/3] w-full"
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"

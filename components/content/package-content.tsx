@@ -1,18 +1,18 @@
-import Image from "next/image";
-import { packages } from "@/lib/packages";
-import { getTentBySlug } from "@/lib/tents";
+import { getCatalog } from "@/lib/catalog";
 import { resolveItems } from "@/lib/items";
+import { Gallery } from "@/components/booking/gallery";
 import { PickPackage } from "@/components/booking/pick-package";
 
 /**
  * התוכן של חבילה.
  * אותו רכיב משמש גם את הדף המלא וגם את הדיאלוג שנפתח בתוך האשף.
  */
-export function PackageContent({ id }: { id: string }) {
-  const pkg = packages.find((p) => p.id === id);
+export async function PackageContent({ id }: { id: string }) {
+  const catalog = await getCatalog();
+  const pkg = catalog.packages.find((p) => p.id === id);
   if (!pkg) return null;
 
-  const tent = getTentBySlug(pkg.tentSlug);
+  const tent = catalog.tents.find((t) => t.slug === pkg.tentSlug);
 
   const facts: [string, string][] = [
     ["מיקום", pkg.locationName],
@@ -31,12 +31,13 @@ export function PackageContent({ id }: { id: string }) {
           <p className="text-body mt-6">{pkg.hook}</p>
         </div>
 
-        <Image
-          src={pkg.image}
+        <Gallery
+          images={[pkg.image, ...(pkg.gallery ?? []), ...(tent?.gallery ?? [])].filter(
+            (v, i, arr) => v && arr.indexOf(v) === i
+          )}
           alt={pkg.title}
-          width={1200}
-          height={900}
-          className="aspect-[4/3] h-auto w-full rounded-[16px] object-cover md:sticky md:top-0"
+          className="aspect-[4/3] w-full rounded-[16px] md:sticky md:top-0"
+          sizes="(min-width: 768px) 45vw, 100vw"
         />
       </div>
 

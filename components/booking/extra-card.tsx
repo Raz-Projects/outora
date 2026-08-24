@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import type { Accessory } from "@/lib/tents";
 import { useBooking } from "@/lib/booking-context";
+import { Gallery } from "./gallery";
 import { cn } from "@/lib/utils";
 
 function Round({
@@ -40,19 +40,19 @@ export function ExtraCard({ item }: { item: Accessory }) {
         on ? "border-orange" : "border-stroke"
       )}
     >
-      <div className="relative aspect-[16/9] bg-white sm:aspect-[4/3]">
-        <Image
-          src={item.image}
-          alt={item.nameHe}
-          fill
-          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 75vw"
-          className="object-contain p-3 sm:p-4"
-        />
-      </div>
+      <Gallery
+        images={[item.image, ...(item.gallery ?? [])].filter(
+          (v, i, arr) => v && arr.indexOf(v) === i
+        )}
+        alt={item.nameHe}
+        className="aspect-[16/9] bg-white sm:aspect-[4/3]"
+        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 75vw"
+        fit="contain"
+      />
 
       <div className="flex flex-1 flex-col p-4 sm:p-5">
         <h3 className="text-h3">{item.nameHe}</h3>
-        <p className="text-body text-textgray mt-1">תוספת לחוויה שלכם.</p>
+        <p className="text-body text-textgray mt-1">{item.descriptionHe || "תוספת לחוויה שלכם."}</p>
 
         {/* המחיר מימין, הכפתור משמאל */}
         <div className="mt-auto flex items-center justify-between gap-3 pt-4 sm:gap-4 sm:pt-5">

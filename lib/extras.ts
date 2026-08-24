@@ -1,8 +1,9 @@
-import { accessories, type Accessory } from "@/lib/tents";
+import { accessories as codeAccessories, type Accessory } from "@/lib/tents";
 
 /**
- * חלוקת התוספות לקטגוריות.
- * ⚠️ החלוקה נעשתה כאן לפי שם המוצר. שווה שאוטורה יאשרו.
+ * הקטגוריות של התוספות באשף.
+ * לכל תוספת יש שדה category (נשמר במסד). מי שלא משויך נופל ל"נוסף".
+ * ⚠️ החלוקה המקורית נעשתה לפי שם המוצר. שווה שאוטורה יאשרו.
  */
 export const EXTRA_CATEGORIES = [
   {
@@ -27,26 +28,30 @@ export const EXTRA_CATEGORIES = [
   },
 ] as const;
 
+export const CATEGORY_OPTIONS = [
+  ...EXTRA_CATEGORIES.map((c) => ({ id: c.id as string, title: c.title as string })),
+  { id: "other", title: "נוסף" },
+];
+
 export interface ExtraCategory {
   id: string;
   title: string;
   items: Accessory[];
 }
 
-export function getExtraCategories(): ExtraCategory[] {
-  const used = new Set<string>();
+/** הקטגוריה של תוספת · מהשדה במסד, או מהרשימה שבקוד */
+export function categoryOf(a: Accessory): string {
+  if (a.category) return a.category;
+  return EXTRA_CATEGORIES.find((c) => (c.ids as readonly string[]).includes(a.id))?.id ?? "other";
+}
 
-  const cats: ExtraCategory[] = EXTRA_CATEGORIES.map((c) => {
-    const items = c.ids
-      .map((id) => accessories.find((a) => a.id === id))
-      .filter(Boolean) as Accessory[];
-    items.forEach((i) => used.add(i.id));
-    return { id: c.id, title: c.title, items };
-  });
-
-  // כל מה שלא שובץ נופל לקטגוריה אחרונה, כדי שלא ייעלם מוצר
-  const rest = accessories.filter((a) => !used.has(a.id));
-  if (rest.length) cats.push({ id: "other", title: "נוסף", items: rest });
-
-  return cats.filter((c) => c.items.length > 0);
+/** מקבל את רשימת התוספות בפועל · ברירת מחדל: מה שכתוב בקוד */
+export function getExtraCategories(accessories: Accessory[] = codeAccessories): ExtraCategory[] {
+  return CATEGORY_OPTIONS
+    .map((c) => ({
+      id: c.id,
+      title: c.title,
+      items: accessories.filter((a) => categoryOf(a) === c.id),
+    }))
+    .filter((c) => c.items.length > 0);
 }

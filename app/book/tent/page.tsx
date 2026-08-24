@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { tents } from "@/lib/tents";
+import type { Tent } from "@/lib/tents";
 import { useBooking } from "@/lib/booking-context";
 import { useAvailability } from "@/lib/use-availability";
 import { BookingShell } from "@/components/booking/shell";
@@ -29,7 +29,7 @@ function TentRow({
   taken,
   onPick,
 }: {
-  tent: (typeof tents)[number];
+  tent: Tent;
   selected: boolean;
   confirming: boolean;
   taken: boolean;
@@ -123,7 +123,8 @@ function TentRow({
 }
 
 export default function TentStep() {
-  const { state, set } = useBooking();
+  const { state, set, catalog } = useBooking();
+  const { tents } = catalog;
   const router = useRouter();
 
   const guests = state.guests ?? 0;
@@ -132,7 +133,7 @@ export default function TentStep() {
    * התוצאות הראשיות: כל האוהלים בגודל הקטן ביותר שעדיין מכיל את הקבוצה.
    * ל-6 אנשים נקבל את כל אוהלי ה-6, לא גם את אלה של 8 ו-10.
    */
-  const byFit = (a: (typeof tents)[number], b: (typeof tents)[number]) =>
+  const byFit = (a: Tent, b: Tent) =>
     a.capacity - b.capacity || a.priceFrom - b.priceFrom;
 
   const fitting = tents.filter((t) => t.capacity >= guests);
@@ -146,7 +147,7 @@ export default function TentStep() {
   const isTaken = (slug: string) => checked && availability[slug] === false;
 
   /** תפוסים יורדים לסוף הרשימה, כמו באתרי מלונות */
-  const byAvail = (a: (typeof tents)[number], b: (typeof tents)[number]) =>
+  const byAvail = (a: Tent, b: Tent) =>
     Number(isTaken(a.slug)) - Number(isTaken(b.slug)) || byFit(a, b);
 
   const fits = tier === null ? [] : fitting.filter((t) => t.capacity === tier).sort(byAvail);

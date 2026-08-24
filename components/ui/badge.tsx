@@ -12,6 +12,8 @@ const badgeVariants = cva(
         beige:  "border-beige  bg-white text-black",
         solid:  "border-transparent bg-beige text-black",
         gray:   "border-stroke bg-white text-textgray",
+        success: "border-success bg-white text-success",
+        error:   "border-error bg-white text-error",
       },
     },
     defaultVariants: { variant: "orange" },

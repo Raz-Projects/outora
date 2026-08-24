@@ -1,10 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { tents, accessories } from "@/lib/tents";
-import { packages } from "@/lib/packages";
+import { tents as codeTents, accessories as codeAccessories } from "@/lib/tents";
+import { packages as codePackages } from "@/lib/packages";
+import { locations as codeLocations } from "@/lib/locations";
 import { deliveryOptions } from "@/lib/delivery";
 import { nightsBetween } from "@/lib/dates";
+import type { Catalog } from "@/lib/catalog-types";
+
+/** ברירת מחדל כשלא הגיע קטלוג מהשרת */
+const CODE_CATALOG: Catalog = {
+  tents: codeTents,
+  accessories: codeAccessories,
+  packages: codePackages,
+  locations: codeLocations,
+};
 
 /** שני המסלולים באשף */
 export type BookingMode = "custom" | "package";
@@ -59,9 +69,12 @@ interface Ctx {
   setQty: (id: string, qty: number) => void;
   reset: () => void;
 
+  /** הקטלוג בפועל · אחרי שינויי מחיר והפעלה מהממשק */
+  catalog: Catalog;
+
   nights: number;
-  tent: (typeof tents)[number] | undefined;
-  pkg: (typeof packages)[number] | undefined;
+  tent: Catalog["tents"][number] | undefined;
+  pkg: Catalog["packages"][number] | undefined;
   extraLines: ExtraLine[];
   delivery: (typeof deliveryOptions)[number] | undefined;
 
@@ -88,7 +101,14 @@ const PACKAGE_STEPS = [
 
 const BookingContext = React.createContext<Ctx | null>(null);
 
-export function BookingProvider({ children }: { children: React.ReactNode }) {
+export function BookingProvider({
+  catalog = CODE_CATALOG,
+  children,
+}: {
+  catalog?: Catalog;
+  children: React.ReactNode;
+}) {
+  const { tents, accessories, packages } = catalog;
   const [state, setState] = React.useState<BookingState>(EMPTY);
   const [loaded, setLoaded] = React.useState(false);
 
@@ -131,7 +151,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     if (!loaded || !state.mode || state.ref) return;
     const n = Math.floor(Math.random() * 9000) + 1000;
-    setState((s) => (s.ref ? s : { ...s, ref: `ED-${n}` }));
+    setState((s) => (s.ref ? s : { ...s, ref: `OUT-${n}` }));
   }, [loaded, state.mode, state.ref]);
 
   const value = React.useMemo<Ctx>(() => {
@@ -173,6 +193,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       set,
       setQty,
       reset,
+      catalog,
       nights,
       tent,
       pkg,
@@ -184,7 +205,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       total: basePrice + extrasPrice + deliveryPrice,
       steps: state.mode === "package" ? PACKAGE_STEPS : CUSTOM_STEPS,
     };
-  }, [state, set, setQty, reset]);
+  }, [state, set, setQty, reset, catalog, tents, accessories, packages]);
 
   return <BookingContext.Provider value={value}>{children}</BookingContext.Provider>;
 }
@@ -193,4 +214,9 @@ export function useBooking() {
   const ctx = React.useContext(BookingContext);
   if (!ctx) throw new Error("useBooking חייב לרוץ בתוך BookingProvider");
   return ctx;
+}
+
+/** הקטלוג בפועל בצד הלקוח · אוהלים, תוספות, חבילות ומיקומים */
+export function useCatalog(): Catalog {
+  return useBooking().catalog;
 }

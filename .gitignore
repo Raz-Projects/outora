@@ -51,3 +51,6 @@ supabase/.temp/
 # local dev logs
 dev-server.log
 dev-server.err.log
+
+# private notes (passwords, keys)
+SECRETS.local.md

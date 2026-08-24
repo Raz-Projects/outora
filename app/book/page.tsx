@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { packages } from "@/lib/packages";
 import { useBooking } from "@/lib/booking-context";
 import { BookingShell } from "@/components/booking/shell";
 import { PackageCard } from "@/components/booking/package-card";
@@ -10,7 +9,8 @@ import { Button } from "@/components/ui/button";
 
 /** שלב 0: בונים בעצמכם או בוחרים חבילה מוכנה */
 export default function BookStart() {
-  const { set } = useBooking();
+  const { set, catalog } = useBooking();
+  const { packages } = catalog;
   const router = useRouter();
 
   const goCustom = () => {
