@@ -18,11 +18,6 @@ export default function BookStart() {
     router.push("/book/tent");
   };
 
-  const goPackage = (id?: string) => {
-    set({ mode: "package", tentSlug: undefined, deliveryId: undefined, packageId: id });
-    router.push(id ? "/book/summary" : "/book/package");
-  };
-
   const featured = packages.slice(0, 3);
   const rest = packages.slice(3);
 
@@ -39,46 +34,46 @@ export default function BookStart() {
           alt=""
           width={1200}
           height={420}
-          className="h-[320px] w-full object-cover md:h-[380px]"
+          className="h-[300px] w-full object-cover md:h-[380px]"
         />
         <div className="absolute inset-0 bg-black/45" />
 
-        <div className="absolute inset-0 flex flex-col justify-center gap-3 p-8 md:p-12">
+        <div className="absolute inset-0 flex flex-col justify-center gap-3 p-6 md:p-12">
           <h2 className="text-h2 text-white">בחירה אישית · בנו בעצמכם</h2>
           <p className="text-body max-w-lg text-white/90">
             הרכיבו חבילה מותאמת אישית: בחרו אוהל, אופן הגעה ותוספות בעצמכם, צעד אחר צעד, גמישות מלאה.
           </p>
-          <Button size="md" onClick={goCustom} className="mt-3 w-fit">
+          <Button size="md" onClick={goCustom} className="mt-3 w-full sm:w-fit">
             בנו את החוויה שלכם
           </Button>
         </div>
       </div>
 
-      <div className="my-12 flex items-center gap-4">
+      <div className="my-10 flex items-center gap-4 md:my-12">
         <span className="h-px flex-1 bg-stroke" />
         <span className="text-tag text-textgray">או</span>
         <span className="h-px flex-1 bg-stroke" />
       </div>
 
       <h2 className="text-h2">החבילות המומלצות שלנו</h2>
-      <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-2 lg:grid-cols-3">
         {featured.map((p) => (
-          <PackageCard key={p.id} pkg={p} onPick={() => goPackage(p.id)} />
+          <PackageCard key={p.id} pkg={p} />
         ))}
       </div>
 
       {rest.length > 0 && (
         <>
-          <div className="my-12 flex items-center gap-4">
+          <div className="my-10 flex items-center gap-4 md:my-12">
             <span className="h-px flex-1 bg-stroke" />
             <span className="text-tag text-textgray">ובנוסף</span>
             <span className="h-px flex-1 bg-stroke" />
           </div>
 
           <h2 className="text-h2">חבילות נוספות לאירועים שונים</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-2 lg:grid-cols-3">
             {rest.map((p) => (
-              <PackageCard key={p.id} pkg={p} onPick={() => goPackage(p.id)} />
+              <PackageCard key={p.id} pkg={p} />
             ))}
           </div>
         </>

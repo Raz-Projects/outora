@@ -7,7 +7,7 @@ import { IconCamping, IconSummary, IconTowing } from "@/components/icons";
 import { useBooking } from "@/lib/booking-context";
 import { cn } from "@/lib/utils";
 
-function PlusIcon({ className }: { className?: string }) {
+export function PlusIcon({ className }: { className?: string }) {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          strokeWidth="2.5" className={className}>
@@ -16,7 +16,7 @@ function PlusIcon({ className }: { className?: string }) {
   );
 }
 
-const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+export const STEP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   "/book/tent":     IconCamping,
   "/book/package":  IconCamping,
   "/book/extras":   PlusIcon,
@@ -24,8 +24,8 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   "/book/summary":  IconSummary,
 };
 
-/** רץ משמאל לימין. התווית ממורכזת מתחת לעיגול של השלב הנוכחי. */
-export function Stepper() {
+/** השלב הנוכחי ועד לאן מותר לקפוץ · משותף לדסקטופ ולמובייל */
+export function useStepState() {
   const pathname = usePathname();
   const { state, steps } = useBooking();
 
@@ -37,13 +37,20 @@ export function Stepper() {
       ? picked ? 2 : 1
       : state.deliveryId ? 4 : picked ? 3 : 1;
 
+  return { steps, current, reachable };
+}
+
+/** רץ משמאל לימין. התווית ממורכזת מתחת לעיגול של השלב הנוכחי. */
+export function Stepper() {
+  const { steps, current, reachable } = useStepState();
+
   return (
     <div dir="ltr" className="flex items-start pb-11">
       {steps.map((s, i) => {
         const done = s.n < current;
         const active = s.n === current;
         const open = s.n <= reachable;
-        const Icon = ICONS[s.href] ?? PlusIcon;
+        const Icon = STEP_ICONS[s.href] ?? PlusIcon;
 
         const dot = (
           <span

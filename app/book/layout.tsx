@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { WizardSearch } from "@/components/booking/wizard-search";
+import { DraftSync } from "@/components/booking/draft-sync";
 
 export default function BookLayout({
   children,
@@ -20,6 +21,9 @@ export default function BookLayout({
         className="fixed inset-0 -z-10 object-cover"
       />
       <div className="fixed inset-0 -z-10 bg-black/25" />
+
+      {/* שומר את ההזמנה ברקע בכל שלב */}
+      <DraftSync />
 
       {/* טופס החיפוש זז עם הדף, לא נצמד */}
       <WizardSearch />

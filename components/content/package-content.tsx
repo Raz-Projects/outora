@@ -2,6 +2,7 @@ import Image from "next/image";
 import { packages } from "@/lib/packages";
 import { getTentBySlug } from "@/lib/tents";
 import { resolveItems } from "@/lib/items";
+import { PickPackage } from "@/components/booking/pick-package";
 
 /**
  * התוכן של חבילה.
@@ -64,6 +65,10 @@ export function PackageContent({ id }: { id: string }) {
         <span className="text-textgray line-through">{pkg.priceFullPerNight}₪</span>{" "}
         <span className="text-orange">({pkg.savingsPercent}% הנחה)</span>
       </p>
+
+      <div className="mt-10 border-t border-stroke pt-8">
+        <PickPackage id={pkg.id} />
+      </div>
     </article>
   );
 }

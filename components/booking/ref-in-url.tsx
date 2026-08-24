@@ -5,8 +5,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useBooking } from "@/lib/booking-context";
 
 /**
- * שם את מזהה ההזמנה בכתובת.
- * יושב ברכיב נפרד כי useSearchParams חוסם בנייה מראש בלי Suspense.
+ * שם את מזהה ההזמנה בכתובת, פעם אחת לכל מסך.
+ *
+ * חשוב: השוואה מול ערך שמור ולא מול searchParams, כי הוא נוצר מחדש
+ * בכל רינדור וגרם ללולאת ניווט אינסופית.
  */
 function Sync() {
   const pathname = usePathname();
@@ -14,10 +16,21 @@ function Sync() {
   const params = useSearchParams();
   const { state } = useBooking();
 
+  const done = React.useRef<string>("");
+
   React.useEffect(() => {
-    if (!state.ref || params.get("ref") === state.ref) return;
+    if (!state.ref) return;
+
+    const key = `${pathname}|${state.ref}`;
+    if (done.current === key) return;
+    if (params.get("ref") === state.ref) {
+      done.current = key;
+      return;
+    }
+
+    done.current = key;
     router.replace(`${pathname}?ref=${state.ref}`, { scroll: false });
-  }, [state.ref, params, pathname, router]);
+  }, [state.ref, pathname, params, router]);
 
   return null;
 }

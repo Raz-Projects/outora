@@ -10,7 +10,7 @@ function Reel({ digit, delay }: { digit: number; delay: number }) {
   return (
     <span className="inline-block h-[1.15em] overflow-hidden align-bottom leading-[1.15em]">
       <span
-        className="flex flex-col"
+        className="flex flex-col items-center"
         style={{
           transform: `translateY(-${digit * 10}%)`,
           transitionProperty: "transform",
@@ -21,7 +21,7 @@ function Reel({ digit, delay }: { digit: number; delay: number }) {
         }}
       >
         {DIGITS.map((n) => (
-          <span key={n} className="h-[1.15em] leading-[1.15em]">
+          <span key={n} className="h-[1.15em] w-full text-center leading-[1.15em]">
             {n}
           </span>
         ))}

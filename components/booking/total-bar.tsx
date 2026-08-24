@@ -5,6 +5,7 @@ import Image from "next/image";
 import { formatRangeHe } from "@/lib/dates";
 import { resolveItems } from "@/lib/items";
 import { useBooking } from "@/lib/booking-context";
+import { Drawer } from "@/components/nav/drawer";
 import { AnimatedNumber } from "./animated-number";
 import { cn } from "@/lib/utils";
 
@@ -59,10 +60,13 @@ export function OrderPanel({
   className,
   totalLabel = "סכום ביניים",
   editable = true,
+  hideTitle = false,
 }: {
   className?: string;
   totalLabel?: string;
   editable?: boolean;
+  /** כשהכותרת כבר מופיעה מסביב, למשל בראש מגירה */
+  hideTitle?: boolean;
 }) {
   const { nights, tent, pkg, extraLines, delivery, basePrice, deliveryPrice, total, state, setQty } =
     useBooking();
@@ -72,7 +76,7 @@ export function OrderPanel({
   return (
     <div dir="rtl"
       className={cn("max-h-[70vh] overflow-y-auto overscroll-contain rounded-[20px] bg-white p-7 shadow-drop", className)}>
-      <div>
+      <div className={cn(hideTitle && "sr-only")}>
         <p className="text-h3">ההזמנה שלי</p>
         {nights > 0 && (
           <p className="text-body text-textgray mt-1">
@@ -83,7 +87,7 @@ export function OrderPanel({
         )}
       </div>
 
-      <ul className="mt-5 border-t border-stroke pt-5">
+      <ul className={cn("border-stroke", hideTitle ? "mt-1" : "mt-5 border-t pt-5")}>
 
         {title && (
           <li className="flex items-center gap-3 py-2.5">
@@ -238,5 +242,54 @@ export function TotalBar() {
         </>
       )}
     </div>
+  );
+}
+
+/** בר קבוע בתחתית המסך במובייל · מחליף את הסכום שיושב בראש הכרטיס בדסקטופ */
+export function MobileTotalBar() {
+  const { total, basePrice, nights, state } = useBooking();
+  const [open, setOpen] = React.useState(false);
+
+  if (basePrice === 0) return null;
+
+  const sub =
+    nights > 0
+      ? `${nights} לילות${
+          state.from && state.to
+            ? ` · ${formatRangeHe(new Date(state.from), new Date(state.to))}`
+            : ""
+        }`
+      : null;
+
+  return (
+    <>
+      <div
+        className="fixed inset-x-0 bottom-0 z-40 rounded-t-[20px] bg-white px-5 pt-4 md:hidden
+                   pb-[max(16px,env(safe-area-inset-bottom))]
+                   shadow-[0_-4px_16px_2px_#00000022]"
+      >
+        {/* סותם את פס הפיקסל שנפתח מתחת לבר בגלל עיגול תת-פיקסלי בדפדפני מובייל */}
+        <span aria-hidden className="absolute inset-x-0 top-full h-3 bg-white" />
+
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-h3">
+            סה״כ לתשלום: <AnimatedNumber value={total} />
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="text-tag shrink-0 text-textgray underline underline-offset-4"
+          >
+            צפייה בהזמנה
+          </button>
+        </div>
+      </div>
+
+      <Drawer open={open} onClose={() => setOpen(false)} title="ההזמנה שלי">
+        {sub && <p className="text-body text-textgray -mt-2 mb-3">{sub}</p>}
+        <OrderPanel hideTitle className="max-h-none rounded-none p-0 shadow-none" />
+      </Drawer>
+    </>
   );
 }

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import { getPortalRoot } from "@/lib/portal-root";
 import { useIsMobile } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
 
@@ -44,7 +45,8 @@ export function Drawer({
     };
   }, [active, onClose]);
 
-  if (!mounted || !active) return null;
+  const root = getPortalRoot();
+  if (!mounted || !active || !root) return null;
 
   return createPortal(
     <div data-drawer className="fixed inset-0 z-[100] md:hidden">
@@ -92,6 +94,6 @@ export function Drawer({
         )}
       </div>
     </div>,
-    document.body
+    root
   );
 }

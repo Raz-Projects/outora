@@ -34,11 +34,9 @@ export default function ExtrasStep() {
       title="בחרו את התוספות שלכם"
       subtitle="הכל אופציונלי. הוסיפו רק את מה שישדרג לכם את החוויה."
       footer={
-        <div className="flex justify-center">
-          <Button size="md" onClick={next} className="min-w-[180px]">
-            המשך
-          </Button>
-        </div>
+        <Button size="md" onClick={next} className="w-full sm:w-auto sm:min-w-[180px]">
+          המשך
+        </Button>
       }
     >
       <div className="space-y-2">
@@ -77,9 +75,22 @@ export default function ExtrasStep() {
                 )}
               >
                 <div className="overflow-hidden">
-                  <div className="grid gap-6 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {/*
+                    במובייל גוללים לצדדים עם הצצה לכרטיס הבא, בדסקטופ רשת.
+                    הקרוסלה נשארת בתוך הריווח של הכרטיס · יציאה החוצה נחתכת
+                    על ידי ה-overflow שמאפשר את אנימציית הפתיחה.
+                  */}
+                  <div
+                    className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8
+                               [-ms-overflow-style:none] [scrollbar-width:none]
+                               [&::-webkit-scrollbar]:hidden
+                               sm:grid sm:gap-6 sm:overflow-visible
+                               sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  >
                     {cat.items.map((item) => (
-                      <ExtraCard key={item.id} item={item} />
+                      <div key={item.id} className="w-[78%] shrink-0 snap-start sm:w-auto">
+                        <ExtraCard item={item} />
+                      </div>
                     ))}
                   </div>
                 </div>

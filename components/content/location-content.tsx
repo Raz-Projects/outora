@@ -2,6 +2,7 @@ import Image from "next/image";
 import { locations, amenityLabels } from "@/lib/locations";
 import { getTentBySlug } from "@/lib/tents";
 import { LOCATION_PHOTOS, LOCATION_FALLBACK } from "@/lib/location-photos";
+import { LocationMap } from "./location-map";
 
 /**
  * התוכן של מיקום.
@@ -42,6 +43,11 @@ export function LocationContent({ id }: { id: string }) {
           height={900}
           className="aspect-[4/3] h-auto w-full rounded-[16px] object-cover md:sticky md:top-0"
         />
+      </div>
+
+      <h2 className="text-h2 mt-10">איפה זה</h2>
+      <div className="mt-4">
+        <LocationMap locs={[loc]} />
       </div>
 
       <h2 className="text-h2 mt-10">מה יש במקום</h2>

@@ -3,10 +3,13 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const NAV = [
+  { label: "חבילות",      href: "/packages" },
+  { label: "לוקיישנים",   href: "/locations" },
   { label: "אודות",       href: "/about" },
   { label: "איך זה עובד", href: "/how-it-works" },
   { label: "צרו קשר",     href: "/contact" },
@@ -15,7 +18,24 @@ const NAV = [
 /** מעל כמה גלילה ההדר מפסיק להיות שקוף */
 const THRESHOLD = 80;
 
+/**
+ * רק בדפים שמתחילים בתמונת הירו ההדר שקוף ויושב מעליה.
+ * בכל שאר הדפים הרקע לבן מהשנייה הראשונה, אחרת הלוגו והתפריט הלבנים נעלמים.
+ */
+const HERO_ROUTES = ["/"];
+const HERO_PREFIXES = ["/book"]; // כל תהליך ההזמנה יושב על תמונת רקע קבועה
+
+function hasHero(pathname: string) {
+  return (
+    HERO_ROUTES.includes(pathname) ||
+    HERO_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+  );
+}
+
 export function Header() {
+  const pathname = usePathname();
+  const overlay  = hasHero(pathname); // ההדר יושב מעל תמונה
+
   const [solid, setSolid]   = React.useState(false); // רקע לבן
   const [hidden, setHidden] = React.useState(false); // מוסתר
   const [menu, setMenu]     = React.useState(false); // תפריט מובייל
@@ -49,7 +69,7 @@ export function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [menu]);
 
-  const light = solid || menu; // טקסט שחור
+  const light = !overlay || solid || menu; // טקסט שחור
 
   return (
     <>
@@ -93,7 +113,7 @@ export function Header() {
           </Link>
 
           {/* ניווט · דסקטופ */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-6 md:flex lg:gap-8">
             {NAV.map((item) => (
               <Link
                 key={item.href}

@@ -40,7 +40,7 @@ export default function DeliveryStep() {
       title="איך תרצו לקבל את הציוד?"
       subtitle="בחרו את הדרך שהכי נוחה לכם: מאיסוף עצמי ועד הקמה מלאה באתר."
       footer={
-        <Button size="md" onClick={next} className="min-w-[180px]">
+        <Button size="md" onClick={next} className="w-full sm:w-auto sm:min-w-[180px]">
           המשך
         </Button>
       }
@@ -69,9 +69,9 @@ export default function DeliveryStep() {
               <button
                 type="button"
                 onClick={() => set({ deliveryId: o.id, campLocationId: undefined })}
-                className="w-full p-6 text-right"
+                className="w-full p-5 text-right md:p-6"
               >
-                <div className="flex items-start justify-between gap-6">
+                <div className="flex items-start justify-between gap-4 md:gap-6">
                   <div className="flex-1">
                     <h3 className="text-h3 flex items-center gap-2">
                       {o.titleHe}

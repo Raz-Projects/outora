@@ -40,22 +40,22 @@ export function ExtraCard({ item }: { item: Accessory }) {
         on ? "border-orange" : "border-stroke"
       )}
     >
-      <div className="relative aspect-[4/3] bg-white">
+      <div className="relative aspect-[16/9] bg-white sm:aspect-[4/3]">
         <Image
           src={item.image}
           alt={item.nameHe}
           fill
-          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 100vw"
-          className="object-contain p-4"
+          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 75vw"
+          className="object-contain p-3 sm:p-4"
         />
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         <h3 className="text-h3">{item.nameHe}</h3>
         <p className="text-body text-textgray mt-1">תוספת לחוויה שלכם.</p>
 
         {/* המחיר מימין, הכפתור משמאל */}
-        <div className="mt-auto flex items-center justify-between gap-4 pt-5">
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 sm:gap-4 sm:pt-5">
           <p className="text-body">{item.pricePerNight}₪ ללילה</p>
 
           {on ? (

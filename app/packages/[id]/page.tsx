@@ -13,8 +13,8 @@ export default async function PackagePage({ params }: { params: Promise<{ id: st
 
   return (
     <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
-      <Link href="/book" className="text-button text-black underline underline-offset-4">
-        חזרה לחבילות
+      <Link href="/packages" className="text-button text-black underline underline-offset-4">
+        חזרה לכל החבילות
       </Link>
       <div className="mt-6">
         <PackageContent id={id} />

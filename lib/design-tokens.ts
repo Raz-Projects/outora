@@ -46,7 +46,7 @@ export const fontWeight = {
 export const typeScale = {
   h1:       { size: 48, weight: fontWeight.demiBold, lineHeight: 1.15 },
   /** ⚠️ לא מהפיגמה · H1 במובייל */
-  h1Sm:     { size: 36, weight: fontWeight.demiBold, lineHeight: 1.2 },
+  h1Sm:     { size: 28, weight: fontWeight.demiBold, lineHeight: 1.2 },
   h2:       { size: 28, weight: fontWeight.demiBold, lineHeight: 1.25 },
   h3:       { size: 22, weight: fontWeight.demiBold, lineHeight: 1.3  },
   subtitle: { size: 20, weight: fontWeight.regular,  lineHeight: 1.5  },

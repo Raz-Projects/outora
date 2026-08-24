@@ -58,13 +58,13 @@ function TentRow({
         )}
       />
 
-      <div className="flex flex-col p-6">
+      <div className="flex flex-col p-5 md:p-6">
         <h3 className={cn("text-h3", taken && "text-textgray")}>
           אוהל - {tent.nameEn}
         </h3>
         <p className="text-body text-textgray mt-1">{tent.taglineHe}</p>
 
-        <ul className="mt-5 grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+        <ul className="mt-5 hidden grid-cols-1 gap-x-8 gap-y-2 sm:grid sm:grid-cols-2">
           {tent.features.slice(0, 5).map((f) => (
             <li key={f} className="text-body flex items-start gap-2">
               <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
@@ -73,21 +73,23 @@ function TentRow({
           ))}
         </ul>
 
-        <div className="mt-auto pt-6">
-          <div className="flex items-end justify-between gap-4">
+        <div className="mt-auto pt-5 md:pt-6">
+          <div className="flex flex-col-reverse items-start gap-3
+                          md:flex-row md:items-end md:justify-between md:gap-4">
             <p className="text-h3">
               {ils(tent.priceFrom)}{" "}
               <span className="text-body text-textgray">ללילה</span>
             </p>
 
-            <div className="text-body text-textgray flex items-center gap-5">
-              <span className="flex items-center gap-2">
+            <div className="text-tag text-textgray flex flex-wrap items-center gap-x-4 gap-y-1.5
+                            md:text-body md:gap-5">
+              <span className="flex items-center gap-1.5 md:gap-2">
                 עד {tent.capacity} אנשים
-                <IconGroup className="h-6 w-6 text-beige" />
+                <IconGroup className="h-5 w-5 text-beige md:h-6 md:w-6" />
               </span>
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 md:gap-2">
                 {tent.sizeSqm} מ״ר
-                <IconSquareFoot className="h-6 w-6 text-beige" />
+                <IconSquareFoot className="h-5 w-5 text-beige md:h-6 md:w-6" />
               </span>
             </div>
           </div>

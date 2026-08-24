@@ -50,7 +50,7 @@ export default {
       fontSize: {
         h1:       ["48px", { lineHeight: "1.15", fontWeight: "600" }],
         // ⚠️ לא מהפיגמה · מדרגת H1 למובייל, ממתין לאישור
-        "h1-sm":  ["36px", { lineHeight: "1.2",  fontWeight: "600" }],
+        "h1-sm":  ["28px", { lineHeight: "1.2",  fontWeight: "600" }],
         h2:       ["28px", { lineHeight: "1.25", fontWeight: "600" }],
         h3:       ["22px", { lineHeight: "1.3",  fontWeight: "600" }],
         subtitle: ["20px", { lineHeight: "1.5",  fontWeight: "400" }],

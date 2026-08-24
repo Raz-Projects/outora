@@ -99,11 +99,18 @@ export function SearchBar({ className }: { className?: string }) {
     router.push("/book");
   };
 
+  // במובייל השורה צרה, ולכן התוויות הריקות מקוצרות
   const fields = [
-    { key: "people"   as const, title: "כמות אנשים", label: guestLabel, Icon: IconGroup,    on: !!guests },
-    { key: "dates"    as const, title: "תאריכים",   label: dateLabel,  Icon: IconCalendar, on: !!(range.from && range.to) },
-    { key: "location" as const, title: "סוג החופשה", label: locLabel,   Icon: IconLocation, on: !!location },
+    { key: "people"   as const, title: "כמות אנשים", label: guestLabel, short: guestLabel,
+      Icon: IconGroup,    on: !!guests },
+    { key: "dates"    as const, title: "תאריכים",   label: dateLabel,  short: range.from ? dateLabel : "תאריך",
+      Icon: IconCalendar, on: !!(range.from && range.to) },
+    { key: "location" as const, title: "סוג החופשה", label: locLabel,   short: location ? locLabel : "מקום",
+      Icon: IconLocation, on: !!location },
   ];
+
+  /** במובייל הסדר מימין לשמאל הוא מקום · תאריך · מספר אנשים */
+  const mobileFields = [...fields].reverse();
 
   const nights = range.from && range.to ? nightsBetween(range.from, range.to) : 0;
 
@@ -112,39 +119,36 @@ export function SearchBar({ className }: { className?: string }) {
 
   return (
     <div ref={root} className={cn("relative w-full max-w-[677px]", className)}>
-      {/* ─────────── מובייל ─────────── */}
+      {/* ─────────── מובייל · שורה אחת ─────────── */}
       <div
         className={cn(
-          "flex flex-col rounded-[20px] border-[1.31px] bg-white p-2 shadow-drop md:hidden",
+          "flex h-[58px] items-center rounded-[20px] border-[1.31px] bg-white p-[6px] shadow-drop md:hidden",
           error ? "border-error" : "border-stroke"
         )}
       >
-        {fields.map(({ key, title, label, Icon, on }, i) => (
+        {mobileFields.map(({ key, short, Icon, on }, i) => (
           <React.Fragment key={key}>
             <button
               type="button"
               onClick={() => setOpen(key)}
-              className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-right
+              className="flex min-w-0 flex-auto items-center justify-center gap-1 rounded-[12px] px-1 py-2
                          transition-colors active:bg-offwhite"
             >
-              <Icon className={cn("shrink-0", iconTone(on))} />
-              <span className="min-w-0">
-                {on && <span className="text-tag block text-textgray">{title}</span>}
-                <span className={cn("text-button block truncate", tone(on))}>{label}</span>
-              </span>
+              <Icon className={cn("h-[18px] w-[18px] shrink-0", iconTone(on))} />
+              <span className={cn("text-tag truncate", tone(on))}>{short}</span>
             </button>
-            {i < fields.length - 1 && <span className="mx-4 h-px bg-stroke" />}
+            {i < mobileFields.length - 1 && <span className="h-6 w-px shrink-0 bg-stroke" />}
           </React.Fragment>
         ))}
 
         <button
           type="button"
           onClick={submit}
-          className="mt-2 flex h-[52px] items-center justify-center gap-2 rounded-[12px]
-                     bg-beige text-button text-black active:bg-beigedark"
+          aria-label="חפש"
+          className="ms-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center
+                     rounded-[12px] bg-beige text-black transition-colors active:bg-beigedark"
         >
-          <span>חפש</span>
-          <IconSearch className="text-black" />
+          <IconSearch className="h-5 w-5 text-black" />
         </button>
       </div>
 

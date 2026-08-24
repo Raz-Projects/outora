@@ -10,8 +10,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
 
-  experimental: {
-    cacheComponents: false,
+  // שגיאות מלשוניות ישנות הפילו את שרת הפיתוח שוב ושוב
+  logging: {
+    browserToTerminal: false,
   },
 
   images: {

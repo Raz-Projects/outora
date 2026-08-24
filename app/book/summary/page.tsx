@@ -28,9 +28,40 @@ export default function SummaryStep() {
   };
   const valid = !missing.name && !missing.phone && !missing.email && state.termsAccepted;
 
-  const pay = () => {
+  const pay = async () => {
     setTried(true);
     if (!valid) return;
+
+    // מקדמים את ההזמנה מטיוטה להזמנה ממתינה, לפני שיוצאים לתשלום
+    try {
+      await fetch("/api/bookings/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ref: state.ref,
+          status: "pending",
+          last_step: "payment",
+          mode: state.mode,
+          tent_slug: state.tentSlug ?? null,
+          package_id: state.packageId ?? null,
+          camp_location_id: state.campLocationId ?? null,
+          date_from: state.from ?? null,
+          date_to: state.to ?? null,
+          guests: state.guests ?? null,
+          region: state.location ?? null,
+          extra_ids: Object.keys(state.extras),
+          delivery_type: state.deliveryId ?? null,
+          total_price: total,
+          customer_name: c.name,
+          customer_phone: c.phone,
+          customer_email: c.email,
+          notes: c.notes || null,
+        }),
+      });
+    } catch {
+      // תקלת שמירה לא תעצור לקוח שרוצה לשלם
+    }
+
     if (PAYMENT_URL) window.location.href = PAYMENT_URL;
     else router.push("/book/success");
   };
@@ -39,6 +70,7 @@ export default function SummaryStep() {
 
   return (
     <BookingShell
+      mobileTotal={false}
       title="סיכום הזמנה"
       subtitle="עוד רגע וסיימנו. מלאו את הפרטים ונשלח אליכם אישור הזמנה ותיאום תשלום בוואטסאפ."
     >
@@ -102,7 +134,7 @@ export default function SummaryStep() {
 
         {/* ההזמנה */}
         <aside>
-          <OrderPanel totalLabel="סה״כ לתשלום" className="shadow-none border border-stroke p-6" />
+          <OrderPanel totalLabel="סה״כ לתשלום" className="shadow-none border border-stroke p-5 md:p-6" />
 
           <label className="mt-6 flex cursor-pointer items-start gap-3">
             <Checkbox

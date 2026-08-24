@@ -2,13 +2,18 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import { getPortalRoot } from "@/lib/portal-root";
 import { useRouter } from "next/navigation";
 
 /**
- * דיאלוג גדול שנפתח מעל האשף.
+ * במובייל מגירה שעולה מלמטה, בדסקטופ דיאלוג גדול.
  * הכתובת משתנה, אז אפשר לשתף את הקישור, אבל המשתמש לא יוצא מהתהליך.
  * סגירה מחזירה אחורה בהיסטוריה.
  */
+/** מאפשר לתוכן לדעת שהוא מוצג כדיאלוג ולא כדף מלא */
+const InDialog = React.createContext(false);
+export const useInRouteDialog = () => React.useContext(InDialog);
+
 export function RouteDialog({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [mounted, setMounted] = React.useState(false);
@@ -28,10 +33,11 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
     };
   }, [close]);
 
-  if (!mounted) return null;
+  const root = getPortalRoot();
+  if (!mounted || !root) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 md:p-6">
+    <div className="fixed inset-0 z-[200] flex items-end justify-center md:items-center md:p-6">
       <div
         onClick={close}
         className="absolute inset-0 bg-black/50 animate-in fade-in duration-200"
@@ -40,15 +46,21 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
       <div
         role="dialog"
         aria-modal="true"
-        className="relative flex h-[92vh] w-full max-w-[1100px] flex-col overflow-hidden
-                   rounded-[20px] bg-white shadow-drop
-                   animate-in fade-in zoom-in-95 duration-200 ease-smooth"
+        className="relative flex h-[92dvh] w-full flex-col overflow-hidden rounded-t-[20px]
+                   bg-white shadow-drop md:max-w-[1100px] md:rounded-[20px]
+                   animate-in fade-in slide-in-from-bottom duration-300 ease-smooth
+                   md:zoom-in-95 md:duration-200"
       >
+        {/* ידית · רק במובייל */}
+        <div className="flex shrink-0 justify-center pt-3 md:hidden">
+          <span className="h-1 w-10 rounded-full bg-stroke" />
+        </div>
+
         <button
           type="button"
           onClick={close}
           aria-label="סגירה"
-          className="absolute end-4 top-4 z-10 flex h-10 w-10 items-center justify-center
+          className="absolute end-4 top-5 z-10 flex h-10 w-10 items-center justify-center md:top-4
                      rounded-full border border-stroke bg-white text-black
                      transition-colors hover:bg-offwhite"
         >
@@ -57,11 +69,14 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
           </svg>
         </button>
 
-        <div className="overflow-y-auto overscroll-contain px-6 pb-12 pt-16 md:px-12">
-          <div className="mx-auto max-w-[820px]">{children}</div>
+        <div className="overflow-y-auto overscroll-contain px-5 pt-14 md:px-12 md:pt-16
+                        pb-[max(40px,env(safe-area-inset-bottom))] md:pb-12">
+          <div className="mx-auto max-w-[820px]">
+            <InDialog.Provider value={true}>{children}</InDialog.Provider>
+          </div>
         </div>
       </div>
     </div>,
-    document.body
+    root
   );
 }

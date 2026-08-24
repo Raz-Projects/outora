@@ -4,7 +4,7 @@ import Link from "next/link";
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { Stepper } from "./stepper";
-import { TotalBar } from "./total-bar";
+import { TotalBar, MobileTotalBar } from "./total-bar";
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/lib/booking-context";
 import { RefInUrl } from "./ref-in-url";
@@ -19,6 +19,7 @@ export function BookingShell({
   footer,
   footerNote,
   showStepper = true,
+  mobileTotal = true,
 }: {
   title: string;
   subtitle?: string;
@@ -27,9 +28,11 @@ export function BookingShell({
   /** הודעה שמופיעה מתחת לכפתורים */
   footerNote?: React.ReactNode;
   showStepper?: boolean;
+  /** בר הסכום הקבוע בתחתית המסך במובייל */
+  mobileTotal?: boolean;
 }) {
   const pathname = usePathname();
-  const { steps, state } = useBooking();
+  const { steps } = useBooking();
 
   // "הקודם" נגזר מהסטפר, בלי לחווט אותו בכל דף
   const current = steps.find((st) => pathname.startsWith(st.href))?.n ?? 1;
@@ -37,23 +40,28 @@ export function BookingShell({
   const showBack = showStepper;
 
   return (
-    <div className="mx-auto w-full max-w-[1280px] px-4 pb-20 pt-8 md:px-6 md:pt-10">
+    <div
+      className="mx-auto w-full max-w-[1280px] px-4 pt-8 md:px-6 md:pt-10
+                 pb-[calc(96px+env(safe-area-inset-bottom))] md:pb-20"
+    >
       <RefInUrl />
       <div className="rounded-[20px] bg-white shadow-drop">
         {/* ראש */}
-        <div className="rounded-t-[20px] border-b border-stroke bg-offwhite px-6 py-8 md:px-10">
+        <div className="rounded-t-[20px] border-b border-stroke bg-offwhite px-5 py-8 md:px-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-            {/* כותרת - מימין */}
-            <div className="text-right">
+            {/* כותרת · ממורכזת במובייל, מימין בדסקטופ */}
+            <div className="text-center md:text-right">
               <h1 className="text-h1-sm md:text-h1">{title}</h1>
               {subtitle && (
-                <p className="text-body text-textgray mt-3 max-w-xl md:ms-auto">{subtitle}</p>
+                <p className="text-body text-textgray mx-auto mt-3 max-w-xl md:mx-0 md:ms-auto">
+                  {subtitle}
+                </p>
               )}
               {showStepper && current === 1 && <PathSwitch />}
             </div>
 
-            {/* סטפר וסכום - משמאל */}
-            <div className="w-full md:w-auto md:shrink-0">
+            {/* סטפר וסכום · במובייל הם יושבים על הרקע ובתחתית המסך */}
+            <div className="hidden md:block md:w-auto md:shrink-0">
               {showStepper && <Stepper />}
               <div className={showStepper ? "mt-8" : ""}>
                 <TotalBar />
@@ -63,15 +71,19 @@ export function BookingShell({
         </div>
 
         {/* גוף */}
-        <div className="px-6 py-10 md:px-10">
+        <div className="px-5 py-8 md:px-10 md:py-10">
           <StepTransition>{children}</StepTransition>
         </div>
 
         {(footer || showBack) && (
-          <div className="border-t border-stroke px-6 py-8 md:px-10">
-            <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="border-t border-stroke px-5 py-6 md:px-10 md:py-8">
+            <div
+              className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap
+                         sm:items-center sm:justify-center"
+            >
+              {/* במובייל חוזרים אחורה דרך הסטפר שמעל טופס החיפוש */}
               {showBack && (
-                <Button size="md" variant="outline" asChild>
+                <Button size="md" variant="outline" asChild className="hidden sm:inline-flex">
                   <Link href={backHref} className="relative z-10">הקודם</Link>
                 </Button>
               )}
@@ -81,8 +93,9 @@ export function BookingShell({
             {footerNote && <div className="mt-4 text-center">{footerNote}</div>}
           </div>
         )}
-
       </div>
+
+      {mobileTotal && <MobileTotalBar />}
     </div>
   );
 }

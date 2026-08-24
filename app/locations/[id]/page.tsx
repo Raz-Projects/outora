@@ -13,8 +13,8 @@ export default async function LocationPage({ params }: { params: Promise<{ id: s
 
   return (
     <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
-      <Link href="/book" className="text-button text-black underline underline-offset-4">
-        חזרה להזמנה
+      <Link href="/locations" className="text-button text-black underline underline-offset-4">
+        חזרה לכל הלוקיישנים
       </Link>
       <div className="mt-6">
         <LocationContent id={id} />
