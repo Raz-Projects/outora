@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { sans } from "./fonts";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { PreviewGate } from "@/components/layout/preview-gate";
 import { BookingProvider } from "@/lib/booking-context";
 import "./globals.css";
 
@@ -58,9 +59,11 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={sans.variable}>
       <body>
         <BookingProvider>
-          <Header />
-          {children}
-          <Footer />
+          <PreviewGate>
+            <Header />
+            {children}
+            <Footer />
+          </PreviewGate>
         </BookingProvider>
       </body>
     </html>
