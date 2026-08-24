@@ -1,7 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { packages, type PackageBadge } from "@/lib/packages";
+import { packages, type PackageBadge, type ExperiencePackage } from "@/lib/packages";
+import { getTentBySlug } from "@/lib/tents";
+import { Gallery } from "@/components/booking/gallery";
 
 export const metadata: Metadata = {
   title: "חבילות",
@@ -19,6 +20,14 @@ const badgeLabels: Record<PackageBadge, string> = {
   WEEKEND:  "סופש",
 };
 
+/** תמונת החבילה ואחריה הגלריה של האוהל שלה */
+function images(pkg: ExperiencePackage) {
+  const tent = getTentBySlug(pkg.tentSlug);
+  return [pkg.image, ...(tent?.gallery ?? [])].filter(
+    (v, i, arr) => v && arr.indexOf(v) === i
+  );
+}
+
 export default function PackagesArchive() {
   return (
     <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-32 md:px-[90px]">
@@ -31,19 +40,15 @@ export default function PackagesArchive() {
       <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {packages.map((pkg) => (
           <li key={pkg.id}>
-            <Link
-              href={`/packages/${pkg.id}`}
-              className="group block rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2"
-            >
+            <article className="flex h-full flex-col">
               <div className="relative overflow-hidden rounded-lg">
-                <Image
-                  src={pkg.image}
+                <Gallery
+                  images={images(pkg)}
                   alt={pkg.title}
-                  width={800}
-                  height={600}
-                  className="aspect-[4/3] h-auto w-full object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                  className="aspect-[4/3] w-full"
+                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                 />
-                <span className="text-tag absolute end-3 top-3 rounded-sm bg-orange px-2.5 py-1 text-white">
+                <span className="text-tag absolute end-3 top-3 z-10 rounded-sm bg-orange px-2.5 py-1 text-white">
                   {badgeLabels[pkg.badge]}
                 </span>
               </div>
@@ -59,7 +64,17 @@ export default function PackagesArchive() {
                 {pkg.pricePerNight}₪ ללילה{" "}
                 <span className="text-textgray line-through">{pkg.priceFullPerNight}₪</span>
               </p>
-            </Link>
+
+              <Link
+                href={`/packages/${pkg.id}`}
+                className="text-button mt-auto pt-4 underline underline-offset-4
+                           transition-colors hover:text-textgray
+                           focus-visible:outline-none focus-visible:ring-2
+                           focus-visible:ring-orange focus-visible:ring-offset-2"
+              >
+                לפרטים על החבילה
+              </Link>
+            </article>
           </li>
         ))}
       </ul>

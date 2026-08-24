@@ -19,7 +19,7 @@ const SEARCH_TO_LANDSCAPE: Record<string, LandscapeType> = {
   park:   "forest",
 };
 
-import { LOCATION_PHOTOS as PHOTOS, LOCATION_FALLBACK as FALLBACK } from "@/lib/location-photos";
+import { locationPhotos, LOCATION_FALLBACK as FALLBACK } from "@/lib/location-photos";
 
 function Arrow({
   side, onClick,
@@ -119,7 +119,7 @@ export function LocationPicker() {
             >
               <div className="relative aspect-[16/10]">
                 <Image
-                  src={PHOTOS[loc.id] ?? FALLBACK}
+                  src={locationPhotos(loc.id)[0] ?? FALLBACK}
                   alt={loc.nameHe}
                   fill
                   sizes="(min-width: 768px) 30vw, 240px"

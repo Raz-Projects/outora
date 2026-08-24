@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { locations, regionLabels, type RegionType } from "@/lib/locations";
 import { LocationMap } from "@/components/content/location-map";
 import { LandscapeIcon } from "@/components/content/landscape-icon";
-import { LOCATION_PHOTOS } from "@/lib/location-photos";
+import { locationPhotos } from "@/lib/location-photos";
+import { Gallery } from "@/components/booking/gallery";
 
 export const metadata: Metadata = {
   title: "מיקומים",
@@ -55,30 +55,24 @@ export default function LocationsArchive() {
           <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {g.items.map((loc) => (
               <li key={loc.id}>
-                <Link
-                  href={`/locations/${loc.id}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-stroke transition-colors hover:border-beige focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2"
-                >
+                <article className="flex h-full flex-col overflow-hidden rounded-lg border border-stroke transition-colors hover:border-beige">
                   {/*
-                    ⚠️ רק ל-6 מיקומים יש תצלום אמיתי.
-                    לשאר מוצג אייקון הנוף ולא תמונה גנרית, כדי לא להציג מקום שהוא לא.
+                    ⚠️ רק ל-6 מיקומים יש תצלום, ולכל אחד מהם רק אחד.
+                    למי שאין מוצג אייקון הנוף ולא תמונה גנרית, כדי לא להציג מקום שהוא לא.
                   */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-offwhite">
-                    {LOCATION_PHOTOS[loc.id] ? (
-                      <Image
-                        src={LOCATION_PHOTOS[loc.id]}
-                        alt={loc.nameHe}
-                        fill
-                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full flex-col items-center justify-center gap-2 text-beige">
-                        <LandscapeIcon landscape={loc.landscape} className="h-14 w-14" />
-                        <span className="text-tag text-textgray">{loc.landscapeHe}</span>
-                      </div>
-                    )}
-                  </div>
+                  {locationPhotos(loc.id).length > 0 ? (
+                    <Gallery
+                      images={locationPhotos(loc.id)}
+                      alt={loc.nameHe}
+                      className="aspect-[4/3] w-full"
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                    />
+                  ) : (
+                    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 bg-offwhite text-beige">
+                      <LandscapeIcon landscape={loc.landscape} className="h-14 w-14" />
+                      <span className="text-tag text-textgray">{loc.landscapeHe}</span>
+                    </div>
+                  )}
 
                   <div className="flex flex-1 flex-col p-5">
                     <div className="flex items-start justify-between gap-3">
@@ -90,13 +84,23 @@ export default function LocationsArchive() {
 
                     <p className="text-body text-textgray mt-3 line-clamp-3">{loc.descriptionHe}</p>
 
-                    <p className="text-tag text-textgray mt-auto pt-4">
+                    <p className="text-tag text-textgray mt-4">
                       {loc.overnight ? "לינת לילה מותרת" : "ללא לינת לילה"}
                       {loc.fee ? " · בתשלום" : " · ללא תשלום"}
                       {loc.vehicle4x4 ? " · נדרש רכב שטח" : ""}
                     </p>
+
+                    <Link
+                      href={`/locations/${loc.id}`}
+                      className="text-button mt-auto pt-4 underline underline-offset-4
+                                 transition-colors hover:text-textgray
+                                 focus-visible:outline-none focus-visible:ring-2
+                                 focus-visible:ring-orange focus-visible:ring-offset-2"
+                    >
+                      לפרטים על המקום
+                    </Link>
                   </div>
-                </Link>
+                </article>
               </li>
             ))}
           </ul>

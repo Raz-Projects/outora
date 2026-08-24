@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { locations, amenityLabels } from "@/lib/locations";
 import { getTentBySlug } from "@/lib/tents";
-import { LOCATION_PHOTOS, LOCATION_FALLBACK } from "@/lib/location-photos";
+import { locationPhotos, LOCATION_FALLBACK } from "@/lib/location-photos";
+import { Gallery } from "@/components/booking/gallery";
 import { LocationMap } from "./location-map";
 
 /**
@@ -12,6 +12,7 @@ export function LocationContent({ id }: { id: string }) {
   const loc = locations.find((l) => l.id === id);
   if (!loc) return null;
 
+  const photos = locationPhotos(loc.id);
   const tents = loc.recommendedTents.map((slug) => getTentBySlug(slug)).filter(Boolean);
 
   const facts: [string, string][] = [
@@ -36,12 +37,11 @@ export function LocationContent({ id }: { id: string }) {
           <p className="text-body mt-6">{loc.descriptionHe}</p>
         </div>
 
-        <Image
-          src={LOCATION_PHOTOS[loc.id] ?? LOCATION_FALLBACK}
+        <Gallery
+          images={photos.length ? photos : [LOCATION_FALLBACK]}
           alt={loc.nameHe}
-          width={1200}
-          height={900}
-          className="aspect-[4/3] h-auto w-full rounded-[16px] object-cover md:sticky md:top-0"
+          className="aspect-[4/3] w-full rounded-[16px] md:sticky md:top-0"
+          sizes="(min-width: 768px) 45vw, 100vw"
         />
       </div>
 
