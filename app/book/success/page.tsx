@@ -6,6 +6,7 @@ import { useBooking } from "@/lib/booking-context";
 import { OrderPanel } from "@/components/booking/total-bar";
 import { IconVerified } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { OtpForm } from "@/components/auth/otp-form";
 
 const NEXT_STEPS = [
   { n: 1, title: "שיחת תיאום",   text: "נכתוב לך בוואטסאפ לאישור הפרטים והתאריך." },
@@ -41,6 +42,17 @@ export default function SuccessPage() {
               <OrderPanel totalLabel="סה״כ לתשלום" editable={false} className="border border-stroke shadow-none" />
             </div>
           )}
+
+          {/* הזמנה לפתוח חשבון, בלי לחסום את מי שלא רוצה */}
+          <div className="mx-auto mt-12 max-w-[520px] rounded-[16px] border border-stroke p-6 md:p-8">
+            <h2 className="text-h3">רוצים לעקוב אחרי ההזמנה?</h2>
+            <p className="text-body text-textgray mt-2">
+              נשלח קוד למייל שלכם ותוכלו לראות את כל הפרטים בכל רגע. אין צורך בסיסמה.
+            </p>
+            <div className="mt-6">
+              <OtpForm redirectTo="/account" />
+            </div>
+          </div>
 
           <h2 className="text-h2 mt-14">מה קורה עכשיו?</h2>
           <div className="mt-6 grid gap-6 md:grid-cols-3">

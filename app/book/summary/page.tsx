@@ -19,6 +19,20 @@ export default function SummaryStep() {
   const [tried, setTried] = React.useState(false);
 
   const c = state.customer;
+
+  // לקוח מחובר: ממלאים את המייל שלו מראש, כדי שההזמנה תשויך נכון
+  const [signedIn, setSignedIn] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((d) => {
+        if (!d.email) return;
+        setSignedIn(d.email);
+        if (!c.email) set({ customer: { ...c, email: d.email } });
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const patch = (k: keyof typeof c, v: string) => set({ customer: { ...c, [k]: v } });
 
   const missing = {
@@ -107,8 +121,27 @@ export default function SummaryStep() {
               value={c.email}
               onChange={(e) => patch("email", e.target.value)}
               state={err(missing.email)}
-              message={tried && missing.email ? "כתובת מייל לא תקינה" : undefined}
+              message={
+                tried && missing.email
+                  ? "כתובת מייל לא תקינה"
+                  : signedIn
+                    ? `מחוברים כ-${signedIn}. ההזמנה תופיע באזור האישי שלכם.`
+                    : undefined
+              }
             />
+
+            {!signedIn && (
+              <p className="text-tag text-textgray">
+                הזמנתם אצלנו בעבר?{" "}
+                <Link
+                  href="/auth/login?next=/book/summary"
+                  className="text-black underline underline-offset-4"
+                >
+                  כניסה לחשבון
+                </Link>{" "}
+                והפרטים יתמלאו לבד. אפשר גם להמשיך בלי.
+              </p>
+            )}
 
             <Field
               label="כתובת למשלוח / נקודת איסוף"

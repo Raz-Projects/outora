@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/use-session";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -14,6 +15,16 @@ const NAV = [
   { label: "איך זה עובד", href: "/how-it-works" },
   { label: "צרו קשר",     href: "/contact" },
 ];
+
+function ProfileIcon({ className }: { className?: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         strokeWidth="1.8" className={className}>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M4.5 20a7.5 7.5 0 0 1 15 0" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 /** מעל כמה גלילה ההדר מפסיק להיות שקוף */
 const THRESHOLD = 80;
@@ -39,6 +50,7 @@ export function Header() {
   const [solid, setSolid]   = React.useState(false); // רקע לבן
   const [hidden, setHidden] = React.useState(false); // מוסתר
   const [menu, setMenu]     = React.useState(false); // תפריט מובייל
+  const { signedIn } = useSession();
   const lastY = React.useRef(0);
 
   React.useEffect(() => {
@@ -128,10 +140,22 @@ export function Header() {
             ))}
           </nav>
 
-          {/* קריאה לפעולה · דסקטופ */}
-          <Button size="md" asChild className="hidden md:inline-flex">
-            <Link href="/book" className="relative z-10">הזמינו עכשיו</Link>
-          </Button>
+          {/* פרופיל וקריאה לפעולה · דסקטופ */}
+          <div className="hidden items-center gap-6 md:flex">
+            <Link
+              href={signedIn ? "/account" : "/auth/login"}
+              className={cn(
+                "text-button whitespace-nowrap transition-colors",
+                light ? "text-black hover:text-textgray" : "text-white hover:text-white/70"
+              )}
+            >
+              {signedIn ? "ההזמנות שלי" : "התחברות"}
+            </Link>
+
+            <Button size="md" asChild>
+              <Link href="/book" className="relative z-10">הזמינו עכשיו</Link>
+            </Button>
+          </div>
 
           {/* המבורגר · מובייל */}
           <button
@@ -170,6 +194,15 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+
+            <Link
+              href={signedIn ? "/account" : "/auth/login"}
+              onClick={() => setMenu(false)}
+              className="text-h3 flex items-center gap-3 border-b border-stroke py-5 text-black"
+            >
+              <ProfileIcon className="text-beige" />
+              {signedIn ? "ההזמנות שלי" : "כניסה לחשבון"}
+            </Link>
 
             <Button block asChild className="mt-8">
               <Link href="/book" onClick={() => setMenu(false)} className="relative z-10">

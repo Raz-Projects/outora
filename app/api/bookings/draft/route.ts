@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { createClient as createSessionClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -56,9 +57,25 @@ export async function POST(req: NextRequest) {
       notes:            b.notes ?? null,
     };
 
+    /**
+     * ההזמנה נקשרת למשתמש רק אם הוא מחובר עכשיו.
+     *
+     * בכוונה לא מקשרים לפי המייל שהוקלד: מישהו יכול להקליד מייל של אדם אחר,
+     * וההזמנה שלו הייתה נרשמת על החשבון של אותו אדם. הקישור לפי מייל קורה
+     * רק בכניסה, אחרי שהקוד הוכיח שהמייל באמת שלו.
+     */
+    let user_id: string | null = null;
+    try {
+      const session = await createSessionClient();
+      const { data: auth } = await session.auth.getUser();
+      user_id = auth?.user?.id ?? null;
+    } catch {
+      // אין סשן, ממשיכים כאורח
+    }
+
     const { data, error } = await supabase
       .from("bookings")
-      .upsert(row, { onConflict: "ref" })
+      .upsert({ ...row, ...(user_id ? { user_id } : {}) }, { onConflict: "ref" })
       .select("id, ref, status, last_step")
       .single();
 
