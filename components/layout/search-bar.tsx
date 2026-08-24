@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import {
   IconGroup, IconCalendar, IconLocation, IconSearch,
   IconBeach, IconSun, IconWater, IconForest, IconGrass, IconRecommend,
@@ -9,9 +10,10 @@ import { Panel, OptionList, type Option } from "@/components/nav/panel";
 import { Drawer } from "@/components/nav/drawer";
 import { DatePicker, DatePickerMobile, type Range } from "@/components/nav/date-picker";
 import { formatHe, nightsBetween, MONTHS_HE } from "@/lib/dates";
+import { useBooking } from "@/lib/booking-context";
 import { cn } from "@/lib/utils";
 
-/** Search Bar — Figma: W 677 · H 67 · radius 20 · stroke 1.31 · Outora/Drop Shadow */
+/** Search Bar · Figma: W 677 · H 67 · radius 20 · stroke 1.31 · Outora/Drop Shadow */
 
 const LOCATIONS: Option[] = [
   { value: "beach",  label: "חוף ים",      Icon: IconBeach },
@@ -32,19 +34,32 @@ const GUESTS: Option[] = [2, 4, 6, 8, 10, 12].map((n) => ({
 type Open = "people" | "dates" | "location" | null;
 
 export function SearchBar({ className }: { className?: string }) {
-  const [open, setOpen]         = React.useState<Open>(null);
-  const [guests, setGuests]     = React.useState<string>();
-  const [location, setLocation] = React.useState<string>();
-  const [range, setRange]       = React.useState<Range>({});
-  const [error, setError]       = React.useState(false);
+  const { state, set } = useBooking();
+
+  const [open, setOpen]   = React.useState<Open>(null);
+  const [error, setError] = React.useState(false);
+
+  // הבחירות חיות במצב ההזמנה, כדי שיעברו לאשף וישרדו רענון
+  const guests   = state.guests ? String(state.guests) : undefined;
+  const location = state.location;
+  const range: Range = {
+    from: state.from ? new Date(state.from) : undefined,
+    to:   state.to   ? new Date(state.to)   : undefined,
+  };
+
+  const setGuests   = (v: string) => set({ guests: Number(v) });
+  const setLocation = (v: string) => set({ location: v });
+  const setRange    = (r: Range) =>
+    set({ from: r.from?.toISOString(), to: r.to?.toISOString() });
   const root = React.useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // סגירה בלחיצה בחוץ או ב-Esc (דסקטופ)
   React.useEffect(() => {
     if (!open) return;
     const away = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
-      // המגירה במובייל יושבת מחוץ לטופס (portal) — לא לספור אותה כלחיצה בחוץ
+      // המגירה במובייל יושבת מחוץ לטופס (portal) · לא לספור אותה כלחיצה בחוץ
       if (el.closest?.("[data-drawer]")) return;
       if (root.current && !root.current.contains(el)) setOpen(null);
     };
@@ -81,13 +96,13 @@ export function SearchBar({ className }: { className?: string }) {
       return;
     }
     setError(false);
-    // TODO: לחבר לחיפוש אמיתי
+    router.push("/book");
   };
 
   const fields = [
-    { key: "people"   as const, label: guestLabel, Icon: IconGroup,    on: !!guests },
-    { key: "dates"    as const, label: dateLabel,  Icon: IconCalendar, on: !!(range.from && range.to) },
-    { key: "location" as const, label: locLabel,   Icon: IconLocation, on: !!location },
+    { key: "people"   as const, title: "כמות אנשים", label: guestLabel, Icon: IconGroup,    on: !!guests },
+    { key: "dates"    as const, title: "תאריכים",   label: dateLabel,  Icon: IconCalendar, on: !!(range.from && range.to) },
+    { key: "location" as const, title: "סוג החופשה", label: locLabel,   Icon: IconLocation, on: !!location },
   ];
 
   const nights = range.from && range.to ? nightsBetween(range.from, range.to) : 0;
@@ -104,16 +119,19 @@ export function SearchBar({ className }: { className?: string }) {
           error ? "border-error" : "border-stroke"
         )}
       >
-        {fields.map(({ key, label, Icon, on }, i) => (
+        {fields.map(({ key, title, label, Icon, on }, i) => (
           <React.Fragment key={key}>
             <button
               type="button"
               onClick={() => setOpen(key)}
-              className="flex items-center gap-3 rounded-[12px] px-4 py-3.5 text-right
+              className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-right
                          transition-colors active:bg-offwhite"
             >
               <Icon className={cn("shrink-0", iconTone(on))} />
-              <span className={cn("text-button truncate", tone(on))}>{label}</span>
+              <span className="min-w-0">
+                {on && <span className="text-tag block text-textgray">{title}</span>}
+                <span className={cn("text-button block truncate", tone(on))}>{label}</span>
+              </span>
             </button>
             {i < fields.length - 1 && <span className="mx-4 h-px bg-stroke" />}
           </React.Fragment>
@@ -133,12 +151,12 @@ export function SearchBar({ className }: { className?: string }) {
       {/* ─────────── דסקטופ ─────────── */}
       <div
         className={cn(
-          "hidden h-[67px] w-full items-center rounded-[20px] border-[1.31px] bg-white px-5",
+          "hidden h-[67px] w-full items-center rounded-[20px] border-[1.31px] bg-white px-[10px]",
           "shadow-drop transition-colors md:flex",
           error ? "border-error" : "border-stroke"
         )}
       >
-        {fields.map(({ key, label, Icon, on }, i) => (
+        {fields.map(({ key, title, label, Icon, on }, i) => (
           <div key={key} className="flex min-w-0 flex-1 items-center">
             <button
               type="button"
@@ -150,8 +168,13 @@ export function SearchBar({ className }: { className?: string }) {
               )}
             >
               <Icon className={cn("shrink-0 transition-colors", iconTone(on))} />
-              <span className={cn("text-button truncate transition-colors", tone(on))}>
-                {label}
+              <span className="min-w-0 text-right">
+                {on && (
+                  <span className="text-tag block leading-tight text-textgray">{title}</span>
+                )}
+                <span className={cn("text-button block truncate transition-colors", tone(on))}>
+                  {label}
+                </span>
               </span>
             </button>
             {i < fields.length - 1 && <span className="h-6 w-px shrink-0 bg-stroke" />}

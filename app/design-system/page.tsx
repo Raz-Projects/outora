@@ -28,7 +28,7 @@ const type = [
   { label: "Subtitle · Regular · 20", cls: "text-subtitle", sample: "טקסט משנה לתיאור קצר" },
   { label: "Text · Regular · 16", cls: "text-body",     sample: "טקסט גוף רגיל לפסקאות." },
   { label: "Button · Medium · 16",cls: "text-button",   sample: "טקסט כפתור" },
-  { label: "Tags · Medium · 12",  cls: "text-tag",      sample: "תגית" },
+  { label: "Tags · Medium · 14",  cls: "text-tag",      sample: "תגית" },
 ];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -52,7 +52,7 @@ function SearchIcon() {
 export default function DesignSystemPage() {
   return (
     <main className="mx-auto max-w-5xl px-6 pb-16 pt-32">
-      <h1 className="text-h1 mb-2">Outora — Design System</h1>
+      <h1 className="text-h1 mb-2">Outora · Design System</h1>
       <p className="text-subtitle text-textgray mb-16">
         מקור האמת לעיצוב. כל הערכים מגיעים מקובץ הפיגמה.
       </p>
@@ -107,7 +107,7 @@ export default function DesignSystemPage() {
               </div>
             ))}
         </div>
-        <p className="text-tag text-orange mt-4">⚠️ לא הוגדר בפיגמה — ערכי ביניים</p>
+        <p className="text-tag text-orange mt-4">⚠️ לא הוגדר בפיגמה · ערכי ביניים</p>
       </Section>
 
       <Section title="Buttons">
@@ -128,7 +128,7 @@ export default function DesignSystemPage() {
           <Button block disabled>מושבת</Button>
         </div>
         <p className="text-tag text-textgray mt-4">
-          העבר עכבר על הכפתורים למעלה — הצבע ממלא מלמטה למעלה.
+          העבר עכבר על הכפתורים למעלה · הצבע ממלא מלמטה למעלה.
         </p>
       </Section>
 
@@ -174,7 +174,7 @@ export default function DesignSystemPage() {
           <Alert tone="info" title="שימו לב">הביטול אפשרי עד 48 שעות לפני מועד ההגעה.</Alert>
         </div>
         <p className="text-tag text-orange mt-4">
-          ⚠️ אדום #B3261E וירוק #2F7A55 — לא היו בפיגמה, הצעה שלי
+          ⚠️ אדום #B3261E וירוק #2F7A55 · לא היו בפיגמה, הצעה שלי
         </p>
       </Section>
 

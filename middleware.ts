@@ -4,7 +4,7 @@ import { createServerClient } from "@supabase/ssr";
 const ADMIN_EMAILS = ["raz@outora.co.il", "arad@outora.co.il"];
 
 // ── Rate limiting (in-memory per Edge instance) ───────────────────
-// Limits: POST /api/* — 30 req / 60s per IP
+// Limits: POST /api/* · 30 req / 60s per IP
 const RATE_LIMITS = new Map<string, { count: number; reset: number }>();
 const RATE_WINDOW = 60_000; // 1 minute
 const RATE_MAX    = 30;
@@ -63,7 +63,7 @@ export async function middleware(req: NextRequest) {
       return res;
     }
 
-    // /admin — only OUTORA team emails
+    // /admin · only OUTORA team emails
     if (!user) return NextResponse.redirect(new URL("/auth/login?next=/admin", req.url));
     if (!ADMIN_EMAILS.includes(user.email ?? "")) return NextResponse.redirect(new URL("/", req.url));
 

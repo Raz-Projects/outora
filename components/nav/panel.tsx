@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** החלונית הלבנה שנפתחת מתחת לשדה — Figma: Nav/Drop Down */
+/** החלונית הלבנה שנפתחת מתחת לשדה · Figma: Nav/Drop Down */
 export function Panel({
   position,
   className,

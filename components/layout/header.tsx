@@ -43,7 +43,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // כשהתפריט פתוח — ההדר תמיד לבן והדף לא נגלל
+  // כשהתפריט פתוח · ההדר תמיד לבן והדף לא נגלל
   React.useEffect(() => {
     document.body.style.overflow = menu ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -65,7 +65,7 @@ export function Header() {
           {/* לוגו */}
           <Link
             href="/"
-            aria-label="Outora — לדף הבית"
+            aria-label="Outora · לדף הבית"
             onClick={() => setMenu(false)}
             className={cn(
               "relative block h-[36px] w-[44px] md:h-[44px] md:w-[53px]",

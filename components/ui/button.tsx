@@ -5,7 +5,7 @@ import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-/** Outora Button — Figma: Elements/Button */
+/** Outora Button · Figma: Elements/Button */
 const buttonVariants = cva(
   "group relative isolate inline-flex items-center justify-center gap-3 overflow-hidden " +
     "rounded-md text-button transition-colors " +
@@ -63,7 +63,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  /** מצב טעינה — ספינר במקום הטקסט, הכפתור נעול */
+  /** מצב טעינה · ספינר במקום הטקסט, הכפתור נעול */
   loading?: boolean;
   /** כיבוי אנימציית המילוי */
   noFill?: boolean;

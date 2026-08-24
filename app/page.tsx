@@ -8,7 +8,7 @@ export default function Home() {
       <section className="relative min-h-[600px] w-full md:aspect-[1440/708] md:max-h-screen md:min-h-[560px]">
         <Image src="/gallery/hero.jpg" alt="" fill sizes="100vw" priority className="object-cover" />
         <div className="absolute inset-0 bg-black/30" />
-        {/* הכהיה עדינה בראש התמונה — בלעדיה הלוגו הלבן והתפריט נבלעים בשמיים */}
+        {/* הכהיה עדינה בראש התמונה · בלעדיה הלוגו הלבן והתפריט נבלעים בשמיים */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
 
         <div className="relative flex min-h-[600px] flex-col items-center justify-center px-6 pb-32 pt-24 text-center md:min-h-0 md:h-full md:pb-0 md:pt-0">
@@ -24,7 +24,7 @@ export default function Home() {
           <h1 className="text-h1-sm text-white md:text-h1">הבית שלך בטבע</h1>
 
           <p className="text-subtitle mt-4 max-w-2xl text-white">
-            נמאס מ-4 קירות? OUTORA מביאה אליכם חבילה מוכנה —
+            נמאס מ-4 קירות? OUTORA מביאה אליכם חבילה מוכנה:
             <br className="hidden md:block" />{" "}
             אוהל מתוחכם, ציוד מפנק ועיצוב שגורם לכם לשכוח שאתם בטבע.
           </p>

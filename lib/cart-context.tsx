@@ -134,7 +134,7 @@ export function useCart() {
   return ctx;
 }
 
-// Per-tent upsell suggestions — top 4 most relevant premium add-ons
+// Per-tent upsell suggestions · top 4 most relevant premium add-ons
 export const tentUpsells: Record<string, string[]> = {
   "familia-pro":     ["fire-pit", "pool", "bbq", "speaker"],
   "hub-shelter-pro": ["dining-set", "garlands", "ac", "fridge"],

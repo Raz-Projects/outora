@@ -2,7 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-/** Outora Tag — Figma: Elements/Tag */
+/** Outora Tag · Figma: Elements/Tag */
 const badgeVariants = cva(
   "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-tag",
   {

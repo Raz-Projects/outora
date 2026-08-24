@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** שורת תוצאת חיפוש — Figma: Elements/Writing Tabs */
+/** שורת תוצאת חיפוש · Figma: Elements/Writing Tabs */
 interface ResultRowProps extends React.ComponentProps<"button"> {
   title: string;
   distance?: string;

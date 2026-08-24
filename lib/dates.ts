@@ -1,4 +1,4 @@
-/** עזרי תאריכים בעברית — בלי ספריות חיצוניות */
+/** עזרי תאריכים בעברית · בלי ספריות חיצוניות */
 
 export const MONTHS_HE = [
   "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני",
@@ -35,3 +35,12 @@ export function monthGrid(year: number, month: number): (Date | null)[] {
 
 export const formatHe = (d: Date) =>
   `${d.getDate()} ב${MONTHS_HE[d.getMonth()]} ${d.getFullYear()}`;
+
+/** "16-18 באוגוסט 2026", או שני חודשים מלאים אם הטווח חוצה חודש */
+export function formatRangeHe(from: Date, to: Date) {
+  const sameMonth = from.getMonth() === to.getMonth() && from.getFullYear() === to.getFullYear();
+  if (sameMonth) {
+    return `${from.getDate()}–${to.getDate()} ב${MONTHS_HE[to.getMonth()]} ${to.getFullYear()}`;
+  }
+  return `${formatHe(from)} – ${formatHe(to)}`;
+}

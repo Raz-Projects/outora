@@ -11,7 +11,7 @@ function getSupabase() {
   );
 }
 
-// ── GET — Meta webhook verification challenge ──────────────────────
+// ── GET · Meta webhook verification challenge ──────────────────────
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const mode      = searchParams.get("hub.mode");
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 }
 
-// ── POST — incoming messages & status updates ──────────────────────
+// ── POST · incoming messages & status updates ──────────────────────
 export async function POST(req: NextRequest) {
   const supabase = getSupabase();
   const body = await req.json();
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     if (isOptOut(text)) {
       await supabase.from("whatsapp_optout").upsert({ phone: fromPhone, opted_out: true });
       await sendWhatsAppText(fromPhone,
-        "בוצע — הסרת ממאגר ההודעות שלנו. לחזרה שלחו 'הצטרף'. OUTORA 🏕️"
+        "בוצע · הסרת ממאגר ההודעות שלנו. לחזרה שלחו 'הצטרף'. OUTORA 🏕️"
       );
       continue;
     }

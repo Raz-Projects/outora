@@ -6,7 +6,7 @@ import { useIsMobile } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
 
 /**
- * מגירה שנפתחת מלמטה — למובייל.
+ * מגירה שנפתחת מלמטה · למובייל.
  * חייבת לרוץ דרך portal: אם אלמנט אב עבר transform, position:fixed
  * נצמד אליו במקום למסך והמגירה יוצאת במקום הלא נכון.
  */

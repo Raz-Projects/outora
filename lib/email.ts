@@ -26,7 +26,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
   await resend.emails.send({
     from: process.env.EMAIL_FROM ?? "Reservations@outora.co.il",
     to:   data.customerEmail,
-    subject: `✅ הזמנתך ב-OUTORA התקבלה — ${data.tentName}`,
+    subject: `✅ הזמנתך ב-OUTORA התקבלה · ${data.tentName}`,
     html: buildConfirmationHtml(data),
   });
 }
@@ -41,7 +41,7 @@ export async function sendInternalAlert(data: BookingEmailData) {
   await resend.emails.send({
     from: process.env.EMAIL_FROM ?? "Reservations@outora.co.il",
     to:   (process.env.EMAIL_TEAM ?? "arad@outora.co.il,raz@outora.co.il").split(","),
-    subject: `🏕️ הזמנה חדשה — ${data.tentName} | ${data.dateFrom}`,
+    subject: `🏕️ הזמנה חדשה · ${data.tentName} | ${data.dateFrom}`,
     html: buildInternalHtml(data),
   });
 }
@@ -106,12 +106,12 @@ function buildInternalHtml(d: BookingEmailData) {
   <table style="border-collapse:collapse;width:100%">
     <tr><td style="padding:6px 0;color:#666">לקוח</td><td style="padding:6px 0;font-weight:bold">${d.customerName}</td></tr>
     <tr><td style="padding:6px 0;color:#666">טלפון</td><td style="padding:6px 0">${d.customerPhone}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אימייל</td><td style="padding:6px 0">${d.customerEmail ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">אימייל</td><td style="padding:6px 0">${d.customerEmail ?? "-"}</td></tr>
     <tr><td style="padding:6px 0;color:#666">אוהל</td><td style="padding:6px 0">${d.tentName}</td></tr>
     <tr><td style="padding:6px 0;color:#666">תאריכים</td><td style="padding:6px 0">${d.dateFrom} → ${d.dateTo} (${d.nights} לילות)</td></tr>
     <tr><td style="padding:6px 0;color:#666">אנשים</td><td style="padding:6px 0">${d.guests}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אזור</td><td style="padding:6px 0">${d.region ?? "—"}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">תוספות</td><td style="padding:6px 0">${d.extras.join(", ") || "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">אזור</td><td style="padding:6px 0">${d.region ?? "-"}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">תוספות</td><td style="padding:6px 0">${d.extras.join(", ") || "-"}</td></tr>
     <tr><td style="padding:6px 0;color:#666">סה״כ</td><td style="padding:6px 0;font-size:18px;color:#C4954A">₪${d.totalPrice.toLocaleString()}</td></tr>
     <tr><td style="padding:6px 0;color:#666">מזהה</td><td style="padding:6px 0;font-size:11px;color:#999">${d.bookingId}</td></tr>
   </table>

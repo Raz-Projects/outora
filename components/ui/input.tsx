@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** Outora Input — Figma: Elements/Writing Tabs */
+/** Outora Input · Figma: Elements/Writing Tabs */
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => (
     <input

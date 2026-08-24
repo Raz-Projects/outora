@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const tentsDir = join(__dirname, '..', 'public', 'tents')
 
-// SVG watermark — OUTORA text bottom-left, subtle
+// SVG watermark · OUTORA text bottom-left, subtle
 function makeWatermarkSvg(width, height) {
   const fontSize = Math.round(width * 0.028)
   const padding = Math.round(width * 0.025)

@@ -26,7 +26,7 @@ export async function sendWhatsAppTemplate(
   params: string[]
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
   if (!PHONE_ID || !TOKEN) {
-    console.warn("WhatsApp not configured — skipping send");
+    console.warn("WhatsApp not configured · skipping send");
     return { success: false, error: "not_configured" };
   }
 

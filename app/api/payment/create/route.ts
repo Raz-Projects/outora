@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   });
 
   if (availErr) return NextResponse.json({ error: "שגיאת שרת" }, { status: 500 });
-  if (!available) return NextResponse.json({ error: "התאריכים תפוסים — בחרו תאריכים אחרים" }, { status: 409 });
+  if (!available) return NextResponse.json({ error: "התאריכים תפוסים · בחרו תאריכים אחרים" }, { status: 409 });
 
   // 2. Save booking as pending
   const { data: booking, error: bookingErr } = await supabase
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
   const growPayload = {
     amount:       depositAmount,                // מקדמה 30%
     currency:     "ILS",
-    description:  `OUTORA — ${tentName} | ${dateFrom} → ${dateTo}`,
+    description:  `OUTORA · ${tentName} | ${dateFrom} → ${dateTo}`,
     customer: {
       name:  customerName,
       phone: customerPhone,
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
   });
 
   if (!growRes.ok) {
-    // Grow not configured yet — return WhatsApp fallback
+    // Grow not configured yet · return WhatsApp fallback
     await sendInternalAlert({ customerName, customerPhone, customerEmail, tentName, dateFrom, dateTo, nights, guests, region, extras: extraNames ?? [], totalPrice, bookingId: booking.id });
     return NextResponse.json({ paymentUrl: null, bookingId: booking.id, whatsappFallback: true });
   }

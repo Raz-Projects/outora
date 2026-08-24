@@ -57,7 +57,7 @@ function Month({
   const cells = monthGrid(date.getFullYear(), date.getMonth());
   const { from, to } = range;
 
-  /** כשבחרו רק תאריך התחלה — התאריך שמרחפים מעליו משמש כסוף זמני */
+  /** כשבחרו רק תאריך התחלה · התאריך שמרחפים מעליו משמש כסוף זמני */
   const end = to ?? (from && hover && startOfDay(hover) > startOfDay(from) ? hover : undefined);
 
   const inRange = (d: Date) =>
@@ -116,7 +116,7 @@ function Month({
   );
 }
 
-/** גרסת מובייל — רשימת חודשים שנגללת, בלי חצים */
+/** גרסת מובייל · רשימת חודשים שנגללת, בלי חצים */
 export function DatePickerMobile({
   range, onChange, months = 12,
 }: {
@@ -189,7 +189,7 @@ export function DatePicker({
               {f.label}
             </span>
             <p className="text-body text-center text-black">
-              {f.value ? formatHe(f.value) : "—"}
+              {f.value ? formatHe(f.value) : "-"}
             </p>
           </div>
         ))}

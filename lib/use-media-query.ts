@@ -16,5 +16,5 @@ export function useMediaQuery(query: string) {
   return matches;
 }
 
-/** נקודת השבירה של Tailwind — md */
+/** נקודת השבירה של Tailwind · md */
 export const useIsMobile = () => !useMediaQuery("(min-width: 768px)");

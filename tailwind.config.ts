@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 /**
- * OUTORA — Tailwind mapping
+ * OUTORA · Tailwind mapping
  * הערכים מגיעים מ-lib/design-tokens.ts דרך משתני CSS ב-globals.css
  */
 
@@ -49,14 +49,14 @@ export default {
 
       fontSize: {
         h1:       ["48px", { lineHeight: "1.15", fontWeight: "600" }],
-        // ⚠️ לא מהפיגמה — מדרגת H1 למובייל, ממתין לאישור
+        // ⚠️ לא מהפיגמה · מדרגת H1 למובייל, ממתין לאישור
         "h1-sm":  ["36px", { lineHeight: "1.2",  fontWeight: "600" }],
         h2:       ["28px", { lineHeight: "1.25", fontWeight: "600" }],
         h3:       ["22px", { lineHeight: "1.3",  fontWeight: "600" }],
         subtitle: ["20px", { lineHeight: "1.5",  fontWeight: "400" }],
         body:     ["16px", { lineHeight: "1.6",  fontWeight: "400" }],
         button:   ["16px", { lineHeight: "1.2",  fontWeight: "500" }],
-        tag:      ["12px", { lineHeight: "1.3",  fontWeight: "500" }],
+        tag:      ["14px", { lineHeight: "1.35", fontWeight: "500" }],
       },
 
       transitionTimingFunction: {
@@ -64,7 +64,7 @@ export default {
       },
 
       boxShadow: {
-        // ⚠️ אסור לקרוא לזה בשם של צבע קיים — Tailwind יעדיף את הצבע
+        // ⚠️ אסור לקרוא לזה בשם של צבע קיים · Tailwind יעדיף את הצבע
         drop: "0 5px 15px 2px #00000033",
       },
 

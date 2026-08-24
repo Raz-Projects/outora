@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { Input } from "./input";
 import { cn } from "@/lib/utils";
 
-/** שדה חיפוש עם כפתור עגול — Figma: Elements/Writing Tabs */
+/** שדה חיפוש עם כפתור עגול · Figma: Elements/Writing Tabs */
 interface SearchFieldProps extends React.ComponentProps<"input"> {
   onSearch?: () => void;
   buttonLabel?: string;

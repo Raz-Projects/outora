@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 
-/** Almoni Neue — פונט המותג של Outora */
+/** Almoni Neue · פונט המותג של Outora */
 export const sans = localFont({
   src: [
     { path: "../public/fonts/almoni-regular.woff2",  weight: "400", style: "normal" },
