@@ -109,8 +109,9 @@ export function SearchBar({ className }: { className?: string }) {
       Icon: IconLocation, on: !!location },
   ];
 
-  /** במובייל הסדר מימין לשמאל הוא מקום · תאריך · מספר אנשים */
-  const mobileFields = [...fields].reverse();
+  /** במובייל · שורה ראשונה מקום ואנשים (מימין לשמאל), שורה שנייה תאריך */
+  const mobileRow1 = [fields[2], fields[0]];
+  const dateField  = fields[1];
 
   const nights = range.from && range.to ? nightsBetween(range.from, range.to) : 0;
 
@@ -119,37 +120,74 @@ export function SearchBar({ className }: { className?: string }) {
 
   return (
     <div ref={root} className={cn("relative w-full max-w-[677px]", className)}>
-      {/* ─────────── מובייל · שורה אחת ─────────── */}
-      <div
-        className={cn(
-          "flex h-[58px] items-center rounded-[20px] border-[1.31px] bg-white p-[6px] shadow-drop md:hidden",
-          error ? "border-error" : "border-stroke"
-        )}
-      >
-        {mobileFields.map(({ key, short, Icon, on }, i) => (
-          <React.Fragment key={key}>
-            <button
-              type="button"
-              onClick={() => setOpen(key)}
-              className="flex min-w-0 flex-auto items-center justify-center gap-1 rounded-[12px] px-1 py-2
-                         transition-colors active:bg-offwhite"
-            >
-              <Icon className={cn("h-[18px] w-[18px] shrink-0", iconTone(on))} />
-              <span className={cn("text-tag truncate", tone(on))}>{short}</span>
-            </button>
-            {i < mobileFields.length - 1 && <span className="h-6 w-px shrink-0 bg-stroke" />}
-          </React.Fragment>
-        ))}
-
-        <button
-          type="button"
-          onClick={submit}
-          aria-label="חפש"
-          className="ms-1 flex h-[44px] w-[44px] shrink-0 items-center justify-center
-                     rounded-[12px] bg-beige text-black transition-colors active:bg-beigedark"
+      {/* ─────────── מובייל · שתי שורות + כפתור ─────────── */}
+      <div className="md:hidden">
+        <div
+          className={cn(
+            "rounded-[20px] border-[1.31px] bg-white p-[6px] shadow-drop",
+            error ? "border-error" : "border-stroke"
+          )}
         >
-          <IconSearch className="h-5 w-5 text-black" />
-        </button>
+          {/* שורה 1 · מקום ואנשים */}
+          <div className="flex items-stretch">
+            {mobileRow1.map(({ key, title, short, Icon, on }, i) => (
+              <React.Fragment key={key}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(key)}
+                  className="flex min-h-[46px] min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[12px] px-1 py-2
+                             transition-colors active:bg-offwhite"
+                >
+                  <Icon className={cn("h-[18px] w-[18px] shrink-0", iconTone(on))} />
+                  <span className="min-w-0 text-right">
+                    {on && <span className="text-tag block leading-tight text-textgray">{title}</span>}
+                    <span className={cn("block truncate", on ? "text-button" : "text-tag", tone(on))}>
+                      {short}
+                    </span>
+                  </span>
+                </button>
+                {i < mobileRow1.length - 1 && <span className="w-px shrink-0 bg-stroke" />}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <span className="mx-2 block h-px bg-stroke" />
+
+          {/* שורה 2 · תאריך */}
+          <button
+            type="button"
+            onClick={() => setOpen(dateField.key)}
+            className="flex min-h-[46px] w-full min-w-0 items-center justify-center gap-1.5 rounded-[12px] px-1 py-2
+                       transition-colors active:bg-offwhite"
+          >
+            <dateField.Icon className={cn("h-[18px] w-[18px] shrink-0", iconTone(dateField.on))} />
+            <span className="min-w-0 text-right">
+              {dateField.on && (
+                <span className="text-tag block leading-tight text-textgray">{dateField.title}</span>
+              )}
+              <span
+                className={cn(
+                  "block truncate",
+                  dateField.on ? "text-button" : "text-tag",
+                  tone(dateField.on)
+                )}
+              >
+                {dateField.short}
+              </span>
+            </span>
+          </button>
+
+          {/* שורה 3 · כפתור, בתוך הטופס */}
+          <button
+            type="button"
+            onClick={submit}
+            className="mt-[6px] flex h-[46px] w-full items-center justify-center gap-2 rounded-[14px]
+                       bg-beige text-button text-black transition-colors active:bg-beigedark"
+          >
+            <span>חפש</span>
+            <IconSearch className="h-5 w-5 text-black" />
+          </button>
+        </div>
       </div>
 
       {/* ─────────── דסקטופ ─────────── */}
