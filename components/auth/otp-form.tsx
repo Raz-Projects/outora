@@ -9,7 +9,7 @@ import { Alert } from "@/components/ui/alert";
 
 /**
  * כניסה בלי סיסמה.
- * מזינים מייל, מקבלים קוד בן 6 ספרות, ומזינים אותו. אין מה לזכור.
+ * מזינים מייל, מקבלים קוד חד פעמי, ומזינים אותו. אין מה לזכור.
  */
 export function OtpForm({ redirectTo = "/account" }: { redirectTo?: string }) {
   const router = useRouter();
@@ -55,8 +55,10 @@ export function OtpForm({ redirectTo = "/account" }: { redirectTo?: string }) {
   const verify = async () => {
     setError(undefined);
 
-    if (!/^\d{6}$/.test(code)) {
-      setError("הקוד הוא 6 ספרות");
+    // אורך הקוד נקבע בהגדרות של Supabase. אין סיבה לשכפל אותו לכאן,
+    // ואם הוא ישתנה שם הטופס לא יישבר. מי שפוסל קוד לא תקין הוא השרת.
+    if (!code) {
+      setError("צריך להזין את הקוד מהמייל");
       return;
     }
 
@@ -111,8 +113,7 @@ export function OtpForm({ redirectTo = "/account" }: { redirectTo?: string }) {
             label="הקוד שקיבלתם"
             inputMode="numeric"
             autoComplete="one-time-code"
-            placeholder="000000"
-            maxLength={6}
+            dir="ltr"
             value={code}
             onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
             onKeyDown={(e) => e.key === "Enter" && verify()}
