@@ -247,10 +247,10 @@ npx tsx scripts/send-test-emails.mts <כתובת>  # שליחה אמיתית ש�
 
 ### קודי הכניסה למערכת · הגדרה נפרדת
 
-היום Supabase שולח אותם משרת המייל שלו, שמוגבל לכמה מיילים בשעה לכל הפרויקט.
-מספיק לבדיקות, לא ללקוחות. אחרי שהדומיין מאומת ב-Resend:
+שרת המייל המובנה של Supabase **שולח רק לחברי הצוות של הפרויקט**, וגם אותם הוא מגביל
+לכמה מיילים בשעה. זה מספיק לבדיקות, לא ללקוחות.
 
-Supabase → Authentication → Emails → SMTP Settings, ומזינים:
+Supabase → Authentication → Emails → SMTP Settings → Enable Custom SMTP:
 
 | שדה | ערך |
 |---|---|
@@ -258,7 +258,14 @@ Supabase → Authentication → Emails → SMTP Settings, ומזינים:
 | Port | `465` |
 | Username | `resend` |
 | Password | אותו `RESEND_API_KEY` |
-| Sender email | כתובת על `@outora.co.il` |
+| Sender email | `no-reply@outora.co.il` |
+| Sender name | `OUTORA` |
+
+> ⚠️ **אחרי השמירה, המכסה יורדת ל-30 מיילים בשעה.** זו ברירת מחדל של Supabase להגנה
+> על המוניטין של שרת חדש. מעלים אותה ב-Authentication → Rate Limits.
+
+**למה `no-reply` ולא `reservations`:** Supabase ממליצים להפריד בין מיילי כניסה
+למיילים אחרים. אם אחד מהם נתפס כספאם, השני לא נפגע.
 
 **אורך קוד הכניסה:** ראו בסעיף "מי נכנס לממשק הניהול" למעלה.
 
@@ -407,3 +414,4 @@ Vercel → Domains. ירוק = עובד. אדום = עוד לא.
 | 25.08.2026 | קוד הכניסה הוחזר ל-6 ספרות ב-Supabase · מיילי ההזמנה עוצבו מחדש לפי הפיגמה · נכתב מדריך חיבור Resend |
 | 25.08.2026 | ✅ **Resend מחובר** · `outora.co.il` מאומת (DKIM + SPF), נשלחו מיילי בדיקה. המפתח עדיין לא הוזן בוורסל |
 | 25.08.2026 | נמעני ההתראות עברו ממשתנה סביבה למסך **הגדרות** בממשק · נוספה טבלת `app_settings` |
+| 25.08.2026 | עודכנו הוראות ה-SMTP של Supabase מול התיעוד · פורט 465, שולח נפרד, והמכסה שצריך להעלות |
