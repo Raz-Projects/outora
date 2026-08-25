@@ -1,5 +1,11 @@
 // ─── Email via Resend ────────────────────────────────────────────
-// To activate: npm install resend  →  add RESEND_API_KEY to .env.local
+// להפעלה: להוסיף RESEND_API_KEY לסביבה. בלעדיו השליחה מדולגת בשקט.
+//
+// המיילים בנויים על טוקני הדיזיין סיסטם, אבל בכללי המשחק של הדואר:
+// הכל בסגנון inline, פריסה בטבלאות ולא ב-flex, ובלי Almoni · תוכנות
+// דואר לא טוענות פונטים חיצוניים, אז הגופן הוא ברירת המחדל של המערכת.
+
+import { colors, radius, typeScale } from "@/lib/design-tokens";
 
 export type BookingEmailData = {
   customerName:  string;
@@ -16,6 +22,14 @@ export type BookingEmailData = {
   bookingId:     string;
 };
 
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://outora.co.il";
+const WHATSAPP = "https://wa.me/972528448870";
+
+/** ברירת המחדל: יותם ורז. הכתובות על הדומיין עדיין לא קיימות. */
+const TEAM_FALLBACK = "yotamh@edenmedia.co.il,razaror96@gmail.com";
+
+const FONT = "Arial, Helvetica, sans-serif";
+
 // ── Customer confirmation email ──────────────────────────────────
 export async function sendBookingConfirmation(data: BookingEmailData) {
   if (!process.env.RESEND_API_KEY || !data.customerEmail) return;
@@ -24,9 +38,9 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   await resend.emails.send({
-    from: process.env.EMAIL_FROM ?? "Reservations@outora.co.il",
+    from: process.env.EMAIL_FROM ?? "OUTORA <reservations@outora.co.il>",
     to:   data.customerEmail,
-    subject: `✅ הזמנתך ב-OUTORA התקבלה · ${data.tentName}`,
+    subject: `הזמנתך ב-OUTORA התקבלה · ${data.tentName}`,
     html: buildConfirmationHtml(data),
   });
 }
@@ -39,88 +53,171 @@ export async function sendInternalAlert(data: BookingEmailData) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   await resend.emails.send({
-    from: process.env.EMAIL_FROM ?? "Reservations@outora.co.il",
-    to:   (process.env.EMAIL_TEAM ?? "arad@outora.co.il,raz@outora.co.il").split(","),
-    subject: `🏕️ הזמנה חדשה · ${data.tentName} | ${data.dateFrom}`,
+    from: process.env.EMAIL_FROM ?? "OUTORA <reservations@outora.co.il>",
+    to:   (process.env.EMAIL_TEAM ?? TEAM_FALLBACK).split(",").map((a) => a.trim()),
+    subject: `הזמנה חדשה · ${data.tentName} | ${data.dateFrom}`,
     html: buildInternalHtml(data),
   });
 }
 
-// ── HTML templates ────────────────────────────────────────────────
-function buildConfirmationHtml(d: BookingEmailData) {
+// ── Helpers ───────────────────────────────────────────────────────
+
+/** שם הלקוח והערותיו מגיעים מטופס. בלי בריחה הם יכולים לשבור את המייל. */
+function esc(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** שורת תווית/ערך. ב-RTL התא הראשון הוא הימני, לכן התווית קודמת. */
+function row(label: string, value: string, last = false) {
+  const border = last ? "none" : `1px solid ${colors.stroke}`;
   return `
-<!DOCTYPE html>
+    <tr>
+      <td style="padding:10px 0;border-bottom:${border};color:${colors.textGray};font-size:${typeScale.tag.size}px;white-space:nowrap">${esc(label)}</td>
+      <td style="padding:10px 0;border-bottom:${border};color:${colors.black};font-size:${typeScale.text.size}px;text-align:left">${esc(value)}</td>
+    </tr>`;
+}
+
+/** טקסט התצוגה המקדימה בתיבת הדואר, לפני שפותחים את המייל */
+function preheader(text: string) {
+  return `<div style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(text)}</div>`;
+}
+
+function shell(inner: string, preview: string) {
+  return `<!DOCTYPE html>
 <html dir="rtl" lang="he">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#F7F2E8;font-family:Arial,sans-serif;direction:rtl">
-  <div style="max-width:560px;margin:0 auto;background:#1C1410;color:#F7F2E8">
-    <!-- Header -->
-    <div style="background:#1C1410;padding:32px 40px;text-align:center;border-bottom:1px solid rgba(196,149,74,0.3)">
-      <h1 style="color:#C4954A;font-size:28px;font-weight:300;letter-spacing:4px;margin:0">OUTORA</h1>
-      <p style="color:rgba(247,242,232,0.6);font-size:13px;margin:8px 0 0">הבית שלך בטבע</p>
-    </div>
-    <!-- Body -->
-    <div style="padding:36px 40px">
-      <h2 style="color:#F7F2E8;font-size:22px;font-weight:300;margin:0 0 8px">שלום ${d.customerName},</h2>
-      <p style="color:rgba(247,242,232,0.75);font-size:15px;line-height:1.7;margin:0 0 28px">
-        קיבלנו את הזמנתך ונחזור אליך בהקדם לאישור סופי ותיאום פרטי תשלום.
-      </p>
-      <!-- Summary box -->
-      <div style="background:rgba(196,149,74,0.1);border:1px solid rgba(196,149,74,0.3);padding:24px;margin-bottom:28px">
-        <h3 style="color:#C4954A;font-size:14px;letter-spacing:2px;margin:0 0 16px;text-transform:uppercase">סיכום הזמנה</h3>
-        ${row("אוהל", d.tentName)}
-        ${row("תאריכים", `${d.dateFrom} → ${d.dateTo} (${d.nights} לילות)`)}
-        ${row("מספר אנשים", String(d.guests))}
-        ${d.region ? row("אזור", d.region) : ""}
-        ${d.extras.length ? row("תוספות", d.extras.join(", ")) : ""}
-        <div style="border-top:1px solid rgba(196,149,74,0.3);margin-top:16px;padding-top:16px;display:flex;justify-content:space-between">
-          <span style="color:rgba(247,242,232,0.7);font-size:14px">סה״כ משוער</span>
-          <span style="color:#C4954A;font-size:22px">₪${d.totalPrice.toLocaleString()}</span>
-        </div>
-      </div>
-      <p style="color:rgba(247,242,232,0.6);font-size:13px;line-height:1.7;margin:0">
-        * המחיר הסופי מותנה בזמינות ואישור. מקדמה של 30% תידרש עם האישור.
-      </p>
-    </div>
-    <!-- CTA -->
-    <div style="padding:0 40px 36px;text-align:center">
-      <a href="https://wa.me/972528448870" style="display:inline-block;background:#C4954A;color:#1C1410;padding:14px 36px;font-size:14px;letter-spacing:2px;text-decoration:none;font-weight:600">
-        💬 צרו קשר בוואטסאפ
-      </a>
-    </div>
-    <!-- Footer -->
-    <div style="background:rgba(0,0,0,0.3);padding:20px 40px;text-align:center;border-top:1px solid rgba(196,149,74,0.15)">
-      <p style="color:rgba(247,242,232,0.35);font-size:12px;margin:0">
-        © 2026 OUTORA · <a href="https://outora.co.il" style="color:rgba(196,149,74,0.6);text-decoration:none">outora.co.il</a>
-      </p>
-    </div>
-  </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light only">
+</head>
+<body style="margin:0;padding:0;background:${colors.offWhite};font-family:${FONT};direction:rtl">
+  ${preheader(preview)}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${colors.offWhite};padding:32px 16px">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:${colors.white};border:1px solid ${colors.stroke};border-radius:${radius.lg}px;overflow:hidden">
+          ${inner}
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>`;
 }
 
-function buildInternalHtml(d: BookingEmailData) {
+function header() {
   return `
-<div dir="rtl" style="font-family:Arial,sans-serif;max-width:500px">
-  <h2 style="color:#C4954A">🏕️ הזמנה חדשה התקבלה</h2>
-  <table style="border-collapse:collapse;width:100%">
-    <tr><td style="padding:6px 0;color:#666">לקוח</td><td style="padding:6px 0;font-weight:bold">${d.customerName}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">טלפון</td><td style="padding:6px 0">${d.customerPhone}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אימייל</td><td style="padding:6px 0">${d.customerEmail ?? "-"}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אוהל</td><td style="padding:6px 0">${d.tentName}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">תאריכים</td><td style="padding:6px 0">${d.dateFrom} → ${d.dateTo} (${d.nights} לילות)</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אנשים</td><td style="padding:6px 0">${d.guests}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">אזור</td><td style="padding:6px 0">${d.region ?? "-"}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">תוספות</td><td style="padding:6px 0">${d.extras.join(", ") || "-"}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">סה״כ</td><td style="padding:6px 0;font-size:18px;color:#C4954A">₪${d.totalPrice.toLocaleString()}</td></tr>
-    <tr><td style="padding:6px 0;color:#666">מזהה</td><td style="padding:6px 0;font-size:11px;color:#999">${d.bookingId}</td></tr>
-  </table>
-</div>`;
+  <tr>
+    <td align="center" style="padding:36px 40px 28px">
+      <img src="${SITE}/logo-mark-b2.png" alt="OUTORA" width="72" style="display:block;width:72px;height:auto;border:0">
+    </td>
+  </tr>
+  <tr><td style="padding:0 40px"><div style="height:2px;background:${colors.beige}"></div></td></tr>`;
 }
 
-function row(label: string, value: string) {
-  return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(196,149,74,0.1)">
-    <span style="color:rgba(247,242,232,0.55);font-size:13px">${label}</span>
-    <span style="color:#F7F2E8;font-size:13px">${value}</span>
-  </div>`;
+function footer() {
+  return `
+  <tr>
+    <td align="center" style="padding:24px 40px 32px;background:${colors.offWhite};border-top:1px solid ${colors.stroke}">
+      <p style="margin:0;color:${colors.textGray};font-size:${typeScale.tag.size}px;line-height:1.6">
+        OUTORA · הבית שלך בטבע<br>
+        <a href="${SITE}" style="color:${colors.textGray};text-decoration:underline">outora.co.il</a>
+      </p>
+    </td>
+  </tr>`;
+}
+
+// ── HTML templates ────────────────────────────────────────────────
+
+export function buildConfirmationHtml(d: BookingEmailData) {
+  const inner = `
+  ${header()}
+  <tr>
+    <td style="padding:32px 40px 0">
+      <h1 style="margin:0 0 8px;color:${colors.black};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
+        שלום ${esc(d.customerName)},
+      </h1>
+      <p style="margin:0 0 28px;color:${colors.textGray};font-size:${typeScale.text.size}px;line-height:1.6">
+        קיבלנו את ההזמנה שלך. נחזור אליך בהקדם לאישור סופי ולתיאום התשלום.
+      </p>
+
+      <div style="background:${colors.offWhite};border:1px solid ${colors.stroke};border-radius:${radius.md}px;padding:24px">
+        <h2 style="margin:0 0 8px;color:${colors.black};font-size:${typeScale.h3.size}px;font-weight:600">סיכום ההזמנה</h2>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          ${row("אוהל", d.tentName)}
+          ${row("תאריכים", `${d.dateFrom} – ${d.dateTo}`)}
+          ${row("לילות", String(d.nights))}
+          ${row("אורחים", String(d.guests))}
+          ${d.region ? row("אזור", d.region) : ""}
+          ${d.extras.length ? row("תוספות", d.extras.join(", ")) : ""}
+        </table>
+
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;border-top:1px solid ${colors.stroke}">
+          <tr>
+            <td style="padding-top:16px;color:${colors.textGray};font-size:${typeScale.text.size}px">סה״כ משוער</td>
+            <td style="padding-top:16px;text-align:left;color:${colors.black};font-size:${typeScale.h3.size}px;font-weight:600">₪${d.totalPrice.toLocaleString("he-IL")}</td>
+          </tr>
+        </table>
+      </div>
+
+      <p style="margin:20px 0 0;color:${colors.textGray};font-size:${typeScale.tag.size}px;line-height:1.6">
+        המחיר הסופי מותנה בזמינות ובאישור. עם האישור תידרש מקדמה של 30%.
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding:28px 40px 36px">
+      <a href="${WHATSAPP}" style="display:inline-block;background:${colors.beige};color:${colors.black};padding:15px 40px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
+        יש שאלה? דברו איתנו בוואטסאפ
+      </a>
+    </td>
+  </tr>
+  ${footer()}`;
+
+  return shell(inner, `ההזמנה שלך ב-${d.tentName} התקבלה. נחזור אליך לאישור.`);
+}
+
+export function buildInternalHtml(d: BookingEmailData) {
+  const inner = `
+  ${header()}
+  <tr>
+    <td style="padding:32px 40px 36px">
+      <h1 style="margin:0 0 4px;color:${colors.black};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
+        הזמנה חדשה
+      </h1>
+      <p style="margin:0 0 24px;color:${colors.orange};font-size:${typeScale.tag.size}px;font-weight:500">
+        ${esc(d.tentName)} · ${esc(d.dateFrom)}
+      </p>
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${row("לקוח", d.customerName)}
+        ${row("טלפון", d.customerPhone)}
+        ${row("אימייל", d.customerEmail ?? "לא הוזן")}
+        ${row("אוהל", d.tentName)}
+        ${row("תאריכים", `${d.dateFrom} – ${d.dateTo}`)}
+        ${row("לילות", String(d.nights))}
+        ${row("אורחים", String(d.guests))}
+        ${row("אזור", d.region ?? "לא צוין")}
+        ${row("תוספות", d.extras.join(", ") || "אין")}
+        ${row("סה״כ", `₪${d.totalPrice.toLocaleString("he-IL")}`, true)}
+      </table>
+
+      <p style="margin:20px 0 0;color:${colors.textGray};font-size:${typeScale.tag.size}px">
+        מזהה הזמנה: ${esc(d.bookingId)}
+      </p>
+
+      <p style="margin:24px 0 0">
+        <a href="${SITE}/admin/bookings/${encodeURIComponent(d.bookingId)}" style="display:inline-block;background:${colors.beige};color:${colors.black};padding:13px 32px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
+          פתיחה בממשק הניהול
+        </a>
+      </p>
+    </td>
+  </tr>
+  ${footer()}`;
+
+  return shell(inner, `${d.customerName} · ${d.tentName} · ${d.dateFrom}`);
 }
