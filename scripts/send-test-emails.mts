@@ -1,11 +1,12 @@
 /**
  * שולח את שני מיילי ההזמנה לכתובת אחת, עם נתוני דוגמה. שליחה אמיתית.
- *   npx tsx scripts/send-test-emails.mts you@example.com
+ *   npx tsx scripts/send-test-emails.mts you@example.com [confirmation|internal]
  */
 import { buildConfirmationHtml, buildInternalHtml, type BookingEmailData } from "../lib/email.ts";
 import { Resend } from "resend";
 
 const to = process.argv[2];
+const only = process.argv[3]; // confirmation | internal | ריק = שניהם
 if (!to) { console.error("צריך כתובת יעד"); process.exit(1); }
 if (!process.env.RESEND_API_KEY) { console.error("חסר RESEND_API_KEY"); process.exit(1); }
 
@@ -27,11 +28,13 @@ const sample: BookingEmailData = {
 const resend = new Resend(process.env.RESEND_API_KEY);
 const from = process.env.EMAIL_FROM ?? "OUTORA <reservations@outora.co.il>";
 
-for (const [name, html] of [
-  ["אישור הזמנה · ללקוח", buildConfirmationHtml(sample)],
-  ["התראה על הזמנה · לצוות", buildInternalHtml(sample)],
-] as const) {
-  const res = await resend.emails.send({ from, to, subject: `בדיקה · ${name}`, html });
+const mails = [
+  { key: "confirmation", subject: "אישור הזמנה · אוהל ספארי לזוג", html: buildConfirmationHtml(sample) },
+  { key: "internal",     subject: "הזמנה חדשה · נועה ברששת · 12.09",  html: buildInternalHtml(sample) },
+];
+
+for (const { key, subject, html } of mails.filter((m) => !only || m.key === only)) {
+  const name = subject;
+  const res = await resend.emails.send({ from, to, subject, html });
   console.log(name, "→", res.error ? "❌ " + JSON.stringify(res.error) : "✅ " + res.data?.id);
 }
-process.exit(0);
