@@ -6,6 +6,7 @@
 // דואר לא טוענות פונטים חיצוניים, אז הגופן הוא ברירת המחדל של המערכת.
 
 import { colors, radius, typeScale } from "@/lib/design-tokens";
+import { getTeamRecipients } from "@/lib/admin/settings";
 
 export type BookingEmailData = {
   customerName:  string;
@@ -24,9 +25,6 @@ export type BookingEmailData = {
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://outora.co.il";
 const WHATSAPP = "https://wa.me/972528448870";
-
-/** ברירת המחדל: יותם ורז. הכתובות על הדומיין עדיין לא קיימות. */
-const TEAM_FALLBACK = "yotamh@edenmedia.co.il,razaror96@gmail.com";
 
 const FONT = "Arial, Helvetica, sans-serif";
 
@@ -52,9 +50,13 @@ export async function sendInternalAlert(data: BookingEmailData) {
   const { Resend } = await import("resend");
   const resend = new Resend(process.env.RESEND_API_KEY);
 
+  // הנמענים נערכים בממשק הניהול, ב"הגדרות". משתנה הסביבה הוא רק גיבוי.
+  const to = await getTeamRecipients();
+  if (!to.length) return;
+
   await resend.emails.send({
     from: process.env.EMAIL_FROM ?? "OUTORA <reservations@outora.co.il>",
-    to:   (process.env.EMAIL_TEAM ?? TEAM_FALLBACK).split(",").map((a) => a.trim()),
+    to,
     subject: `הזמנה חדשה · ${data.tentName} | ${data.dateFrom}`,
     html: buildInternalHtml(data),
   });

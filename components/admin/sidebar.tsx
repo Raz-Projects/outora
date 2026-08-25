@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, CalendarDays, ClipboardList, Tag, Boxes, Users, ExternalLink } from "lucide-react";
+import { LayoutDashboard, CalendarDays, ClipboardList, Tag, Boxes, Users, Settings, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -14,6 +14,7 @@ const NAV = [
   { href: "/admin/customers", label: "לקוחות",       icon: Users },
   { href: "/admin/promos",   label: "קודי קופון",    icon: Tag },
   { href: "/admin/content",  label: "תוכן ומחירים", icon: Boxes },
+  { href: "/admin/settings", label: "הגדרות",       icon: Settings },
 ];
 
 /** תפריט הצד של ממשק הניהול · בדסקטופ בצד ימין, במובייל שורה עליונה */
