@@ -1,7 +1,12 @@
 "use client";
 
+import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { PreviewGate } from "./preview-gate";
+
+/** ווידג׳ט הנגישות של enable. רץ על האתר השיווקי בלבד, לא בממשק הניהול. */
+const ENABLE_SRC =
+  "https://cdn.enable.co.il/licenses/enable-L22783f5xonhturk-1123-83632/init.js";
 
 /**
  * ההדר, הפוטר ומסך הסיסמה שייכים לאתר השיווקי בלבד.
@@ -22,10 +27,13 @@ export function SiteChrome({
   if (isAdmin) return <>{children}</>;
 
   return (
-    <PreviewGate>
-      {header}
-      {children}
-      {footer}
-    </PreviewGate>
+    <>
+      <Script src={ENABLE_SRC} strategy="afterInteractive" />
+      <PreviewGate>
+        {header}
+        {children}
+        {footer}
+      </PreviewGate>
+    </>
   );
 }
