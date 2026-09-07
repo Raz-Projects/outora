@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SearchBar } from "@/components/layout/search-bar";
+import { ClubBanner } from "@/components/content/club-banner";
 
 export default function Home() {
   return (
@@ -51,6 +52,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* ── מועדון החברים ── */}
+      <ClubBanner />
     </>
   );
 }

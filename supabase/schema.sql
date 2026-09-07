@@ -220,3 +220,20 @@ CREATE INDEX IF NOT EXISTS faq_sort ON faq_items (sort_order, created_at);
 -- ALTER TABLE bookings ADD CONSTRAINT bookings_status_check
 --   CHECK (status IN ('pending','confirmed','collected','returned','cancelled','completed'));
 -- ═══════════════════════════════════════════════════════════════
+
+-- =================================================================
+-- CLUB MEMBER NUMBER - Running counter starting at 48000
+-- Added 07.09.2026 (Yotam's request). Run this in the SQL editor.
+-- The site calls next_member_no() after a new club signup is verified.
+-- =================================================================
+CREATE SEQUENCE IF NOT EXISTS member_no_seq START WITH 48000;
+
+CREATE OR REPLACE FUNCTION public.next_member_no()
+RETURNS BIGINT
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$ SELECT nextval('member_no_seq'); $$;
+
+REVOKE ALL ON FUNCTION public.next_member_no() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.next_member_no() TO authenticated;

@@ -38,8 +38,14 @@ function dateHe(v?: string | null) {
   return `${d.getDate()} ב${MONTHS_HE[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-export default async function AccountPage() {
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ welcome?: string }>;
+}) {
+  const { welcome } = await searchParams;
   let email = "";
+  let memberNo: string | undefined;
   let rows: BookingRow[] = [];
 
   try {
@@ -48,6 +54,8 @@ export default async function AccountPage() {
     if (!auth?.user) redirect("/auth/login?next=/account");
 
     email = auth.user.email ?? "";
+    const meta = auth.user.user_metadata ?? {};
+    if (meta.club_member && typeof meta.member_no === "string") memberNo = meta.member_no;
 
     const { data } = await supabase
       .from("bookings")
@@ -76,10 +84,30 @@ export default async function AccountPage() {
 
   return (
     <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
+      {welcome === "club" && (
+        <div className="mb-8 rounded-[16px] border border-beige bg-offwhite p-6">
+          <p className="text-tag text-orange">OUTORA CLUB</p>
+          <p className="text-h3 mt-1">ברוכים הבאים למועדון!</p>
+          <p className="text-body text-textgray mt-2">
+            ההצטרפות הושלמה. המועדון בהרצה · פירוט מלא של ההטבות יפורסם בקרוב, ונעדכן אתכם.
+          </p>
+          {memberNo && (
+            <p className="text-body mt-2">
+              מספר החבר שלכם: <strong dir="ltr">{memberNo}</strong>
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <h1 className="text-h1-sm md:text-h1">ההזמנות שלי</h1>
           <p className="text-body text-textgray mt-2">{email}</p>
+          {memberNo && (
+            <p className="text-tag text-orange mt-1">
+              OUTORA CLUB · מספר חבר <span dir="ltr">{memberNo}</span>
+            </p>
+          )}
         </div>
 
         <form action="/auth/signout" method="post">
