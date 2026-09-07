@@ -5,8 +5,10 @@ import { getTentBySlug } from "@/lib/tents";
 import { packages } from "@/lib/packages";
 import { MONTHS_HE } from "@/lib/dates";
 import { Button } from "@/components/ui/button";
+import { ProfileForm, type ProfileInitial } from "@/components/account/profile-form";
+import { RebookButton } from "@/components/account/rebook-button";
 
-export const metadata = { title: "ההזמנות שלי" };
+export const metadata = { title: "האזור האישי" };
 export const dynamic = "force-dynamic";
 
 const ils = (n?: number | null) => `${Number(n ?? 0).toLocaleString("he-IL")}₪`;
@@ -46,6 +48,14 @@ export default async function AccountPage({
   const { welcome } = await searchParams;
   let email = "";
   let memberNo: string | undefined;
+  let joinedAt: string | undefined;
+  let profile: ProfileInitial = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    birthDate: "",
+    marketingConsent: false,
+  };
   let rows: BookingRow[] = [];
 
   try {
@@ -56,6 +66,14 @@ export default async function AccountPage({
     email = auth.user.email ?? "";
     const meta = auth.user.user_metadata ?? {};
     if (meta.club_member && typeof meta.member_no === "string") memberNo = meta.member_no;
+    if (meta.club_member && typeof meta.club_joined_at === "string") joinedAt = meta.club_joined_at;
+    profile = {
+      firstName: typeof meta.first_name === "string" ? meta.first_name : "",
+      lastName: typeof meta.last_name === "string" ? meta.last_name : "",
+      phone: typeof meta.phone === "string" ? meta.phone : "",
+      birthDate: typeof meta.birth_date === "string" ? meta.birth_date : "",
+      marketingConsent: meta.marketing_consent === true,
+    };
 
     const { data } = await supabase
       .from("bookings")
@@ -83,7 +101,7 @@ export default async function AccountPage({
   }
 
   return (
-    <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
+    <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-32 md:px-6">
       {welcome === "club" && (
         <div className="mb-8 rounded-[16px] border border-beige bg-offwhite p-6">
           <p className="text-tag text-orange">OUTORA CLUB</p>
@@ -101,13 +119,10 @@ export default async function AccountPage({
 
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
-          <h1 className="text-h1-sm md:text-h1">ההזמנות שלי</h1>
+          <h1 className="text-h1-sm md:text-h1">
+            {profile.firstName ? `שלום ${profile.firstName}` : "האזור האישי"}
+          </h1>
           <p className="text-body text-textgray mt-2">{email}</p>
-          {memberNo && (
-            <p className="text-tag text-orange mt-1">
-              OUTORA CLUB · מספר חבר <span dir="ltr">{memberNo}</span>
-            </p>
-          )}
         </div>
 
         <form action="/auth/signout" method="post">
@@ -117,18 +132,23 @@ export default async function AccountPage({
         </form>
       </div>
 
-      {rows.length === 0 ? (
-        <div className="mt-12 rounded-[16px] border border-stroke p-10 text-center">
-          <p className="text-h3">עוד אין לכם הזמנות</p>
-          <p className="text-body text-textgray mt-2">
-            כשתזמינו, ההזמנה תופיע כאן עם כל הפרטים.
-          </p>
-          <Button size="md" asChild className="mt-6">
-            <Link href="/book" className="relative z-10">להזמנה</Link>
-          </Button>
-        </div>
-      ) : (
-        <ul className="mt-10 space-y-4">
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
+        {/* ימין · ההזמנות */}
+        <section>
+          <h2 className="text-h2">ההזמנות שלי</h2>
+
+          {rows.length === 0 ? (
+            <div className="mt-6 rounded-[16px] border border-stroke p-10 text-center">
+              <p className="text-h3">עוד אין לכם הזמנות</p>
+              <p className="text-body text-textgray mt-2">
+                כשתזמינו, ההזמנה תופיע כאן עם כל הפרטים.
+              </p>
+              <Button size="md" asChild className="mt-6">
+                <Link href="/book" className="relative z-10">להזמנה</Link>
+              </Button>
+            </div>
+          ) : (
+            <ul className="mt-6 space-y-4">
           {rows.map((b) => {
             const tent = b.tent_slug ? getTentBySlug(b.tent_slug) : undefined;
             const pkg = packages.find((p) => p.id === b.package_id);
@@ -157,11 +177,47 @@ export default async function AccountPage({
                     <p className="text-h3 mt-3">{ils(b.total_price)}</p>
                   </div>
                 </div>
+
+                {/* חופשה שנגמרה או בוטלה · הדרך הקצרה לחופשה הבאה */}
+                {(b.status === "completed" || b.status === "cancelled") && (
+                  <div className="mt-4 border-t border-stroke pt-4">
+                    <RebookButton tentSlug={b.tent_slug} packageId={b.package_id} />
+                  </div>
+                )}
               </li>
             );
           })}
-        </ul>
-      )}
+            </ul>
+          )}
+        </section>
+
+        {/* שמאל · המועדון והפרטים */}
+        <aside className="space-y-6">
+          {memberNo ? (
+            <div className="rounded-lg border border-beige p-6">
+              <p className="text-tag text-orange">OUTORA CLUB</p>
+              <p className="text-h2 mt-3" dir="ltr">{memberNo}</p>
+              <p className="text-tag text-textgray mt-1">מספר חבר</p>
+              {joinedAt && (
+                <p className="text-body text-textgray mt-4">חברים מאז {dateHe(joinedAt)}</p>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-lg bg-offwhite p-6">
+              <p className="text-tag text-orange">OUTORA CLUB</p>
+              <h2 className="text-h3 mt-2">עוד לא חברים במועדון?</h2>
+              <p className="text-body text-textgray mt-2">
+                נרשמים פעם אחת, בחינם, וכל חופשה מהיום שווה יותר.
+              </p>
+              <Button size="md" asChild className="mt-5">
+                <Link href="/club#join" className="relative z-10">להצטרפות</Link>
+              </Button>
+            </div>
+          )}
+
+          <ProfileForm initial={profile} />
+        </aside>
+      </div>
     </main>
   );
 }
