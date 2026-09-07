@@ -33,7 +33,7 @@ export default async function PackagesArchive() {
   const { packages } = await getCatalog();
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-32 md:px-[90px]">
+    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
       <p className="text-tag text-textgray">חבילות</p>
       <h1 className="text-h1-sm mt-2 md:text-h1">חוויה שלמה, מוכנה מראש</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">

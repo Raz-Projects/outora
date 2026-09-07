@@ -33,7 +33,14 @@ const GUESTS: Option[] = [2, 4, 6, 8, 10, 12].map((n) => ({
 
 type Open = "people" | "dates" | "location" | null;
 
-export function SearchBar({ className }: { className?: string }) {
+export function SearchBar({
+  className,
+  flat = false,
+}: {
+  className?: string;
+  /** מראה שטוח לשורה הדביקה שבהדר · בלי פינות מעוגלות ובלי צל, רק מסגרת */
+  flat?: boolean;
+}) {
   const { state, set } = useBooking();
 
   const [open, setOpen]   = React.useState<Open>(null);
@@ -193,8 +200,11 @@ export function SearchBar({ className }: { className?: string }) {
       {/* ─────────── דסקטופ ─────────── */}
       <div
         className={cn(
-          "hidden h-[67px] w-full items-center rounded-[20px] border-[1.31px] bg-white px-[10px]",
-          "shadow-drop transition-colors md:flex",
+          "hidden h-[67px] w-full items-center bg-white px-[10px]",
+          "transition-colors md:flex",
+          flat
+            ? "rounded-none border-0"
+            : "rounded-[20px] border-[1.31px] shadow-drop",
           error ? "border-error" : "border-stroke"
         )}
       >

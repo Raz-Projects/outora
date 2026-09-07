@@ -23,7 +23,7 @@ export default async function LocationsArchive() {
   })).filter((g) => g.items.length > 0);
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-32 md:px-[90px]">
+    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
       <p className="text-tag text-textgray">מיקומים</p>
       <h1 className="text-h1-sm mt-2 md:text-h1">איפה תרצו לישון הלילה</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">

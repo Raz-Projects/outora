@@ -5,12 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { SearchBar } from "@/components/layout/search-bar";
+import { IconSearch } from "@/components/icons";
 import { useSession } from "@/lib/use-session";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { label: "חבילות",      href: "/packages" },
   { label: "לוקיישנים",   href: "/locations" },
+  { label: "לעסקים",      href: "/business" },
   { label: "אודות",       href: "/about" },
   { label: "איך זה עובד", href: "/how-it-works" },
   { label: "צרו קשר",     href: "/contact" },
@@ -33,7 +36,7 @@ const THRESHOLD = 80;
  * רק בדפים שמתחילים בתמונת הירו ההדר שקוף ויושב מעליה.
  * בכל שאר הדפים הרקע לבן מהשנייה הראשונה, אחרת הלוגו והתפריט הלבנים נעלמים.
  */
-const HERO_ROUTES = ["/"];
+const HERO_ROUTES = ["/", "/club"];
 const HERO_PREFIXES = ["/book"]; // כל תהליך ההזמנה יושב על תמונת רקע קבועה
 
 function hasHero(pathname: string) {
@@ -43,13 +46,26 @@ function hasHero(pathname: string) {
   );
 }
 
+/**
+ * הדפים שמציגים את וידג'ט החיפוש כשורה דביקה מתחת להדר.
+ * בדפים האלה ההדר לא מתחבא בגלילה, כדי שהחיפוש יישאר זמין.
+ */
+const SEARCH_ROUTES = ["/", "/packages", "/locations", "/about", "/how-it-works", "/faq"];
+
+/**
+ * בדף הבית הווידג'ט הגדול יושב על תמונת ההירו, ולכן השורה הדביקה
+ * מופיעה רק אחרי שגוללים מעבר אליו.
+ */
+const HOME_SEARCH_AT = 560;
+
 export function Header() {
   const pathname = usePathname();
   const overlay  = hasHero(pathname); // ההדר יושב מעל תמונה
 
-  const [solid, setSolid]   = React.useState(false); // רקע לבן
-  const [hidden, setHidden] = React.useState(false); // מוסתר
-  const [menu, setMenu]     = React.useState(false); // תפריט מובייל
+  const [solid, setSolid]       = React.useState(false); // רקע לבן
+  const [hidden, setHidden]     = React.useState(false); // מוסתר
+  const [menu, setMenu]         = React.useState(false); // תפריט מובייל
+  const [pastHero, setPastHero] = React.useState(false); // בדף הבית · עברנו את וידג'ט ההירו
   const { signedIn } = useSession();
   const lastY = React.useRef(0);
 
@@ -67,10 +83,12 @@ export function Header() {
         setSolid(true);
         setHidden(goingDown);
       }
+      setPastHero(y > HOME_SEARCH_AT);
 
       lastY.current = y;
     };
 
+    onScroll(); // מצב נכון גם כשהדף נטען באמצע גלילה
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -83,17 +101,22 @@ export function Header() {
 
   const light = !overlay || solid || menu; // טקסט שחור
 
+  // וידג'ט החיפוש · בדפים שברשימה, ובדף הבית רק אחרי ההירו
+  const searchHere = SEARCH_ROUTES.includes(pathname);
+  const showSearch = searchHere && !menu && (pathname !== "/" || pastHero);
+  const canHide    = !searchHere; // בדפי חיפוש ההדר לא מתחבא בגלילה
+
   return (
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 h-[64px] md:h-[78px]",
+          "fixed inset-x-0 top-0 z-50",
           "transition-[transform,background-color,border-color] duration-300 ease-smooth",
           light ? "border-b border-stroke bg-white" : "border-b border-transparent bg-transparent",
-          hidden && !menu ? "-translate-y-full" : "translate-y-0"
+          hidden && !menu && canHide ? "-translate-y-full" : "translate-y-0"
         )}
       >
-        <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-5 md:px-[90px]">
+        <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-5 md:h-[78px] md:px-[90px]">
           {/* לוגו */}
           <Link
             href="/"
@@ -177,6 +200,29 @@ export function Header() {
             </svg>
           </button>
         </div>
+
+        {/* וידג'ט החיפוש · שורה דביקה מתחת להדר */}
+        {showSearch && (
+          <div className="border-t border-stroke bg-white">
+            <div className="mx-auto max-w-[1440px] px-5 py-3 md:px-[90px]">
+              {/* דסקטופ · הווידג'ט המלא, שטוח · המסגרת שלו מספיקה בתוך ההדר */}
+              <div className="hidden justify-center md:flex">
+                <SearchBar flat />
+              </div>
+
+              {/* מובייל · שורה מקוצרת שפותחת את אשף ההזמנה */}
+              <Link
+                href="/book"
+                className="flex h-12 items-center justify-center gap-2 rounded-full border
+                           border-stroke bg-white text-button text-black
+                           transition-colors active:bg-offwhite md:hidden"
+              >
+                <IconSearch className="h-5 w-5 text-beige" />
+                לאן החופשה הבאה?
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* תפריט · מובייל */}
