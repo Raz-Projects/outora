@@ -13,6 +13,20 @@ import { Checkbox } from "@/components/ui/checkbox";
 /** ⚠️ קישור לדף התשלום החיצוני. יותם ימסור את האמיתי. */
 const PAYMENT_URL = "";
 
+/** בדיקת ספרת ביקורת של ת.ז. ישראלית · 5 עד 9 ספרות, משלימים באפסים משמאל */
+function isValidIdNumber(raw: string) {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length < 5 || digits.length > 9) return false;
+  const id = digits.padStart(9, "0");
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    let n = Number(id[i]) * (i % 2 === 0 ? 1 : 2);
+    if (n > 9) n -= 9;
+    sum += n;
+  }
+  return sum % 10 === 0;
+}
+
 export default function SummaryStep() {
   const { state, set, total } = useBooking();
   const router = useRouter();
@@ -39,8 +53,15 @@ export default function SummaryStep() {
     name: !c.name.trim(),
     phone: !/^0\d{1,2}-?\d{7}$/.test(c.phone.replace(/\s/g, "")),
     email: !/^\S+@\S+\.\S+$/.test(c.email),
+    idNumber: !isValidIdNumber(c.idNumber ?? ""),
   };
-  const valid = !missing.name && !missing.phone && !missing.email && state.termsAccepted;
+  const valid =
+    !missing.name &&
+    !missing.phone &&
+    !missing.email &&
+    !missing.idNumber &&
+    state.termsAccepted &&
+    state.agreementAccepted;
 
   const pay = async () => {
     setTried(true);
@@ -69,6 +90,8 @@ export default function SummaryStep() {
           customer_name: c.name,
           customer_phone: c.phone,
           customer_email: c.email,
+          customer_id_number: c.idNumber,
+          agreement_accepted: state.agreementAccepted,
           notes: c.notes || null,
         }),
       });
@@ -127,6 +150,20 @@ export default function SummaryStep() {
                   : signedIn
                     ? `מחוברים כ-${signedIn}. ההזמנה תופיע באזור האישי שלכם.`
                     : undefined
+              }
+            />
+
+            <Field
+              label="תעודת זהות"
+              placeholder="9 ספרות"
+              inputMode="numeric"
+              value={c.idNumber ?? ""}
+              onChange={(e) => patch("idNumber", e.target.value)}
+              state={err(missing.idNumber)}
+              message={
+                tried && missing.idNumber
+                  ? "מספר תעודת זהות לא תקין"
+                  : "נדרש להסכם הפיקדון והאחריות על הציוד"
               }
             />
 
@@ -191,6 +228,27 @@ export default function SummaryStep() {
           {tried && !state.termsAccepted && (
             <p role="alert" className="text-tag mt-2 text-error">
               צריך לאשר את התקנון כדי להמשיך
+            </p>
+          )}
+
+          <label className="mt-4 flex cursor-pointer items-start gap-3">
+            <Checkbox
+              checked={state.agreementAccepted}
+              onCheckedChange={(v) => set({ agreementAccepted: v === true })}
+              className="mt-0.5"
+            />
+            <span className="text-body">
+              קראתי ואני מאשר/ת את{" "}
+              <Link href="/legal/deposit" target="_blank" className="underline underline-offset-4">
+                הסכם הפיקדון והאחריות לנזקים
+              </Link>
+              . האישור כאן מחליף חתימה במסירה, ועותק מלא עם הפרטים שלי יישמר באזור האישי.
+            </span>
+          </label>
+
+          {tried && !state.agreementAccepted && (
+            <p role="alert" className="text-tag mt-2 text-error">
+              צריך לאשר את הסכם הפיקדון והאחריות כדי להמשיך
             </p>
           )}
 

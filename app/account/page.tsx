@@ -32,6 +32,7 @@ interface BookingRow {
   date_to?: string | null;
   guests?: number | null;
   total_price?: number | null;
+  agreement_accepted_at?: string | null;
 }
 
 function dateHe(v?: string | null) {
@@ -166,6 +167,14 @@ export default async function AccountPage({
                       {b.guests ? ` · ${b.guests} אנשים` : ""}
                     </p>
                     {b.ref && <p className="text-tag text-textgray mt-1">מספר הזמנה {b.ref}</p>}
+                    <Link
+                      href={`/account/agreement/${b.id}`}
+                      className="text-tag mt-3 inline-block underline underline-offset-4"
+                    >
+                      {b.agreement_accepted_at
+                        ? "הסכם הפיקדון והאחריות · אושר"
+                        : "הסכם הפיקדון והאחריות"}
+                    </Link>
                   </div>
 
                   <div className="text-left">

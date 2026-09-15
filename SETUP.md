@@ -182,7 +182,7 @@ CNAME  www    6ae37cf3c088c670.vercel-dns-017.com       ← עבד
 
 ### שינויים במבנה הנתונים
 
-הכל דרך קבצים ב-`supabase/migrations/`, לפי מספור. הקובץ האחרון כרגע: `013_fix_draft_upsert.sql`.
+הכל דרך קבצים ב-`supabase/migrations/`, לפי מספור. הקובץ האחרון כרגע: `015_customer_agreement.sql`.
 לא לשנות טבלאות ידנית בלוח הבקרה, אחרת הקוד והמסד יוצאים מסנכרון.
 
 ---

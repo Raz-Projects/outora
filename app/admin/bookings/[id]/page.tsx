@@ -96,6 +96,11 @@ export default async function BookingDetailPage({
             <Row label="שם" value={b.customer_name} />
             <Row label="טלפון" value={b.customer_phone} dir="ltr" />
             <Row label="מייל" value={b.customer_email} dir="ltr" />
+            <Row label="ת.ז." value={b.customer_id_number} dir="ltr" />
+            <Row
+              label="הסכם פיקדון ואחריות"
+              value={b.agreement_accepted_at ? `אושר דיגיטלית · ${dateTimeHe(b.agreement_accepted_at)}` : "טרם אושר · ייחתם במסירה"}
+            />
             {(b.customer_phone || b.customer_email) && (
               <div className="pt-3">
                 <Link

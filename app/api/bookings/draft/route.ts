@@ -54,7 +54,10 @@ export async function POST(req: NextRequest) {
       customer_name:    b.customer_name  ?? null,
       customer_phone:   b.customer_phone ?? null,
       customer_email:   b.customer_email ?? null,
+      customer_id_number: b.customer_id_number ? String(b.customer_id_number).replace(/\D/g, "") : null,
       notes:            b.notes ?? null,
+      // מועד האישור נקבע כאן, בשרת, ולא מהדפדפן · כדי שאי אפשר יהיה לזייף אותו
+      ...(b.agreement_accepted === true ? { agreement_accepted_at: new Date().toISOString() } : {}),
     };
 
     /**

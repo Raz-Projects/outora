@@ -23,6 +23,8 @@ const base = {
   abandoned_at: null,
   discount: 0,
   promo_code: null,
+  customer_id_number: null,
+  agreement_accepted_at: null,
 };
 
 export const DEMO_BOOKINGS: AdminBooking[] = [

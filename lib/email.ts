@@ -169,6 +169,13 @@ export function buildConfirmationHtml(d: BookingEmailData) {
       <p style="margin:20px 0 0;color:${colors.textGray};font-size:${typeScale.tag.size}px;line-height:1.6">
         המחיר הסופי מותנה בזמינות ובאישור. עם האישור תידרש מקדמה של 30%.
       </p>
+
+      <p style="margin:12px 0 0;color:${colors.textGray};font-size:${typeScale.tag.size}px;line-height:1.6">
+        בעת ההזמנה אישרת את
+        <a href="${SITE}/legal/deposit" style="color:${colors.textGray};text-decoration:underline">הסכם הפיקדון והאחריות לנזקים</a>.
+        העותק המלא, עם הפרטים שלך, שמור
+        <a href="${SITE}/account" style="color:${colors.textGray};text-decoration:underline">באזור האישי</a>.
+      </p>
     </td>
   </tr>
   <tr>

@@ -13,6 +13,7 @@ export interface AdminBooking {
   customer_name: string | null;
   customer_phone: string | null;
   customer_email: string | null;
+  customer_id_number: string | null;
   tent_slug: string | null;
   date_from: string | null;
   date_to: string | null;
@@ -35,6 +36,8 @@ export interface AdminBooking {
   package_id: string | null;
   camp_location_id: string | null;
   abandoned_at: string | null;
+  /** מתי הלקוח אישר דיגיטלית את הסכם הפיקדון והאחריות · ריק = ייחתם במסירה */
+  agreement_accepted_at: string | null;
 }
 
 export type BookingStatus =

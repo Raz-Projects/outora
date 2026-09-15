@@ -84,3 +84,9 @@
   .text-button   { font-size: 16px; font-weight: 500; line-height: 1.2; }
   .text-tag      { font-size: 14px; font-weight: 500; line-height: 1.35; }
 }
+
+/* ── הדפסה · רק התוכן, בלי הדר, פוטר וווידג׳טים צפים ── */
+@media print {
+  header, footer, [data-print-hide] { display: none !important; }
+  body { background: var(--white); }
+}

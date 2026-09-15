@@ -18,10 +18,12 @@ const COLUMNS: FooterColumn[] = [
   {
     title: "משפטי",
     links: [
-      { label: "תקנון שימוש", href: "/legal/terms" },
-      { label: "מדיניות פרטית", href: "/legal/privacy" },
+      { label: "תקנון האתר", href: "/legal/terms" },
       { label: "מדיניות ביטולים", href: "/legal/cancellation" },
-      { label: "נגישות", href: "/legal/accessibility" },
+      { label: "תנאי שימוש והשכרה", href: "/legal/rental" },
+      { label: "הסכם פיקדון ואחריות", href: "/legal/deposit" },
+      { label: "מדיניות פרטיות", href: "/legal/privacy" },
+      { label: "הצהרת נגישות", href: "/legal/accessibility" },
     ],
   },
   {

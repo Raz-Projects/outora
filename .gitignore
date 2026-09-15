@@ -54,3 +54,9 @@ dev-server.err.log
 
 # private notes (passwords, keys)
 SECRETS.local.md
+
+# תיקיית קליטה לחומרים מאוטורה · לא עולה לגיט
+_incoming/
+
+# חומרים מאוטורה (382MB) · לא עולה לגיט
+OUTORA_DAILY/

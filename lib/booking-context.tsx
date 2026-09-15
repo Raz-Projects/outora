@@ -40,16 +40,21 @@ export interface BookingState {
     name: string;
     phone: string;
     email: string;
+    /** ת.ז. · נדרש להסכם הפיקדון והאחריות */
+    idNumber: string;
     address: string;
     notes: string;
   };
   termsAccepted: boolean;
+  /** הסכם הפיקדון והאחריות · אישור דיגיטלי במקום חתימה במסירה */
+  agreementAccepted: boolean;
 }
 
 const EMPTY: BookingState = {
   extras: {},
-  customer: { name: "", phone: "", email: "", address: "", notes: "" },
+  customer: { name: "", phone: "", email: "", idNumber: "", address: "", notes: "" },
   termsAccepted: false,
+  agreementAccepted: false,
 };
 
 const KEY = "outora-booking";
@@ -115,7 +120,11 @@ export function BookingProvider({
   React.useEffect(() => {
     try {
       const raw = sessionStorage.getItem(KEY);
-      if (raw) setState({ ...EMPTY, ...JSON.parse(raw) });
+      if (raw) {
+        const saved = JSON.parse(raw);
+        // שדות לקוח שנוספו אחרי שהטיוטה נשמרה מקבלים ערך ריק, לא undefined
+        setState({ ...EMPTY, ...saved, customer: { ...EMPTY.customer, ...(saved.customer ?? {}) } });
+      }
     } catch {
       /* אין אחסון, ממשיכים ריק */
     }
