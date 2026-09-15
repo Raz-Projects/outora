@@ -36,10 +36,20 @@ export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {b.rows.map(([when, result]) => (
-                      <tr key={when} className="border-b border-stroke">
-                        <td className="py-3 pe-6 align-top text-black">{when}</td>
-                        <td className="text-textgray py-3 align-top">{result}</td>
+                    {b.rows.map((cells, r) => (
+                      <tr key={r} className="border-b border-stroke">
+                        {cells.map((cell, c) => (
+                          <td
+                            key={c}
+                            className={
+                              c === 0
+                                ? "py-3 pe-6 align-top text-black"
+                                : "text-textgray py-3 pe-6 align-top last:pe-0"
+                            }
+                          >
+                            {cell}
+                          </td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>

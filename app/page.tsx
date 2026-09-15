@@ -2,6 +2,25 @@ import Image from "next/image";
 import { SearchBar } from "@/components/layout/search-bar";
 import { ClubBanner } from "@/components/content/club-banner";
 
+const WHY = [
+  {
+    title: "האוהלים",
+    desc: "אוהלי אוויר גדולים ומאווררים שהופכים בתוך דקות לחלל אמיתי שאפשר לישון, לארח ולחיות בו.",
+  },
+  {
+    title: "הנוחות",
+    desc: "ממזרן וספה ועד תאורה, קירור וקפה. כל פריט נבחר כדי להוריד עוד התעסקות מהטיול.",
+  },
+  {
+    title: "הארגון",
+    desc: "הציוד מגיע לפי חבילה מסודרת, עם תיקים, חלוקה ברורה והוראות. פחות לחפש, פחות לאלתר.",
+  },
+  {
+    title: "החופש",
+    desc: "הבית שלכם לא מחובר לכתובת. בוחרים מקום, פותחים את האוהל, ומתחילים את הסופ״ש.",
+  },
+] as const;
+
 export default function Home() {
   return (
     <>
@@ -25,9 +44,9 @@ export default function Home() {
           <h1 className="text-h1-sm text-white md:text-h1">הבית שלך בטבע</h1>
 
           <p className="text-subtitle mt-4 max-w-2xl text-white">
-            נמאס מ-4 קירות? OUTORA מביאה אליכם חבילה מוכנה:
+            אוהלי אוויר של COODY, ציוד שנבחר לחיים בשטח וחבילות שמגיעות מסודרות,
             <br className="hidden md:block" />{" "}
-            אוהל מתוחכם, ציוד מפנק ועיצוב שגורם לכם לשכוח שאתם בטבע.
+            כדי שתוכלו להגיע וליהנות מהמקום שבחרתם.
           </p>
         </div>
 
@@ -37,17 +56,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── תוכן זמני ── */}
+      {/* ── למה OUTORA · המסרים הקצרים מהמסמך של אוטורה (05 - אתר/תוכן) ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-[220px] md:px-[90px] md:pt-[110px]">
         <p className="text-tag text-textgray">למה OUTORA</p>
-        <h2 className="text-h2 mt-2">הרבה יותר מאוהל</h2>
+        <h2 className="text-h2 mt-2">לא רק ציוד להשכרה</h2>
+        <p className="text-subtitle text-textgray mt-4 max-w-2xl">
+          חוויית אירוח ניידת שתוכננה מהאוהל ועד הפרט הקטן.
+        </p>
 
-        <div className="mt-12 space-y-16 md:space-y-24">
-          {["בוחרים אוהל", "בוחרים מיקום", "אנחנו מקימים", "אתם נהנים"].map((t, i) => (
-            <div key={t}>
-              <p className="text-tag text-textgray">שלב {i + 1}</p>
-              <h3 className="text-h3 mt-2">{t}</h3>
-              <p className="text-body text-textgray mt-2 max-w-xl">טקסט זמני.</p>
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {WHY.map((w) => (
+            <div key={w.title} className="rounded-lg border border-stroke p-6">
+              <h3 className="text-h3">{w.title}</h3>
+              <p className="text-body text-textgray mt-2">{w.desc}</p>
             </div>
           ))}
         </div>

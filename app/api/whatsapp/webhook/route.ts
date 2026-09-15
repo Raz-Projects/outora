@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     // ── Auto-reply for common keywords ────────────────────────
     if (text.includes("מחיר") || text.includes("עלות") || text.includes("כמה עולה")) {
       await sendWhatsAppText(fromPhone,
-        `שלום! 👋 מחירי OUTORA מתחילים מ-₪690 ללילה לאוהל HUB STATION.\nלצפייה בכל הדגמים והמחירים: https://outora.co.il/tents\nלהזמנה: https://outora.co.il/book`
+        `שלום! 👋 מחירי OUTORA מתחילים מ-₪690 ללילה לאוהל PAVILION.\nלצפייה בכל הדגמים והמחירים: https://outora.co.il/tents\nלהזמנה: https://outora.co.il/book`
       );
       continue;
     }
