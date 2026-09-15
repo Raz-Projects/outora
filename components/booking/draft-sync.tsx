@@ -12,7 +12,7 @@ import { useBooking } from "@/lib/booking-context";
  */
 export function DraftSync() {
   const pathname = usePathname();
-  const { state, nights, basePrice, extrasPrice, deliveryPrice, total } = useBooking();
+  const { state, nights, basePrice, tierPrice, bundlesPrice, extrasPrice, deliveryPrice, total } = useBooking();
 
   const lastSent = React.useRef<string>("");
   const timer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -34,10 +34,14 @@ export function DraftSync() {
       date_to: state.to ?? null,
       guests: state.guests ?? null,
       region: state.location ?? null,
-      extra_ids: Object.keys(state.extras),
+      extra_ids: [
+        ...(state.tierId ? [`tier:${state.tierId}`] : []),
+        ...state.bundleIds.map((b) => `bundle:${b}`),
+        ...Object.keys(state.extras),
+      ],
       delivery_type: state.deliveryId ?? null,
       base_price: basePrice,
-      extras_price: extrasPrice,
+      extras_price: tierPrice + bundlesPrice + extrasPrice,
       discount: 0,
       total_price: total,
       customer_name: state.customer.name || null,
@@ -70,6 +74,8 @@ export function DraftSync() {
     state,
     nights,
     basePrice,
+    tierPrice,
+    bundlesPrice,
     extrasPrice,
     deliveryPrice,
     total,

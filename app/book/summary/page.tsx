@@ -84,7 +84,11 @@ export default function SummaryStep() {
           date_to: state.to ?? null,
           guests: state.guests ?? null,
           region: state.location ?? null,
-          extra_ids: Object.keys(state.extras),
+          extra_ids: [
+            ...(state.tierId ? [`tier:${state.tierId}`] : []),
+            ...state.bundleIds.map((b) => `bundle:${b}`),
+            ...Object.keys(state.extras),
+          ],
           delivery_type: state.deliveryId ?? null,
           total_price: total,
           customer_name: c.name,

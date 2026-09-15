@@ -1,31 +1,23 @@
 import { accessories as codeAccessories, type Accessory } from "@/lib/tents";
 
 /**
- * הקטגוריות של התוספות באשף.
+ * הקטגוריות של התוספות באשף · לפי "תוספות נפרדות" בקובץ החבילות של אוטורה (14 - חבילות).
  * לכל תוספת יש שדה category (נשמר במסד). מי שלא משויך נופל ל"נוסף".
- * ⚠️ החלוקה המקורית נעשתה לפי שם המוצר. שווה שאוטורה יאשרו.
  */
 export const EXTRA_CATEGORIES = [
-  {
-    id: "furniture",
-    title: "ריהוט ונוחות",
-    ids: ["dining-set", "fur-blanket", "cart", "fan", "ac", "shower", "mosquito"],
-  },
-  {
-    id: "ambience",
-    title: "אווירה ותאורה",
-    ids: ["fire-pit", "garlands", "lanterns", "star-projector", "projector", "speaker"],
-  },
-  {
-    id: "kitchen",
-    title: "מטבח ואביזרי אוכל",
-    ids: ["coffee-machine", "gas-stove", "fridge", "bbq"],
-  },
-  {
-    id: "activities",
-    title: "משחקים ופעילויות",
-    ids: ["sup", "telescope", "board-games", "pool"],
-  },
+  { id: "power",     title: "אנרגיה",         code: "POWER",         ids: [] },
+  { id: "freeze",    title: "קירור",          code: "FREEZE",        ids: ["fridge"] },
+  { id: "shower",    title: "מקלחת",          code: "SHOWER",        ids: ["shower"] },
+  { id: "comfort",   title: "מיטות ונוחות",   code: "COMFORT",       ids: ["fur-blanket"] },
+  { id: "move",      title: "אחסון ושינוע",   code: "MOVE",          ids: ["cart"] },
+  { id: "climate",   title: "מיזוג ואוורור",  code: "CLIMATE",       ids: ["ac", "fan"] },
+  { id: "furniture", title: "ריהוט",          code: "FURNITURE",     ids: ["dining-set"] },
+  { id: "sound",     title: "סאונד",          code: "SOUND",         ids: ["speaker"] },
+  { id: "extras",    title: "אקסטרה",         code: "EXTRAS",        ids: ["sup", "telescope", "pool", "board-games"] },
+  { id: "mosquito",  title: "נגד יתושים",     code: "ANTI MOSQUITO", ids: ["mosquito"] },
+  // שתי קטגוריות שאינן בקובץ החבילות · לפריטים שבאתר ואין להם בית אחר
+  { id: "ambience",  title: "אווירה ותאורה",  code: "",              ids: ["fire-pit", "garlands", "lanterns", "star-projector", "projector"] },
+  { id: "kitchen",   title: "מטבח",           code: "",              ids: ["coffee-machine", "gas-stove", "bbq"] },
 ] as const;
 
 export const CATEGORY_OPTIONS = [

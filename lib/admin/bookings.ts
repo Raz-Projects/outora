@@ -1,4 +1,5 @@
 import { getTentBySlug, accessories } from "@/lib/tents";
+import { tiers, bundles } from "@/lib/tiers";
 import { packages } from "@/lib/packages";
 import { locations } from "@/lib/locations";
 import { deliveryOptions, carSizes } from "@/lib/delivery";
@@ -123,7 +124,18 @@ export function locationName(id?: string | null) {
 }
 
 export function extraNames(ids?: string[] | null) {
-  return (ids ?? []).map((id) => accessories.find((a) => a.id === id)?.nameHe ?? id);
+  return (ids ?? []).map((id) => {
+    // רמת האירוח והבאנדלים נשמרים באותה רשימה, עם קידומת
+    if (id.startsWith("tier:")) {
+      const t = tiers.find((x) => x.id === id.slice(5));
+      return t ? `רמת אירוח ${t.nameEn}` : id;
+    }
+    if (id.startsWith("bundle:")) {
+      const b = bundles.find((x) => x.id === id.slice(7));
+      return b ? `באנדל ${b.nameHe}` : id;
+    }
+    return accessories.find((a) => a.id === id)?.nameHe ?? id;
+  });
 }
 
 export function deliveryLabel(id?: string | null) {

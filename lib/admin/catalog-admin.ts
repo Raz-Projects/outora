@@ -1,4 +1,4 @@
-export type EntityType = "tent" | "accessory" | "package" | "location" | "damage";
+export type EntityType = "tent" | "accessory" | "package" | "location" | "damage" | "tier" | "bundle";
 
 export const ENTITY_TABLE: Record<EntityType, string> = {
   tent: "tents",
@@ -6,6 +6,8 @@ export const ENTITY_TABLE: Record<EntityType, string> = {
   package: "packages",
   location: "locations",
   damage: "damage_items",
+  tier: "tiers",
+  bundle: "bundles",
 };
 
 /** עמודת המזהה בכל טבלה */
@@ -15,6 +17,8 @@ export const ENTITY_KEY: Record<EntityType, string> = {
   package: "id",
   location: "id",
   damage: "id",
+  tier: "id",
+  bundle: "id",
 };
 
 export const ENTITY_LABEL: Record<EntityType, { one: string; many: string; path: string }> = {
@@ -23,6 +27,8 @@ export const ENTITY_LABEL: Record<EntityType, { one: string; many: string; path:
   package:   { one: "חבילה",  many: "חבילות",  path: "packages" },
   location:  { one: "מיקום",  many: "מיקומים", path: "locations" },
   damage:    { one: "פריט",   many: "פריטים במחירון הנזקים", path: "damage" },
+  tier:      { one: "רמת אירוח", many: "רמות אירוח", path: "tiers" },
+  bundle:    { one: "באנדל", many: "באנדלים", path: "bundles" },
 };
 
 /** מזהה תקין לפריט חדש · אותיות קטנות, ספרות ומקפים */

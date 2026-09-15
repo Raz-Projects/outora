@@ -12,10 +12,10 @@ export function PickTent({ slug }: { slug: string }) {
   const router = useRouter();
   const inDialog = useInRouteDialog();
 
-  /** התאריכים נבחרים בשורת החיפוש שמתחת להדר, לא כאן · תמיד ממשיכים לתוספות */
+  /** התאריכים נבחרים בשורת החיפוש שמתחת להדר, לא כאן · ממשיכים לרמת האירוח */
   const go = () => {
     set({ mode: "custom", tentSlug: slug, packageId: undefined });
-    const next = "/book/extras";
+    const next = "/book/tier";
 
     // כשזה נפתח כמגירה מעל האשף צריך קודם לסגור אותה, אחרת היא נשארת מעל השלב הבא
     if (inDialog) {

@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { href: "/admin/content/tents",       label: "אוהלים" },
   { href: "/admin/content/accessories", label: "תוספות" },
-  { href: "/admin/content/packages",    label: "חבילות" },
+  { href: "/admin/content/tiers",       label: "רמות אירוח" },
+  { href: "/admin/content/bundles",     label: "באנדלים" },
+  { href: "/admin/content/packages",    label: "חבילות חוויה" },
   { href: "/admin/content/locations",   label: "מיקומים" },
   { href: "/admin/content/damage",      label: "מחירון נזקים" },
 ];

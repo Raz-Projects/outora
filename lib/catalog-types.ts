@@ -1,6 +1,7 @@
 import type { Tent, Accessory } from "./tents";
 import type { ExperiencePackage, PackageBadge } from "./packages";
 import type { CampingLocation, LandscapeType, RegionType } from "./locations";
+import type { Tier, Bundle } from "./tiers";
 
 /**
  * הקטלוג של האתר · אוהלים, תוספות, חבילות ומיקומים.
@@ -15,6 +16,10 @@ export interface Catalog {
   accessories: Accessory[];
   packages: ExperiencePackage[];
   locations: CampingLocation[];
+  /** רמות האירוח · BASIC / COMFORT+ / SIGNATURE */
+  tiers: Tier[];
+  /** באנדלים · חבילות חוויה קטנות שמצטרפות לרמת האירוח */
+  bundles: Bundle[];
 }
 
 // ─── שורות כמו שהן במסד ───

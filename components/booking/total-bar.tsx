@@ -68,7 +68,7 @@ export function OrderPanel({
   /** כשהכותרת כבר מופיעה מסביב, למשל בראש מגירה */
   hideTitle?: boolean;
 }) {
-  const { nights, tent, pkg, extraLines, delivery, basePrice, deliveryPrice, total, state, setQty } =
+  const { nights, tent, pkg, tier, bundleLines, tierPrice, extraLines, delivery, basePrice, deliveryPrice, total, state, setQty } =
     useBooking();
 
   const title = state.mode === "package" ? pkg?.title : tent && `אוהל - ${tent.nameEn}`;
@@ -118,6 +118,32 @@ export function OrderPanel({
             </li>
           ))}
 
+        {/* רמת האירוח והבאנדלים · במסלול בנייה אישית */}
+        {tier && (
+          <li className="flex items-center gap-3 py-2.5">
+            <Thumb src={tier.image} alt={tier.nameEn} />
+            <div className="min-w-0 flex-1">
+              <p className="text-body">רמת אירוח {tier.nameEn}</p>
+              <p className="text-tag text-textgray mt-0.5">
+                {tierPrice > 0
+                  ? `${ils(tier.pricePerNight)} ללילה × ${Math.max(nights, 1)} לילות`
+                  : tier.freeBundles === 0 ? "כלול במחיר האוהל" : "המחיר ייקבע בקרוב"}
+              </p>
+            </div>
+            <span className="text-body">{tierPrice > 0 ? ils(tierPrice) : "0₪"}</span>
+          </li>
+        )}
+
+        {bundleLines.map((l) => (
+          <li key={l.bundle.id} className="flex items-center gap-3 py-2.5">
+            <Thumb src={l.bundle.image} alt={l.bundle.nameHe} />
+            <div className="min-w-0 flex-1">
+              <p className="text-body truncate">באנדל {l.bundle.nameHe}</p>
+              <p className="text-tag text-textgray mt-0.5">{l.free ? "כלול ברמת האירוח" : `${ils(l.bundle.pricePerNight)} ללילה`}</p>
+            </div>
+            <span className="text-body">{ils(l.total)}</span>
+          </li>
+        ))}
 
         {extraLines.map((l) => (
           <li key={l.id} className="flex items-center gap-3 py-2.5">
@@ -126,6 +152,7 @@ export function OrderPanel({
             <div className="min-w-0 flex-1">
               <p className="text-body truncate">{l.nameHe}</p>
               <p className="text-tag text-textgray mt-0.5">
+                {l.freeUnit && "יחידה אחת כלולה ברמת האירוח · "}
                 {ils(l.pricePerNight)} ללילה
                 {nights > 0 && ` × ${nights} לילות`}
               </p>

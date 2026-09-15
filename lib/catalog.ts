@@ -3,6 +3,7 @@ import { tents, accessories } from "./tents";
 import { packages } from "./packages";
 import { locations } from "./locations";
 import { LOCATION_PHOTOS } from "./location-photos";
+import { tiers, bundles, tierFromRow, bundleFromRow, type TierRow, type BundleRow } from "./tiers";
 import {
   accessoryFromRow, locationFromRow, packageFromRow, tentFromRow,
   type AccessoryRow, type Catalog, type LocationRow, type PackageRow, type TentRow,
@@ -16,6 +17,8 @@ export const CODE_CATALOG: Catalog = {
   accessories,
   packages,
   locations: locations.map((l) => ({ ...l, photos: LOCATION_PHOTOS[l.id] ?? [] })),
+  tiers,
+  bundles,
 };
 
 const hasDb = () =>
@@ -24,22 +27,27 @@ const hasDb = () =>
 /** כל הקטלוג מהמסד, כולל פריטים כבויים · לממשק הניהול */
 export async function loadCatalogRows(): Promise<{
   tents: TentRow[]; accessories: AccessoryRow[]; packages: PackageRow[]; locations: LocationRow[];
+  tiers: TierRow[]; bundles: BundleRow[];
 }> {
   const { createAdminClient } = await import("./supabase/admin");
   const db = createAdminClient();
-  const [t, a, p, l] = await Promise.all([
+  const [t, a, p, l, ti, bu] = await Promise.all([
     db.from("tents").select("*").order("sort_order"),
     db.from("accessories").select("*").order("sort_order"),
     db.from("packages").select("*").order("sort_order"),
     db.from("locations").select("*").order("sort_order"),
+    db.from("tiers").select("*").order("sort_order"),
+    db.from("bundles").select("*").order("sort_order"),
   ]);
-  const firstError = t.error ?? a.error ?? p.error ?? l.error;
+  const firstError = t.error ?? a.error ?? p.error ?? l.error ?? ti.error ?? bu.error;
   if (firstError) throw firstError;
   return {
     tents: (t.data ?? []) as TentRow[],
     accessories: (a.data ?? []) as AccessoryRow[],
     packages: (p.data ?? []) as PackageRow[],
     locations: (l.data ?? []) as LocationRow[],
+    tiers: (ti.data ?? []) as TierRow[],
+    bundles: (bu.data ?? []) as BundleRow[],
   };
 }
 
@@ -52,6 +60,8 @@ async function loadCatalog(): Promise<Catalog> {
       accessories: rows.accessories.filter((r) => r.active).map(accessoryFromRow),
       packages: rows.packages.filter((r) => r.active).map(packageFromRow),
       locations: rows.locations.filter((r) => r.active).map(locationFromRow),
+      tiers: rows.tiers.filter((r) => r.active).map(tierFromRow),
+      bundles: rows.bundles.filter((r) => r.active).map(bundleFromRow),
     };
   } catch (err) {
     console.error("catalog unavailable, using code data", err);
