@@ -11,6 +11,7 @@ import { useSession } from "@/lib/use-session";
 import { cn } from "@/lib/utils";
 
 const NAV = [
+  { label: "אוהלים",      href: "/tents" },
   { label: "חבילות",      href: "/packages" },
   { label: "לוקיישנים",   href: "/locations" },
   { label: "לעסקים",      href: "/business" },

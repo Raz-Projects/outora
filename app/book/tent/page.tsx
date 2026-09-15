@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Tent } from "@/lib/tents";
 import { useBooking } from "@/lib/booking-context";
@@ -72,6 +73,15 @@ function TentRow({
             </li>
           ))}
         </ul>
+
+        {/* נפתח כדיאלוג מעל האשף · הלחיצה לא בוחרת את האוהל */}
+        <Link
+          href={`/tents/${tent.slug}`}
+          onClick={(e) => e.stopPropagation()}
+          className="text-button mt-4 w-fit underline underline-offset-4 transition-colors hover:text-textgray"
+        >
+          לכל הפרטים והמפרט
+        </Link>
 
         <div className="mt-auto pt-5 md:pt-6">
           <div className="flex flex-col-reverse items-start gap-3

@@ -34,6 +34,7 @@ const COLUMNS: FooterColumn[] = [
       { label: "איך זה עובד", href: "/how-it-works" },
       { label: "מדריך הקמה ותפעול", href: "/guide" },
       { label: "שאלות נפוצות", href: "/faq" },
+      { label: "האוהלים", href: "/tents" },
       { label: "לוקיישנים", href: "/locations" },
       { label: "חבילות", href: "/packages" },
       { label: "לעסקים", href: "/business" },
