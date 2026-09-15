@@ -32,6 +32,15 @@ export async function TentContent({ slug }: { slug: string }) {
           <h1 className="text-h1-sm mt-1 md:text-h1">{tent.nameEn}</h1>
           <p className="text-subtitle text-textgray mt-2">{tent.taglineHe}</p>
           <p className="text-body mt-6">{tent.descriptionHe}</p>
+
+          {/* המחיר והכפתור למעלה, ליד הטקסט · לא צריך לגלול עד הסוף כדי לבחור */}
+          <p className="text-h3 mt-8">
+            {tent.priceFrom.toLocaleString("he-IL")}₪{" "}
+            <span className="text-body text-textgray">ללילה</span>
+          </p>
+          <div className="mt-4">
+            <PickTent slug={tent.slug} />
+          </div>
         </div>
 
         <Gallery
@@ -75,14 +84,6 @@ export async function TentContent({ slug }: { slug: string }) {
         </>
       )}
 
-      <h2 className="text-h2 mt-10">מחיר</h2>
-      <p className="text-body mt-4">
-        {tent.priceFrom.toLocaleString("he-IL")}₪ ללילה
-      </p>
-
-      <div className="mt-10 border-t border-stroke pt-8">
-        <PickTent slug={tent.slug} />
-      </div>
     </article>
   );
 }

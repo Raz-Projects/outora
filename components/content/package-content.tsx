@@ -29,6 +29,19 @@ export async function PackageContent({ id }: { id: string }) {
           <h1 className="text-h1-sm md:text-h1">{pkg.title}</h1>
           <p className="text-subtitle text-textgray mt-2">{pkg.tagline}</p>
           <p className="text-body mt-6">{pkg.hook}</p>
+
+          {/* המחיר והכפתור למעלה, ליד הטקסט · לא צריך לגלול עד הסוף כדי לבחור */}
+          <p className="text-h3 mt-8">
+            {pkg.pricePerNight}₪{" "}
+            <span className="text-body text-textgray">ללילה</span>
+          </p>
+          <p className="text-tag text-textgray mt-1">
+            <span className="line-through">{pkg.priceFullPerNight}₪</span>{" "}
+            <span className="text-orange">{pkg.savingsPercent}% הנחה</span>
+          </p>
+          <div className="mt-4">
+            <PickPackage id={pkg.id} />
+          </div>
         </div>
 
         <Gallery
@@ -60,16 +73,6 @@ export async function PackageContent({ id }: { id: string }) {
         ))}
       </ul>
 
-      <h2 className="text-h2 mt-10">מחיר</h2>
-      <p className="text-body mt-4">
-        {pkg.pricePerNight}₪ ללילה{" "}
-        <span className="text-textgray line-through">{pkg.priceFullPerNight}₪</span>{" "}
-        <span className="text-orange">({pkg.savingsPercent}% הנחה)</span>
-      </p>
-
-      <div className="mt-10 border-t border-stroke pt-8">
-        <PickPackage id={pkg.id} />
-      </div>
     </article>
   );
 }
