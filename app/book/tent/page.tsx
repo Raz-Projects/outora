@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import type { Tent } from "@/lib/tents";
 import { useBooking } from "@/lib/booking-context";
 import { useAvailability } from "@/lib/use-availability";
@@ -23,30 +22,17 @@ function Check({ className }: { className?: string }) {
   );
 }
 
-function TentRow({
-  tent,
-  selected,
-  confirming,
-  taken,
-  onPick,
-}: {
-  tent: Tent;
-  selected: boolean;
-  confirming: boolean;
-  taken: boolean;
-  onPick: () => void;
-}) {
+function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; taken: boolean }) {
   return (
     <article
-      onClick={taken ? undefined : onPick}
       aria-disabled={taken || undefined}
       className={cn(
         "relative grid overflow-hidden rounded-[16px] transition-colors md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]",
         taken
-          ? "cursor-not-allowed border border-stroke"
+          ? "border border-stroke"
           : selected
-            ? "cursor-pointer border border-transparent shadow-drop"
-            : "cursor-pointer border border-stroke hover:border-beige"
+            ? "border border-transparent shadow-drop"
+            : "border border-stroke hover:border-beige"
       )}
     >
 
@@ -74,15 +60,6 @@ function TentRow({
           ))}
         </ul>
 
-        {/* נפתח כדיאלוג מעל האשף · הלחיצה לא בוחרת את האוהל */}
-        <Link
-          href={`/tents/${tent.slug}`}
-          onClick={(e) => e.stopPropagation()}
-          className="text-button mt-4 w-fit underline underline-offset-4 transition-colors hover:text-textgray"
-        >
-          לכל הפרטים והמפרט
-        </Link>
-
         <div className="mt-auto pt-5 md:pt-6">
           <div className="flex flex-col-reverse items-start gap-3
                           md:flex-row md:items-end md:justify-between md:gap-4">
@@ -109,22 +86,19 @@ function TentRow({
               <p className="text-button text-textgray">לא פנוי בתאריכים האלה</p>
             </div>
           ) : (
-          <Button
-            block
-            size="md"
-            onClick={onPick}
-            noFill={selected}
-            className={cn("mt-4", selected && "bg-orange text-white")}
-          >
-            {selected ? (
-              <>
-                <Check className="h-5 w-5" />
-                {confirming ? "האוהל נבחר" : "האוהל שלכם · לחצו לביטול"}
-              </>
-            ) : (
-              "בחרו אוהל זה"
-            )}
-          </Button>
+            /* נכנסים לדף האוהל (נפתח מעל האשף), ומשם בוחרים וממשיכים · כמו בחבילות */
+            <Button block size="md" asChild noFill={selected} className={cn("mt-4", selected && "bg-orange text-white")}>
+              <Link href={`/tents/${tent.slug}`}>
+                {selected ? (
+                  <>
+                    <Check className="h-5 w-5" />
+                    האוהל שלכם · לפרטים
+                  </>
+                ) : (
+                  "בחרו אוהל זה"
+                )}
+              </Link>
+            </Button>
           )}
         </div>
       </div>
@@ -133,9 +107,8 @@ function TentRow({
 }
 
 export default function TentStep() {
-  const { state, set, catalog } = useBooking();
+  const { state, catalog } = useBooking();
   const { tents } = catalog;
-  const router = useRouter();
 
   const guests = state.guests ?? 0;
 
@@ -163,25 +136,7 @@ export default function TentStep() {
   const fits = tier === null ? [] : fitting.filter((t) => t.capacity === tier).sort(byAvail);
   const rest = tents.filter((t) => !fits.includes(t)).sort(byAvail);
 
-  const [confirming, setConfirming] = React.useState<string | null>(null);
   const [showRest, setShowRest] = React.useState(false);
-
-  /**
-   * בוחרים, רואים סימן וי, ורק אז עוברים הלאה.
-   * לחיצה על אוהל שכבר נבחר מבטלת את הבחירה.
-   */
-  const pick = (slug: string) => {
-    if (confirming || isTaken(slug)) return;
-
-    if (state.tentSlug === slug) {
-      set({ tentSlug: undefined });
-      return;
-    }
-
-    set({ tentSlug: slug });
-    setConfirming(slug);
-    setTimeout(() => router.push("/book/extras"), 700);
-  };
 
   return (
     <BookingShell
@@ -203,9 +158,7 @@ export default function TentStep() {
             key={t.slug}
             tent={t}
             selected={state.tentSlug === t.slug}
-            confirming={confirming === t.slug}
             taken={isTaken(t.slug)}
-            onPick={() => pick(t.slug)}
           />
         ))}
       </div>
@@ -230,9 +183,7 @@ export default function TentStep() {
                     key={t.slug}
                     tent={t}
                     selected={state.tentSlug === t.slug}
-                    confirming={confirming === t.slug}
                     taken={isTaken(t.slug)}
-                    onPick={() => pick(t.slug)}
                   />
                 ))}
               </div>
