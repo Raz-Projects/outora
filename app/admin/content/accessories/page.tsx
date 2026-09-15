@@ -14,7 +14,7 @@ export default async function AccessoriesListPage() {
       rows={accessories.map((a) => ({
         id: a.id,
         name: a.name_he,
-        sub: catName(a.category),
+        sub: [a.sku, catName(a.category)].filter(Boolean).join(" · "),
         image: a.image,
         price: a.price_per_night,
         quantity: a.quantity,

@@ -12,7 +12,7 @@ export default async function TentsListPage() {
       rows={tents.map((t) => ({
         id: t.slug,
         name: t.name_en,
-        sub: `${t.name_he} · עד ${t.capacity} אנשים`,
+        sub: [t.sku, `${t.name_he} · עד ${t.capacity} אנשים`].filter(Boolean).join(" · "),
         image: t.image,
         price: t.price_from,
         quantity: t.quantity,

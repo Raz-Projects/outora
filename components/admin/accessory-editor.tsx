@@ -13,12 +13,12 @@ import type { AccessoryRow } from "@/lib/catalog-types";
 
 type Values = {
   id: string; nameHe: string; descriptionHe: string; image: string; gallery: string[];
-  pricePerNight: string; category: string; quantity: string; damageFee: string;
+  pricePerNight: string; category: string; quantity: string; damageFee: string; sku: string;
 };
 
 const EMPTY: Values = {
   id: "", nameHe: "", descriptionHe: "", image: "", gallery: [],
-  pricePerNight: "0", category: "other", quantity: "1", damageFee: "",
+  pricePerNight: "0", category: "other", quantity: "1", damageFee: "", sku: "",
 };
 
 export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
@@ -28,7 +28,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           id: row.id, nameHe: row.name_he, descriptionHe: row.description_he, image: row.image,
           gallery: row.gallery ?? [], pricePerNight: String(row.price_per_night),
           category: row.category, quantity: String(row.quantity),
-          damageFee: row.damage_fee == null ? "" : String(row.damage_fee),
+          damageFee: row.damage_fee == null ? "" : String(row.damage_fee), sku: row.sku ?? "",
         }
       : EMPTY
   );
@@ -58,6 +58,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           gallery: x.gallery, price_per_night: num(x.pricePerNight), category: x.category,
           quantity: num(x.quantity),
           damage_fee: x.damageFee.trim() === "" ? null : num(x.damageFee),
+          sku: x.sku.trim() || null,
         })}
       >
         <Section title="פרטים">
@@ -76,6 +77,16 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
             onChange={(e) => set("id", slugify(e.target.value))}
             className="h-12 px-4"
             message={row ? "אי אפשר לשנות אחרי היצירה" : "אותיות קטנות באנגלית ומקפים"}
+          />
+
+          <Field
+            label="מק״ט OUTORA"
+            value={v.sku}
+            dir="ltr"
+            placeholder="OTR-XXX-000"
+            onChange={(e) => set("sku", e.target.value.toUpperCase())}
+            className="h-12 px-4"
+            message="מרשימת המוצרים הראשית · לא מוצג ללקוח"
           />
 
           <div>

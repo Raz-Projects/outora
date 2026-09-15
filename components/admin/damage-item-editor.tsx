@@ -7,9 +7,9 @@ import { ProductShell, Section, Grid, useFieldErrors } from "./product-shell";
 import { ID_PATTERN, slugify } from "@/lib/admin/catalog-admin";
 import type { DamageItemRow } from "@/lib/damage-items";
 
-type Values = { id: string; nameHe: string; categoryHe: string; fee: string; sortOrder: string };
+type Values = { id: string; nameHe: string; categoryHe: string; fee: string; sortOrder: string; sku: string };
 
-const EMPTY: Values = { id: "", nameHe: "", categoryHe: "", fee: "0", sortOrder: "999" };
+const EMPTY: Values = { id: "", nameHe: "", categoryHe: "", fee: "0", sortOrder: "999", sku: "" };
 
 /** פריט במחירון הנזקים · שם, קטגוריה וחיוב. לאוהלים ולתוספות יש שדה משלהם בדף העריכה. */
 export function DamageItemEditor({ row }: { row?: DamageItemRow }) {
@@ -17,7 +17,7 @@ export function DamageItemEditor({ row }: { row?: DamageItemRow }) {
     row
       ? {
           id: row.id, nameHe: row.name_he, categoryHe: row.category_he,
-          fee: String(row.fee), sortOrder: String(row.sort_order),
+          fee: String(row.fee), sortOrder: String(row.sort_order), sku: row.sku ?? "",
         }
       : EMPTY
   );
@@ -45,7 +45,7 @@ export function DamageItemEditor({ row }: { row?: DamageItemRow }) {
         }}
         toRow={(x) => ({
           id: x.id, name_he: x.nameHe.trim(), category_he: x.categoryHe.trim(),
-          fee: num(x.fee), sort_order: num(x.sortOrder),
+          fee: num(x.fee), sort_order: num(x.sortOrder), sku: x.sku.trim() || null,
         })}
       >
         <Section title="פרטים">
@@ -66,6 +66,16 @@ export function DamageItemEditor({ row }: { row?: DamageItemRow }) {
             onChange={(e) => set("id", slugify(e.target.value))}
             className="h-12 px-4"
             message={row ? "אי אפשר לשנות אחרי היצירה" : "אותיות קטנות באנגלית ומקפים"}
+          />
+
+          <Field
+            label="מק״ט OUTORA"
+            value={v.sku}
+            dir="ltr"
+            placeholder="OTR-XXX-000"
+            onChange={(e) => set("sku", e.target.value.toUpperCase())}
+            className="h-12 px-4"
+            message="מרשימת המוצרים הראשית · לא מוצג ללקוח"
           />
           <Field
             label="קטגוריה"

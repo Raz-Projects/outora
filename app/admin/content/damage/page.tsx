@@ -34,7 +34,7 @@ export default async function DamageListPage() {
         </p>
         <ProductList type="damage" priceLabel="חיוב" showStock={false}
           rows={items.map((i) => ({
-            id: i.id, name: i.name_he, sub: i.category_he, price: i.fee, active: i.active,
+            id: i.id, name: i.name_he, sub: [i.sku, i.category_he].filter(Boolean).join(" · "), price: i.fee, active: i.active,
           }))}
         />
       </section>

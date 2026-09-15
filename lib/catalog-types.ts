@@ -24,13 +24,14 @@ export interface TentRow {
   capacity: number; size_sqm: number; height_m: number; setup_minutes: number; weight_kg: number;
   dimensions_m: string; waterproof_mm: number; material: string; image: string; gallery: string[];
   video_url: string | null; features: string[]; included_items: string[]; price_from: number;
-  quantity: number; damage_fee: number | null; active: boolean; sort_order: number; updated_at: string;
+  quantity: number; damage_fee: number | null; sku: string | null; active: boolean;
+  sort_order: number; updated_at: string;
 }
 
 export interface AccessoryRow {
   id: string; name_he: string; description_he: string; image: string; gallery: string[];
   price_per_night: number; category: string; quantity: number; damage_fee: number | null;
-  active: boolean; sort_order: number; updated_at: string;
+  sku: string | null; active: boolean; sort_order: number; updated_at: string;
 }
 
 export interface PackageRow {
@@ -58,13 +59,13 @@ export const tentFromRow = (r: TentRow): Tent => ({
   dimensionsM: r.dimensions_m, waterproofMm: r.waterproof_mm, material: r.material, image: r.image,
   gallery: r.gallery ?? [], videoUrl: r.video_url ?? undefined, features: r.features ?? [],
   includedItems: r.included_items ?? [], priceFrom: r.price_from, quantity: r.quantity,
-  damageFee: r.damage_fee ?? undefined,
+  damageFee: r.damage_fee ?? undefined, sku: r.sku ?? undefined,
 });
 
 export const accessoryFromRow = (r: AccessoryRow): Accessory => ({
   id: r.id, nameHe: r.name_he, descriptionHe: r.description_he || undefined, image: r.image,
   gallery: r.gallery ?? [], pricePerNight: r.price_per_night, category: r.category,
-  quantity: r.quantity, damageFee: r.damage_fee ?? undefined,
+  quantity: r.quantity, damageFee: r.damage_fee ?? undefined, sku: r.sku ?? undefined,
 });
 
 export const packageFromRow = (r: PackageRow): ExperiencePackage => ({

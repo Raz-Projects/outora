@@ -14,7 +14,7 @@ type Values = {
   slug: string; nameEn: string; nameHe: string; taglineHe: string; descriptionHe: string;
   capacity: string; sizeSqm: string; heightM: string; setupMinutes: string; weightKg: string;
   dimensionsM: string; waterproofMm: string; material: string; videoUrl: string;
-  priceFrom: string; quantity: string; damageFee: string;
+  priceFrom: string; quantity: string; damageFee: string; sku: string;
   image: string; gallery: string[]; features: string[]; includedItems: string[];
 };
 
@@ -22,7 +22,7 @@ const EMPTY: Values = {
   slug: "", nameEn: "", nameHe: "", taglineHe: "", descriptionHe: "",
   capacity: "6", sizeSqm: "0", heightM: "0", setupMinutes: "0", weightKg: "0",
   dimensionsM: "", waterproofMm: "0", material: "", videoUrl: "",
-  priceFrom: "0", quantity: "1", damageFee: "",
+  priceFrom: "0", quantity: "1", damageFee: "", sku: "",
   image: "", gallery: [], features: [], includedItems: [],
 };
 
@@ -33,7 +33,7 @@ function fromRow(r: TentRow): Values {
     heightM: String(r.height_m), setupMinutes: String(r.setup_minutes), weightKg: String(r.weight_kg),
     dimensionsM: r.dimensions_m, waterproofMm: String(r.waterproof_mm), material: r.material,
     videoUrl: r.video_url ?? "", priceFrom: String(r.price_from), quantity: String(r.quantity),
-    damageFee: r.damage_fee == null ? "" : String(r.damage_fee),
+    damageFee: r.damage_fee == null ? "" : String(r.damage_fee), sku: r.sku ?? "",
     image: r.image, gallery: r.gallery ?? [], features: r.features ?? [],
     includedItems: r.included_items ?? [],
   };
@@ -73,6 +73,7 @@ export function TentEditor({ row }: { row?: TentRow }) {
           gallery: x.gallery, video_url: x.videoUrl.trim() || null, features: x.features,
           included_items: x.includedItems, price_from: num(x.priceFrom), quantity: num(x.quantity),
           damage_fee: x.damageFee.trim() === "" ? null : num(x.damageFee),
+          sku: x.sku.trim() || null,
         })}
       >
         <Section title="פרטים">
@@ -103,6 +104,16 @@ export function TentEditor({ row }: { row?: TentRow }) {
             onChange={(e) => set("slug", slugify(e.target.value))}
             className="h-12 px-4"
             message={row ? "אי אפשר לשנות אחרי היצירה" : "אותיות קטנות באנגלית ומקפים"}
+          />
+
+          <Field
+            label="מק״ט OUTORA"
+            value={v.sku}
+            dir="ltr"
+            placeholder="OTR-XXX-000"
+            onChange={(e) => set("sku", e.target.value.toUpperCase())}
+            className="h-12 px-4"
+            message="מרשימת המוצרים הראשית · לא מוצג ללקוח"
           />
 
           <Field

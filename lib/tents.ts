@@ -12,6 +12,8 @@ export type Accessory = {
   quantity?: number
   /** חיוב בנזק מלא או אובדן · מוצג במחירון שבהסכם הפיקדון */
   damageFee?: number
+  /** מק״ט OUTORA · מרשימת המוצרים הראשית */
+  sku?: string
 }
 
 export type Tent = {
@@ -38,31 +40,33 @@ export type Tent = {
   quantity?: number
   /** חיוב בנזק מלא או אובדן · מוצג במחירון שבהסכם הפיקדון */
   damageFee?: number
+  /** מק״ט OUTORA · מרשימת המוצרים הראשית */
+  sku?: string
 }
 
 // ─── Premium add-ons (paid per night) ──────────────────────────────────────
 export const accessories: Accessory[] = [
-  { id: "fire-pit",        nameHe: "קערת אש",            image: "/accessories/fire-pit.jpg",        pricePerNight: 80  },
+  { id: "fire-pit",        nameHe: "קערת אש מתקפלת",            image: "/accessories/fire-pit.jpg",        pricePerNight: 80 , quantity: 2, sku: "OTR-OUT-003" },
   { id: "coffee-machine",  nameHe: "מכונת קפה Nespresso", image: "/accessories/coffee-machine.png",  pricePerNight: 60  },
-  { id: "garlands",        nameHe: "גרלנדות סולריות",    image: "/accessories/garlands.png",        pricePerNight: 40  },
-  { id: "lanterns",        nameHe: "עששיות נטענות",       image: "/accessories/lanterns.png",        pricePerNight: 40  },
+  { id: "garlands",        nameHe: "שרשרת נורות דקורטיבית",    image: "/accessories/garlands.png",        pricePerNight: 40 , quantity: 6, damageFee: 40, sku: "OTR-LGT-002" },
+  { id: "lanterns",        nameHe: "סט פנסים",       image: "/accessories/lanterns.png",        pricePerNight: 40 , quantity: 1, damageFee: 280, sku: "OTR-LGT-004" },
   { id: "dining-set",      nameHe: "פינת אוכל ל-4",      image: "/accessories/dining-set.jpg",      pricePerNight: 100 },
   { id: "fur-blanket",     nameHe: "שמיכת פרווה",        image: "/accessories/fur-blanket.jpg",     pricePerNight: 30  },
-  { id: "star-projector",  nameHe: "מקרן כוכבים",        image: "/accessories/star-projector.jpg",  pricePerNight: 50  },
-  { id: "sup",             nameHe: "סאפ מתנפח",          image: "/accessories/sup.jpeg",            pricePerNight: 150, damageFee: 1780 },
+  { id: "star-projector",  nameHe: "מקרן גלקסיה",        image: "/accessories/star-projector.jpg",  pricePerNight: 50 , quantity: 2, sku: "OTR-ENT-003" },
+  { id: "sup",             nameHe: "SUP מתנפח",          image: "/accessories/sup.jpeg",            pricePerNight: 150, damageFee: 1780, quantity: 1, sku: "OTR-OUT-004" },
   { id: "speaker",         nameHe: "רמקול JBL",          image: "/accessories/speaker.jpg",         pricePerNight: 60  },
   { id: "telescope",       nameHe: "טלסקופ",             image: "/accessories/telescope.jpg",       pricePerNight: 70  },
   { id: "gas-stove",       nameHe: "כיריית גז ניידת",    image: "/accessories/gas-stove.jpg",       pricePerNight: 60  },
-  { id: "fridge",          nameHe: "מקרר נייד",          image: "/accessories/fridge.png",          pricePerNight: 90, damageFee: 1650 },
-  { id: "bbq",             nameHe: "מנגל מתקפל",         image: "/accessories/bbq.png",             pricePerNight: 70  },
+  { id: "fridge",          nameHe: "מקרר נייד 47.2 ליטר",          image: "/accessories/fridge.png",          pricePerNight: 90, damageFee: 1650, quantity: 1, sku: "OTR-FRZ-001" },
+  { id: "bbq",             nameHe: "מנגל מתקפל",         image: "/accessories/bbq.png",             pricePerNight: 70 , quantity: 1, sku: "OTR-OUT-002" },
   { id: "pool",            nameHe: "בריכת גומי מתנפחת",  image: "/accessories/pool.png",            pricePerNight: 120 },
-  { id: "fan",             nameHe: "מאוורר נייד",        image: "/accessories/fan.jpg",             pricePerNight: 50, damageFee: 260 },
+  { id: "fan",             nameHe: "מאוורר נייד",        image: "/accessories/fan.jpg",             pricePerNight: 50, damageFee: 260, quantity: 2, sku: "OTR-CLM-003" },
   { id: "ac",              nameHe: "מזגן נייד",          image: "/accessories/ac.jpg",              pricePerNight: 150 },
-  { id: "shower",          nameHe: "מקלחת ניידת",        image: "/accessories/shower.jpg",          pricePerNight: 50, damageFee: 280 },
+  { id: "shower",          nameHe: "סט מקלחת קמפינג",        image: "/accessories/shower.jpg",          pricePerNight: 50, damageFee: 280, quantity: 1, sku: "OTR-SHW-002" },
   { id: "board-games",     nameHe: "משחקי קופסא",        image: "/accessories/board-games.jpg",     pricePerNight: 30  },
-  { id: "cart",            nameHe: "עגלת קמפינג",        image: "/accessories/cart.jpg",            pricePerNight: 80, damageFee: 130 },
-  { id: "projector",       nameHe: "פרוג׳קטור קולנוע",   image: "/accessories/projector.png",       pricePerNight: 100, damageFee: 610 },
-  { id: "mosquito",        nameHe: "קוטל יתושים",        image: "/accessories/mosquito.jpg",        pricePerNight: 30  },
+  { id: "cart",            nameHe: "עגלת קמפינג",        image: "/accessories/cart.jpg",            pricePerNight: 80, damageFee: 130, quantity: 3, sku: "OTR-MOV-004" },
+  { id: "projector",       nameHe: "מקרן",   image: "/accessories/projector.png",       pricePerNight: 100, damageFee: 610, quantity: 2, sku: "OTR-ENT-001" },
+  { id: "mosquito",        nameHe: "מכשיר נגד יתושים",        image: "/accessories/mosquito.jpg",        pricePerNight: 30 , sku: "OTR-MOS-001" },
 ]
 
 /**
@@ -118,6 +122,7 @@ export const tents: Tent[] = [
     ],
     priceFrom: 1290,
     damageFee: 8730,
+    sku: "OTR-TNT-002",
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -167,6 +172,7 @@ export const tents: Tent[] = [
     ],
     priceFrom: 990,
     damageFee: 6670,
+    sku: "OTR-TNT-004",
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -215,6 +221,7 @@ export const tents: Tent[] = [
     ],
     priceFrom: 890,
     damageFee: 6940,
+    sku: "OTR-TNT-005",
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -262,6 +269,7 @@ export const tents: Tent[] = [
     ],
     priceFrom: 690,
     damageFee: 5860,
+    sku: "OTR-TNT-003",
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -310,6 +318,7 @@ export const tents: Tent[] = [
     ],
     priceFrom: 790,
     damageFee: 6020,
+    sku: "OTR-TNT-001",
   },
 ]
 
