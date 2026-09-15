@@ -8,16 +8,14 @@ import { useInRouteDialog } from "@/components/ui/route-dialog";
 
 /** בוחר את האוהל וממשיך לתוספות · יושב בתוך דף האוהל */
 export function PickTent({ slug }: { slug: string }) {
-  const { state, set } = useBooking();
+  const { set } = useBooking();
   const router = useRouter();
   const inDialog = useInRouteDialog();
 
-  /** בלי תאריכים אין מה לבחור · מתחילים מההתחלה עם האוהל כבר מסומן */
-  const hasDates = !!state.from && !!state.to;
-
+  /** התאריכים נבחרים בשורת החיפוש שמתחת להדר, לא כאן · תמיד ממשיכים לתוספות */
   const go = () => {
     set({ mode: "custom", tentSlug: slug, packageId: undefined });
-    const next = hasDates ? "/book/extras" : "/book";
+    const next = "/book/extras";
 
     // כשזה נפתח כמגירה מעל האשף צריך קודם לסגור אותה, אחרת היא נשארת מעל השלב הבא
     if (inDialog) {
@@ -31,7 +29,7 @@ export function PickTent({ slug }: { slug: string }) {
 
   return (
     <Button block size="md" onClick={go} className="sm:w-auto sm:min-w-[240px]">
-      {hasDates ? "בחרו אוהל זה" : "בדקו זמינות"}
+      בחרו אוהל זה
     </Button>
   );
 }
