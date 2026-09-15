@@ -30,6 +30,7 @@ const COLUMNS: FooterColumn[] = [
     title: "ניווט",
     links: [
       { label: "דף הבית", href: "/" },
+      { label: "אודות", href: "/about" },
       { label: "איך זה עובד", href: "/how-it-works" },
       { label: "מדריך הקמה ותפעול", href: "/guide" },
       { label: "שאלות נפוצות", href: "/faq" },

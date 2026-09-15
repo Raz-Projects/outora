@@ -59,9 +59,12 @@ async function loadCatalog(): Promise<Catalog> {
   }
 }
 
+/** בפיתוח הקטלוג מתרענן כל כמה שניות, כדי ששינוי במסד ייראה מיד גם בלי לשמור בממשק הניהול */
+export const CATALOG_REVALIDATE = process.env.NODE_ENV === "development" ? 5 : 3600;
+
 const cachedCatalog = unstable_cache(loadCatalog, ["catalog"], {
   tags: [CATALOG_TAG],
-  revalidate: 3600,
+  revalidate: CATALOG_REVALIDATE,
 });
 
 /**

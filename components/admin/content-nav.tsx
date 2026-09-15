@@ -9,6 +9,7 @@ const TABS = [
   { href: "/admin/content/accessories", label: "תוספות" },
   { href: "/admin/content/packages",    label: "חבילות" },
   { href: "/admin/content/locations",   label: "מיקומים" },
+  { href: "/admin/content/damage",      label: "מחירון נזקים" },
 ];
 
 /** תת-תפריט של "תוכן ומחירים" */

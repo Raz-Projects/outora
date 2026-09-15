@@ -24,6 +24,8 @@ function refresh(type: EntityType, id?: string) {
   revalidatePath("/admin/content", "layout");
   if (id) revalidatePath(`/admin/content/${type}s/${id}`);
   revalidatePath("/", "layout");
+  // מחירון הנזקים מוצג בהסכם הפיקדון
+  revalidatePath("/legal/deposit");
 }
 
 async function audit(email: string, action: string, type: EntityType, id: string, before: unknown, after: unknown) {

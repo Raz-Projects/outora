@@ -10,6 +10,8 @@ export type Accessory = {
   category?: string
   /** כמה יחידות יש במלאי */
   quantity?: number
+  /** חיוב בנזק מלא או אובדן · מוצג במחירון שבהסכם הפיקדון */
+  damageFee?: number
 }
 
 export type Tent = {
@@ -34,6 +36,8 @@ export type Tent = {
   priceFrom: number
   /** כמה יחידות יש במלאי */
   quantity?: number
+  /** חיוב בנזק מלא או אובדן · מוצג במחירון שבהסכם הפיקדון */
+  damageFee?: number
 }
 
 // ─── Premium add-ons (paid per night) ──────────────────────────────────────
@@ -45,19 +49,19 @@ export const accessories: Accessory[] = [
   { id: "dining-set",      nameHe: "פינת אוכל ל-4",      image: "/accessories/dining-set.jpg",      pricePerNight: 100 },
   { id: "fur-blanket",     nameHe: "שמיכת פרווה",        image: "/accessories/fur-blanket.jpg",     pricePerNight: 30  },
   { id: "star-projector",  nameHe: "מקרן כוכבים",        image: "/accessories/star-projector.jpg",  pricePerNight: 50  },
-  { id: "sup",             nameHe: "סאפ מתנפח",          image: "/accessories/sup.jpeg",            pricePerNight: 150 },
+  { id: "sup",             nameHe: "סאפ מתנפח",          image: "/accessories/sup.jpeg",            pricePerNight: 150, damageFee: 1780 },
   { id: "speaker",         nameHe: "רמקול JBL",          image: "/accessories/speaker.jpg",         pricePerNight: 60  },
   { id: "telescope",       nameHe: "טלסקופ",             image: "/accessories/telescope.jpg",       pricePerNight: 70  },
   { id: "gas-stove",       nameHe: "כיריית גז ניידת",    image: "/accessories/gas-stove.jpg",       pricePerNight: 60  },
-  { id: "fridge",          nameHe: "מקרר נייד",          image: "/accessories/fridge.png",          pricePerNight: 90  },
+  { id: "fridge",          nameHe: "מקרר נייד",          image: "/accessories/fridge.png",          pricePerNight: 90, damageFee: 1650 },
   { id: "bbq",             nameHe: "מנגל מתקפל",         image: "/accessories/bbq.png",             pricePerNight: 70  },
   { id: "pool",            nameHe: "בריכת גומי מתנפחת",  image: "/accessories/pool.png",            pricePerNight: 120 },
-  { id: "fan",             nameHe: "מאוורר נייד",        image: "/accessories/fan.jpg",             pricePerNight: 50  },
+  { id: "fan",             nameHe: "מאוורר נייד",        image: "/accessories/fan.jpg",             pricePerNight: 50, damageFee: 260 },
   { id: "ac",              nameHe: "מזגן נייד",          image: "/accessories/ac.jpg",              pricePerNight: 150 },
-  { id: "shower",          nameHe: "מקלחת ניידת",        image: "/accessories/shower.jpg",          pricePerNight: 50  },
+  { id: "shower",          nameHe: "מקלחת ניידת",        image: "/accessories/shower.jpg",          pricePerNight: 50, damageFee: 280 },
   { id: "board-games",     nameHe: "משחקי קופסא",        image: "/accessories/board-games.jpg",     pricePerNight: 30  },
-  { id: "cart",            nameHe: "עגלת קמפינג",        image: "/accessories/cart.jpg",            pricePerNight: 80  },
-  { id: "projector",       nameHe: "פרוג׳קטור קולנוע",   image: "/accessories/projector.png",       pricePerNight: 100 },
+  { id: "cart",            nameHe: "עגלת קמפינג",        image: "/accessories/cart.jpg",            pricePerNight: 80, damageFee: 130 },
+  { id: "projector",       nameHe: "פרוג׳קטור קולנוע",   image: "/accessories/projector.png",       pricePerNight: 100, damageFee: 610 },
   { id: "mosquito",        nameHe: "קוטל יתושים",        image: "/accessories/mosquito.jpg",        pricePerNight: 30  },
 ]
 
@@ -113,6 +117,7 @@ export const tents: Tent[] = [
       "גג גשם",
     ],
     priceFrom: 1290,
+    damageFee: 8730,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -161,6 +166,7 @@ export const tents: Tent[] = [
       "גג גשם",
     ],
     priceFrom: 990,
+    damageFee: 6670,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -208,6 +214,7 @@ export const tents: Tent[] = [
       "גג גשם",
     ],
     priceFrom: 890,
+    damageFee: 6940,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -254,6 +261,7 @@ export const tents: Tent[] = [
       "גג גשם",
     ],
     priceFrom: 690,
+    damageFee: 5860,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -301,6 +309,7 @@ export const tents: Tent[] = [
       "גג גשם",
     ],
     priceFrom: 790,
+    damageFee: 6020,
   },
 ]
 

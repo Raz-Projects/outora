@@ -13,12 +13,12 @@ import type { AccessoryRow } from "@/lib/catalog-types";
 
 type Values = {
   id: string; nameHe: string; descriptionHe: string; image: string; gallery: string[];
-  pricePerNight: string; category: string; quantity: string;
+  pricePerNight: string; category: string; quantity: string; damageFee: string;
 };
 
 const EMPTY: Values = {
   id: "", nameHe: "", descriptionHe: "", image: "", gallery: [],
-  pricePerNight: "0", category: "other", quantity: "1",
+  pricePerNight: "0", category: "other", quantity: "1", damageFee: "",
 };
 
 export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
@@ -28,6 +28,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           id: row.id, nameHe: row.name_he, descriptionHe: row.description_he, image: row.image,
           gallery: row.gallery ?? [], pricePerNight: String(row.price_per_night),
           category: row.category, quantity: String(row.quantity),
+          damageFee: row.damage_fee == null ? "" : String(row.damage_fee),
         }
       : EMPTY
   );
@@ -56,6 +57,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           id: x.id, name_he: x.nameHe.trim(), description_he: x.descriptionHe, image: x.image,
           gallery: x.gallery, price_per_night: num(x.pricePerNight), category: x.category,
           quantity: num(x.quantity),
+          damage_fee: x.damageFee.trim() === "" ? null : num(x.damageFee),
         })}
       >
         <Section title="פרטים">
@@ -115,6 +117,16 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
               onChange={(e) => set("quantity", e.target.value)}
               className="h-12 px-4"
               message="0 = אזל, לא ניתן להזמנה"
+            />
+            <Field
+              label="חיוב בנזק מלא או אובדן"
+              type="number"
+              min={0}
+              dir="ltr"
+              value={v.damageFee}
+              onChange={(e) => set("damageFee", e.target.value)}
+              className="h-12 px-4"
+              message="מופיע במחירון שבהסכם הפיקדון · ריק = לא מופיע"
             />
           </Grid>
         </Section>

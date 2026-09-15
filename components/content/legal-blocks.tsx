@@ -1,11 +1,23 @@
 import type { LegalBlock } from "@/app/legal/content";
 
 /** מציג את גופי הטקסט של מסמך משפטי · פסקאות, רשימות, טבלה, שדות לחתימה ופרטי קשר. */
-export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
+export function LegalBlocks({
+  blocks,
+  damageRows = [],
+}: {
+  blocks: LegalBlock[];
+  /** שורות מחירון הנזקים · מהמסד, דרך lib/damage-prices.ts */
+  damageRows?: string[][];
+}) {
   return (
     <>
       {blocks.map((b, i) => {
         switch (b.type) {
+          case "damage-prices":
+            return (
+              <LegalTable key={i} head={["פריט", "קטגוריה", "חיוב"]} rows={damageRows} />
+            );
+
           case "p":
             return (
               <p key={i} className="text-body text-textgray">
@@ -23,39 +35,7 @@ export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
             );
 
           case "table":
-            return (
-              <div key={i} className="overflow-x-auto">
-                <table className="text-body w-full border-collapse">
-                  <thead>
-                    <tr className="border-b border-black">
-                      {b.head.map((h) => (
-                        <th key={h} className="text-button py-3 pe-6 text-start font-medium">
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {b.rows.map((cells, r) => (
-                      <tr key={r} className="border-b border-stroke">
-                        {cells.map((cell, c) => (
-                          <td
-                            key={c}
-                            className={
-                              c === 0
-                                ? "py-3 pe-6 align-top text-black"
-                                : "text-textgray py-3 pe-6 align-top last:pe-0"
-                            }
-                          >
-                            {cell}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            );
+            return <LegalTable key={i} head={b.head} rows={b.rows} />;
 
           case "contact":
             return (
@@ -84,5 +64,41 @@ export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
         }
       })}
     </>
+  );
+}
+
+function LegalTable({ head, rows }: { head: string[]; rows: string[][] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="text-body w-full border-collapse">
+        <thead>
+          <tr className="border-b border-black">
+            {head.map((h) => (
+              <th key={h} className="text-button py-3 pe-6 text-start font-medium">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((cells, r) => (
+            <tr key={r} className="border-b border-stroke">
+              {cells.map((cell, c) => (
+                <td
+                  key={c}
+                  className={
+                    c === 0
+                      ? "py-3 pe-6 align-top text-black"
+                      : "text-textgray py-3 pe-6 align-top last:pe-0"
+                  }
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

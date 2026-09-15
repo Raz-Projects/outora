@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { getTentBySlug } from "@/lib/tents";
-import { packages } from "@/lib/packages";
+import { getCatalog } from "@/lib/catalog";
+import { getDamagePriceRows } from "@/lib/damage-prices";
 import { MONTHS_HE } from "@/lib/dates";
 import { getLegalDoc } from "@/app/legal/content";
 import { LegalBlocks } from "@/components/content/legal-blocks";
@@ -65,8 +65,9 @@ export default async function AgreementPage({ params }: { params: Promise<{ id: 
   const doc = getLegalDoc("deposit");
   if (!doc) notFound();
 
-  const tent = b.tent_slug ? getTentBySlug(b.tent_slug) : undefined;
-  const pkg = packages.find((p) => p.id === b.package_id);
+  const [catalog, damageRows] = await Promise.all([getCatalog(), getDamagePriceRows()]);
+  const tent = catalog.tents.find((t) => t.slug === b.tent_slug);
+  const pkg = catalog.packages.find((p) => p.id === b.package_id);
   const model = pkg?.title ?? tent?.nameEn ?? "·";
 
   /** ⚠️ סכום הפיקדון עוד לא הוגדר במערכת · ראו NOTES-FOR-OUTORA.md */
@@ -111,7 +112,7 @@ export default async function AgreementPage({ params }: { params: Promise<{ id: 
             <section key={s.heading ?? i}>
               {s.heading && <h2 className="text-h3 border-b border-stroke pb-3">{s.heading}</h2>}
               <div className="mt-4 space-y-4">
-                <LegalBlocks blocks={s.blocks} />
+                <LegalBlocks blocks={s.blocks} damageRows={damageRows} />
               </div>
             </section>
           ))}

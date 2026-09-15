@@ -14,7 +14,7 @@ type Values = {
   slug: string; nameEn: string; nameHe: string; taglineHe: string; descriptionHe: string;
   capacity: string; sizeSqm: string; heightM: string; setupMinutes: string; weightKg: string;
   dimensionsM: string; waterproofMm: string; material: string; videoUrl: string;
-  priceFrom: string; quantity: string;
+  priceFrom: string; quantity: string; damageFee: string;
   image: string; gallery: string[]; features: string[]; includedItems: string[];
 };
 
@@ -22,7 +22,7 @@ const EMPTY: Values = {
   slug: "", nameEn: "", nameHe: "", taglineHe: "", descriptionHe: "",
   capacity: "6", sizeSqm: "0", heightM: "0", setupMinutes: "0", weightKg: "0",
   dimensionsM: "", waterproofMm: "0", material: "", videoUrl: "",
-  priceFrom: "0", quantity: "1",
+  priceFrom: "0", quantity: "1", damageFee: "",
   image: "", gallery: [], features: [], includedItems: [],
 };
 
@@ -33,6 +33,7 @@ function fromRow(r: TentRow): Values {
     heightM: String(r.height_m), setupMinutes: String(r.setup_minutes), weightKg: String(r.weight_kg),
     dimensionsM: r.dimensions_m, waterproofMm: String(r.waterproof_mm), material: r.material,
     videoUrl: r.video_url ?? "", priceFrom: String(r.price_from), quantity: String(r.quantity),
+    damageFee: r.damage_fee == null ? "" : String(r.damage_fee),
     image: r.image, gallery: r.gallery ?? [], features: r.features ?? [],
     includedItems: r.included_items ?? [],
   };
@@ -71,6 +72,7 @@ export function TentEditor({ row }: { row?: TentRow }) {
           waterproof_mm: num(x.waterproofMm), material: x.material, image: x.image,
           gallery: x.gallery, video_url: x.videoUrl.trim() || null, features: x.features,
           included_items: x.includedItems, price_from: num(x.priceFrom), quantity: num(x.quantity),
+          damage_fee: x.damageFee.trim() === "" ? null : num(x.damageFee),
         })}
       >
         <Section title="פרטים">
@@ -140,6 +142,16 @@ export function TentEditor({ row }: { row?: TentRow }) {
               onChange={(e) => set("quantity", e.target.value)}
               className="h-12 px-4"
               message="0 = אזל, לא ניתן להזמנה"
+            />
+            <Field
+              label="חיוב בנזק מלא או אובדן"
+              type="number"
+              min={0}
+              dir="ltr"
+              value={v.damageFee}
+              onChange={(e) => set("damageFee", e.target.value)}
+              className="h-12 px-4"
+              message="מופיע במחירון שבהסכם הפיקדון · ריק = לא מופיע"
             />
           </Grid>
         </Section>

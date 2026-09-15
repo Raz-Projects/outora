@@ -14,7 +14,6 @@ const NAV = [
   { label: "חבילות",      href: "/packages" },
   { label: "לוקיישנים",   href: "/locations" },
   { label: "לעסקים",      href: "/business" },
-  { label: "אודות",       href: "/about" },
   { label: "איך זה עובד", href: "/how-it-works" },
   { label: "צרו קשר",     href: "/contact" },
 ];
