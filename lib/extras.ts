@@ -5,16 +5,16 @@ import { accessories as codeAccessories, type Accessory } from "@/lib/tents";
  * לכל תוספת יש שדה category (נשמר במסד). מי שלא משויך נופל ל"נוסף".
  */
 export const EXTRA_CATEGORIES = [
-  { id: "power",     title: "אנרגיה",         code: "POWER",         ids: [] },
-  { id: "freeze",    title: "קירור",          code: "FREEZE",        ids: ["fridge"] },
-  { id: "shower",    title: "מקלחת",          code: "SHOWER",        ids: ["shower"] },
-  { id: "comfort",   title: "מיטות ונוחות",   code: "COMFORT",       ids: ["fur-blanket"] },
-  { id: "move",      title: "אחסון ושינוע",   code: "MOVE",          ids: ["cart"] },
-  { id: "climate",   title: "מיזוג ואוורור",  code: "CLIMATE",       ids: ["ac", "fan"] },
-  { id: "furniture", title: "ריהוט",          code: "FURNITURE",     ids: ["dining-set"] },
-  { id: "sound",     title: "סאונד",          code: "SOUND",         ids: ["speaker"] },
+  { id: "power",     title: "אנרגיה",         code: "POWER",         ids: ["power-station", "splitters", "power-strip", "extension-cable"] },
+  { id: "freeze",    title: "קירור",          code: "FREEZE",        ids: ["fridge", "fridge-large", "ice-maker", "cooler-bag"] },
+  { id: "shower",    title: "מקלחת",          code: "SHOWER",        ids: ["shower", "hot-shower"] },
+  { id: "comfort",   title: "מיטות ונוחות",   code: "COMFORT",       ids: ["fur-blanket", "bed-single", "bed-double", "chair-coody", "chair-folding"] },
+  { id: "move",      title: "אחסון ושינוע",   code: "MOVE",          ids: ["cart", "roof-bag", "electric-cart", "storage-box"] },
+  { id: "climate",   title: "מיזוג ואוורור",  code: "CLIMATE",       ids: ["ac", "fan", "clip-fan", "tent-fan"] },
+  { id: "furniture", title: "ריהוט",          code: "FURNITURE",     ids: ["dining-set", "table-folding", "table-large", "side-table", "hammock", "mat"] },
+  { id: "sound",     title: "סאונד",          code: "SOUND",         ids: ["speaker", "mic-set", "chargers"] },
   { id: "extras",    title: "אקסטרה",         code: "EXTRAS",        ids: ["sup", "telescope", "pool", "board-games"] },
-  { id: "mosquito",  title: "נגד יתושים",     code: "ANTI MOSQUITO", ids: ["mosquito"] },
+  { id: "mosquito",  title: "נגד יתושים",     code: "ANTI MOSQUITO", ids: ["mosquito", "mosquito-coil", "incense"] },
   // שתי קטגוריות שאינן בקובץ החבילות · לפריטים שבאתר ואין להם בית אחר
   { id: "ambience",  title: "אווירה ותאורה",  code: "",              ids: ["fire-pit", "garlands", "lanterns", "star-projector", "projector"] },
   { id: "kitchen",   title: "מטבח",           code: "",              ids: ["coffee-machine", "gas-stove", "bbq"] },
