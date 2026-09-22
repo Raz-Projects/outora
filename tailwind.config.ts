@@ -17,6 +17,7 @@ export default {
         // ── Figma palette (שמות ישירים) ──
         white:    "#FFFFFF",
         offwhite: "#FBFBFB",
+        cream:    "#F9F5EC",
         stroke:   "#E6E6E6",
         textgray: "#666666",
         black:    "#000000",

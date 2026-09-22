@@ -17,6 +17,7 @@
 
 **חובה:**
 - צבע → `bg-beige`, `text-textgray`, `border-stroke` וכו'
+- רקע הדף הוא `cream`. כרטיס או סקשן שצריך לבלוט · `bg-white`
 - טקסט → `text-h1`, `text-h2`, `text-h3`, `text-subtitle`, `text-body`, `text-button`, `text-tag`
 - צל → `shadow-drop`
 - פינות → `rounded-sm|md|lg`
@@ -30,8 +31,9 @@
 
 | שם | הקס | לשימוש |
 |---|---|---|
-| `white` | `#FFFFFF` | רקע ראשי |
-| `offwhite` | `#FBFBFB` | רקע משני |
+| `cream` | `#F9F5EC` | **רקע הדף** · נוסף לבקשת רז 22.09.2026 |
+| `white` | `#FFFFFF` | כרטיסים, שדות, חלונות, סקשנים מודגשים |
+| `offwhite` | `#FBFBFB` | רקע משני, hover |
 | `stroke` | `#E6E6E6` | קווים, מסגרות |
 | `textgray` | `#666666` | טקסט משני |
 | `black` | `#000000` | טקסט ראשי |
@@ -65,6 +67,9 @@
 
 `button` · `input` · `field` (עם error/success) · `search-field` · `result-row` ·
 `badge` · `alert` · `toast` · `card` · `checkbox` · `label` · `dropdown-menu`
+
+בנוסף: `components/layout/logo.tsx` (הסמל עם השם, `tone="light|dark"`, הגודל דרך גובה ב-className) ·
+`components/content/faq-list.tsx` (אקורדיון שאלות ותשובות) · `components/content/tent-connect.tsx` (סקשן מחברים אוהלים)
 
 **הכפתור:** ברירת מחדל = בז' עם מילוי מלמטה למעלה ב-hover.
 יש `loading` (spinner), `muted`, `disabled`, ו-`variant="link"` (שחור → אפור ב-hover).
@@ -118,7 +123,7 @@ npm run dev      # http://localhost:3000
 ## 🧭 ההדר
 
 ההדר שקוף רק בדפים שמתחילים בתמונת רקע: דף הבית וכל תהליך ההזמנה (`/book`).
-בכל שאר הדפים הרקע לבן מהרגע הראשון, אחרת הלוגו והתפריט הלבנים נעלמים על רקע לבן.
+בכל שאר הדפים הרקע שמנת מהרגע הראשון, אחרת הלוגו והתפריט הלבנים נעלמים על רקע בהיר.
 
 **דף חדש עם תמונת הירו?** להוסיף אותו ל-`HERO_ROUTES` או ל-`HERO_PREFIXES` ב-`components/layout/header.tsx`.
 

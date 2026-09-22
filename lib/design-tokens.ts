@@ -10,6 +10,8 @@
 export const colors = {
   white:     "#FFFFFF",
   offWhite:  "#FBFBFB",
+  /** רקע הדף · שמנת. נוסף לבקשת רז (22.09.2026) במקום הלבן */
+  cream:     "#F9F5EC",
   stroke:    "#E6E6E6",
   textGray:  "#666666",
   black:     "#000000",
@@ -26,8 +28,9 @@ export const colors = {
 
 /** מה כל צבע עושה · השתמש בשמות האלה, לא בצבע הגולמי */
 export const semantic = {
-  background:      colors.white,
+  background:      colors.cream,
   backgroundAlt:   colors.offWhite,
+  surface:         colors.white, // כרטיסים, שדות, חלונות
   border:          colors.stroke,
   textPrimary:     colors.black,
   textSecondary:   colors.textGray,

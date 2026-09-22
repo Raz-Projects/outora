@@ -30,6 +30,15 @@ function markerHtml(loc: CampingLocation, size: number) {
     </div>`;
 }
 
+/**
+ * המפה הגדולה מוגבלת לארץ: אי אפשר לגלול ממנה החוצה ולא להתרחק מעבר לזום שמראה את כולה.
+ * הגבולות רחבים מעט מהארץ עצמה, כדי שגם במסך הגבוה ביותר הם לא יהיו קטנים מהחלון
+ * (אחרת Leaflet נתקע). השטח שרואים בפועל נקבע על ידי fitBounds על המיקומים.
+ * המפה צרה וגבוהה בכוונה, כמו הארץ · ברוחב מלא היו רואים ממצרים ועד סעודיה.
+ */
+const ISRAEL_BOUNDS: [[number, number], [number, number]] = [[28.4, 32.5], [34.3, 37.5]];
+const ISRAEL_MIN_ZOOM = 7.25;
+
 export function LocationMap({
   locs,
   className,
@@ -59,10 +68,17 @@ export function LocationMap({
         attributionControl: false,
         // גלגלת העכבר גוללת את הדף, לא את המפה
         scrollWheelZoom: false,
+        // זום בקפיצות של רבע · כך fitBounds נצמד לארץ ולא קופץ לרמה שמראה חצי מזרח תיכון
+        zoomSnap: 0.25,
+        zoomDelta: 0.5,
+        ...(many
+          ? { maxBounds: ISRAEL_BOUNDS, maxBoundsViscosity: 1, minZoom: ISRAEL_MIN_ZOOM }
+          : {}),
       });
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-        subdomains: "abcd",
+      // האריחים של OpenStreetMap · בלי מפתח. CARTO התחילו לדרוש מפתח API (ספטמבר 2026),
+      // ובלעדיו האריחים מגיעים עם כיתוב "API KEY REQUIRED" על כל המפה.
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
       }).addTo(m);
 
@@ -84,7 +100,7 @@ export function LocationMap({
       if (many) {
         m.fitBounds(
           L.latLngBounds(locs.map((l) => [l.lat, l.lng] as [number, number])),
-          { padding: [40, 40] }
+          { padding: [24, 24] }
         );
       }
 
@@ -116,7 +132,7 @@ export function LocationMap({
           aria-label={many ? "מפת כל המיקומים" : `מפה של ${locs[0].nameHe}`}
           className={cn(
             "w-full overflow-hidden rounded-[16px] border border-stroke bg-offwhite",
-            many ? "h-[380px] md:h-[540px]" : "h-[260px] md:h-[360px]",
+            many ? "h-[600px] md:h-[720px]" : "h-[260px] md:h-[360px]",
             className
           )}
         />
@@ -169,7 +185,7 @@ export function LocationMap({
           <p className="text-tag text-textgray">לחצו על סמן כדי לראות את המקום</p>
         )}
 
-        <p className="text-tag text-textgray">© OpenStreetMap · CARTO</p>
+        <p className="text-tag text-textgray">© OpenStreetMap</p>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/layout/search-bar";
+import { Logo } from "@/components/layout/logo";
 import { IconSearch } from "@/components/icons";
 import { useSession } from "@/lib/use-session";
 import { cn } from "@/lib/utils";
@@ -112,37 +112,30 @@ export function Header() {
         className={cn(
           "fixed inset-x-0 top-0 z-50",
           "transition-[transform,background-color,border-color] duration-300 ease-smooth",
-          light ? "border-b border-stroke bg-white" : "border-b border-transparent bg-transparent",
+          light ? "border-b border-stroke bg-cream" : "border-b border-transparent bg-transparent",
           hidden && !menu && canHide ? "-translate-y-full" : "translate-y-0"
         )}
       >
         <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-5 md:h-[78px] md:px-[90px]">
-          {/* לוגו */}
+          {/* לוגו · הסמל והשם. שתי גרסאות זו על זו, לבנה על תמונה ושחורה על רקע בהיר */}
           <Link
             href="/"
             aria-label="Outora · לדף הבית"
             onClick={() => setMenu(false)}
             className={cn(
-              "relative block h-[36px] w-[44px] md:h-[44px] md:w-[53px]",
+              "relative block",
               !light && "drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
             )}
           >
-            <Image
-              src="/logo-mark-w2.png"
-              alt="Outora"
-              fill
-              sizes="53px"
+            <Logo
+              tone="light"
               priority
-              className={cn("object-contain transition-opacity duration-300",
+              className={cn("h-9 transition-opacity duration-300 md:h-11",
                 light ? "opacity-0" : "opacity-100")}
             />
-            <Image
-              src="/logo-mark-b2.png"
-              alt=""
-              fill
-              sizes="53px"
-              aria-hidden
-              className={cn("object-contain transition-opacity duration-300",
+            <Logo
+              tone="dark"
+              className={cn("absolute inset-0 h-9 transition-opacity duration-300 md:h-11",
                 light ? "opacity-100" : "opacity-0")}
             />
           </Link>
@@ -203,7 +196,7 @@ export function Header() {
 
         {/* וידג'ט החיפוש · שורה דביקה מתחת להדר */}
         {showSearch && (
-          <div className="border-t border-stroke bg-white">
+          <div className="border-t border-stroke bg-cream">
             <div className="mx-auto max-w-[1440px] px-5 py-3 md:px-[90px]">
               {/* דסקטופ · הווידג'ט המלא, שטוח · המסגרת שלו מספיקה בתוך ההדר */}
               <div className="hidden justify-center md:flex">
@@ -227,7 +220,7 @@ export function Header() {
 
       {/* תפריט · מובייל */}
       {menu && (
-        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 bg-white md:hidden
+        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 bg-cream md:hidden
                         animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="flex flex-col px-5 pt-4">
             {NAV.map((item) => (

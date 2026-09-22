@@ -14,6 +14,7 @@
     /* ── Colors (Figma) ── */
     --white:      #FFFFFF;
     --off-white:  #FBFBFB;
+    --cream:      #F9F5EC;  /* רקע הדף · שמנת */
     --stroke:     #E6E6E6;
     --text-gray:  #666666;
     --black:      #000000;
@@ -28,7 +29,7 @@
     --success-bg: #EAF5EF;
 
     /* ── shadcn/ui tokens (HSL) ── */
-    --background:            0 0% 100%;
+    --background:           42 52% 95%;   /* cream  */
     --foreground:            0 0% 0%;
     --card:                  0 0% 100%;
     --card-foreground:       0 0% 0%;
@@ -64,7 +65,7 @@
   }
 
   body {
-    background-color: var(--white);
+    background-color: var(--cream);
     color: var(--black);
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 16px;

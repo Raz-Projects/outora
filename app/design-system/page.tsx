@@ -15,10 +15,13 @@ import {
   Table, TableHead, TableBody, TableRow, TableHeader, TableCell,
 } from "@/components/ui/table";
 import { ToastDemo, DialogDemo, SwitchDemo } from "./interactive";
+import { Logo } from "@/components/layout/logo";
+import { FaqList } from "@/components/content/faq-list";
 
 const swatches = [
   { name: "White",            hex: colors.white,    border: true },
   { name: "Off-White",        hex: colors.offWhite, border: true },
+  { name: "Cream · רקע הדף",   hex: colors.cream,    border: true },
   { name: "Stroke",           hex: colors.stroke },
   { name: "Text Gray",        hex: colors.textGray },
   { name: "Black",            hex: colors.black },
@@ -79,6 +82,20 @@ export default function DesignSystemPage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      <Section title="Logo">
+        <div className="flex flex-wrap items-center gap-8">
+          <div className="rounded-lg border border-stroke bg-white p-6">
+            <Logo tone="dark" className="h-11" />
+          </div>
+          <div className="rounded-lg bg-black p-6">
+            <Logo tone="light" className="h-11" />
+          </div>
+        </div>
+        <p className="text-tag text-textgray mt-4">
+          הסמל מימין והשם משמאלו · הגודל דרך className עם גובה (h-9, h-11, h-[96px])
+        </p>
       </Section>
 
       <Section title="Typography">
@@ -256,6 +273,16 @@ export default function DesignSystemPage() {
         <p className="text-tag text-textgray mt-3">
           קופץ מלמטה-שמאל, נעלם אחרי 4 שניות.
         </p>
+      </Section>
+
+      <Section title="FAQ · אקורדיון">
+        <FaqList
+          className="max-w-2xl"
+          items={[
+            { q: "שאלה ראשונה?", a: "תשובה קצרה וברורה. שאלה אחת פתוחה בכל פעם." },
+            { q: "שאלה שנייה?", a: "האקורדיון עובד בלי JavaScript, עם details ו-summary." },
+          ]}
+        />
       </Section>
 
     </main>

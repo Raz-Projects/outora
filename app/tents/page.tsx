@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getCatalog } from "@/lib/catalog";
 import { Gallery } from "@/components/booking/gallery";
+import { TentConnect } from "@/components/content/tent-connect";
 
 export const metadata: Metadata = {
   title: "האוהלים",
@@ -14,7 +15,8 @@ export default async function TentsArchive() {
   const { tents } = await getCatalog();
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
+    <>
+    <main className="mx-auto max-w-[1440px] px-5 pb-8 pt-44 md:px-[90px] md:pt-52">
       <p className="text-tag text-textgray">האוהלים</p>
       <h1 className="text-h1-sm mt-2 md:text-h1">הבית שלכם בטבע, בחמישה גדלים</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">
@@ -55,5 +57,9 @@ export default async function TentsArchive() {
         ))}
       </ul>
     </main>
+
+    {/* מחברים אוהלים · אותו סקשן כמו בדף הבית */}
+    <TentConnect />
+    </>
   );
 }

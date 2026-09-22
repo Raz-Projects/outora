@@ -30,24 +30,27 @@ export default async function LocationsArchive() {
         {locations.length} מיקומים בכל הארץ, מחוף הים ועד המדבר. אנחנו מגיעים לכל אחד מהם.
       </p>
 
-      {/* המפה · כל המיקומים */}
-      <div className="mt-10">
+      {/* המפה מימין, צרה וגבוהה כמו הארץ · האזורים משמאל */}
+      <div className="mt-10 grid gap-8 md:grid-cols-[minmax(0,520px)_1fr] md:items-start md:gap-12">
         <LocationMap locs={locations} />
-      </div>
 
-      {/* קיצור דרך לאזורים */}
-      <ul className="mt-8 flex flex-wrap gap-2">
-        {byRegion.map((g) => (
-          <li key={g.region}>
-            <a
-              href={`#${g.region}`}
-              className="text-tag block rounded-full border border-stroke px-4 py-2 text-black transition-colors hover:bg-offwhite"
-            >
-              {regionLabels[g.region]} ({g.items.length})
-            </a>
-          </li>
-        ))}
-      </ul>
+        <aside className="md:sticky md:top-[140px]">
+          <p className="text-tag text-textgray">לפי אזור</p>
+          <ul className="mt-4 divide-y divide-stroke rounded-lg border border-stroke bg-white">
+            {byRegion.map((g) => (
+              <li key={g.region}>
+                <a
+                  href={`#${g.region}`}
+                  className="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-offwhite"
+                >
+                  <span className="text-subtitle">{regionLabels[g.region]}</span>
+                  <span className="text-tag text-textgray">{g.items.length} מיקומים</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
 
       {byRegion.map((g) => (
         <section key={g.region} id={g.region} className="mt-16 scroll-mt-[100px]">
@@ -56,7 +59,7 @@ export default async function LocationsArchive() {
           <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {g.items.map((loc) => (
               <li key={loc.id}>
-                <article className="flex h-full flex-col overflow-hidden rounded-lg border border-stroke transition-colors hover:border-beige">
+                <article className="flex h-full flex-col overflow-hidden rounded-lg border border-stroke bg-white transition-colors hover:border-beige">
                   {/*
                     ⚠️ רק ל-6 מיקומים יש תצלום, ולכל אחד מהם רק אחד.
                     למי שאין מוצג אייקון הנוף ולא תמונה גנרית, כדי לא להציג מקום שהוא לא.
