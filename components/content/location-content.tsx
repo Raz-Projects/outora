@@ -3,6 +3,7 @@ import { getCatalog } from "@/lib/catalog";
 import { LOCATION_FALLBACK } from "@/lib/location-photos";
 import { Gallery } from "@/components/booking/gallery";
 import { LocationMap } from "./location-map";
+import { LOCATION_GROUPS, bookingLabel, groupOf, stayText } from "./location-facts";
 
 /**
  * התוכן של מיקום.
@@ -18,14 +19,20 @@ export async function LocationContent({ id }: { id: string }) {
     .map((slug) => catalog.tents.find((t) => t.slug === slug))
     .filter(Boolean);
 
+  const extras = loc.recommendedAccessories
+    .map((id) => catalog.accessories.find((a) => a.id === id))
+    .filter(Boolean);
+
+  // השורות כמו במסמך של רז
   const facts: [string, string][] = [
-    ["אזור", loc.regionHe],
-    ["סוג נוף", loc.landscapeHe],
-    ["לינת לילה", loc.overnight ? "מותרת" : "לא מותרת"],
-    ["תשלום כניסה", loc.fee ? "יש" : "אין"],
-    ["חניון מוסדר", loc.organized ? "כן" : "לא"],
-    ["נדרש רכב שטח", loc.vehicle4x4 ? "כן" : "לא"],
-    ["מתאים לקבוצות גדולות", loc.largeGroupOk ? "כן" : "לא"],
+    ["סוג", LOCATION_GROUPS.find((g) => g.id === groupOf(loc))!.title],
+    ["לינה", stayText(loc)],
+    [
+      "מתקנים בשטח",
+      loc.amenities.length
+        ? loc.amenities.map((a) => amenityLabels[a] ?? a).join(" · ")
+        : "שטח פתוח, ללא תשתיות קבועות",
+    ],
   ];
 
   return (
@@ -53,15 +60,6 @@ export async function LocationContent({ id }: { id: string }) {
         <LocationMap locs={[loc]} />
       </div>
 
-      <h2 className="text-h2 mt-10">מה יש במקום</h2>
-      <ul className="mt-4 flex flex-wrap gap-2">
-        {loc.amenities.map((a) => (
-          <li key={a} className="text-tag rounded-full border border-stroke px-3 py-1">
-            {amenityLabels[a] ?? a}
-          </li>
-        ))}
-      </ul>
-
       <h2 className="text-h2 mt-10">פרטים</h2>
       <ul className="text-body mt-4 space-y-2">
         {facts.map(([k, v]) => (
@@ -84,6 +82,13 @@ export async function LocationContent({ id }: { id: string }) {
         </>
       )}
 
+      {extras.length > 0 && (
+        <>
+          <h2 className="text-h2 mt-10">תוספות מומלצות</h2>
+          <p className="text-body mt-4">{extras.map((a) => a!.nameHe).join(" · ")}</p>
+        </>
+      )}
+
       {loc.parksUrl && (
         <p className="text-body mt-10">
           <a
@@ -92,7 +97,7 @@ export async function LocationContent({ id }: { id: string }) {
             rel="noopener noreferrer"
             className="underline underline-offset-4"
           >
-            הזמנת חניון לילה באתר רשות הטבע והגנים
+            {bookingLabel(loc.parksUrl)}
           </a>
         </p>
       )}

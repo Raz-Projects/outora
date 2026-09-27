@@ -50,7 +50,8 @@ export interface PackageRow {
 export interface LocationRow {
   id: string; name_he: string; region_he: string; region: string; lat: number; lng: number;
   landscape: string; landscape_he: string; amenities: string[]; overnight: boolean; fee: boolean;
-  organized: boolean; vehicle_4x4: boolean; large_group_ok: boolean; description_he: string;
+  organized: boolean; vehicle_4x4: boolean; large_group_ok: boolean; private_land: boolean;
+  description_he: string;
   recommended_tents: string[]; recommended_accessories: string[]; parks_url: string | null;
   photos: string[]; active: boolean; sort_order: number; updated_at: string;
 }
@@ -91,6 +92,7 @@ export const locationFromRow = (r: LocationRow): CampingLocation => ({
   lat: Number(r.lat), lng: Number(r.lng), landscape: r.landscape as LandscapeType,
   landscapeHe: r.landscape_he, amenities: r.amenities ?? [], overnight: r.overnight, fee: r.fee,
   organized: r.organized, vehicle4x4: r.vehicle_4x4, largeGroupOk: r.large_group_ok,
+  privateLand: r.private_land ?? false,
   descriptionHe: r.description_he, recommendedTents: r.recommended_tents ?? [],
   recommendedAccessories: r.recommended_accessories ?? [], parksUrl: r.parks_url ?? undefined,
   photos: r.photos ?? [],

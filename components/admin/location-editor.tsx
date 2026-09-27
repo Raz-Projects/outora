@@ -18,6 +18,7 @@ type Values = {
   descriptionHe: string; parksUrl: string; amenities: string[]; recommendedTents: string[];
   recommendedAccessories: string[]; photos: string[];
   overnight: boolean; fee: boolean; organized: boolean; vehicle4x4: boolean; largeGroupOk: boolean;
+  privateLand: boolean;
 };
 
 function Toggle({
@@ -53,12 +54,14 @@ export function LocationEditor({
           recommendedAccessories: row.recommended_accessories ?? [], photos: row.photos ?? [],
           overnight: row.overnight, fee: row.fee, organized: row.organized,
           vehicle4x4: row.vehicle_4x4, largeGroupOk: row.large_group_ok,
+          privateLand: row.private_land ?? false,
         }
       : {
           id: "", nameHe: "", region: "north", landscape: "beach", lat: "0", lng: "0",
           descriptionHe: "", parksUrl: "", amenities: [], recommendedTents: [],
           recommendedAccessories: [], photos: [],
           overnight: true, fee: false, organized: false, vehicle4x4: false, largeGroupOk: true,
+          privateLand: false,
         }
   );
   const [active, setActive] = React.useState(row?.active ?? true);
@@ -92,7 +95,7 @@ export function LocationEditor({
           landscape_he: landscapeLabels[x.landscape as keyof typeof landscapeLabels] ?? "",
           lat: Number(x.lat) || 0, lng: Number(x.lng) || 0, description_he: x.descriptionHe,
           amenities: x.amenities, overnight: x.overnight, fee: x.fee, organized: x.organized,
-          vehicle_4x4: x.vehicle4x4, large_group_ok: x.largeGroupOk,
+          vehicle_4x4: x.vehicle4x4, large_group_ok: x.largeGroupOk, private_land: x.privateLand,
           recommended_tents: x.recommendedTents, recommended_accessories: x.recommendedAccessories,
           parks_url: x.parksUrl.trim() || null, photos: x.photos,
         })}
@@ -161,7 +164,7 @@ export function LocationEditor({
 
         <Section title="מאפיינים">
           <div className="grid gap-3 sm:grid-cols-2">
-            <Toggle label="לינת לילה מותרת" value={v.overnight}
+            <Toggle label="לינת לילה מאושרת" hint="כבוי = קמפינג יום בלבד" value={v.overnight}
                     onChange={(x) => set("overnight", x)} />
             <Toggle label="תשלום כניסה" value={v.fee} onChange={(x) => set("fee", x)} />
             <Toggle label="חניון מוסדר" value={v.organized} onChange={(x) => set("organized", x)} />
@@ -169,6 +172,8 @@ export function LocationEditor({
                     onChange={(x) => set("vehicle4x4", x)} />
             <Toggle label="מתאים לקבוצות גדולות" value={v.largeGroupOk}
                     onChange={(x) => set("largeGroupOk", x)} />
+            <Toggle label="שטח פרטי" hint="ההזמנה ישירות מול בעל השטח" value={v.privateLand}
+                    onChange={(x) => set("privateLand", x)} />
           </div>
 
           <PickerField
