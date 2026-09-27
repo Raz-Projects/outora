@@ -1,4 +1,4 @@
-@import "leaflet/dist/leaflet.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 @tailwind base;
 @tailwind components;
@@ -27,6 +27,13 @@
     --error-bg:   #FDECEA;
     --success:    #2F7A55;
     --success-bg: #EAF5EF;
+    /* ⚠️ סיכות המפה לפי סוג נוף · הצעה, צריך אישור של יותם */
+    --pin-beach:     #2E9CCB;
+    --pin-forest:    #3E9A5C;
+    --pin-desert:    #D9652C;
+    --pin-mountains: #8B6B4E;
+    --pin-river:     #2BA39A;
+    --pin-lake:      #3F63B5;
 
     /* ── shadcn/ui tokens (HSL) ── */
     --background:           42 52% 95%;   /* cream  */

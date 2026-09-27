@@ -26,6 +26,19 @@ export const colors = {
   successBg: "#EAF5EF",
 } as const;
 
+/**
+ * צבעי הסיכות במפה · צבע לכל סוג נוף.
+ * ⚠️ לא מהפיגמה · הצעה שלי לבקשת יותם (27.09.2026). צריך אישור.
+ */
+export const landscapeColors = {
+  beach:     "#2E9CCB",
+  forest:    "#3E9A5C",
+  desert:    "#D9652C",
+  mountains: "#8B6B4E",
+  river:     "#2BA39A",
+  lake:      "#3F63B5",
+} as const;
+
 /** מה כל צבע עושה · השתמש בשמות האלה, לא בצבע הגולמי */
 export const semantic = {
   background:      colors.cream,

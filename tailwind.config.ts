@@ -28,6 +28,15 @@ export default {
         errorbg:  "#FDECEA",
         success:  "#2F7A55",
         successbg:"#EAF5EF",
+        // ⚠️ סיכות המפה לפי סוג נוף · הצעה, צריך אישור של יותם
+        pin: {
+          beach:     "#2E9CCB",
+          forest:    "#3E9A5C",
+          desert:    "#D9652C",
+          mountains: "#8B6B4E",
+          river:     "#2BA39A",
+          lake:      "#3F63B5",
+        },
 
         // ── shadcn semantic ──
         background: "hsl(var(--background))",
