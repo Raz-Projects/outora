@@ -53,6 +53,7 @@ export interface LocationRow {
   organized: boolean; vehicle_4x4: boolean; large_group_ok: boolean; private_land: boolean;
   description_he: string;
   recommended_tents: string[]; recommended_accessories: string[]; parks_url: string | null;
+  info_url: string | null;
   photos: string[]; active: boolean; sort_order: number; updated_at: string;
 }
 
@@ -95,5 +96,6 @@ export const locationFromRow = (r: LocationRow): CampingLocation => ({
   privateLand: r.private_land ?? false,
   descriptionHe: r.description_he, recommendedTents: r.recommended_tents ?? [],
   recommendedAccessories: r.recommended_accessories ?? [], parksUrl: r.parks_url ?? undefined,
+  infoUrl: r.info_url ?? undefined,
   photos: r.photos ?? [],
 });

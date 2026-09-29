@@ -89,16 +89,28 @@ export async function LocationContent({ id }: { id: string }) {
         </>
       )}
 
-      {loc.parksUrl && (
-        <p className="text-body mt-10">
-          <a
-            href={loc.parksUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-4"
-          >
-            {bookingLabel(loc.parksUrl)}
-          </a>
+      {(loc.parksUrl || loc.infoUrl) && (
+        <p className="text-body mt-10 flex flex-wrap gap-x-6 gap-y-2">
+          {loc.parksUrl && (
+            <a
+              href={loc.parksUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4"
+            >
+              {bookingLabel(loc.parksUrl)}
+            </a>
+          )}
+          {loc.infoUrl && loc.infoUrl !== loc.parksUrl && (
+            <a
+              href={loc.infoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4"
+            >
+              לדף המקום באתר הרשמי
+            </a>
+          )}
         </p>
       )}
     </article>

@@ -75,7 +75,7 @@ async function main() {
       overnight: l.overnight, fee: l.fee, organized: l.organized, vehicle_4x4: l.vehicle4x4,
       large_group_ok: l.largeGroupOk, private_land: l.privateLand ?? false, description_he: l.descriptionHe,
       recommended_tents: l.recommendedTents, recommended_accessories: l.recommendedAccessories,
-      parks_url: l.parksUrl ?? null, photos: LOCATION_PHOTOS[l.id] ?? [], sort_order: i,
+      parks_url: l.parksUrl ?? null, info_url: l.infoUrl ?? null, photos: LOCATION_PHOTOS[l.id] ?? [], sort_order: i,
     }))
   );
 }

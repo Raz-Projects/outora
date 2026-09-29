@@ -15,7 +15,7 @@ import type { LocationRow } from "@/lib/catalog-types";
 
 type Values = {
   id: string; nameHe: string; region: string; landscape: string; lat: string; lng: string;
-  descriptionHe: string; parksUrl: string; amenities: string[]; recommendedTents: string[];
+  descriptionHe: string; parksUrl: string; infoUrl: string; amenities: string[]; recommendedTents: string[];
   recommendedAccessories: string[]; photos: string[];
   overnight: boolean; fee: boolean; organized: boolean; vehicle4x4: boolean; largeGroupOk: boolean;
   privateLand: boolean;
@@ -49,7 +49,7 @@ export function LocationEditor({
       ? {
           id: row.id, nameHe: row.name_he, region: row.region, landscape: row.landscape,
           lat: String(row.lat), lng: String(row.lng), descriptionHe: row.description_he,
-          parksUrl: row.parks_url ?? "", amenities: row.amenities ?? [],
+          parksUrl: row.parks_url ?? "", infoUrl: row.info_url ?? "", amenities: row.amenities ?? [],
           recommendedTents: row.recommended_tents ?? [],
           recommendedAccessories: row.recommended_accessories ?? [], photos: row.photos ?? [],
           overnight: row.overnight, fee: row.fee, organized: row.organized,
@@ -58,7 +58,7 @@ export function LocationEditor({
         }
       : {
           id: "", nameHe: "", region: "north", landscape: "beach", lat: "0", lng: "0",
-          descriptionHe: "", parksUrl: "", amenities: [], recommendedTents: [],
+          descriptionHe: "", parksUrl: "", infoUrl: "", amenities: [], recommendedTents: [],
           recommendedAccessories: [], photos: [],
           overnight: true, fee: false, organized: false, vehicle4x4: false, largeGroupOk: true,
           privateLand: false,
@@ -97,7 +97,7 @@ export function LocationEditor({
           amenities: x.amenities, overnight: x.overnight, fee: x.fee, organized: x.organized,
           vehicle_4x4: x.vehicle4x4, large_group_ok: x.largeGroupOk, private_land: x.privateLand,
           recommended_tents: x.recommendedTents, recommended_accessories: x.recommendedAccessories,
-          parks_url: x.parksUrl.trim() || null, photos: x.photos,
+          parks_url: x.parksUrl.trim() || null, info_url: x.infoUrl.trim() || null, photos: x.photos,
         })}
       >
         <Section title="פרטים">
@@ -146,9 +146,12 @@ export function LocationEditor({
                    onChange={(e) => set("lng", e.target.value)} className="h-12 px-4" />
           </Grid>
 
-          <Field label="קישור לרשות הטבע והגנים" value={v.parksUrl} dir="ltr"
-                 placeholder="https://..." className="h-12 px-4"
+          <Field label="קישור ישיר להזמנה" value={v.parksUrl} dir="ltr"
+                 placeholder="ריק = אין הזמנה מראש" className="h-12 px-4"
                  onChange={(e) => set("parksUrl", e.target.value)} />
+          <Field label="קישור לדף המקום" value={v.infoUrl} dir="ltr"
+                 placeholder="https://..." className="h-12 px-4"
+                 onChange={(e) => set("infoUrl", e.target.value)} />
         </Section>
 
         <Section title="תצלומים">

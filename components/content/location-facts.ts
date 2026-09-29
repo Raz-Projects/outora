@@ -49,7 +49,7 @@ export function bookingLabel(url: string): string {
   if (host.includes("kkl.org.il")) return "תיאום לינה · קק״ל";
   if (host.includes("ikinneret")) return "הזמנה · איגוד ערים כינרת";
   if (host.includes("parktimna")) return "הזמנה · פארק תמנע";
-  if (host.includes("gocamping")) return "הזמנה · כפר מטיילים";
-  if (host.includes("cityofdavid")) return "הזמנה · עיר דוד";
+  if (host.includes("metzoke")) return "הזמנה · מצוקי דרגות";
+  if (host.includes("simplebooking")) return "הזמנה · עיר דוד";
   return "הזמנת מקום";
 }
