@@ -1,26 +1,23 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { getCatalog } from "@/lib/catalog";
 import { Gallery } from "@/components/booking/gallery";
 import { TentConnect } from "@/components/content/tent-connect";
+import { getPageContent, pageMetadata } from "@/lib/page-content";
+import { tentsPage } from "@/lib/pages/archives";
 
-export const metadata: Metadata = {
-  title: "האוהלים",
-  description: "חמישה אוהלי אוויר של COODY · HAVEN, HAVEN PRIME, PAVILION, PAVILION PRIME ו-HALO.",
-  alternates: { canonical: "/tents" },
-};
+export const generateMetadata = () => pageMetadata(tentsPage);
 
 /** ארכיון האוהלים · בנוי כמו ארכיון החבילות */
 export default async function TentsArchive() {
-  const { tents } = await getCatalog();
+  const [{ tents }, c] = await Promise.all([getCatalog(), getPageContent(tentsPage)]);
 
   return (
     <>
     <main className="mx-auto max-w-[1440px] px-5 pb-8 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">האוהלים</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">הבית שלכם בטבע, בחמישה גדלים</h1>
+      <p className="text-tag text-textgray">{c.tag}</p>
+      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        אוהלי אוויר גדולים ומאווררים שהופכים בתוך דקות לחלל אמיתי שאפשר לישון, לארח ולחיות בו.
+        {c.text}
       </p>
 
       <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

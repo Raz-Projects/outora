@@ -36,7 +36,7 @@ export function ListField({
       {value.length > 0 && (
         <ul className="mb-3 space-y-2">
           {value.map((item, i) => (
-            <li key={`${item}-${i}`} className="flex items-center gap-2">
+            <li key={i} className="flex items-center gap-2">
               <Input
                 value={item}
                 onChange={(e) => {

@@ -1,17 +1,14 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import type { PackageBadge, ExperiencePackage } from "@/lib/packages";
 import { getTentBySlug } from "@/lib/tents";
 import { getCatalog } from "@/lib/catalog";
 import Image from "next/image";
 import { Gallery } from "@/components/booking/gallery";
 import { Button } from "@/components/ui/button";
+import { getPageContent, pageMetadata } from "@/lib/page-content";
+import { packagesPage } from "@/lib/pages/archives";
 
-export const metadata: Metadata = {
-  title: "חבילות",
-  description: "רמות האירוח BASIC, COMFORT+ ו-SIGNATURE, הבאנדלים וחבילות החוויה של OUTORA.",
-  alternates: { canonical: "/packages" },
-};
+export const generateMetadata = () => pageMetadata(packagesPage);
 
 /** ⚠️ טקסט זמני · התגיות בדאטה באנגלית, התרגום ממתין לאישור */
 const badgeLabels: Record<PackageBadge, string> = {
@@ -32,15 +29,18 @@ function images(pkg: ExperiencePackage) {
 }
 
 export default async function PackagesArchive() {
-  const { packages, tiers, bundles } = await getCatalog();
+  const [{ packages, tiers, bundles }, c] = await Promise.all([
+    getCatalog(),
+    getPageContent(packagesPage),
+  ]);
 
   return (
     <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
-      {/* ── רמות האירוח · מהמסמך "outora - חבילות" ── */}
-      <p className="text-tag text-textgray">חבילות</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">מתחילים ממה שחייבים, ומוסיפים רק מה שמתאים</h1>
+      {/* ── רמות האירוח ── */}
+      <p className="text-tag text-textgray">{c.tag}</p>
+      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        BASIC, COMFORT+ או SIGNATURE, ואז תאורה, קפה, קירור, מקלחת, סינמה, SUP ועוד.
+        {c.text}
       </p>
 
       <ul className="mt-12 grid gap-6 md:grid-cols-3">
@@ -89,10 +89,10 @@ export default async function PackagesArchive() {
 
       {/* ── באנדלים ── */}
       <section className="mt-24 border-t border-stroke pt-16">
-        <p className="text-tag text-textgray">באנדלים</p>
-        <h2 className="text-h2 mt-2">חבילות חוויה קטנות שמצטרפות לרמת האירוח</h2>
+        <p className="text-tag text-textgray">{c.bundlesTag}</p>
+        <h2 className="text-h2 mt-2">{c.bundlesTitle}</h2>
         <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-          ב-COMFORT+ בוחרים שניים בלי עלות, ב-SIGNATURE שלושה.
+          {c.bundlesText}
         </p>
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {bundles.map((b) => (
@@ -116,10 +116,10 @@ export default async function PackagesArchive() {
 
       {/* ── חבילות חוויה · אוהל, מיקום ותוספות מוכנים מראש ── */}
       <section className="mt-24 border-t border-stroke pt-16">
-      <p className="text-tag text-textgray">חבילות חוויה</p>
-      <h2 className="text-h2 mt-2">חוויה שלמה, מוכנה מראש</h2>
+      <p className="text-tag text-textgray">{c.experiencesTag}</p>
+      <h2 className="text-h2 mt-2">{c.experiencesTitle}</h2>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        בוחרים חבילה, אנחנו מגיעים ומקימים. אוהל, ציוד ומיקום · הכל כלול.
+        {c.experiencesText}
       </p>
 
       <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,19 +1,16 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { getCatalog } from "@/lib/catalog";
 import { LocationMap } from "@/components/content/location-map";
 import { LandscapeIcon } from "@/components/content/landscape-icon";
 import { Gallery } from "@/components/booking/gallery";
 import { LOCATION_GROUPS, groupOf, stayText } from "@/components/content/location-facts";
+import { getPageContent, pageMetadata } from "@/lib/page-content";
+import { locationsPage } from "@/lib/pages/archives";
 
-export const metadata: Metadata = {
-  title: "מיקומים",
-  description: "כל המיקומים שאפשר להקים בהם אוהל OUTORA · חופים, יערות, מדבר והרים.",
-  alternates: { canonical: "/locations" },
-};
+export const generateMetadata = () => pageMetadata(locationsPage);
 
 export default async function LocationsArchive() {
-  const { locations } = await getCatalog();
+  const [{ locations }, c] = await Promise.all([getCatalog(), getPageContent(locationsPage)]);
   // לפי המסמך של רז: לינת לילה, קמפינג יום, שטחים פרטיים. בתוך כל קבוצה · הסדר מהמסד
   const groups = LOCATION_GROUPS.map((g) => ({
     ...g,
@@ -22,11 +19,10 @@ export default async function LocationsArchive() {
 
   return (
     <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">מיקומים</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">הלוקיישנים שלנו</h1>
+      <p className="text-tag text-textgray">{c.tag}</p>
+      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
       <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        כל מקום כאן נבחר ואומת כך שתדעו בדיוק למה לצפות: האם הלינה בתשלום או חינם,
-        אילו תנאים יש בשטח, ואיזה אוהל ותוספות הכי מתאימים לחוויה שם.
+        {c.text}
       </p>
 
       {/* המפה מימין, צרה וגבוהה כמו הארץ · הקבוצות משמאל */}

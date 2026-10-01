@@ -1,28 +1,12 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { getPageContent } from "@/lib/page-content";
+import { sharedPage } from "@/lib/pages/shared";
 
 /**
  * סקשן "מחברים אוהלים" · מסביר שאפשר לצרף שני אוהלים למתחם אחד.
- * מופיע בדף הבית ובארכיון האוהלים.
- *
- * מה שידוע בוודאות: יש במלאי מחבר בין HALO (Dome) לאוהלי ה-17.2, כלומר HAVEN ו-HAVEN PRIME
- * (קובץ החבילות: "Connector dome to 17.2" · מק״ט OTR-TAC-001).
- * ⚠️ צירופים נוספים, מחיר המחבר ותמונות של מתחם מחובר · ממתינים לרז (ראו NOTES-FOR-OUTORA.md).
+ * מופיע בדף הבית ובארכיון האוהלים. הטקסטים ב-lib/pages/shared.ts, ונערכים בממשק הניהול.
  */
-const POINTS = [
-  {
-    title: "מעבר מקורה",
-    desc: "המחבר יוצר מסדרון קצר וסגור בין שני האוהלים. עוברים מחדר לחדר בלי לצאת החוצה, גם בגשם או ברוח.",
-  },
-  {
-    title: "כל אוהל שומר על עצמו",
-    desc: "הכניסות, החלונות והרצפה של כל אוהל נשארים כמו שהם. אפשר לסגור את המעבר ולחזור לשני אוהלים נפרדים.",
-  },
-  {
-    title: "שינה כאן, אירוח שם",
-    desc: "HAVEN לשינה של המשפחה, HALO כסלון פתוח לנוף או כפינת אוכל. מתחם אחד, שני אופי.",
-  },
-] as const;
 
 /** שני אוהלים ומעבר ביניהם · איור סכמטי, לא פרופורציות אמיתיות */
 function Diagram() {
@@ -59,22 +43,23 @@ function Diagram() {
   );
 }
 
-export function TentConnect() {
+export async function TentConnect() {
+  const c = await getPageContent(sharedPage);
+
   return (
     <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
       <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
         {/* ימין · הטקסט */}
         <div>
-          <p className="text-tag text-textgray">מחברים אוהלים</p>
-          <h2 className="text-h2 mt-2">אוהל אחד, או מתחם שלם</h2>
+          <p className="text-tag text-textgray">{c.connectTag}</p>
+          <h2 className="text-h2 mt-2">{c.connectTitle}</h2>
           <p className="text-subtitle text-textgray mt-4">
-            האוהלים של COODY בנויים כמודולים. באמצעות מחבר ייעודי מצרפים את HALO ל-HAVEN
-            או ל-HAVEN PRIME, ושני אוהלים הופכים למתחם אחד עם מעבר מקורה ביניהם.
+            {c.connectText}
           </p>
 
           <ul className="mt-8 space-y-5">
-            {POINTS.map((p) => (
-              <li key={p.title} className="flex items-start gap-3">
+            {c.connectPoints.map((p, i) => (
+              <li key={i} className="flex items-start gap-3">
                 <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
                 <div>
                   <p className="text-h3">{p.title}</p>
@@ -85,7 +70,7 @@ export function TentConnect() {
           </ul>
 
           <p className="text-body text-textgray mt-8">
-            מזמינים שני אוהלים ומבקשים את המחבר בהערות להזמנה, או כותבים לנו ואנחנו נרכיב את המתחם יחד.
+            {c.connectNote}
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-6">

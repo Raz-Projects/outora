@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const TABS = [
+  { href: "/admin/content/pages",       label: "דפי האתר" },
   { href: "/admin/content/tents",       label: "אוהלים" },
   { href: "/admin/content/accessories", label: "תוספות" },
   { href: "/admin/content/tiers",       label: "רמות אירוח" },

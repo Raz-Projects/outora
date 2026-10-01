@@ -1,73 +1,59 @@
-import type { Metadata } from "next";
+import { getPageContent, pageMetadata } from "@/lib/page-content";
+import { faqPage } from "@/lib/pages/info";
 
-export const metadata: Metadata = {
-  title: "שאלות נפוצות",
-  description: "כל מה שרציתם לדעת על האוהלים של OUTORA · שימוש, הקמה, שינוע, הובלה וביטולים.",
-  alternates: { canonical: "/faq" },
-};
+export const generateMetadata = () => pageMetadata(faqPage);
 
 /**
- * ⚠️ התשובות עדיין לא נכתבו · הרשימה מוצגת כשאלות בלבד עד שיגיע תוכן מיותם.
- * כשיהיו תשובות · להפוך כל שורה לאקורדיון שנפתח.
+ * השאלות והתשובות ב-lib/pages/info.ts, ונערכות בממשק הניהול.
+ * שאלה בלי תשובה מוצגת כשורה. שאלה עם תשובה נפתחת בלחיצה.
  */
-const GROUPS = [
-  {
-    title: "האוהל והשימוש בו",
-    questions: [
-      "מה זה האוהלים האלה בכלל?",
-      "שימוש באוהל",
-      "בישול באוהל",
-      "תחזוקת האוהל",
-      "האם יש מיזוג?",
-      "האם יש חיבור לחשמל?",
-    ],
-  },
-  {
-    title: "הקמה",
-    questions: [
-      "הקמת האוהל",
-      "כמה זה פשוט להקים?",
-      "האם ילדים יכולים להקים?",
-      "האם ניתן להקים לבד?",
-      "כמה אנשים צריך כדי להקים?",
-      "כמה זמן לוקח להקים מתחם קמפינג כזה?",
-    ],
-  },
-  {
-    title: "מיקום, שינוע והובלה",
-    questions: [
-      "איפה ניתן להקים את האוהל?",
-      "איך ניתן לשנע את האוהל?",
-      "האם ניתן לקבל הובלה?",
-      "האם ניתן לקבל הקמה מלאה כולל הובלה?",
-    ],
-  },
-  {
-    title: "מזג אוויר, ביטולים ואירועים",
-    questions: [
-      "מה קורה בתנאי מזג אוויר קשים? תנאי ביטולים",
-      "האם אתם עושים גם אירועים?",
-    ],
-  },
-] as const;
+export default async function FaqPage() {
+  const c = await getPageContent(faqPage);
 
-export default function FaqPage() {
+  // שאלות עם אותו נושא מופיעות יחד, לפי סדר ההופעה הראשונה של הנושא
+  const groups: { title: string; questions: { q: string; a: string }[] }[] = [];
+  for (const item of c.questions) {
+    if (!item.q.trim()) continue;
+    const title = item.group.trim();
+    let group = groups.find((g) => g.title === title);
+    if (!group) groups.push((group = { title, questions: [] }));
+    group.questions.push(item);
+  }
+
   return (
     <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">שאלות נפוצות</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">כל מה שרציתם לדעת</h1>
-      <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        ריכזנו כאן את השאלות שהכי הרבה שואלים אותנו. לא מצאתם תשובה? דברו איתנו בוואטסאפ.
-      </p>
+      <p className="text-tag text-textgray">{c.tag}</p>
+      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
+      <p className="text-subtitle text-textgray mt-4 max-w-2xl">{c.text}</p>
 
       <div className="mt-12 max-w-3xl space-y-12">
-        {GROUPS.map((g) => (
-          <section key={g.title}>
-            <h2 className="text-h2 border-b border-stroke pb-4">{g.title}</h2>
+        {groups.map((g, n) => (
+          <section key={n}>
+            {g.title && <h2 className="text-h2 border-b border-stroke pb-4">{g.title}</h2>}
             <ul>
-              {g.questions.map((q) => (
-                <li key={q} className="text-subtitle border-b border-stroke py-5">
-                  {q}
+              {g.questions.map((item, i) => (
+                <li key={i} className="border-b border-stroke">
+                  {item.a.trim() ? (
+                    <details name="faq" className="group">
+                      <summary
+                        className="text-subtitle flex cursor-pointer list-none items-center justify-between gap-4 py-5
+                                   transition-colors hover:text-textgray
+                                   [&::-webkit-details-marker]:hidden"
+                      >
+                        <span>{item.q}</span>
+                        <svg
+                          width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                          className="shrink-0 text-beige transition-transform duration-300 ease-smooth group-open:rotate-45"
+                          aria-hidden
+                        >
+                          <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+                        </svg>
+                      </summary>
+                      <p className="text-body text-textgray whitespace-pre-line pb-6">{item.a}</p>
+                    </details>
+                  ) : (
+                    <p className="text-subtitle py-5">{item.q}</p>
+                  )}
                 </li>
               ))}
             </ul>

@@ -4,8 +4,18 @@ import { LEGAL_DOCS, getLegalDoc } from "../content";
 import { LegalNav } from "@/components/content/legal-nav";
 import { LegalBlocks } from "@/components/content/legal-blocks";
 import { getDamagePriceRows } from "@/lib/damage-prices";
+import { getPageContent } from "@/lib/page-content";
+import { applyLegalValues, legalPageFor } from "@/lib/pages/legal";
 
 type Params = { slug: string };
+
+/** המסמך עם הנוסח שנערך בממשק הניהול · מסמך נעול חוזר כמו שהוא בקוד */
+async function loadDoc(slug: string) {
+  const doc = getLegalDoc(slug);
+  if (!doc) return undefined;
+  const def = legalPageFor(slug);
+  return def ? applyLegalValues(doc, await getPageContent(def)) : doc;
+}
 
 export function generateStaticParams(): Params[] {
   return LEGAL_DOCS.map((d) => ({ slug: d.slug }));
@@ -13,7 +23,7 @@ export function generateStaticParams(): Params[] {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const doc = getLegalDoc(slug);
+  const doc = await loadDoc(slug);
   if (!doc) return {};
   return {
     title: doc.title,
@@ -24,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function LegalDocPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const doc = getLegalDoc(slug);
+  const doc = await loadDoc(slug);
   if (!doc) notFound();
 
   /** רק הסכם הפיקדון מציג את מחירון הנזקים · השורות מהמסד */

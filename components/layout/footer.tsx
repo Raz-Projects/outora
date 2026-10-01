@@ -2,18 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { FooterAccordion, type FooterColumn } from "./footer-accordion";
 import { IconWhatsapp } from "@/components/icons/social";
+import { getPageContent } from "@/lib/page-content";
+import { sharedPage } from "@/lib/pages/shared";
 
 /** Footer · Figma. רקע שחור, טקסט לבן. במובייל העמודות הופכות לאקורדיון. */
 
-const COLUMNS: FooterColumn[] = [
+/** שעות הפעילות מגיעות מהתוכן שנערך בממשק הניהול */
+const columns = (hours: string): FooterColumn[] => [
   {
     title: "צור קשר",
+    note: hours,
     links: [
       { label: "יצירת קשר", href: "/contact" },
       { label: "WhatsApp", href: "https://wa.me/972528448870", external: true },
       { label: "Reservations@outora.co.il", href: "mailto:Reservations@outora.co.il" },
     ],
-    note: "א׳–ו׳ · 09:00–20:00",
   },
   {
     title: "משפטי",
@@ -53,7 +56,10 @@ const SOCIAL = [
   { label: "WhatsApp", href: "https://wa.me/972528448870", Icon: IconWhatsapp },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const { footerHours } = await getPageContent(sharedPage);
+  const COLUMNS = columns(footerHours);
+
   return (
     <footer className="bg-black text-white">
       <div className="mx-auto max-w-[1440px] px-5 pb-8 pt-16 md:px-[90px] md:pb-10 md:pt-20">
