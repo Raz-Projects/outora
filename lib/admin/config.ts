@@ -2,6 +2,7 @@
 export const ADMIN_EMAILS = [
   "raz@outora.co.il",
   "arad@outora.co.il",
+  "aradmalka10@gmail.com",
   "razaror96@gmail.com",
   "yotamh@edenmedia.co.il",
 ];

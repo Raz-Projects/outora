@@ -73,7 +73,13 @@ export async function middleware(req: NextRequest) {
 
     // /admin · only OUTORA team emails
     if (!user) return NextResponse.redirect(new URL("/auth/login?next=/admin", req.url));
-    if (!ADMIN_EMAILS.includes((user.email ?? "").toLowerCase())) return NextResponse.redirect(new URL("/", req.url));
+    // מייל שאינו מורשה · חוזר לאתר הראשי.
+    // ב-admin.outora.co.il אסור להחזיר ל-"/" של אותו דומיין · זה נשלח שוב ל-/admin ונוצרת לולאה
+    if (!ADMIN_EMAILS.includes((user.email ?? "").toLowerCase())) {
+      const home = new URL("/", req.url);
+      if (host.startsWith("admin.")) home.hostname = host.slice("admin.".length);
+      return NextResponse.redirect(home);
+    }
 
     return res;
   } catch {
