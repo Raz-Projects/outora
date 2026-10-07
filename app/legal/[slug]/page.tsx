@@ -41,20 +41,20 @@ export default async function LegalDocPage({ params }: { params: Promise<Params>
   const damageRows = doc.slug === "deposit" ? await getDamagePriceRows() : [];
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
+    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pb-32 md:pt-52">
       <div className="md:grid md:grid-cols-[220px_1fr] md:gap-16 lg:gap-24">
         {/* ניווט בין המסמכים · ראשון בקוד = בצד ימין */}
         <LegalNav current={doc.slug} />
 
         <article className="max-w-3xl">
           <p className="text-tag text-textgray">משפטי</p>
-          <h1 className="text-h1-sm mt-2 md:text-h1">{doc.title}</h1>
+          <h1 className="text-h1-sm mt-3 md:text-h1">{doc.title}</h1>
           {doc.intro && <p className="text-subtitle text-textgray mt-4">{doc.intro}</p>}
 
-          <div className="mt-12 space-y-10">
+          <div className="mt-16 space-y-12">
             {doc.sections.map((s, i) => (
               <section key={s.heading ?? i}>
-                {s.heading && <h2 className="text-h3 border-b border-stroke pb-3">{s.heading}</h2>}
+                {s.heading && <h2 className="text-h3 border-b border-stroke pb-4">{s.heading}</h2>}
                 <div className="mt-4 space-y-4">
                   <LegalBlocks blocks={s.blocks} damageRows={damageRows} />
                 </div>

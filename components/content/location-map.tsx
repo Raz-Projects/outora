@@ -33,6 +33,22 @@ const SPACE = { center: [35, 31.5] as [number, number], zoom: 1.2 };
 const ISRAEL: [[number, number], [number, number]] = [[34.2, 29.45], [35.95, 33.35]];
 
 /**
+ * אחרי העפה מהחלל המפה ננעלת על הארץ:
+ * אי אפשר להתרחק יותר מקצת מעבר ל"כל הארץ", ומרכז המפה נשאר בתוך ישראל וקצת סביבה.
+ * maxBounds הרגיל של MapLibre לא עובד על כדור, ולכן הנעילה נעשית ידנית.
+ */
+const ZOOM_OUT_ROOM = 0.6;
+const CENTER_ROOM = 0.6;
+const CENTER_BOX = {
+  west: ISRAEL[0][0] - CENTER_ROOM,
+  south: ISRAEL[0][1] - CENTER_ROOM,
+  east: ISRAEL[1][0] + CENTER_ROOM,
+  north: ISRAEL[1][1] + CENTER_ROOM,
+};
+
+const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+
+/**
  * סיכה בצורת טיפה, בצבע של סוג הנוף, עם האייקון בלבן.
  * הסיכה בתוך עטיפה · MapLibre משנה את השקיפות של העטיפה כשהסיכה מאחורי הכדור,
  * אז את ההופעה בסוף העפה עושים על הכפתור הפנימי.
@@ -83,16 +99,36 @@ async function loadStyle(): Promise<StyleSpecification> {
 
 let rtlPluginSet = false;
 
+/** מסתיר את הסיכות שלא ברשימה · null = מציגים הכל */
+function applyFilter(wraps: Map<string, HTMLElement>, visible: string[] | null) {
+  const set = visible === null ? null : new Set(visible);
+  wraps.forEach((wrap, id) => {
+    wrap.style.display = !set || set.has(id) ? "" : "none";
+  });
+}
+
 export function LocationMap({
   locs,
+  visible = null,
   className,
 }: {
   locs: CampingLocation[];
+  /** המזהים של המקומות שמוצגים · null = כולם. מגיע מהחיפוש בדף המיקומים */
+  visible?: string[] | null;
   className?: string;
 }) {
   const box = React.useRef<HTMLDivElement>(null);
   const map = React.useRef<MlMap | null>(null);
   const [picked, setPicked] = React.useState<CampingLocation | null>(null);
+  /** הסיכות לפי מזהה, כדי להסתיר את מה שלא מתאים לחיפוש */
+  const pinWraps = React.useRef(new Map<string, HTMLElement>());
+  /** true אחרי שהעפה מהחלל נחתה והמפה ננעלה על הארץ */
+  const [ready, setReady] = React.useState(false);
+  const visibleKey = visible === null ? "*" : visible.join(",");
+  const visibleRef = React.useRef(visible);
+  visibleRef.current = visible;
+  /** החיפוש שהמצלמה כבר התאימה את עצמה אליו */
+  const cameraKey = React.useRef("*");
 
   const many = locs.length > 1;
   // רוחב הסיכה · הגובה נגזר ממנו
@@ -136,8 +172,10 @@ export function LocationMap({
       m.addControl(new ml.NavigationControl({ showCompass: false }), "top-left");
       m.on("style.load", () => m.setProjection({ type: "globe" }));
 
+      pinWraps.current.clear();
       const pins = locs.map((loc) => {
         const { wrap, el } = markerEl(loc, size);
+        pinWraps.current.set(loc.id, wrap);
         if (many) {
           el.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -157,8 +195,49 @@ export function LocationMap({
         new ml.Marker({ element: wrap, anchor: "bottom" }).setLngLat([loc.lng, loc.lat]).addTo(m);
         return el;
       });
+      applyFilter(pinWraps.current, visibleRef.current);
       // מהחלל כל הסמנים נערמים לכתם אחד · הם מופיעים רק כשהעפה נוחתת
       const showPins = () => pins.forEach((el) => el.classList.remove("opacity-0"));
+
+      /** הזום הכי רחוק שמותר · כל הארץ ממלאת את המפה, עם קצת אוויר */
+      const minZoom = () => {
+        const fit = m.cameraForBounds(ISRAEL, { padding: 24 });
+        return (fit?.zoom ?? 6) - ZOOM_OUT_ROOM;
+      };
+
+      /** נועלים את המפה על הארץ. אם המצלמה כרגע מחוץ לגבול · קודם מחליקים אליו */
+      let locked = false;
+      const lock = () => {
+        if (dead) return;
+        const min = minZoom();
+        const c = m.getCenter();
+        const center: [number, number] = [
+          clamp(c.lng, CENTER_BOX.west, CENTER_BOX.east),
+          clamp(c.lat, CENTER_BOX.south, CENTER_BOX.north),
+        ];
+        const zoom = Math.max(m.getZoom(), min);
+        const apply = () => {
+          if (dead) return;
+          m.setTransformConstrain((lngLat, z) => ({
+            center: new ml.LngLat(
+              clamp(lngLat.lng, CENTER_BOX.west, CENTER_BOX.east),
+              clamp(lngLat.lat, CENTER_BOX.south, CENTER_BOX.north)
+            ),
+            zoom: clamp(z, m.getMinZoom(), m.getMaxZoom()),
+          }));
+          m.setMinZoom(min);
+          locked = true;
+          setReady(true);
+        };
+        if (zoom !== m.getZoom() || center[0] !== c.lng || center[1] !== c.lat) {
+          m.once("moveend", apply);
+          m.easeTo({ center, zoom, duration: reduced ? 0 : 600, essential: true });
+        } else apply();
+      };
+      // המפה משנה גודל (סיבוב טלפון, חלון) · מחשבים מחדש כמה אפשר להתרחק
+      m.on("resize", () => {
+        if (locked) m.setMinZoom(minZoom());
+      });
 
       map.current = m;
 
@@ -168,9 +247,16 @@ export function LocationMap({
           ([entry]) => {
             if (!entry.isIntersecting) return;
             seen?.disconnect();
-            m.once("moveend", showPins);
-            if (reduced) home(m, 0);
-            else setTimeout(() => home(m, 3500), 300);
+            const fly = () => {
+              if (dead) return;
+              m.once("moveend", () => {
+                showPins();
+                lock();
+              });
+              home(m, reduced ? 0 : 3500);
+            };
+            if (reduced) fly();
+            else setTimeout(fly, 300);
           },
           { threshold: 0.4 }
         );
@@ -183,8 +269,38 @@ export function LocationMap({
       seen?.disconnect();
       map.current?.remove();
       map.current = null;
+      cameraKey.current = "*";
+      setReady(false);
     };
   }, [locs, many, size, home]);
+
+  // החיפוש · מסתירים סיכות שלא מתאימות, ומקרבים את המפה למה שנשאר
+  React.useEffect(() => {
+    applyFilter(pinWraps.current, visibleRef.current);
+    const m = map.current;
+    // עד שהעפה נוחתת רק מסתירים · המצלמה זזה אחר כך, אם החיפוש השתנה בינתיים
+    if (!m || !ready || cameraKey.current === visibleKey) return;
+    cameraKey.current = visibleKey;
+    setPicked(null);
+    const shown = visibleRef.current;
+    const t = setTimeout(() => {
+      if (shown === null) return home(m, 1200);
+      const hits = locs.filter((l) => shown.includes(l.id));
+      if (hits.length === 0) return;
+      const lngs = hits.map((l) => l.lng);
+      const lats = hits.map((l) => l.lat);
+      m.fitBounds(
+        [
+          [Math.min(...lngs), Math.min(...lats)],
+          [Math.max(...lngs), Math.max(...lats)],
+        ],
+        { padding: 60, maxZoom: 10, duration: 1200, essential: true }
+      );
+    }, 250);
+    return () => clearTimeout(t);
+    // visibleKey מייצג את visible · כך המפה לא זזה כשרק הזהות של המערך משתנה
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visibleKey, ready]);
 
   const close = () => {
     setPicked(null);
@@ -202,7 +318,7 @@ export function LocationMap({
           role="img"
           aria-label={many ? "מפת כל המיקומים" : `מפה של ${locs[0].nameHe}`}
           className={cn(
-            "w-full overflow-hidden rounded-[16px] border border-stroke bg-offwhite",
+            "w-full overflow-hidden rounded-lg border border-stroke bg-sand",
             many ? "h-[600px] md:h-[720px]" : "h-[260px] md:h-[360px]",
             className
           )}
@@ -210,7 +326,7 @@ export function LocationMap({
 
         {/* הכרטיס שנפתח בלחיצה על סמן */}
         {picked && (
-          <div className="absolute inset-x-3 bottom-3 z-10 overflow-hidden rounded-[16px] bg-white shadow-drop">
+          <div className="absolute inset-x-3 bottom-3 z-10 overflow-hidden rounded-lg bg-white shadow-drop">
             <div className="flex">
               {/* טקסט מימין, תמונה משמאל */}
               <div className="min-w-0 flex-1 p-4">
@@ -220,7 +336,7 @@ export function LocationMap({
                     type="button"
                     onClick={close}
                     aria-label="סגירה"
-                    className="shrink-0 text-textgray transition-colors hover:text-black"
+                    className="shrink-0 text-textgray transition-colors hover:text-brown"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
@@ -241,7 +357,7 @@ export function LocationMap({
                 </Link>
               </div>
 
-              <div className="relative w-[38%] max-w-[180px] shrink-0 bg-offwhite">
+              <div className="relative w-[38%] max-w-[180px] shrink-0 bg-sand">
                 {photos.length > 0 ? (
                   // גלריה נגללת כמו בכרטיסים של הארכיון · key מאפס אותה כשעוברים למקום אחר
                   <Gallery
@@ -252,7 +368,7 @@ export function LocationMap({
                     sizes="180px"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-beige">
+                  <div className="flex h-full items-center justify-center text-brown">
                     <LandscapeIcon landscape={picked.landscape} className="h-10 w-10" />
                   </div>
                 )}

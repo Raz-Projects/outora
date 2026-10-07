@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useBooking } from "@/lib/booking-context";
 import { BookingShell } from "@/components/booking/shell";
 import { OrderPanel } from "@/components/booking/total-bar";
+import { Upsells } from "@/components/booking/upsells";
+import { orderNotes } from "@/components/booking/draft-sync";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -28,7 +30,7 @@ function isValidIdNumber(raw: string) {
 }
 
 export default function SummaryStep() {
-  const { state, set, total } = useBooking();
+  const { state, set, total, catalog, pkg } = useBooking();
   const router = useRouter();
   const [tried, setTried] = React.useState(false);
 
@@ -48,6 +50,22 @@ export default function SummaryStep() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const patch = (k: keyof typeof c, v: string) => set({ customer: { ...c, [k]: v } });
+
+  // כתובת למשלוח · באיסוף עצמי אין צורך, ואם נבחר מיקום ממלאים אותו מראש
+  const isPickup = state.mode !== "package" && state.deliveryId === "pickup";
+  const chosenPlace = catalog.locations.find(
+    (l) => l.id === (state.campLocationId ?? (state.mode === "package" ? pkg?.locationId : undefined))
+  );
+  const autoAddress = chosenPlace ? `${chosenPlace.nameHe}, ${chosenPlace.regionHe}` : "";
+  const lastAuto = React.useRef("");
+  React.useEffect(() => {
+    if (!autoAddress) return;
+    // ממלאים רק שדה ריק או כזה שמילאנו בעצמנו, לא כתובת שהלקוח הקליד
+    if (c.address && c.address !== lastAuto.current) return;
+    lastAuto.current = autoAddress;
+    if (c.address !== autoAddress) set({ customer: { ...c, address: autoAddress } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoAddress]);
 
   const missing = {
     name: !c.name.trim(),
@@ -96,7 +114,7 @@ export default function SummaryStep() {
           customer_email: c.email,
           customer_id_number: c.idNumber,
           agreement_accepted: state.agreementAccepted,
-          notes: c.notes || null,
+          notes: orderNotes(state),
         }),
       });
     } catch {
@@ -115,12 +133,18 @@ export default function SummaryStep() {
       title="סיכום הזמנה"
       subtitle="עוד רגע וסיימנו. מלאו את הפרטים ונשלח אליכם אישור הזמנה ותיאום תשלום בוואטסאפ."
     >
+      {/* רגע לפני שמסיימים · תוספות שמתאימות לחופשה הזו */}
+      <Upsells
+        title="רגע לפני שמסיימים · שווה להוסיף"
+        className="mb-14 border-b border-stroke pb-14"
+      />
+
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         {/* פרטי הלקוח */}
         <section>
           <h2 className="text-h2">פרטי הלקוח</h2>
 
-          <div className="mt-6 space-y-6 rounded-[16px] border border-stroke p-6">
+          <div className="mt-6 space-y-6 rounded-lg bg-white border border-stroke p-6">
             <div className="grid gap-6 sm:grid-cols-2">
               <Field
                 label="שם מלא"
@@ -176,7 +200,7 @@ export default function SummaryStep() {
                 הזמנתם אצלנו בעבר?{" "}
                 <Link
                   href="/auth/login?next=/book/summary"
-                  className="text-black underline underline-offset-4"
+                  className="text-brown underline underline-offset-4"
                 >
                   כניסה לחשבון
                 </Link>{" "}
@@ -185,10 +209,19 @@ export default function SummaryStep() {
             )}
 
             <Field
-              label="כתובת למשלוח / נקודת איסוף"
+              label="כתובת למשלוח"
               placeholder="עיר, רחוב ומספר"
-              value={c.address}
+              value={isPickup ? "איסוף עצמי" : c.address}
+              disabled={isPickup}
               onChange={(e) => patch("address", e.target.value)}
+              className={isPickup ? "cursor-not-allowed bg-sand text-textgray" : undefined}
+              message={
+                isPickup
+                  ? "בחרתם איסוף עצמי מהתחנות שלנו, אין צורך בכתובת"
+                  : chosenPlace && c.address === autoAddress
+                    ? "מילאנו לפי המיקום שבחרתם. אפשר לשנות"
+                    : undefined
+              }
             />
 
             <div>
@@ -199,7 +232,7 @@ export default function SummaryStep() {
                 value={c.notes}
                 onChange={(e) => patch("notes", e.target.value)}
                 className="w-full rounded-md border border-stroke bg-white px-6 py-4 text-body
-                           text-black placeholder:text-textgray focus-visible:border-beige
+                           text-brown placeholder:text-textgray focus-visible:border-brown
                            focus-visible:outline-none"
               />
             </div>
@@ -208,7 +241,7 @@ export default function SummaryStep() {
 
         {/* ההזמנה */}
         <aside>
-          <OrderPanel totalLabel="סה״כ לתשלום" className="shadow-none border border-stroke p-5 md:p-6" />
+          <OrderPanel totalLabel="סה״כ לתשלום" className="border border-stroke bg-transparent p-5 shadow-none md:p-6" />
 
           <label className="mt-6 flex cursor-pointer items-start gap-3">
             <Checkbox

@@ -1,4 +1,4 @@
-import { area, text, SEO_SECTION, type PageDef, type PageSection } from "./types";
+import { area, list, text, SEO_SECTION, type PageDef, type PageSection } from "./types";
 
 /**
  * דפי הרשימות · האוהלים, החבילות והמיקומים עצמם נערכים בלשוניות שלהם.
@@ -39,6 +39,11 @@ const packagesDefaults = {
   experiencesTag: "חבילות חוויה",
   experiencesTitle: "חוויה שלמה, מוכנה מראש",
   experiencesText: "בוחרים חבילה, אנחנו מגיעים ומקימים. אוהל, ציוד ומיקום · הכל כלול.",
+  // ⚠️ טיוטה שלי (07.10.2026) · לאשר מול יותם
+  upsellsTag: "תוספות",
+  upsellsTitle: "עוד קצת, וזו כבר חופשה אחרת",
+  upsellsText: "את כל אלה אפשר להוסיף לכל חבילה ולכל רמת אירוח, בשלב התוספות בהזמנה.",
+  upsellsIds: ["telescope", "sup", "fire-pit", "coffee-machine", "star-projector", "speaker", "ac", "pool"],
 };
 
 export const packagesPage: PageDef<typeof packagesDefaults> = {
@@ -60,6 +65,15 @@ export const packagesPage: PageDef<typeof packagesDefaults> = {
         area("experiencesText", "טקסט"),
       ],
     },
+    {
+      title: "תוספות מומלצות",
+      fields: [
+        text("upsellsTag", "כותרת קטנה"),
+        text("upsellsTitle", "כותרת"),
+        area("upsellsText", "טקסט"),
+        list("upsellsIds", "התוספות שמוצגות", "מזהה תוספת בכל שורה, לפי הסדר (למשל telescope)"),
+      ],
+    },
     SEO_SECTION,
   ],
 };
@@ -70,6 +84,10 @@ const locationsDefaults = {
   tag: "מיקומים",
   title: "הלוקיישנים שלנו",
   text: "כל מקום כאן נבחר ואומת כך שתדעו בדיוק למה לצפות: האם הלינה בתשלום או חינם, אילו תנאים יש בשטח, ואיזה אוהל ותוספות הכי מתאימים לחוויה שם.",
+  searchPlaceholder: "חיפוש לפי שם, אזור או סוג נוף",
+  searchEmptyTitle: "לא מצאנו מקום כזה",
+  searchEmptyText: "נסו מילה אחרת, למשל אזור כמו צפון או נוף כמו חוף ים.",
+  searchClear: "הצגת כל המיקומים",
 };
 
 export const locationsPage: PageDef<typeof locationsDefaults> = {
@@ -77,7 +95,19 @@ export const locationsPage: PageDef<typeof locationsDefaults> = {
   title: "מיקומים",
   href: "/locations",
   defaults: locationsDefaults,
-  sections: [intro, SEO_SECTION],
+  sections: [
+    intro,
+    {
+      title: "חיפוש",
+      fields: [
+        text("searchPlaceholder", "טקסט בתוך שדה החיפוש"),
+        text("searchEmptyTitle", "כותרת כשאין תוצאות"),
+        area("searchEmptyText", "טקסט כשאין תוצאות"),
+        text("searchClear", "כפתור שמנקה את החיפוש"),
+      ],
+    },
+    SEO_SECTION,
+  ],
 };
 
 const legalIndexDefaults = {

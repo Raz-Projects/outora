@@ -18,11 +18,11 @@ export function LegalNav({ current }: { current: string }) {
                 href={`/legal/${d.slug}`}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "text-tag ease-smooth block whitespace-nowrap rounded-sm border px-3 py-2 transition-colors",
+                  "text-tag ease-smooth block whitespace-nowrap rounded-full border px-4 py-2 transition-colors",
                   "md:rounded-none md:border-0 md:px-0 md:py-2.5",
                   active
-                    ? "border-black bg-black text-white md:bg-transparent md:text-black"
-                    : "border-stroke text-textgray hover:text-black",
+                    ? "border-brown text-brown"
+                    : "border-stroke text-textgray hover:text-brown",
                 )}
               >
                 {d.label}

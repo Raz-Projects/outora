@@ -2,8 +2,10 @@ import Link from "next/link";
 import { getCatalog } from "@/lib/catalog";
 import { Gallery } from "@/components/booking/gallery";
 import { TentConnect } from "@/components/content/tent-connect";
+import { SectionHead, latinTracking } from "@/components/content/section-head";
 import { getPageContent, pageMetadata } from "@/lib/page-content";
 import { tentsPage } from "@/lib/pages/archives";
+import { cn } from "@/lib/utils";
 
 export const generateMetadata = () => pageMetadata(tentsPage);
 
@@ -13,14 +15,11 @@ export default async function TentsArchive() {
 
   return (
     <>
-    <main className="mx-auto max-w-[1440px] px-5 pb-8 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">{c.tag}</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
-      <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        {c.text}
-      </p>
+    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pb-32 md:pt-52">
+      <SectionHead as="h1" tag={c.tag} title={c.title} text={c.text} />
 
-      <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {/* בלי כרטיסים · תמונה ומתחתיה הטקסט */}
+      <ul className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
         {tents.map((tent) => (
           <li key={tent.slug}>
             <article className="flex h-full flex-col">
@@ -31,8 +30,8 @@ export default async function TentsArchive() {
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
               />
 
-              <h2 className="text-h3 mt-4">{tent.nameEn}</h2>
-              <p className="text-body text-textgray mt-1">{tent.taglineHe}</p>
+              <h2 className={cn("text-h3 mt-6", latinTracking(tent.nameEn))}>{tent.nameEn}</h2>
+              <p className="text-body text-textgray mt-2">{tent.taglineHe}</p>
 
               <p className="text-tag text-textgray mt-3">
                 {tent.sizeSqm} מ״ר · גובה {tent.heightM} מ׳ · עד {tent.capacity} אנשים
@@ -42,7 +41,7 @@ export default async function TentsArchive() {
 
               <Link
                 href={`/tents/${tent.slug}`}
-                className="text-button mt-auto pt-4 underline underline-offset-4
+                className="text-button mt-auto w-fit pt-5 underline underline-offset-4
                            transition-colors hover:text-textgray
                            focus-visible:outline-none focus-visible:ring-2
                            focus-visible:ring-orange focus-visible:ring-offset-2"

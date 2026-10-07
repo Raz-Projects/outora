@@ -79,7 +79,7 @@ function row(label: string, value: string, last = false) {
   return `
     <tr>
       <td style="padding:10px 0;border-bottom:${border};color:${colors.textGray};font-size:${typeScale.tag.size}px;white-space:nowrap">${esc(label)}</td>
-      <td style="padding:10px 0;border-bottom:${border};color:${colors.black};font-size:${typeScale.text.size}px;text-align:left">${esc(value)}</td>
+      <td style="padding:10px 0;border-bottom:${border};color:${colors.brown};font-size:${typeScale.text.size}px;text-align:left">${esc(value)}</td>
     </tr>`;
 }
 
@@ -118,7 +118,7 @@ function header() {
       <img src="${SITE}/logo-mark-b2.png" alt="OUTORA" width="72" style="display:block;width:72px;height:auto;border:0">
     </td>
   </tr>
-  <tr><td style="padding:0 40px"><div style="height:2px;background:${colors.beige}"></div></td></tr>`;
+  <tr><td style="padding:0 40px"><div style="height:2px;background:${colors.brown}"></div></td></tr>`;
 }
 
 function footer() {
@@ -140,7 +140,7 @@ export function buildConfirmationHtml(d: BookingEmailData) {
   ${header()}
   <tr>
     <td style="padding:32px 40px 0">
-      <h1 style="margin:0 0 8px;color:${colors.black};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
+      <h1 style="margin:0 0 8px;color:${colors.brown};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
         שלום ${esc(d.customerName)},
       </h1>
       <p style="margin:0 0 28px;color:${colors.textGray};font-size:${typeScale.text.size}px;line-height:1.6">
@@ -148,7 +148,7 @@ export function buildConfirmationHtml(d: BookingEmailData) {
       </p>
 
       <div style="background:${colors.offWhite};border:1px solid ${colors.stroke};border-radius:${radius.md}px;padding:24px">
-        <h2 style="margin:0 0 8px;color:${colors.black};font-size:${typeScale.h3.size}px;font-weight:600">סיכום ההזמנה</h2>
+        <h2 style="margin:0 0 8px;color:${colors.brown};font-size:${typeScale.h3.size}px;font-weight:600">סיכום ההזמנה</h2>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
           ${row("אוהל", d.tentName)}
           ${row("תאריכים", `${d.dateFrom} – ${d.dateTo}`)}
@@ -161,7 +161,7 @@ export function buildConfirmationHtml(d: BookingEmailData) {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;border-top:1px solid ${colors.stroke}">
           <tr>
             <td style="padding-top:16px;color:${colors.textGray};font-size:${typeScale.text.size}px">סה״כ משוער</td>
-            <td style="padding-top:16px;text-align:left;color:${colors.black};font-size:${typeScale.h3.size}px;font-weight:600">₪${d.totalPrice.toLocaleString("he-IL")}</td>
+            <td style="padding-top:16px;text-align:left;color:${colors.brown};font-size:${typeScale.h3.size}px;font-weight:600">₪${d.totalPrice.toLocaleString("he-IL")}</td>
           </tr>
         </table>
       </div>
@@ -180,7 +180,7 @@ export function buildConfirmationHtml(d: BookingEmailData) {
   </tr>
   <tr>
     <td align="center" style="padding:28px 40px 36px">
-      <a href="${WHATSAPP}" style="display:inline-block;background:${colors.beige};color:${colors.black};padding:15px 40px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
+      <a href="${WHATSAPP}" style="display:inline-block;background:${colors.brown};color:${colors.white};padding:15px 40px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
         יש שאלה? דברו איתנו בוואטסאפ
       </a>
     </td>
@@ -195,7 +195,7 @@ export function buildInternalHtml(d: BookingEmailData) {
   ${header()}
   <tr>
     <td style="padding:32px 40px 36px">
-      <h1 style="margin:0 0 4px;color:${colors.black};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
+      <h1 style="margin:0 0 4px;color:${colors.brown};font-size:${typeScale.h2.size}px;font-weight:600;line-height:1.25">
         הזמנה חדשה
       </h1>
       <p style="margin:0 0 24px;color:${colors.orange};font-size:${typeScale.tag.size}px;font-weight:500">
@@ -220,7 +220,7 @@ export function buildInternalHtml(d: BookingEmailData) {
       </p>
 
       <p style="margin:24px 0 0">
-        <a href="${SITE}/admin/bookings/${encodeURIComponent(d.bookingId)}" style="display:inline-block;background:${colors.beige};color:${colors.black};padding:13px 32px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
+        <a href="${SITE}/admin/bookings/${encodeURIComponent(d.bookingId)}" style="display:inline-block;background:${colors.brown};color:${colors.white};padding:13px 32px;font-size:${typeScale.button.size}px;font-weight:500;text-decoration:none;border-radius:${radius.md}px">
           פתיחה בממשק הניהול
         </a>
       </p>

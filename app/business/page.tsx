@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SectionHead } from "@/components/content/section-head";
 import { getPageContent, pageMetadata } from "@/lib/page-content";
 import { businessPage } from "@/lib/pages/info";
 
@@ -9,44 +10,44 @@ export default async function BusinessPage() {
   const c = await getPageContent(businessPage);
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-32 md:px-[90px]">
-      <p className="text-tag text-textgray">{c.tag}</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
-      <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        {c.text}
-      </p>
+    <main>
+      <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pb-32 md:pt-52">
+        <SectionHead as="h1" tag={c.tag} title={c.title} text={c.text} />
 
-      <ul className="mt-12 grid gap-6 md:grid-cols-3">
-        {c.offers.map((o, i) => (
-          <li key={i}>
-            <article className="h-full rounded-lg border border-stroke p-6 transition-colors hover:border-beige md:p-8">
+        {/* בלי כרטיסים · עמודות טקסט ממורכזות */}
+        <ul className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
+          {c.offers.map((o, i) => (
+            <li key={i} className="mx-auto max-w-[320px] text-center">
               <h2 className="text-h3">{o.title}</h2>
-              <p className="text-body text-textgray mt-2">{o.desc}</p>
-            </article>
-          </li>
-        ))}
-      </ul>
+              <p className="text-body text-textgray mt-3">{o.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <section className="mt-16 rounded-lg bg-offwhite p-8 text-center md:p-12">
-        <h2 className="text-h2">{c.ctaTitle}</h2>
-        <p className="text-body text-textgray mx-auto mt-3 max-w-xl">
-          {c.ctaText}
-        </p>
+      {/* ── קריאה לפעולה ── */}
+      <section className="border-t border-stroke">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+          <SectionHead title={c.ctaTitle} text={c.ctaText} />
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-          <Button asChild>
-            <a
-              href="https://wa.me/972528448870"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative z-10"
+          <div className="mt-14 flex flex-col items-center gap-5">
+            <Button size="md" asChild className="min-w-[240px]">
+              <a
+                href="https://wa.me/972528448870"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10"
+              >
+                דברו איתנו בוואטסאפ
+              </a>
+            </Button>
+            <Link
+              href="/contact"
+              className="text-tag text-brown underline underline-offset-4 transition-colors hover:text-textgray"
             >
-              דברו איתנו בוואטסאפ
-            </a>
-          </Button>
-          <Button variant="link" size="none" asChild>
-            <Link href="/contact">או השאירו פרטים</Link>
-          </Button>
+              או השאירו פרטים
+            </Link>
+          </div>
         </div>
       </section>
     </main>

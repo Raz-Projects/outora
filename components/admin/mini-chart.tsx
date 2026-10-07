@@ -20,7 +20,7 @@ export function MiniChart({
         <h2 className="text-h3">כניסות לפי יום</h2>
         <div className="text-tag text-textgray flex items-center gap-4">
           <span className="flex items-center gap-1.5">
-            <i className="h-2.5 w-2.5 rounded-sm bg-beige" />
+            <i className="h-2.5 w-2.5 rounded-sm bg-brown" />
             כניסות
           </span>
           <span className="flex items-center gap-1.5">
@@ -34,7 +34,7 @@ export function MiniChart({
         {data.map((d) => (
           <div key={d.date} className="group relative flex flex-1 flex-col justify-end gap-0.5">
             <span
-              className="w-full rounded-t-sm bg-beige transition-colors group-hover:bg-beigedark"
+              className="w-full rounded-t-sm bg-brown transition-colors group-hover:bg-browndark"
               style={{ height: `${Math.max(2, (d.visits / max) * 100)}%` }}
             />
             {d.bookings > 0 && (

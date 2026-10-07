@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { PreviewGate } from "./preview-gate";
+import { WhatsappFloat } from "./whatsapp-float";
 
 /** ווידג׳ט הנגישות של enable. רץ על האתר השיווקי בלבד, לא בממשק הניהול. */
 const ENABLE_SRC =
@@ -33,6 +34,7 @@ export function SiteChrome({
         {header}
         {children}
         {footer}
+        <WhatsappFloat />
       </PreviewGate>
     </>
   );

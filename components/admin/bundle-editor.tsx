@@ -72,7 +72,7 @@ export function BundleEditor({ row }: { row?: BundleRow }) {
             message={row ? "אי אפשר לשנות אחרי היצירה" : "אותיות קטנות באנגלית ומקפים"}
           />
           <div>
-            <label className="text-button mb-2 block text-black">משפט פתיחה</label>
+            <label className="text-button mb-2 block text-brown">משפט פתיחה</label>
             <Textarea value={v.taglineHe} onChange={(e) => set("taglineHe", e.target.value)} />
           </div>
         </Section>

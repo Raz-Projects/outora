@@ -9,8 +9,8 @@ const badgeVariants = cva(
     variants: {
       variant: {
         orange: "border-orange bg-white text-orange",
-        beige:  "border-beige  bg-white text-black",
-        solid:  "border-transparent bg-beige text-black",
+        beige:  "border-brown  bg-white text-brown",
+        solid:  "border-transparent bg-brown text-white",
         gray:   "border-stroke bg-white text-textgray",
         success: "border-success bg-white text-success",
         error:   "border-error bg-white text-error",

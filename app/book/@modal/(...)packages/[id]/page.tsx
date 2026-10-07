@@ -1,7 +1,7 @@
-import { RouteDialog } from "@/components/ui/route-dialog";
+import { DialogOnMobileOnly } from "@/components/ui/route-dialog";
 import { PackageContent } from "@/components/content/package-content";
 
-/** נפתח כדיאלוג כשמגיעים מתוך האשף. הכתובת עדיין /packages/[id]. */
+/** במובייל נפתח כמגירה כשמגיעים מתוך האשף, בדסקטופ כדף מלא. הכתובת עדיין /packages/[id]. */
 export default async function PackageModal({
   params,
 }: {
@@ -9,8 +9,8 @@ export default async function PackageModal({
 }) {
   const { id } = await params;
   return (
-    <RouteDialog>
+    <DialogOnMobileOnly>
       <PackageContent id={id} />
-    </RouteDialog>
+    </DialogOnMobileOnly>
   );
 }

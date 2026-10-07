@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ClubJoinForm } from "@/components/auth/club-join-form";
 import { IconCalendar, IconNight, IconRecommend, IconStars } from "@/components/icons";
+import { SectionHead, latinTracking } from "@/components/content/section-head";
 import { getPageContent, pageMetadata } from "@/lib/page-content";
 import { clubPage } from "@/lib/pages/club";
+import { cn } from "@/lib/utils";
 
 export const generateMetadata = () => pageMetadata(clubPage);
 
@@ -30,30 +32,27 @@ export default async function ClubPage() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
 
         <div className="relative flex min-h-[420px] flex-col items-center justify-center px-6 pt-16 text-center md:min-h-[480px]">
-          <p className="text-tag text-white/80">{c.heroTag}</p>
-          <h1 className="text-h1-sm mt-2 text-white md:text-h1">{c.heroTitle}</h1>
+          <p className={cn("text-tag text-white/80", latinTracking(c.heroTag))}>{c.heroTag}</p>
+          <h1 className="text-h1-sm mt-3 text-white md:text-h1">{c.heroTitle}</h1>
           <p className="text-subtitle mt-4 max-w-2xl text-white">
             {c.heroText}
           </p>
         </div>
       </section>
 
-      <main className="mx-auto max-w-[1440px] px-5 pb-24 md:px-[90px]">
-        {/* ── ההטבות ── */}
-        <section className="pt-16 md:pt-24">
-          <p className="text-tag text-textgray">{c.benefitsTag}</p>
-          <h2 className="text-h2 mt-2">{c.benefitsTitle}</h2>
+      <main>
+        {/* ── ההטבות · בלי כרטיסים, עמודות ממורכזות ── */}
+        <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+          <SectionHead tag={c.benefitsTag} title={c.benefitsTitle} />
 
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2">
+          <ul className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
             {c.benefits.map((b, i) => {
               const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
               return (
-                <li key={i}>
-                  <article className="h-full rounded-lg border border-stroke p-6 transition-colors hover:border-beige md:p-8">
-                    <Icon aria-hidden className="h-8 w-8 text-beige" />
-                    <h3 className="text-h3 mt-4">{b.title}</h3>
-                    <p className="text-body text-textgray mt-2">{b.desc}</p>
-                  </article>
+                <li key={i} className="mx-auto flex max-w-[260px] flex-col items-center text-center">
+                  <Icon aria-hidden className="h-8 w-8 text-brown" />
+                  <h3 className="text-h3 mt-5">{b.title}</h3>
+                  <p className="text-body text-textgray mt-3">{b.desc}</p>
                 </li>
               );
             })}
@@ -61,42 +60,42 @@ export default async function ClubPage() {
         </section>
 
         {/* ── איך מצטרפים ── */}
-        <section className="pt-16 md:pt-24">
-          <p className="text-tag text-textgray">{c.stepsTag}</p>
-          <h2 className="text-h2 mt-2">{c.stepsTitle}</h2>
+        <section className="border-t border-stroke">
+          <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+            <SectionHead tag={c.stepsTag} title={c.stepsTitle} />
 
-          <ol className="mt-10 grid gap-8 md:grid-cols-3 md:gap-6">
-            {c.steps.map((s, i) => (
-              <li key={i}>
-                <p className="text-tag text-textgray">שלב {i + 1}</p>
-                <h3 className="text-h3 mt-2">{s.title}</h3>
-                <p className="text-body text-textgray mt-2">{s.desc}</p>
-              </li>
-            ))}
-          </ol>
+            <ol className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
+              {c.steps.map((s, i) => (
+                <li key={i} className="mx-auto max-w-[280px] text-center">
+                  <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-brown">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-h3 mt-5">{s.title}</h3>
+                  <p className="text-body text-textgray mt-3">{s.desc}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
-        {/* ── טופס ההצטרפות · כאן, בלי לעזוב את הדף ── */}
-        <section id="join" className="mt-16 scroll-mt-[180px] rounded-lg bg-offwhite p-6 md:mt-24 md:p-12">
-          <div className="mx-auto max-w-[560px]">
-            <h2 className="text-h2 text-center">{c.joinTitle}</h2>
-            <p className="text-body text-textgray mt-3 text-center">
-              {c.joinText}
-            </p>
+        {/* ── טופס ההצטרפות · כאן, בלי לעזוב את הדף. בלי קופסה, ישר על הרקע ── */}
+        <section id="join" className="scroll-mt-[120px] border-t border-stroke">
+          <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+            <SectionHead title={c.joinTitle} text={c.joinText} />
 
-            <div className="mt-8">
+            <div className="mx-auto mt-12 max-w-[560px]">
               <ClubJoinForm />
-            </div>
 
-            <p className="text-tag text-textgray mt-6 text-center">
-              כבר חברים?{" "}
-              <Link
-                href="/auth/login"
-                className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
-              >
-                כניסה לחשבון
-              </Link>
-            </p>
+              <p className="text-tag text-textgray mt-8 text-center">
+                כבר חברים?{" "}
+                <Link
+                  href="/auth/login"
+                  className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+                >
+                  כניסה לחשבון
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
       </main>

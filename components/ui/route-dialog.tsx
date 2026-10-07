@@ -61,7 +61,7 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
           onClick={close}
           aria-label="סגירה"
           className="absolute end-4 top-5 z-10 flex h-10 w-10 items-center justify-center md:top-4
-                     rounded-full border border-stroke bg-white text-black
+                     rounded-full border border-stroke bg-white text-brown
                      transition-colors hover:bg-offwhite"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -79,4 +79,22 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
     </div>,
     root
   );
+}
+
+/**
+ * בדסקטופ בלי דיאלוג · טוען את הכתובת כדף מלא (לבקשת אוטורה, 07.10.2026).
+ * במובייל נשאר מגירה מלמטה. הכתובת כבר החליפה את הקודמת בהיסטוריה,
+ * ולכן "חזרה" מהדף המלא מחזירה לשלב שממנו יצאו.
+ */
+export function DialogOnMobileOnly({ children }: { children: React.ReactNode }) {
+  const [desktop] = React.useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
+  );
+
+  React.useEffect(() => {
+    if (desktop) window.location.replace(window.location.href);
+  }, [desktop]);
+
+  if (desktop) return null;
+  return <RouteDialog>{children}</RouteDialog>;
 }

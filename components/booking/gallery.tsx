@@ -91,7 +91,7 @@ export function Gallery({
                   aria-current={n === i}
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-300 ease-smooth",
-                    n === i ? "w-4 bg-beige" : "w-1.5 bg-stroke hover:bg-textgray"
+                    n === i ? "w-4 bg-brown" : "w-1.5 bg-stroke hover:bg-textgray"
                   )}
                 />
               ))}
@@ -121,7 +121,7 @@ function Arrow({
       aria-label={side === "start" ? "תמונה קודמת" : "תמונה הבאה"}
       className={cn(
         "absolute top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center",
-        "rounded-full bg-white/90 text-black transition-opacity duration-200",
+        "rounded-full bg-white/90 text-brown transition-opacity duration-200",
         "opacity-0 group-hover:opacity-100 disabled:!opacity-0",
         side === "start" ? "start-3" : "end-3",
         "md:flex"

@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { getExtraCategories } from "@/lib/extras";
+import { getExtraCategories, CATEGORY_PROMO } from "@/lib/extras";
 import { useBooking } from "@/lib/booking-context";
 import { BookingShell } from "@/components/booking/shell";
 import { ExtraCard } from "@/components/booking/extra-card";
+import { PromoCard } from "@/components/booking/promo-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -25,10 +26,11 @@ export default function ExtrasStep() {
     () => getExtraCategories(catalog.accessories),
     [catalog.accessories]
   );
-  const [open, setOpen] = React.useState<string[]>([]);
+  // כל הקטגוריות פתוחות מההתחלה · אפשר לסגור כל אחת
+  const [closed, setClosed] = React.useState<string[]>([]);
 
   const toggle = (id: string) =>
-    setOpen((o) => (o.includes(id) ? o.filter((x) => x !== id) : [...o, id]));
+    setClosed((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
 
   const next = () => router.push(state.mode === "package" ? "/book/summary" : "/book/delivery");
 
@@ -44,7 +46,8 @@ export default function ExtrasStep() {
     >
       <div className="space-y-2">
         {categories.map((cat, i) => {
-          const isOpen = open.includes(cat.id);
+          const isOpen = !closed.includes(cat.id);
+          const promo = CATEGORY_PROMO[cat.id];
           const chosen = cat.items.filter((it) => state.extras[it.id]).length;
 
           return (
@@ -87,11 +90,16 @@ export default function ExtrasStep() {
                     className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8
                                [-ms-overflow-style:none] [scrollbar-width:none]
                                [&::-webkit-scrollbar]:hidden
-                               sm:grid sm:gap-6 sm:overflow-visible
-                               sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                               sm:grid sm:gap-4 sm:overflow-visible
+                               sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
                   >
+                    {promo && (
+                      <div className="w-[60%] shrink-0 snap-start empty:hidden sm:w-auto">
+                        <PromoCard promo={promo} />
+                      </div>
+                    )}
                     {cat.items.map((item) => (
-                      <div key={item.id} className="w-[78%] shrink-0 snap-start sm:w-auto">
+                      <div key={item.id} className="w-[60%] shrink-0 snap-start sm:w-auto">
                         <ExtraCard item={item} />
                       </div>
                     ))}

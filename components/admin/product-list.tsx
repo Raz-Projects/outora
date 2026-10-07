@@ -109,7 +109,7 @@ export function ProductList({
                   <Link
                     href={`${base}/${r.id}`}
                     aria-label={`עריכת ${r.name}`}
-                    className="inline-flex text-textgray transition-colors hover:text-black"
+                    className="inline-flex text-textgray transition-colors hover:text-brown"
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </Link>

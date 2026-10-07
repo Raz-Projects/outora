@@ -20,6 +20,17 @@ export const EXTRA_CATEGORIES = [
   { id: "kitchen",   title: "מטבח",           code: "",              ids: ["coffee-machine", "gas-stove", "bbq"] },
 ] as const;
 
+/**
+ * הכרטיס הראשון בקטגוריה · פרומו לבאנדל או לרמת אירוח שכוללים את מה שבקטגוריה.
+ * לבקשת יותם (07.10.2026) רק באנרגיה ובסאונד.
+ * ⚠️ אין באנדל אנרגיה בנתונים · תחנת הכוח כלולה ב-COMFORT+, ולכן הפרומו שם הוא לרמה.
+ * לאשר מול אוטורה (ראו NOTES-FOR-OUTORA.md).
+ */
+export const CATEGORY_PROMO: Record<string, { bundleId: string } | { tierId: string }> = {
+  power: { tierId: "comfort" },
+  sound: { bundleId: "cinema" },
+};
+
 export const CATEGORY_OPTIONS = [
   ...EXTRA_CATEGORIES.map((c) => ({ id: c.id as string, title: c.title as string })),
   { id: "other", title: "נוסף" },

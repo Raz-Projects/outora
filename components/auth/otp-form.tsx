@@ -129,7 +129,7 @@ export function OtpForm({ redirectTo = "/account" }: { redirectTo?: string }) {
             <button
               type="button"
               onClick={() => { setStage("email"); setCode(""); setError(undefined); }}
-              className="text-button text-black underline underline-offset-4
+              className="text-button text-brown underline underline-offset-4
                          transition-colors hover:text-textgray"
             >
               שינוי כתובת
@@ -139,7 +139,7 @@ export function OtpForm({ redirectTo = "/account" }: { redirectTo?: string }) {
               type="button"
               disabled={seconds > 0 || busy}
               onClick={sendCode}
-              className="text-button text-black underline underline-offset-4
+              className="text-button text-brown underline underline-offset-4
                          transition-colors hover:text-textgray
                          disabled:cursor-not-allowed disabled:text-textgray disabled:no-underline"
             >

@@ -57,9 +57,22 @@ export const catalog: CatalogItem[] = [
   { id: "photographer",     nameHe: "צלם חצי שעה",         needsPhoto: true, isService: true },
 ];
 
+/**
+ * פריט בחבילה עם כמות · "fire-pit-large:2" = שתי קערות אש. בלי מספר = 1.
+ * נשמר כך ברשימת includes, בלי שינוי במבנה המסד.
+ */
+export function parseInclude(entry: string): { id: string; qty: number } {
+  const [id, n] = entry.split(":");
+  return { id, qty: Math.max(1, parseInt(n ?? "", 10) || 1) };
+}
+
+export const formatInclude = (id: string, qty: number) => (qty > 1 ? `${id}:${qty}` : id);
+
 export interface ResolvedItem {
   id: string;
   nameHe: string;
+  /** כמה יחידות כלולות */
+  qty: number;
   image?: string;
   needsPhoto: boolean;
   isService: boolean;
@@ -68,11 +81,12 @@ export interface ResolvedItem {
 const byId = new Map(catalog.map((c) => [c.id, c]));
 
 /** ממיר מזהי פריטים לשם ולתמונה להצגה */
-export function resolveItems(ids: string[]): ResolvedItem[] {
-  return ids.map((id) => {
+export function resolveItems(entries: string[]): ResolvedItem[] {
+  return entries.map((entry) => {
+    const { id, qty } = parseInclude(entry);
     const item = byId.get(id);
     if (!item) {
-      return { id, nameHe: id, needsPhoto: true, isService: false };
+      return { id, nameHe: id, qty, needsPhoto: true, isService: false };
     }
 
     const image =
@@ -81,6 +95,7 @@ export function resolveItems(ids: string[]): ResolvedItem[] {
     return {
       id: item.id,
       nameHe: item.nameHe,
+      qty,
       image,
       needsPhoto: !image,
       isService: !!item.isService,

@@ -1,3 +1,4 @@
+import { SectionHead } from "@/components/content/section-head";
 import { getPageContent, pageMetadata } from "@/lib/page-content";
 import { faqPage } from "@/lib/pages/info";
 
@@ -21,29 +22,27 @@ export default async function FaqPage() {
   }
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">{c.tag}</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
-      <p className="text-subtitle text-textgray mt-4 max-w-2xl">{c.text}</p>
+    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pb-32 md:pt-52">
+      <SectionHead as="h1" tag={c.tag} title={c.title} text={c.text} />
 
-      <div className="mt-12 max-w-3xl space-y-12">
+      <div className="mx-auto mt-16 max-w-3xl space-y-16">
         {groups.map((g, n) => (
           <section key={n}>
-            {g.title && <h2 className="text-h2 border-b border-stroke pb-4">{g.title}</h2>}
-            <ul>
+            {g.title && <h2 className="text-h3 pb-4">{g.title}</h2>}
+            <ul className="border-t border-stroke">
               {g.questions.map((item, i) => (
                 <li key={i} className="border-b border-stroke">
                   {item.a.trim() ? (
                     <details name="faq" className="group">
                       <summary
                         className="text-subtitle flex cursor-pointer list-none items-center justify-between gap-4 py-5
-                                   transition-colors hover:text-textgray
+                                   text-brown transition-colors hover:text-textgray
                                    [&::-webkit-details-marker]:hidden"
                       >
                         <span>{item.q}</span>
                         <svg
                           width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                          className="shrink-0 text-beige transition-transform duration-300 ease-smooth group-open:rotate-45"
+                          className="shrink-0 text-brown transition-transform duration-300 ease-smooth group-open:rotate-45"
                           aria-hidden
                         >
                           <path d="M12 5v14M5 12h14" strokeLinecap="round" />
@@ -52,7 +51,7 @@ export default async function FaqPage() {
                       <p className="text-body text-textgray whitespace-pre-line pb-6">{item.a}</p>
                     </details>
                   ) : (
-                    <p className="text-subtitle py-5">{item.q}</p>
+                    <p className="text-subtitle py-5 text-brown">{item.q}</p>
                   )}
                 </li>
               ))}

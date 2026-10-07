@@ -31,8 +31,8 @@ function Arrow({
       aria-label={side === "start" ? "הקודם" : "הבא"}
       className={cn(
         "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center",
-        "rounded-full border border-stroke bg-white text-black shadow-drop",
-        "transition-colors hover:bg-offwhite md:flex",
+        "rounded-full border border-stroke bg-white text-brown shadow-drop",
+        "transition-colors hover:bg-sand md:flex",
         side === "start" ? "start-1" : "end-1"
       )}
     >
@@ -80,7 +80,7 @@ export function LocationPicker() {
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); ask(); }}
-              className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
+              className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
             >
               הציגו מרחקים ממני
             </button>
@@ -114,8 +114,8 @@ export function LocationPicker() {
                 set({ campLocationId: picked ? undefined : loc.id });
               }}
               className={cn(
-                "w-[240px] shrink-0 snap-start overflow-hidden rounded-[16px] text-right transition-colors",
-                picked ? "border-2 border-orange" : "border border-stroke hover:border-beige"
+                "w-[240px] shrink-0 snap-start overflow-hidden rounded-lg text-right transition-colors",
+                picked ? "border-2 border-orange" : "border border-stroke hover:border-brown"
               )}
             >
               <div className="relative aspect-[16/10]">
@@ -135,14 +135,14 @@ export function LocationPicker() {
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-2">
                   <p className="text-tag text-textgray flex items-center gap-1.5">
-                    <IconLocation className="text-beige" />
+                    <IconLocation className="text-brown" />
                     {loc.km !== null ? `${loc.km} ק״מ ממך` : `${loc.regionHe} · ${loc.landscapeHe}`}
                   </p>
 
                   <Link
                     href={`/locations/${loc.id}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="text-tag text-black underline underline-offset-4
+                    className="text-tag text-brown underline underline-offset-4
                                transition-colors hover:text-textgray"
                   >
                     קראו עוד

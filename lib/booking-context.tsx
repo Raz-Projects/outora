@@ -118,9 +118,11 @@ const CUSTOM_STEPS = [
   { n: 5, href: "/book/summary",  label: "סיכום הזמנה" },
 ];
 
+/** גם מי שבחר חבילה עובר בתוספות לפני התשלום · לבקשת יותם (07.10.2026) */
 const PACKAGE_STEPS = [
   { n: 1, href: "/book/package", label: "בחירת חבילה" },
-  { n: 2, href: "/book/summary", label: "סיכום הזמנה" },
+  { n: 2, href: "/book/extras",  label: "בחירת תוספות" },
+  { n: 3, href: "/book/summary", label: "סיכום הזמנה" },
 ];
 
 const BookingContext = React.createContext<Ctx | null>(null);
@@ -231,7 +233,7 @@ export function BookingProvider({
       state.mode === "package"
         ? (pkg?.pricePerNight ?? 0) * n
         : (tent?.priceFrom ?? 0) * n;
-    const extrasPrice = state.mode === "package" ? 0 : extraLines.reduce((s, l) => s + l.total, 0);
+    const extrasPrice = extraLines.reduce((s, l) => s + l.total, 0);
     const deliveryPrice = state.mode === "package" ? 0 : delivery?.extraPrice ?? 0;
     const tierPrice = state.mode === "package" ? 0 : (tier?.pricePerNight ?? 0) * n;
     const bundlesPrice = state.mode === "package" ? 0 : bundleLines.reduce((s, l) => s + l.total, 0);
@@ -247,7 +249,7 @@ export function BookingProvider({
       pkg,
       tier: state.mode === "package" ? undefined : tier,
       bundleLines: state.mode === "package" ? [] : bundleLines,
-      extraLines: state.mode === "package" ? [] : extraLines,
+      extraLines,
       delivery,
       basePrice,
       tierPrice,

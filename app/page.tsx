@@ -7,6 +7,8 @@ import { ClubBanner } from "@/components/content/club-banner";
 import { TentConnect } from "@/components/content/tent-connect";
 import { FaqList } from "@/components/content/faq-list";
 import { IconWhatsapp } from "@/components/icons/social";
+import { SectionHead } from "@/components/content/section-head";
+import { StepsScroller } from "@/components/content/steps-scroller";
 import { getCatalog } from "@/lib/catalog";
 import { getPageContent } from "@/lib/page-content";
 import { homePage } from "@/lib/pages/home";
@@ -31,7 +33,7 @@ export default async function Home() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
 
         <div className="relative flex min-h-[600px] flex-col items-center justify-center px-6 pb-32 pt-24 text-center md:min-h-0 md:h-full md:pb-0 md:pt-0">
-          <Logo tone="light" priority className="mb-8 h-[72px] md:h-[96px]" />
+          <Logo tone="light" priority className="mb-8 h-[min(108px,22vw)] md:mb-10 md:h-[144px]" />
 
           <h1 className="text-h1-sm text-white md:text-h1">{c.heroTitle}</h1>
 
@@ -55,49 +57,32 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── למה OUTORA ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-[220px] md:px-[90px] md:pt-[110px]">
-        <p className="text-tag text-textgray">{c.whyTag}</p>
-        <h2 className="text-h2 mt-2">{c.whyTitle}</h2>
-        <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-          {c.whyText}
-        </p>
+      {/* ── הסקשנים מתחלפים בין שני גווני חול (cream / sand), כמו ב-MOA LIVING ── */}
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {/* ── למה OUTORA ── */}
+      <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-[220px] md:px-[90px] md:pb-32 md:pt-[150px]">
+        <SectionHead tag={c.whyTag} title={c.whyTitle} text={c.whyText} />
+
+        {/* בלי כרטיסים · עמודות טקסט ממורכזות */}
+        <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {c.why.map((w, i) => (
-            <div key={i} className="rounded-lg border border-stroke bg-white p-6">
+            <div key={i} className="mx-auto max-w-[260px] text-center">
               <h3 className="text-h3">{w.title}</h3>
-              <p className="text-body text-textgray mt-2">{w.desc}</p>
+              <p className="text-body text-textgray mt-3">{w.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── איך זה עובד ── */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-tag text-textgray">{c.stepsTag}</p>
-              <h2 className="text-h2 mt-2">{c.stepsTitle}</h2>
-            </div>
-            <Button variant="link" size="none" asChild>
-              <Link href="/how-it-works">לכל השלבים</Link>
-            </Button>
-          </div>
-
-          <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {c.steps.map((s, i) => (
-              <li key={i} className="rounded-lg border border-stroke p-6">
-                <span className="text-button flex h-10 w-10 items-center justify-center rounded-full bg-beige text-black">
-                  {i + 1}
-                </span>
-                <h3 className="text-h3 mt-5">{s.title}</h3>
-                <p className="text-body text-textgray mt-2">{s.desc}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+      {/* הסקשן ננעל במקום והצעדים מתחלפים תוך כדי גלילה */}
+      <section className="bg-sand">
+        <StepsScroller
+          tag={c.stepsTag}
+          title={c.stepsTitle}
+          steps={c.steps.map((s) => ({ title: String(s.title), desc: String(s.desc) }))}
+          cta={{ href: "/how-it-works", label: "לכל השלבים" }}
+        />
       </section>
 
       {/* ── מחברים אוהלים ── */}
@@ -105,22 +90,15 @@ export default async function Home() {
 
       {/* ── לוקיישנים ── */}
       {featured.length > 0 && (
-        <section className="bg-white">
-          <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-tag text-textgray">{c.locationsTag}</p>
-                <h2 className="text-h2 mt-2">{c.locationsTitle}</h2>
-                <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-                  {locations.length} {c.locationsText}
-                </p>
-              </div>
-              <Button variant="link" size="none" asChild>
-                <Link href="/locations">לכל הלוקיישנים</Link>
-              </Button>
-            </div>
+        <section className="bg-sand">
+          <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+            <SectionHead
+              tag={c.locationsTag}
+              title={c.locationsTitle}
+              text={`${locations.length} ${c.locationsText}`}
+            />
 
-            <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map(({ loc, photo }) => (
                 <li key={loc.id}>
                   <Link
@@ -141,7 +119,7 @@ export default async function Home() {
                         <p className="text-h3 text-white">{loc.nameHe}</p>
                         <p className="text-tag mt-1 text-white/80">{loc.regionHe}</p>
                       </div>
-                      <span className="text-tag shrink-0 rounded-full bg-white/90 px-3 py-1 text-black">
+                      <span className="text-tag shrink-0 rounded-full bg-white/90 px-3 py-1 text-brown">
                         {loc.landscapeHe}
                       </span>
                     </div>
@@ -149,24 +127,30 @@ export default async function Home() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-14 flex justify-center">
+              <Button size="md" asChild className="min-w-[240px]">
+                <Link href="/locations" className="relative z-10">לכל הלוקיישנים</Link>
+              </Button>
+            </div>
           </div>
         </section>
       )}
 
       {/* ── לקוחות ממליצים ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
-        <p className="text-tag text-textgray">{c.testimonialsTag}</p>
-        <h2 className="text-h2 mt-2">{c.testimonialsTitle}</h2>
+      <section>
+       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+        <SectionHead tag={c.testimonialsTag} title={c.testimonialsTitle} />
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <ul className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
           {c.testimonials.map((t, i) => (
             <li key={i}>
-              <figure className="flex h-full flex-col rounded-lg border border-stroke bg-white p-6 md:p-8">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-beige" aria-hidden>
+              <figure className="mx-auto flex h-full max-w-sm flex-col items-center text-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-orange" aria-hidden>
                   <path d="M7.2 6C4.9 6 3 7.9 3 10.2c0 2.2 1.7 4 3.9 4.2-.4 1.6-1.5 2.8-3.1 3.4l.6 1.4c3.6-1 6-4 6-7.8V6H7.2Zm10 0C14.9 6 13 7.9 13 10.2c0 2.2 1.7 4 3.9 4.2-.4 1.6-1.5 2.8-3.1 3.4l.6 1.4c3.6-1 6-4 6-7.8V6h-3.2Z" />
                 </svg>
                 <blockquote className="text-subtitle mt-4 flex-1">{t.quote}</blockquote>
-                <figcaption className="mt-6 border-t border-stroke pt-4">
+                <figcaption className="mt-6">
                   <p className="text-button">{t.name}</p>
                   <p className="text-tag text-textgray mt-1">{t.where}</p>
                 </figcaption>
@@ -174,24 +158,25 @@ export default async function Home() {
             </li>
           ))}
         </ul>
+       </div>
       </section>
 
       {/* ── מי אנחנו ── */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
+      <section className="bg-sand">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
             <div>
               <p className="text-tag text-textgray">{c.aboutTag}</p>
-              <h2 className="text-h2 mt-2">{c.aboutTitle}</h2>
+              <h2 className="text-h2 mt-3">{c.aboutTitle}</h2>
               <p className="text-subtitle text-textgray mt-4">
                 {c.aboutLead}
               </p>
               <p className="text-body text-textgray mt-4 max-w-xl">
                 {c.aboutText}
               </p>
-              <div className="mt-8">
-                <Button variant="link" size="none" asChild>
-                  <Link href="/about">עוד עלינו</Link>
+              <div className="mt-10">
+                <Button size="md" asChild className="min-w-[200px]">
+                  <Link href="/about" className="relative z-10">עוד עלינו</Link>
                 </Button>
               </div>
             </div>
@@ -210,60 +195,45 @@ export default async function Home() {
       </section>
 
       {/* ── קהילה ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pt-24 md:px-[90px]">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-tag text-textgray">{c.communityTag}</p>
-            <h2 className="text-h2 mt-2">{c.communityTitle}</h2>
-            <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-              {c.communityText}
-            </p>
-          </div>
-          <Button variant="link" size="none" asChild>
-            <a
-              href="https://wa.me/972528448870"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2"
-            >
-              <IconWhatsapp />
-              דברו איתנו בוואטסאפ
-            </a>
-          </Button>
-        </div>
+      <section>
+       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+        <SectionHead tag={c.communityTag} title={c.communityTitle} text={c.communityText} />
 
-        <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        <ul className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {c.moments.map((src) => (
             <li key={src} className="relative aspect-square overflow-hidden rounded-lg">
               <Image src={src} alt="" fill sizes="(min-width: 768px) 22vw, 45vw" className="object-cover" />
             </li>
           ))}
         </ul>
+
+        <div className="mt-14 flex justify-center">
+          <Button size="md" asChild className="min-w-[240px]">
+            <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer" className="relative z-10">
+              <IconWhatsapp />
+              דברו איתנו בוואטסאפ
+            </a>
+          </Button>
+        </div>
+       </div>
       </section>
 
       {/* ── מועדון החברים ── */}
-      <div className="mt-24">
-        <ClubBanner />
-      </div>
+      <ClubBanner />
 
       {/* ── שאלות ותשובות ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
-        <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
-          <div>
-            <p className="text-tag text-textgray">{c.faqTag}</p>
-            <h2 className="text-h2 mt-2">{c.faqTitle}</h2>
-            <p className="text-body text-textgray mt-4">
-              {c.faqText}
-            </p>
-            <div className="mt-6">
-              <Button variant="link" size="none" asChild>
-                <Link href="/faq">לכל השאלות</Link>
-              </Button>
-            </div>
-          </div>
+      <section className="bg-sand">
+       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+        <SectionHead tag={c.faqTag} title={c.faqTitle} text={c.faqText} />
 
-          <FaqList items={c.faq} />
+        <FaqList items={c.faq} className="mx-auto mt-14 max-w-3xl" />
+
+        <div className="mt-14 flex justify-center">
+          <Button size="md" asChild className="min-w-[240px]">
+            <Link href="/faq" className="relative z-10">לכל השאלות</Link>
+          </Button>
         </div>
+       </div>
       </section>
     </>
   );

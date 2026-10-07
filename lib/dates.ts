@@ -44,3 +44,6 @@ export function formatRangeHe(from: Date, to: Date) {
   }
   return `${formatHe(from)} – ${formatHe(to)}`;
 }
+
+/** מינימום לילות בהזמנה · לבקשת יותם (07.10.2026) */
+export const MIN_NIGHTS = 2;

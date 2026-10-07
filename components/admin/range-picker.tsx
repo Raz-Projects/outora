@@ -28,8 +28,8 @@ export function RangePicker({ range }: { range: Range }) {
             className={cn(
               "text-tag rounded-full border px-3 py-1.5 transition-colors ease-smooth",
               range.id === p.id
-                ? "border-beige bg-beige text-black"
-                : "border-stroke bg-white text-textgray hover:border-beige hover:text-black"
+                ? "border-brown bg-brown text-white"
+                : "border-stroke bg-white text-textgray hover:border-brown hover:text-brown"
             )}
           >
             {p.label}
@@ -42,8 +42,8 @@ export function RangePicker({ range }: { range: Range }) {
           className={cn(
             "text-tag inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 transition-colors ease-smooth",
             range.id === "custom"
-              ? "border-beige bg-beige text-black"
-              : "border-stroke bg-white text-textgray hover:border-beige hover:text-black"
+              ? "border-brown bg-brown text-white"
+              : "border-stroke bg-white text-textgray hover:border-brown hover:text-brown"
           )}
         >
           <CalendarRange className="h-3.5 w-3.5" />

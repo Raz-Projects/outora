@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { HideOn } from "./hide-on";
 import { FooterAccordion, type FooterColumn } from "./footer-accordion";
 import { IconWhatsapp } from "@/components/icons/social";
 import { getPageContent } from "@/lib/page-content";
@@ -57,11 +59,28 @@ const SOCIAL = [
 ];
 
 export async function Footer() {
-  const { footerHours } = await getPageContent(sharedPage);
+  const { footerHours, bandTag, bandTitle, bandText, bandButton } = await getPageContent(sharedPage);
   const COLUMNS = columns(footerHours);
 
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-khaki text-white">
+      {/* פס כתום מלא · הצטרפות למועדון, כמו JOIN OUR TRIBE של MOA. בדף המועדון עצמו מיותר */}
+      <HideOn paths={["/club"]}>
+      <div className="bg-orange">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-5 py-12 text-center
+                        md:flex-row md:justify-between md:px-[90px] md:py-14 md:text-start">
+          <div>
+            <p className="text-tag uppercase tracking-display text-white/80">{bandTag}</p>
+            <p className="text-h3 mt-2">{bandTitle}</p>
+            <p className="text-body mt-1 text-white/90">{bandText}</p>
+          </div>
+          <Button size="md" variant="light" asChild className="min-w-[200px] shrink-0">
+            <Link href="/club" className="relative z-10">{bandButton}</Link>
+          </Button>
+        </div>
+      </div>
+      </HideOn>
+
       <div className="mx-auto max-w-[1440px] px-5 pb-8 pt-16 md:px-[90px] md:pb-10 md:pt-20">
         <div className="md:grid md:grid-cols-[1.6fr_1fr_1fr_1fr] md:items-start md:gap-8">
           {/* לוגו · עמודה משלו */}

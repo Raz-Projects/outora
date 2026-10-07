@@ -1,9 +1,9 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tents } from "@/lib/tents";
 import { getCatalog } from "@/lib/catalog";
 import { TentContent } from "@/components/content/tent-content";
+import { Breadcrumbs } from "@/components/content/breadcrumbs";
 
 type Params = { slug: string };
 
@@ -26,13 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 export default async function TentPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const catalog = await getCatalog();
-  if (!catalog.tents.some((t) => t.slug === slug)) notFound();
+  const tent = catalog.tents.find((t) => t.slug === slug);
+  if (!tent) notFound();
 
   return (
-    <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
-      <Link href="/tents" className="text-button text-black underline underline-offset-4">
-        חזרה לכל האוהלים
-      </Link>
+    <main className="mx-auto max-w-[1280px] px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-32">
+      <Breadcrumbs items={[{ href: "/", label: "דף הבית" }, { href: "/tents", label: "אוהלים" }, { label: tent.nameEn }]} />
       <div className="mt-6">
         <TentContent slug={slug} />
       </div>

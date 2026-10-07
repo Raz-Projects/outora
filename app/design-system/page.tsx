@@ -17,17 +17,32 @@ import {
 import { ToastDemo, DialogDemo, SwitchDemo } from "./interactive";
 import { Logo } from "@/components/layout/logo";
 import { FaqList } from "@/components/content/faq-list";
+import { WhatsappFloat } from "@/components/layout/whatsapp-float";
+import { ItemTiles } from "@/components/booking/item-tiles";
+import { tilesFromLabels } from "@/lib/item-images";
+import { PromoCard } from "@/components/booking/promo-card";
+import { Upsells } from "@/components/booking/upsells";
+import { SectionHead } from "@/components/content/section-head";
+import { StepsScroller } from "@/components/content/steps-scroller";
+import { ProductGallery } from "@/components/content/product-gallery";
+import { ProductTabs } from "@/components/content/product-tabs";
+import { QuickFacts, SpecList } from "@/components/content/product-parts";
+import { Breadcrumbs } from "@/components/content/breadcrumbs";
+import { IconGroup, IconSquareFoot } from "@/components/icons";
 
 const swatches = [
   { name: "White",            hex: colors.white,    border: true },
   { name: "Off-White",        hex: colors.offWhite, border: true },
   { name: "Cream · רקע הדף",   hex: colors.cream,    border: true },
+  { name: "Sand · רקע משני",   hex: colors.sand,     border: true },
   { name: "Stroke",           hex: colors.stroke },
   { name: "Text Gray",        hex: colors.textGray },
-  { name: "Black",            hex: colors.black },
-  { name: "Primary Beige",    hex: colors.beige },
-  { name: "Beige · hover",    hex: colors.beigeDark },
+  { name: "Primary Brown · טקסט וכפתורים", hex: colors.brown },
+  { name: "Brown · hover",    hex: colors.brownDark },
+  { name: "Khaki · פוטר",     hex: colors.khaki },
+  { name: "Black · הכהיית תמונות", hex: colors.black },
   { name: "Secondary Orange", hex: colors.orange },
+  { name: "WhatsApp · כפתור צף", hex: colors.whatsapp },
 ];
 
 const type = [
@@ -136,12 +151,17 @@ export default function DesignSystemPage() {
       <Section title="Buttons">
         <div className="max-w-xl space-y-4">
           <Button block>בחרו חבילה זו</Button>
-          <Button block className="bg-beigedark">בחרו חבילה זו · hover</Button>
+          <Button block noFill className="bg-brown text-white">בחרו חבילה זו · hover</Button>
           <Button block>
             בחרו חבילה זו
             <SearchIcon />
           </Button>
-          <Button block variant="outline">כפתור קווי</Button>
+          <Button block variant="outline">כפתור משני · קו בהיר</Button>
+        </div>
+
+        <h3 className="text-h3 mt-10 mb-4">על תמונה · variant=&quot;light&quot;</h3>
+        <div className="max-w-xl rounded-lg bg-khaki p-6">
+          <Button block variant="light">להצטרפות</Button>
         </div>
 
         <h3 className="text-h3 mt-10 mb-4">מצבים</h3>
@@ -151,12 +171,19 @@ export default function DesignSystemPage() {
           <Button block disabled>מושבת</Button>
         </div>
         <p className="text-tag text-textgray mt-4">
-          העבר עכבר על הכפתורים למעלה · הצבע ממלא מלמטה למעלה.
+          שקוף עם מסגרת דקה ופינות עגולות לגמרי, בהשראת MOA. ב-hover מתמלא בחום מלמטה למעלה והטקסט הופך ללבן.
+        </p>
+      </Section>
+
+      <Section title="ראש סקשן · SectionHead">
+        <SectionHead tag="OUTORA CLUB" title="הצטרפו למועדון החברים" text="ממורכז ומרווח. תגית באנגלית מקבלת ריווח בין אותיות, בעברית לא." />
+        <p className="text-tag text-textgray mt-6 text-center">
+          בלי כרטיסים לבנים ובלי צל · הסקשנים יושבים ישר על רקע החול. צל רק לדברים שצפים.
         </p>
       </Section>
 
       <Section title="Link Button">
-        <a href="#" className="text-button text-black underline underline-offset-4 decoration-1
+        <a href="#" className="text-button text-brown underline underline-offset-4 decoration-1
                                transition-colors hover:text-textgray">
           קראו עוד על החבילה
         </a>
@@ -207,7 +234,7 @@ export default function DesignSystemPage() {
       <Section title="Admin · Product list">
         <p className="text-tag text-textgray">
           רשימות המוצרים, טפסי העריכה והעלאת התמונות חיים בממשק הניהול תחת
-          <span className="mx-1 text-black">/admin/content</span>
+          <span className="mx-1 text-brown">/admin/content</span>
           ומשתמשים בקומפוננטות שבדף הזה.
         </p>
       </Section>
@@ -273,6 +300,79 @@ export default function DesignSystemPage() {
         <p className="text-tag text-textgray mt-3">
           קופץ מלמטה-שמאל, נעלם אחרי 4 שניות.
         </p>
+      </Section>
+
+      <Section title="WhatsApp · כפתור צף">
+        <WhatsappFloat static />
+        <p className="text-tag text-textgray mt-4">
+          צף בפינה הימנית התחתונה בכל האתר, חוץ מממשק הניהול. ווידג׳ט הנגישות יושב בפינה השמאלית.
+          בתהליך ההזמנה במובייל הוא מוסתר, כדי לא לכסות את בר הסכום.
+        </p>
+      </Section>
+
+      <Section title="מה כלול · תמונות עם קראו עוד">
+        <ItemTiles
+          className="max-w-md"
+          items={tilesFromLabels(["מקרר נייד 47 ליטר", "תחנת כוח", "ערסל", "מקלחת בסיסית", "מכונת אספרסו", "רמקול JBL Mini"])}
+          initial={4}
+        />
+        <p className="text-tag text-textgray mt-4">
+          ברמות האירוח, בבאנדלים ובחבילות. התמונה נבחרת לפי השם של הפריט. ארבעה ראשונים, והשאר אחרי קראו עוד.
+        </p>
+      </Section>
+
+      <Section title="פרומו לבאנדל · כרטיס ראשון בתוספות">
+        <div className="max-w-[240px]">
+          <PromoCard promo={{ bundleId: "cinema" }} />
+        </div>
+        <p className="text-tag text-textgray mt-4">
+          רק בקטגוריות אנרגיה וסאונד. ההגדרה ב-CATEGORY_PROMO.
+        </p>
+      </Section>
+
+      <Section title="שווה להוסיף · המלצות חכמות">
+        <Upsells />
+        <p className="text-tag text-textgray mt-4">
+          בסיכום ההזמנה ובדף חבילה. לפי סוג הנוף, מספר האנשים ומה שכבר נבחר.
+        </p>
+      </Section>
+
+      <Section title="דף מוצר · אוהל וחבילה">
+        <Breadcrumbs items={[{ href: "/", label: "דף הבית" }, { href: "/tents", label: "אוהלים" }, { label: "HAVEN PRIME" }]} />
+        <div className="mt-6 grid gap-10 md:grid-cols-2">
+          <div>
+            <QuickFacts facts={[{ label: "עד 10 אנשים", Icon: IconGroup }, { label: "17.2 מ״ר", Icon: IconSquareFoot }]} />
+            <ProductTabs
+              className="mt-8"
+              tabs={[
+                { id: "a", label: "תיאור", content: <p className="text-body">לשונית ראשונה.</p> },
+                { id: "b", label: "מפרט", content: <SpecList rows={[["שטח", "17.2 מ״ר"], ["משקל", "18 ק״ג"]]} /> },
+              ]}
+            />
+          </div>
+          <ProductGallery images={["/gallery/hero.jpg", "/gallery/tent-woods-sunset.jpg", "/gallery/bonfire-beach.jpg"]} alt="" />
+        </div>
+        <p className="text-tag text-textgray mt-4">
+          גלריה עם תמונות קטנות, פאנל קנייה דביק לידה, לשוניות ומוצרים נוספים. ב-components/content/product-*.
+        </p>
+      </Section>
+
+      <Section title="צעדים בגלילה · דף הבית">
+        <p className="text-tag text-textgray mb-4">
+          הסקשן ננעל במקום והצעדים מתחלפים תוך כדי גלילה. מי שביקש פחות תנועה רואה רשימה רגילה.
+        </p>
+        <div className="bg-sand">
+          <StepsScroller
+            tag="איך זה עובד"
+            title="ארבעה צעדים"
+            steps={[
+              { title: "צעד ראשון", desc: "טקסט קצר." },
+              { title: "צעד שני", desc: "טקסט קצר." },
+              { title: "צעד שלישי", desc: "טקסט קצר." },
+            ]}
+            cta={{ href: "/how-it-works", label: "לכל השלבים" }}
+          />
+        </div>
       </Section>
 
       <Section title="FAQ · אקורדיון">

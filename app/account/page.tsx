@@ -15,7 +15,7 @@ const ils = (n?: number | null) => `${Number(n ?? 0).toLocaleString("he-IL")}₪
 
 const STATUS: Record<string, { label: string; className: string }> = {
   draft:     { label: "טיוטה",    className: "border-stroke text-textgray" },
-  pending:   { label: "ממתינה",   className: "border-beige text-black" },
+  pending:   { label: "ממתינה",   className: "border-brown text-brown" },
   confirmed: { label: "מאושרת",   className: "border-success text-success" },
   completed: { label: "הסתיימה",  className: "border-stroke text-textgray" },
   cancelled: { label: "בוטלה",    className: "border-error text-error" },
@@ -36,7 +36,7 @@ interface BookingRow {
 }
 
 function dateHe(v?: string | null) {
-  if (!v) return "—";
+  if (!v) return "-";
   const d = new Date(v);
   return `${d.getDate()} ב${MONTHS_HE[d.getMonth()]} ${d.getFullYear()}`;
 }
@@ -89,11 +89,11 @@ export default async function AccountPage({
     if (e && typeof e === "object" && "digest" in e) throw e;
 
     return (
-      <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
+      <main className="mx-auto max-w-[900px] px-5 pb-24 pt-36 md:px-6 md:pb-32 md:pt-44">
         <h1 className="text-h1-sm md:text-h1">ההזמנות שלי</h1>
-        <div className="mt-8 rounded-[16px] border border-error bg-errorbg p-6">
+        <div className="mt-8 rounded-lg border border-error bg-errorbg p-6">
           <p className="text-h3 text-error">האזור האישי לא זמין כרגע</p>
-          <p className="text-body mt-2 text-black/70">
+          <p className="text-body mt-2 text-brown/70">
             אין חיבור למסד הנתונים. ברגע שיהיה, ההזמנות שלכם יופיעו כאן.
           </p>
         </div>
@@ -102,10 +102,10 @@ export default async function AccountPage({
   }
 
   return (
-    <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-32 md:px-6">
+    <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-36 md:px-6 md:pb-32 md:pt-44">
       {welcome === "club" && (
-        <div className="mb-8 rounded-[16px] border border-beige bg-offwhite p-6">
-          <p className="text-tag text-orange">OUTORA CLUB</p>
+        <div className="mb-12 rounded-lg border border-brown p-6 md:p-8">
+          <p className="text-tag text-orange uppercase tracking-display">OUTORA CLUB</p>
           <p className="text-h3 mt-1">ברוכים הבאים למועדון!</p>
           <p className="text-body text-textgray mt-2">
             ההצטרפות הושלמה. המועדון בהרצה · פירוט מלא של ההטבות יפורסם בקרוב, ונעדכן אתכם.
@@ -133,13 +133,13 @@ export default async function AccountPage({
         </form>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
+      <div className="mt-12 grid gap-12 border-t border-stroke pt-12 lg:grid-cols-[1fr_360px] lg:items-start lg:gap-16">
         {/* ימין · ההזמנות */}
         <section>
           <h2 className="text-h2">ההזמנות שלי</h2>
 
           {rows.length === 0 ? (
-            <div className="mt-6 rounded-[16px] border border-stroke p-10 text-center">
+            <div className="mt-6 rounded-lg border border-stroke px-6 py-14 text-center">
               <p className="text-h3">עוד אין לכם הזמנות</p>
               <p className="text-body text-textgray mt-2">
                 כשתזמינו, ההזמנה תופיע כאן עם כל הפרטים.
@@ -156,7 +156,7 @@ export default async function AccountPage({
             const s = STATUS[b.status] ?? STATUS.pending;
 
             return (
-              <li key={b.id} className="rounded-[16px] border border-stroke p-6">
+              <li key={b.id} className="rounded-lg border border-stroke p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h2 className="text-h3">
@@ -177,7 +177,7 @@ export default async function AccountPage({
                     </Link>
                   </div>
 
-                  <div className="text-left">
+                  <div className="text-end">
                     <span
                       className={`text-tag inline-block rounded-full border px-3 py-1 ${s.className}`}
                     >
@@ -203,8 +203,8 @@ export default async function AccountPage({
         {/* שמאל · המועדון והפרטים */}
         <aside className="space-y-6">
           {memberNo ? (
-            <div className="rounded-lg border border-beige p-6">
-              <p className="text-tag text-orange">OUTORA CLUB</p>
+            <div className="rounded-lg border border-brown p-6">
+              <p className="text-tag text-orange uppercase tracking-display">OUTORA CLUB</p>
               <p className="text-h2 mt-3" dir="ltr">{memberNo}</p>
               <p className="text-tag text-textgray mt-1">מספר חבר</p>
               {joinedAt && (
@@ -212,8 +212,8 @@ export default async function AccountPage({
               )}
             </div>
           ) : (
-            <div className="rounded-lg bg-offwhite p-6">
-              <p className="text-tag text-orange">OUTORA CLUB</p>
+            <div className="rounded-lg border border-stroke p-6">
+              <p className="text-tag text-orange uppercase tracking-display">OUTORA CLUB</p>
               <h2 className="text-h3 mt-2">עוד לא חברים במועדון?</h2>
               <p className="text-body text-textgray mt-2">
                 נרשמים פעם אחת, בחינם, וכל חופשה מהיום שווה יותר.

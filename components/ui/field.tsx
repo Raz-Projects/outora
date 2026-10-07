@@ -4,7 +4,7 @@ import { Input } from "./input";
 type State = "default" | "error" | "success";
 
 const ring: Record<State, string> = {
-  default: "border-stroke focus-visible:border-beige",
+  default: "border-stroke focus-visible:border-brown",
   error:   "border-error   focus-visible:border-error",
   success: "border-success focus-visible:border-success",
 };
@@ -19,7 +19,7 @@ interface FieldProps extends React.ComponentProps<"input"> {
 export function Field({ label, state = "default", message, className, ...props }: FieldProps) {
   return (
     <div className="w-full">
-      {label && <label className="text-button mb-2 block text-black">{label}</label>}
+      {label && <label className="text-button mb-2 block text-brown">{label}</label>}
       <Input className={cn(ring[state], className)} {...props} />
       {message && (
         <p

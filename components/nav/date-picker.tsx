@@ -3,7 +3,7 @@
 import * as React from "react";
 import {
   MONTHS_HE, WEEKDAYS_HE, monthGrid, sameDay, startOfDay,
-  addMonths, nightsBetween, formatHe,
+  addMonths, nightsBetween, formatHe, MIN_NIGHTS,
 } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 
@@ -33,8 +33,8 @@ function ArrowButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-8 w-8 items-center justify-center rounded-full border border-beige
-                 text-beige transition-colors hover:bg-beige hover:text-black
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-brown
+                 text-brown transition-colors hover:bg-brown hover:text-white
                  disabled:cursor-not-allowed disabled:border-stroke disabled:text-stroke
                  disabled:hover:bg-transparent"
     >
@@ -57,8 +57,12 @@ function Month({
   const cells = monthGrid(date.getFullYear(), date.getMonth());
   const { from, to } = range;
 
+  /** אחרי שנבחר תאריך הגעה · הימים שקרובים מדי אליו לא יכולים להיות יום עזיבה */
+  const tooShort = (d: Date) =>
+    !!from && !to && startOfDay(d) > startOfDay(from) && nightsBetween(from, d) < MIN_NIGHTS;
+
   /** כשבחרו רק תאריך התחלה · התאריך שמרחפים מעליו משמש כסוף זמני */
-  const end = to ?? (from && hover && startOfDay(hover) > startOfDay(from) ? hover : undefined);
+  const end = to ?? (from && hover && nightsBetween(from, hover) >= MIN_NIGHTS ? hover : undefined);
 
   const inRange = (d: Date) =>
     from && end && startOfDay(d) > startOfDay(from) && startOfDay(d) < startOfDay(end);
@@ -85,7 +89,7 @@ function Month({
           const isEnd  = end && sameDay(d, end);
           const mid    = inRange(d);
           const edge   = isFrom || isEnd;
-          const past   = startOfDay(d) < startOfDay(today);
+          const past   = startOfDay(d) < startOfDay(today) || tooShort(d);
           const isToday = sameDay(d, today);
 
           return (
@@ -98,9 +102,9 @@ function Month({
               className={cn(
                 "text-body h-9 w-full transition-colors",
                 past && "cursor-not-allowed text-stroke",
-                !past && isToday && !edge && !mid && "font-medium underline underline-offset-4 decoration-beige",
-                edge && "bg-beige text-black",
-                mid  && "bg-beige/50 text-black",
+                !past && isToday && !edge && !mid && "font-medium underline underline-offset-4 decoration-brown",
+                edge && "bg-brown text-white",
+                mid  && "bg-sand text-brown",
                 !past && !edge && !mid && "hover:bg-offwhite",
                 isFrom && !end && "rounded-[8px]",
                 isFrom && end && "rounded-s-[8px]",
@@ -133,6 +137,7 @@ export function DatePickerMobile({
     const { from, to } = range;
     if (!from || (from && to)) return onChange({ from: d });
     if (startOfDay(d) <= startOfDay(from)) return onChange({ from: d });
+    if (nightsBetween(from, d) < MIN_NIGHTS) return;
     onChange({ from, to: d });
   };
 
@@ -171,6 +176,7 @@ export function DatePicker({
     const { from, to } = range;
     if (!from || (from && to)) { setHover(undefined); return onChange({ from: d }); }
     if (startOfDay(d) <= startOfDay(from)) return onChange({ from: d });
+    if (nightsBetween(from, d) < MIN_NIGHTS) return;
     onChange({ from, to: d });
   };
 
@@ -184,11 +190,11 @@ export function DatePicker({
           { label: "הגעה",  value: range.from },
           { label: "עזיבה", value: range.to },
         ].map((f) => (
-          <div key={f.label} className="relative flex-1 rounded-[12px] border border-beige px-4 py-3">
+          <div key={f.label} className="relative flex-1 rounded-[12px] border border-brown px-4 py-3">
             <span className="text-tag absolute -top-2 right-3 bg-white px-1 text-textgray">
               {f.label}
             </span>
-            <p className="text-body text-center text-black">
+            <p className="text-body text-center text-brown">
               {f.value ? formatHe(f.value) : "-"}
             </p>
           </div>
@@ -228,17 +234,19 @@ export function DatePicker({
 
       {/* תחתית */}
       <div className="mt-6 flex items-center justify-between border-t border-stroke pt-4">
-        <p className="text-body text-black">
+        <p className="text-body text-brown">
           {nights > 0
             ? `${nights} לילות : ${range.from!.getDate()}–${range.to!.getDate()} ב${MONTHS_HE[range.to!.getMonth()]} ${range.to!.getFullYear()}`
-            : "בחרו תאריכים"}
+            : range.from
+              ? `בחרו יום עזיבה · מינימום ${MIN_NIGHTS} לילות`
+              : "בחרו תאריכים"}
         </p>
 
         <div className="flex items-center gap-6">
           <button
             type="button"
             onClick={() => onChange({})}
-            className="text-button text-textgray transition-colors hover:text-black"
+            className="text-button text-textgray transition-colors hover:text-brown"
           >
             נקה
           </button>
@@ -246,15 +254,16 @@ export function DatePicker({
           <button
             type="button"
             onClick={onConfirm}
-            disabled={nights <= 0}
+            disabled={nights < MIN_NIGHTS}
             className="group relative isolate flex h-[47px] items-center overflow-hidden
-                       rounded-[12px] bg-beige px-10 text-button text-black
+                       rounded-full border border-brown px-10 text-button text-brown
+                       transition-colors duration-300 ease-smooth enabled:hover:text-white
                        disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 -z-10 origin-bottom scale-y-0
-                         bg-beigedark transition-transform duration-300 ease-smooth
+                         bg-brown transition-transform duration-300 ease-smooth
                          group-enabled:group-hover:scale-y-100"
             />
             <span className="relative z-10">אישור</span>

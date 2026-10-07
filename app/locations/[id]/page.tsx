@@ -15,11 +15,11 @@ export default async function LocationPage({ params }: { params: Promise<{ id: s
   if (!catalog.locations.some((l) => l.id === id)) notFound();
 
   return (
-    <main className="mx-auto max-w-[900px] px-5 pb-24 pt-32 md:px-6">
-      <Link href="/locations" className="text-button text-black underline underline-offset-4">
+    <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-36 md:px-6 md:pb-32 md:pt-44">
+      <Link href="/locations" className="text-tag text-textgray underline underline-offset-4 transition-colors hover:text-brown">
         חזרה לכל הלוקיישנים
       </Link>
-      <div className="mt-6">
+      <div className="mt-8">
         <LocationContent id={id} />
       </div>
     </main>

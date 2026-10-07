@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SectionHead } from "@/components/content/section-head";
 import { getPageContent, pageMetadata } from "@/lib/page-content";
 import { howItWorksPage } from "@/lib/pages/info";
 
@@ -9,40 +10,42 @@ export default async function HowItWorksPage() {
   const c = await getPageContent(howItWorksPage);
 
   return (
-    <main className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pt-52">
-      <p className="text-tag text-textgray">{c.tag}</p>
-      <h1 className="text-h1-sm mt-2 md:text-h1">{c.title}</h1>
-      <p className="text-subtitle text-textgray mt-4 max-w-2xl">
-        {c.text}
-      </p>
+    <main>
+      <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-44 md:px-[90px] md:pb-32 md:pt-52">
+        <SectionHead as="h1" tag={c.tag} title={c.title} text={c.text} />
 
-      <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {c.steps.map((s, i) => (
-          <li key={i} className="rounded-lg border border-stroke p-6">
-            <p className="text-tag text-textgray">שלב {i + 1}</p>
-            <h2 className="text-h3 mt-2">{s.title}</h2>
-            <p className="text-body text-textgray mt-2">{s.desc}</p>
-          </li>
-        ))}
-      </ol>
+        {/* בלי כרטיסים · שלבים ממורכזים, השורה האחרונה ממורכזת גם כשהיא לא מלאה */}
+        <ol className="mt-16 flex flex-wrap justify-center gap-x-10 gap-y-14">
+          {c.steps.map((s, i) => (
+            <li key={i} className="w-full max-w-[260px] text-center sm:basis-[45%] lg:basis-[22%]">
+              <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-brown">
+                {i + 1}
+              </span>
+              <h2 className="text-h3 mt-5">{s.title}</h2>
+              <p className="text-body text-textgray mt-3">{s.desc}</p>
+            </li>
+          ))}
+        </ol>
 
-      <section className="mt-16 rounded-lg bg-offwhite p-8 md:p-12">
-        <h2 className="text-h2">{c.careTitle}</h2>
-        <p className="text-body text-textgray mt-3 max-w-2xl">
-          {c.careText}
-        </p>
-        <div className="mt-6">
-          <Button variant="link" size="none" asChild>
-            <Link href="/guide">למדריך התפעול המלא</Link>
+        <div className="mt-14 flex justify-center">
+          <Button size="md" asChild className="min-w-[240px]">
+            <Link href="/book" className="relative z-10">מתחילים חופשה</Link>
           </Button>
         </div>
       </section>
 
-      <div className="mt-16 text-center">
-        <Button asChild>
-          <Link href="/book" className="relative z-10">מתחילים חופשה</Link>
-        </Button>
-      </div>
+      {/* ── הקמה, קיפול ותחזוקה ── */}
+      <section className="border-t border-stroke">
+        <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
+          <SectionHead title={c.careTitle} text={c.careText} />
+
+          <div className="mt-14 flex justify-center">
+            <Button size="md" asChild className="min-w-[240px]">
+              <Link href="/guide" className="relative z-10">למדריך התפעול המלא</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

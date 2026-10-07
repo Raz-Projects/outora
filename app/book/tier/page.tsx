@@ -7,6 +7,9 @@ import type { Tier, Bundle } from "@/lib/tiers";
 import { useBooking } from "@/lib/booking-context";
 import { BookingShell } from "@/components/booking/shell";
 import { Button } from "@/components/ui/button";
+import { ItemTiles } from "@/components/booking/item-tiles";
+import { tilesFromLabels } from "@/lib/item-images";
+import { latinTracking } from "@/components/content/section-head";
 import { cn } from "@/lib/utils";
 
 const ils = (n: number) => `${n.toLocaleString("he-IL")}₪`;
@@ -32,32 +35,29 @@ function TierCard({ tier, selected, onPick }: { tier: Tier; selected: boolean; o
     <article
       onClick={onPick}
       className={cn(
-        "flex h-full cursor-pointer flex-col overflow-hidden rounded-[16px] border bg-white transition-colors",
-        selected ? "border-transparent shadow-drop" : "border-stroke hover:border-beige"
+        "flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white border transition-colors",
+        selected ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-brown"
       )}
     >
-      {tier.image && (
-        <div className="relative aspect-[16/9] bg-offwhite">
-          <Image src={tier.image} alt="" fill sizes="(min-width: 768px) 30vw, 100vw" className="object-contain p-6" />
-        </div>
-      )}
-
       <div className="flex flex-1 flex-col p-5 md:p-6">
-        <p className="text-tag text-textgray">רמת אירוח</p>
-        <h3 className="text-h3 mt-1">{tier.nameEn}</h3>
-        <p className="text-body text-textgray mt-1">{tier.taglineHe}</p>
+        {/* תמונה קטנה ליד השם, במקום תמונה גדולה מעל */}
+        <div className="flex items-center gap-4">
+          {tier.image && (
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-white">
+              <Image src={tier.image} alt="" fill sizes="64px" className="object-contain p-1.5" />
+            </div>
+          )}
+          <div className="min-w-0">
+            <p className="text-tag text-textgray">רמת אירוח</p>
+            <h3 className={cn("text-h3", latinTracking(tier.nameEn))}><bdi>{tier.nameEn}</bdi></h3>
+          </div>
+        </div>
+        <p className="text-body text-textgray mt-3 line-clamp-2">{tier.taglineHe}</p>
 
-        <ul className="mt-5 space-y-2">
-          {tier.includes.map((f) => (
-            <li key={f} className="text-body flex items-start gap-2">
-              <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
+        <ItemTiles items={tilesFromLabels(tier.includes)} initial={4} className="mt-5" />
 
         {(tier.freeBundles > 0 || tier.freeExtras > 0) && (
-          <p className="text-tag mt-5 rounded-md bg-offwhite px-3 py-2">
+          <p className="text-tag mt-5 rounded-md bg-sand px-3 py-2">
             {tier.freeBundles > 0 && `בחירה של ${tier.freeBundles} באנדלים בלי עלות`}
             {tier.freeBundles > 0 && tier.freeExtras > 0 && " · "}
             {tier.freeExtras > 0 && `${tier.freeExtras} תוספות בלי עלות`}
@@ -71,7 +71,7 @@ function TierCard({ tier, selected, onPick }: { tier: Tier; selected: boolean; o
             size="md"
             onClick={(e) => { e.stopPropagation(); onPick(); }}
             noFill={selected}
-            className={cn("mt-4", selected && "bg-orange text-white")}
+            className={cn("mt-4", selected && "bg-brown text-white")}
           >
             {selected ? (
               <>
@@ -88,39 +88,43 @@ function TierCard({ tier, selected, onPick }: { tier: Tier; selected: boolean; o
   );
 }
 
+/** המחיר של באנדל · בתוך המכסה של הרמה בלי עלות, מעבר לה בתוספת תשלום */
+function bundlePriceLabel(bundle: Bundle, on: boolean, free: boolean, freeLeft: number) {
+  if (on && free) return "כלול ברמה שלכם";
+  if (!on && freeLeft > 0) return "בלי עלות ברמה שלכם";
+  return bundle.pricePerNight > 0 ? `+${ils(bundle.pricePerNight)} ללילה` : "בתוספת תשלום";
+}
+
 function BundleCard({
-  bundle, on, disabled, free, onToggle,
-}: { bundle: Bundle; on: boolean; disabled: boolean; free: boolean; onToggle: () => void }) {
+  bundle, on, free, freeLeft, onToggle,
+}: { bundle: Bundle; on: boolean; free: boolean; freeLeft: number; onToggle: () => void }) {
   return (
     <article
-      onClick={disabled ? undefined : onToggle}
-      aria-disabled={disabled || undefined}
+      onClick={onToggle}
+      role="button"
+      aria-pressed={on}
       className={cn(
-        "flex h-full flex-col overflow-hidden rounded-[16px] border bg-white transition-colors",
-        on ? "border-orange" : "border-stroke",
-        disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:border-beige"
+        "flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white border transition-colors",
+        on ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-brown"
       )}
     >
-      {bundle.image && (
-        <div className="relative aspect-[16/9] bg-offwhite">
-          <Image src={bundle.image} alt="" fill sizes="(min-width: 768px) 30vw, 75vw" className="object-contain p-5" />
+      <div className="flex flex-1 flex-col p-4">
+        <div className="flex items-center gap-3">
+          {bundle.image && (
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-white">
+              <Image src={bundle.image} alt="" fill sizes="56px" className="object-contain p-1.5" />
+            </div>
+          )}
+          <div className="min-w-0">
+            <h3 className="text-h3">{bundle.nameHe}</h3>
+            <p className="text-tag text-textgray line-clamp-1">{bundle.taglineHe}</p>
+          </div>
         </div>
-      )}
-      <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <h3 className="text-h3">{bundle.nameHe}</h3>
-        <p className="text-body text-textgray mt-1">{bundle.taglineHe}</p>
-        <ul className="mt-3 space-y-1.5">
-          {bundle.items.map((i) => (
-            <li key={i} className="text-body flex items-start gap-2">
-              <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-              <span>{i}</span>
-            </li>
-          ))}
-        </ul>
+
+        <ItemTiles items={tilesFromLabels(bundle.items)} initial={4} className="mt-4" />
+
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">
-          <p className="text-body">
-            {on && free ? "בלי עלות" : bundle.pricePerNight > 0 ? `${ils(bundle.pricePerNight)} ללילה` : "בלי עלות ברמה שלכם"}
-          </p>
+          <p className="text-body">{bundlePriceLabel(bundle, on, free, freeLeft)}</p>
           <span
             className={cn(
               "flex h-7 w-7 items-center justify-center rounded-full border transition-colors",
@@ -142,8 +146,8 @@ export default function TierStep() {
 
   const pickTier = (id: string) => {
     const next = tiers.find((t) => t.id === id);
-    // עוברים רמה · שומרים רק את הבאנדלים שנכנסים במכסה החדשה
-    set({ tierId: id, bundleIds: state.bundleIds.slice(0, next?.freeBundles ?? 0) });
+    // עוברים רמה · הבאנדלים נשמרים. מה שמעבר למכסה של הרמה החדשה עובר לתוספת תשלום
+    if (next) set({ tierId: id });
   };
 
   const freeLeft = Math.max((tier?.freeBundles ?? 0) - state.bundleIds.length, 0);
@@ -153,8 +157,7 @@ export default function TierStep() {
       set({ bundleIds: state.bundleIds.filter((b) => b !== id) });
       return;
     }
-    const paidAllowed = (bundles.find((b) => b.id === id)?.pricePerNight ?? 0) > 0;
-    if (freeLeft === 0 && !paidAllowed) return;
+    // מעבר למכסה החינמית · עדיין אפשר לבחור, בתוספת תשלום
     set({ bundleIds: [...state.bundleIds, id] });
   };
 
@@ -162,7 +165,7 @@ export default function TierStep() {
     ? null
     : tier.freeBundles > 0
       ? `בחרו עד ${tier.freeBundles} באנדלים בלי עלות`
-      : "באנדלים";
+      : "הוסיפו באנדלים";
 
   return (
     <BookingShell
@@ -187,34 +190,33 @@ export default function TierStep() {
       </div>
 
       {tier && bundles.length > 0 && (
-        <section className="mt-12 border-t border-stroke pt-10">
+        <section className="mt-16 border-t border-stroke pt-14">
           <div className="flex flex-wrap items-baseline gap-3">
             <h2 className="text-h2">{bundleSectionTitle}</h2>
             {tier.freeBundles > 0 && (
               <p className="text-body text-textgray">
-                {freeLeft > 0 ? `נשארו ${freeLeft} לבחירה` : "בחרתם את כל הבאנדלים שכלולים"}
+                {freeLeft > 0 ? `נשארו ${freeLeft} לבחירה` : "אפשר להוסיף עוד באנדלים בתוספת תשלום"}
               </p>
             )}
             {tier.freeBundles === 0 && (
               <p className="text-body text-textgray">
-                ב-BASIC הבאנדלים לא כלולים. ב-COMFORT+ בוחרים 2 בלי עלות, ב-SIGNATURE 3.
+                ב-BASIC הבאנדלים בתוספת תשלום. ב-COMFORT+ בוחרים 2 בלי עלות, ב-SIGNATURE 3.
               </p>
             )}
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {bundles.map((b, i) => {
               const on = state.bundleIds.includes(b.id);
               const idx = state.bundleIds.indexOf(b.id);
               const free = on && idx < tier.freeBundles;
-              const disabled = !on && freeLeft === 0 && b.pricePerNight === 0;
               return (
                 <BundleCard
                   key={b.id + i}
                   bundle={b}
                   on={on}
                   free={free}
-                  disabled={disabled}
+                  freeLeft={freeLeft}
                   onToggle={() => toggleBundle(b.id)}
                 />
               );

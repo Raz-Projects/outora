@@ -42,7 +42,7 @@ export function ImageField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-black">{label}</label>
+      <label className="text-button mb-2 block text-brown">{label}</label>
       <div className="flex items-start gap-4">
         <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-md border border-stroke bg-offwhite">
           {value ? (
@@ -129,7 +129,7 @@ export function GalleryField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-black">{label}</label>
+      <label className="text-button mb-2 block text-brown">{label}</label>
       {hint && <p className="text-tag text-textgray mb-3">{hint}</p>}
 
       <div className="flex flex-wrap gap-3">
@@ -141,7 +141,7 @@ export function GalleryField({
             <Image src={url} alt="" fill sizes="112px" className="object-cover" />
 
             {i === 0 && (
-              <span className="text-tag absolute start-1 top-1 rounded-sm bg-beige px-1.5 py-0.5 text-black">
+              <span className="text-tag absolute start-1 top-1 rounded-sm bg-brown px-1.5 py-0.5 text-white">
                 ראשית
               </span>
             )}
@@ -162,7 +162,7 @@ export function GalleryField({
                 onClick={() => move(i, i - 1)}
                 disabled={i === 0}
                 aria-label="הזזה ימינה"
-                className="text-tag px-1 text-textgray hover:text-black disabled:opacity-30"
+                className="text-tag px-1 text-textgray hover:text-brown disabled:opacity-30"
               >
                 ›
               </button>
@@ -172,7 +172,7 @@ export function GalleryField({
                 onClick={() => move(i, i + 1)}
                 disabled={i === value.length - 1}
                 aria-label="הזזה שמאלה"
-                className="text-tag px-1 text-textgray hover:text-black disabled:opacity-30"
+                className="text-tag px-1 text-textgray hover:text-brown disabled:opacity-30"
               >
                 ‹
               </button>
@@ -187,7 +187,7 @@ export function GalleryField({
           className={cn(
             "flex h-28 w-28 flex-col items-center justify-center gap-1 rounded-md",
             "border border-dashed border-stroke text-textgray transition-colors",
-            "hover:border-beige hover:text-black disabled:opacity-50"
+            "hover:border-brown hover:text-brown disabled:opacity-50"
           )}
         >
           <Upload className="h-5 w-5" />

@@ -11,7 +11,7 @@ import { RefInUrl } from "./ref-in-url";
 import { PathSwitch } from "./path-switch";
 import { StepTransition } from "./step-transition";
 
-/** המסגרת הלבנה של האשף: כותרת, סטפר וסכום */
+/** המסגרת של האשף: כותרת, סטפר וסכום · משטח אחד בצבע החול, בלי צל ובלי פס ראש נפרד */
 export function BookingShell({
   title,
   subtitle,
@@ -45,9 +45,9 @@ export function BookingShell({
                  pb-[calc(96px+env(safe-area-inset-bottom))] md:pb-20"
     >
       <RefInUrl />
-      <div className="rounded-[20px] bg-white shadow-drop">
+      <div className="rounded-lg bg-white">
         {/* ראש */}
-        <div className="rounded-t-[20px] border-b border-stroke bg-offwhite px-5 py-8 md:px-10">
+        <div className="border-b border-stroke px-5 py-10 md:px-12 md:py-14">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             {/* כותרת · ממורכזת במובייל, מימין בדסקטופ */}
             <div className="text-center md:text-right">
@@ -60,23 +60,26 @@ export function BookingShell({
               {showStepper && current === 1 && <PathSwitch />}
             </div>
 
-            {/* סטפר וסכום · במובייל הם יושבים על הרקע ובתחתית המסך */}
-            <div className="hidden md:block md:w-auto md:shrink-0">
-              {showStepper && <Stepper />}
-              <div className={showStepper ? "mt-8" : ""}>
-                <TotalBar />
+            {/* סטפר וסכום · במובייל הם יושבים על הרקע ובתחתית המסך.
+                בדף הפתיחה עוד לא בחרו כלום, ולכן אין סכום · אחרת מופיע סכום של בחירה קודמת ליד ההמלצה */}
+            {showStepper && (
+              <div className="hidden md:block md:w-auto md:shrink-0">
+                <Stepper />
+                <div className="mt-8">
+                  <TotalBar />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
         {/* גוף */}
-        <div className="px-5 py-8 md:px-10 md:py-10">
+        <div className="px-5 py-10 md:px-12 md:py-14">
           <StepTransition>{children}</StepTransition>
         </div>
 
         {(footer || showBack) && (
-          <div className="border-t border-stroke px-5 py-6 md:px-10 md:py-8">
+          <div className="border-t border-stroke px-5 py-8 md:px-12 md:py-10">
             <div
               className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap
                          sm:items-center sm:justify-center"
@@ -95,7 +98,7 @@ export function BookingShell({
         )}
       </div>
 
-      {mobileTotal && <MobileTotalBar />}
+      {mobileTotal && showStepper && <MobileTotalBar />}
     </div>
   );
 }

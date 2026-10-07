@@ -346,3 +346,50 @@ export const businessPage: PageDef<typeof businessDefaults> = {
     SEO_SECTION,
   ],
 };
+
+/* ── צרו קשר ── */
+
+/** ⚠️ טקסט זמני · ממתין לאישור יותם. שעות הפעילות מגיעות מ"סקשנים משותפים" (תחתית האתר). */
+const contactDefaults = {
+  seoTitle: "צרו קשר",
+  seoDescription: "שאלה על הזמנה, אוהל או אירוע? דברו עם OUTORA בוואטסאפ או במייל.",
+  tag: "צרו קשר",
+  title: "נשמח לשמוע מכם",
+  text: "שאלה על הזמנה, התלבטות בין אוהלים או רעיון לאירוע? כתבו לנו ונחזור אליכם בהקדם.",
+  whatsappLabel: "וואטסאפ",
+  whatsappNumber: "052-844-8870",
+  emailLabel: "מייל",
+  email: "reservations@outora.co.il",
+  hoursLabel: "שעות פעילות",
+  formTitle: "השאירו הודעה",
+  formText: "ההודעה תיפתח בוואטסאפ, מוכנה לשליחה.",
+  formButton: "שליחה בוואטסאפ",
+};
+
+export const contactPage: PageDef<typeof contactDefaults> = {
+  key: "contact",
+  title: "צרו קשר",
+  href: "/contact",
+  defaults: contactDefaults,
+  sections: [
+    {
+      title: "פתיח",
+      fields: [text("tag", "כותרת קטנה"), text("title", "כותרת"), area("text", "טקסט")],
+    },
+    {
+      title: "דרכי התקשרות",
+      fields: [
+        text("whatsappLabel", "כותרת וואטסאפ"),
+        text("whatsappNumber", "מספר וואטסאפ", "הקישור לוואטסאפ נבנה מהמספר הזה"),
+        text("emailLabel", "כותרת מייל"),
+        text("email", "כתובת מייל"),
+        text("hoursLabel", "כותרת שעות פעילות", "השעות עצמן נערכות ב\"סקשנים משותפים\", תחתית האתר"),
+      ],
+    },
+    {
+      title: "הטופס",
+      fields: [text("formTitle", "כותרת"), area("formText", "טקסט"), text("formButton", "טקסט הכפתור")],
+    },
+    SEO_SECTION,
+  ],
+};

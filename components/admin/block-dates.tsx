@@ -4,33 +4,42 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Field } from "@/components/ui/field";
+import { Switch } from "@/components/ui/switch";
 import { ConfirmDialog } from "@/components/ui/dialog";
 import { ToastViewport, useToasts } from "@/components/ui/toast";
 import { dateHe } from "@/lib/admin/bookings";
-import type { BlockedRange } from "@/lib/admin/calendar";
-import { blockDates, unblockDates } from "@/app/admin/calendar/actions";
+import type { BlockGroup } from "@/lib/admin/calendar";
+import {
+  blockAllDates,
+  blockDates,
+  unblockDates,
+  unblockGroup,
+} from "@/app/admin/calendar/actions";
 
-/** טופס חסימת תאריכים + רשימת החסימות הקיימות של האוהל */
+/** טופס חסימת תאריכים לאוהל אחד או לכל האוהלים + רשימת החסימות הקיימות */
 export function BlockDates({
   tent,
   tentName,
-  blocks,
+  groups,
   defaultFrom,
 }: {
   tent: string;
   tentName: string;
-  blocks: BlockedRange[];
+  /** החסימות של האוהל, וכל החסימות הכלליות */
+  groups: BlockGroup[];
   defaultFrom: string;
 }) {
   const router = useRouter();
   const { toasts, push, dismiss } = useToasts();
 
+  const [allTents, setAllTents] = React.useState(false);
   const [from, setFrom] = React.useState(defaultFrom);
   const [to, setTo] = React.useState("");
   const [reason, setReason] = React.useState("");
   const [busy, setBusy] = React.useState(false);
-  const [pendingDelete, setPendingDelete] = React.useState<BlockedRange | null>(null);
+  const [pendingDelete, setPendingDelete] = React.useState<BlockGroup | null>(null);
   const [deleting, setDeleting] = React.useState(false);
 
   const invalid = !from || !to || from >= to;
@@ -39,10 +48,12 @@ export function BlockDates({
     e.preventDefault();
     if (invalid) return;
     setBusy(true);
-    const res = await blockDates({ tent, from, to, reason });
+    const res = allTents
+      ? await blockAllDates({ from, to, reason })
+      : await blockDates({ tent, from, to, reason });
     setBusy(false);
     if (res.ok) {
-      push("success", "התאריכים נחסמו");
+      push("success", allTents ? "התאריכים נחסמו בכל האוהלים" : "התאריכים נחסמו");
       setTo("");
       setReason("");
       router.refresh();
@@ -54,7 +65,9 @@ export function BlockDates({
   async function confirmDelete() {
     if (!pendingDelete) return;
     setDeleting(true);
-    const res = await unblockDates(pendingDelete.id);
+    const res = pendingDelete.global
+      ? await unblockGroup(pendingDelete.ids)
+      : await unblockDates(pendingDelete.ids[0]);
     setDeleting(false);
     setPendingDelete(null);
     if (res.ok) {
@@ -68,10 +81,20 @@ export function BlockDates({
   return (
     <div className="space-y-6">
       <form onSubmit={submit} className="rounded-lg border border-stroke bg-white p-6">
-        <h2 className="text-h3">חסימת תאריכים · {tentName}</h2>
+        <h2 className="text-h3">חסימת תאריכים · {allTents ? "כל האוהלים" : tentName}</h2>
         <p className="text-tag text-textgray mt-1">
-          לתחזוקה, חופשה או כל סיבה אחרת. הלקוחות לא יוכלו להזמין בימים האלה.
+          {allTents
+            ? "העסק סגור, למשל בחג. אי אפשר יהיה להזמין אף אוהל בימים האלה."
+            : "לתחזוקה, חופשה או כל סיבה אחרת. הלקוחות לא יוכלו להזמין בימים האלה."}
         </p>
+
+        <label className="mt-4 flex items-center justify-between gap-4 rounded-md border border-stroke px-4 py-3">
+          <span>
+            <span className="text-body block">כל האוהלים</span>
+            <span className="text-tag block text-textgray">לחסום את כל העסק, לא רק את {tentName}</span>
+          </span>
+          <Switch checked={allTents} onCheckedChange={setAllTents} label="כל האוהלים" />
+        </label>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field
@@ -96,7 +119,7 @@ export function BlockDates({
         <div className="mt-4">
           <Field
             label="סיבה"
-            placeholder="למשל: תיקון רוכסן, חופשה"
+            placeholder={allTents ? "למשל: ראש השנה" : "למשל: תיקון רוכסן, חופשה"}
             value={reason}
             maxLength={200}
             onChange={(e) => setReason(e.target.value)}
@@ -105,28 +128,31 @@ export function BlockDates({
         </div>
 
         <Button type="submit" size="md" className="mt-6" disabled={invalid} loading={busy}>
-          חסימה
+          {allTents ? "חסימה לכל האוהלים" : "חסימה"}
         </Button>
       </form>
 
       <section className="rounded-lg border border-stroke bg-white p-6">
         <h2 className="text-h3">חסימות קיימות</h2>
-        {blocks.length === 0 ? (
+        {groups.length === 0 ? (
           <p className="text-body text-textgray mt-2">אין חסימות לאוהל הזה.</p>
         ) : (
           <ul className="mt-3 divide-y divide-stroke">
-            {blocks.map((b) => (
-              <li key={b.id} className="flex items-center justify-between gap-4 py-3">
+            {groups.map((g) => (
+              <li key={g.key} className="flex items-center justify-between gap-4 py-3">
                 <div>
-                  <p className="text-body">
-                    {dateHe(b.date_from)} – {dateHe(b.date_to)}
-                  </p>
-                  {b.reason && <p className="text-tag text-textgray">{b.reason}</p>}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-body">
+                      {dateHe(g.date_from)} – {dateHe(g.date_to)}
+                    </p>
+                    {g.global && <Badge variant="orange">כל האוהלים</Badge>}
+                  </div>
+                  {g.reason && <p className="text-tag text-textgray">{g.reason}</p>}
                 </div>
                 <button
                   type="button"
                   aria-label="הסרת חסימה"
-                  onClick={() => setPendingDelete(b)}
+                  onClick={() => setPendingDelete(g)}
                   className="text-textgray transition-colors hover:text-error"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -142,10 +168,14 @@ export function BlockDates({
         onClose={() => setPendingDelete(null)}
         onConfirm={confirmDelete}
         loading={deleting}
-        title="להסיר את החסימה?"
+        title={pendingDelete?.global ? "להסיר את החסימה מכל האוהלים?" : "להסיר את החסימה?"}
         description={
           pendingDelete
-            ? `${dateHe(pendingDelete.date_from)} – ${dateHe(pendingDelete.date_to)}. התאריכים ייפתחו שוב להזמנה.`
+            ? `${dateHe(pendingDelete.date_from)} – ${dateHe(pendingDelete.date_to)}. ${
+                pendingDelete.global
+                  ? "כל האוהלים ייפתחו שוב להזמנה."
+                  : "התאריכים ייפתחו שוב להזמנה."
+              }`
             : undefined
         }
         confirmLabel="הסרה"

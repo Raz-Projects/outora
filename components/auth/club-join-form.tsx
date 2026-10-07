@@ -170,7 +170,7 @@ export function ClubJoinForm() {
           <button
             type="button"
             onClick={() => { setStage("details"); setCode(""); setError(undefined); }}
-            className="text-button text-black underline underline-offset-4
+            className="text-button text-brown underline underline-offset-4
                        transition-colors hover:text-textgray"
           >
             חזרה לפרטים
@@ -180,7 +180,7 @@ export function ClubJoinForm() {
             type="button"
             disabled={seconds > 0 || busy}
             onClick={sendCode}
-            className="text-button text-black underline underline-offset-4
+            className="text-button text-brown underline underline-offset-4
                        transition-colors hover:text-textgray
                        disabled:cursor-not-allowed disabled:text-textgray disabled:no-underline"
           >
@@ -253,7 +253,7 @@ export function ClubJoinForm() {
         />
         <span className="text-tag text-textgray -mt-0.5">
           קראתי ואני מסכים/ה ל
-          <Link href="/legal/terms" className="text-black underline underline-offset-4">
+          <Link href="/legal/terms" className="text-brown underline underline-offset-4">
             תקנון המועדון
           </Link>
           {" "}ולקבלת עדכונים והטבות במייל. אפשר להסיר את ההסכמה בכל רגע.

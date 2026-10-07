@@ -45,13 +45,13 @@ export function MonthGrid({
                 title={`${b.ref ?? ""} ${b.customer_name ?? ""}`.trim()}
                 className={cn(
                   base,
-                  confirmed ? "border-beige bg-beige" : "border-beige bg-beige/40",
-                  "hover:border-beigedark",
+                  confirmed ? "border-brown bg-brown" : "border-brown bg-sand",
+                  "hover:border-browndark",
                   isToday && "ring-2 ring-black"
                 )}
               >
-                <span className="text-black">{c.date.getDate()}</span>
-                <span className="mt-auto truncate text-black">
+                <span className="text-brown">{c.date.getDate()}</span>
+                <span className="mt-auto truncate text-brown">
                   {b.customer_name ?? b.ref ?? "הזמנה"}
                 </span>
               </Link>
@@ -91,10 +91,10 @@ export function MonthGrid({
 
       <div className="mt-4 flex flex-wrap gap-5 text-tag text-textgray">
         <span className="flex items-center gap-2">
-          <i className="h-3 w-3 rounded-sm bg-beige" /> מאושרת
+          <i className="h-3 w-3 rounded-sm bg-brown" /> מאושרת
         </span>
         <span className="flex items-center gap-2">
-          <i className="h-3 w-3 rounded-sm border border-beige bg-beige/40" /> ממתינה
+          <i className="h-3 w-3 rounded-sm border border-brown bg-sand" /> ממתינה
         </span>
         <span className="flex items-center gap-2">
           <i className="h-3 w-3 rounded-sm bg-stroke" /> חסום

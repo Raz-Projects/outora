@@ -11,6 +11,7 @@ import {
   monthKey,
   parseMonth,
   shiftMonth,
+  groupBlocks,
   type BlockedRange,
   type CalendarBooking,
 } from "@/lib/admin/calendar";
@@ -30,7 +31,7 @@ async function loadMonth(tent: string, year: number, month: number) {
         ACTIVE_STATUSES.includes(b.status) &&
         b.date_from && b.date_to && b.date_from < to && b.date_to > from
     ) as CalendarBooking[];
-    return { bookings, blocks: [] as BlockedRange[], allBlocks: [] as BlockedRange[] };
+    return { bookings, blocks: [] as BlockedRange[], groups: groupBlocks([]) };
   }
 
   const supabase = createAdminClient();
@@ -42,19 +43,21 @@ async function loadMonth(tent: string, year: number, month: number) {
       .in("status", ACTIVE_STATUSES)
       .lt("date_from", to)
       .gt("date_to", from),
+    // כל החסימות העתידיות של כל האוהלים · כדי לזהות חסימות כלליות
     supabase
       .from("blocked_dates")
       .select("*")
-      .eq("tent_slug", tent)
       .gte("date_to", isoDate(new Date()))
       .order("date_from"),
   ]);
 
   const all = (allBlocks ?? []) as BlockedRange[];
+  const own = all.filter((b) => b.tent_slug === tent);
   return {
     bookings: (bookings ?? []) as CalendarBooking[],
-    blocks: all.filter((b) => b.date_from < to && b.date_to > from),
-    allBlocks: all,
+    blocks: own.filter((b) => b.date_from < to && b.date_to > from),
+    // של האוהל הזה, ובנוסף כל חסימה כללית
+    groups: groupBlocks(all).filter((g) => g.global || g.tents.includes(tent)),
   };
 }
 
@@ -70,7 +73,7 @@ export default async function CalendarPage({
   const next = shiftMonth(year, month, 1);
   const today = isoDate(new Date());
 
-  const { bookings, blocks, allBlocks } = await loadMonth(tent.slug, year, month);
+  const { bookings, blocks, groups } = await loadMonth(tent.slug, year, month);
 
   const href = (m: { year: number; month: number }) =>
     `/admin/calendar?tent=${tent.slug}&month=${monthKey(m.year, m.month)}`;
@@ -107,7 +110,7 @@ export default async function CalendarPage({
         <BlockDates
           tent={tent.slug}
           tentName={tent.nameEn}
-          blocks={allBlocks}
+          groups={groups}
           defaultFrom={monthBounds(year, month).from > today ? monthBounds(year, month).from : today}
         />
       </div>

@@ -17,6 +17,54 @@ export interface BlockedRange {
   date_to: string;
   reason: string | null;
   created_at: string;
+  /** כמה יחידות מהאוהל החסימה מורידה · עמודה ממיגרציה 011 */
+  units?: number;
+}
+
+/**
+ * חסימה של כל העסק (חג, חופשה) נשמרת כשורה לכל אוהל, כדי שבדיקת הזמינות באתר
+ * תמשיך לעבוד בלי שינוי במסד. כל השורות נכתבות בפעולה אחת ולכן חולקות את
+ * אותו created_at, וכך מזהים אותן כקבוצה אחת.
+ *
+ * מספר היחידות גבוה בכוונה: סוגר את האוהל גם אם יש ממנו כמה יחידות,
+ * וגם אם יתווספו יחידות אחרי החסימה.
+ */
+export const CLOSED_UNITS = 1000;
+
+export interface BlockGroup {
+  key: string;
+  ids: string[];
+  tents: string[];
+  /** חסימה של כל האוהלים יחד */
+  global: boolean;
+  date_from: string;
+  date_to: string;
+  reason: string | null;
+}
+
+/** מאחד שורות חסימה שנוצרו יחד · חסימה כללית מוצגת ומוסרת כפריט אחד */
+export function groupBlocks(blocks: BlockedRange[]): BlockGroup[] {
+  const groups = new Map<string, BlockGroup>();
+  for (const b of blocks) {
+    const key = [b.created_at, b.date_from, b.date_to, b.reason ?? ""].join("|");
+    const g = groups.get(key);
+    if (g) {
+      g.ids.push(b.id);
+      if (!g.tents.includes(b.tent_slug)) g.tents.push(b.tent_slug);
+      g.global = g.tents.length > 1;
+    } else {
+      groups.set(key, {
+        key,
+        ids: [b.id],
+        tents: [b.tent_slug],
+        global: false,
+        date_from: b.date_from,
+        date_to: b.date_to,
+        reason: b.reason,
+      });
+    }
+  }
+  return [...groups.values()].sort((a, b) => a.date_from.localeCompare(b.date_from));
 }
 
 /** מה קורה ביום מסוים · הזמנה, חסימה, או כלום */

@@ -9,6 +9,7 @@ import { BookingShell } from "@/components/booking/shell";
 import { Gallery } from "@/components/booking/gallery";
 import { IconGroup, IconSquareFoot } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { latinTracking } from "@/components/content/section-head";
 import { cn } from "@/lib/utils";
 
 const ils = (n: number) => `${n.toLocaleString("he-IL")}₪`;
@@ -27,12 +28,12 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
     <article
       aria-disabled={taken || undefined}
       className={cn(
-        "relative grid overflow-hidden rounded-[16px] transition-colors md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]",
+        "relative grid overflow-hidden rounded-lg bg-white transition-colors md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]",
         taken
           ? "border border-stroke"
           : selected
-            ? "border border-transparent shadow-drop"
-            : "border border-stroke hover:border-beige"
+            ? "border border-orange ring-1 ring-orange"
+            : "border border-stroke hover:border-brown"
       )}
     >
 
@@ -47,7 +48,7 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
 
       <div className="flex flex-col p-5 md:p-6">
         <h3 className={cn("text-h3", taken && "text-textgray")}>
-          אוהל - {tent.nameEn}
+          אוהל - <span className={latinTracking(tent.nameEn)}>{tent.nameEn}</span>
         </h3>
         <p className="text-body text-textgray mt-1">{tent.taglineHe}</p>
 
@@ -72,22 +73,22 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
                             md:text-body md:gap-5">
               <span className="flex items-center gap-1.5 md:gap-2">
                 עד {tent.capacity} אנשים
-                <IconGroup className="h-5 w-5 text-beige md:h-6 md:w-6" />
+                <IconGroup className="h-5 w-5 text-brown md:h-6 md:w-6" />
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">
                 {tent.sizeSqm} מ״ר
-                <IconSquareFoot className="h-5 w-5 text-beige md:h-6 md:w-6" />
+                <IconSquareFoot className="h-5 w-5 text-brown md:h-6 md:w-6" />
               </span>
             </div>
           </div>
 
           {taken ? (
-            <div className="mt-4 rounded-md bg-offwhite py-4 text-center">
+            <div className="mt-4 rounded-md bg-sand py-4 text-center">
               <p className="text-button text-textgray">לא פנוי בתאריכים האלה</p>
             </div>
           ) : (
             /* נכנסים לדף האוהל (נפתח מעל האשף), ומשם בוחרים וממשיכים · כמו בחבילות */
-            <Button block size="md" asChild noFill={selected} className={cn("mt-4", selected && "bg-orange text-white")}>
+            <Button block size="md" asChild noFill={selected} className={cn("mt-4", selected && "bg-brown text-white")}>
               <Link href={`/tents/${tent.slug}`}>
                 {selected ? (
                   <>
@@ -164,7 +165,7 @@ export default function TentStep() {
       </div>
 
       {rest.length > 0 && (
-        <div className="mt-12 border-t border-stroke pt-10">
+        <div className="mt-16 border-t border-stroke pt-14">
           {!showRest ? (
             <div className="flex flex-col items-center gap-3">
               <p className="text-body text-textgray">

@@ -1,11 +1,20 @@
 import { getCatalog } from "@/lib/catalog";
-import { Gallery } from "@/components/booking/gallery";
+import { tilesFromLabels } from "@/lib/item-images";
 import { PickTent } from "@/components/booking/pick-tent";
+import { ItemTiles } from "@/components/booking/item-tiles";
+import { IconGroup, IconSquareFoot, IconHomeRepairService } from "@/components/icons";
+import { latinTracking } from "@/components/content/section-head";
+import { ProductGallery } from "@/components/content/product-gallery";
+import { ProductTabs } from "@/components/content/product-tabs";
+import { QuickFacts, ProductPerks, SpecList, Related } from "@/components/content/product-parts";
+import { cn } from "@/lib/utils";
+
+const ils = (n: number) => `${n.toLocaleString("he-IL")}₪`;
 
 /**
- * התוכן של אוהל · תיאור, תכונות, מפרט, מה כלול ומחיר.
- * אותו רכיב משמש גם את הדף המלא (/tents/[slug]) וגם את הדיאלוג שנפתח בתוך האשף.
- * בנוי כמו דף החבילה (package-content.tsx).
+ * דף אוהל בסגנון חנות · גלריה עם תמונות קטנות, ולידה פאנל עם שם, מחיר וכפתור.
+ * מתחת: לשוניות (תיאור, מה כלול, מפרט) ואוהלים נוספים.
+ * אותו רכיב משמש גם את הדף המלא וגם את המגירה שנפתחת בתוך האשף במובייל.
  */
 export async function TentContent({ slug }: { slug: string }) {
   const catalog = await getCatalog();
@@ -23,67 +32,94 @@ export async function TentContent({ slug }: { slug: string }) {
     ["זמן הקמה", `כ-${tent.setupMinutes} דקות`],
   ];
 
-  return (
-    <article>
-      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start">
-        {/* טקסט מימין, תמונה משמאל */}
-        <div>
-          <p className="text-tag text-textgray">אוהל</p>
-          <h1 className="text-h1-sm mt-1 md:text-h1">{tent.nameEn}</h1>
-          <p className="text-subtitle text-textgray mt-2">{tent.taglineHe}</p>
-          <p className="text-body mt-6">{tent.descriptionHe}</p>
+  const others = catalog.tents
+    .filter((t) => t.slug !== tent.slug)
+    .slice(0, 3)
+    .map((t) => ({
+      href: `/tents/${t.slug}`,
+      image: t.image,
+      title: t.nameEn,
+      sub: `${t.nameHe} · עד ${t.capacity} אנשים`,
+      price: `${ils(t.priceFrom)} ללילה`,
+    }));
 
-          {/* המחיר והכפתור למעלה, ליד הטקסט · לא צריך לגלול עד הסוף כדי לבחור */}
-          <p className="text-h3 mt-8">
-            {tent.priceFrom.toLocaleString("he-IL")}₪{" "}
-            <span className="text-body text-textgray">ללילה</span>
-          </p>
-          <div className="mt-4">
-            <PickTent slug={tent.slug} />
-          </div>
-        </div>
-
-        <Gallery
-          images={[tent.image, ...tent.gallery].filter((v, i, arr) => v && arr.indexOf(v) === i)}
-          alt={tent.nameHe}
-          className="aspect-[4/3] w-full rounded-[16px] md:sticky md:top-0"
-          sizes="(min-width: 768px) 45vw, 100vw"
-        />
-      </div>
-
-      <h2 className="text-h2 mt-10">מה מרגישים בשטח</h2>
-      <ul className="mt-4 space-y-2">
-        {tent.features.map((f) => (
-          <li key={f} className="text-body flex items-start gap-2">
-            <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-
-      <h2 className="text-h2 mt-10">מפרט</h2>
-      <ul className="text-body mt-4 space-y-2">
-        {specs.map(([k, v]) => (
-          <li key={k}>
-            {k}: {v}
-          </li>
-        ))}
-      </ul>
-
-      {tent.includedItems.length > 0 && (
-        <>
-          <h2 className="text-h2 mt-10">מה כלול</h2>
-          <ul className="mt-4 space-y-2">
-            {tent.includedItems.map((i) => (
-              <li key={i} className="text-body flex items-start gap-2">
+  const tabs = [
+    {
+      id: "about",
+      label: "תיאור",
+      content: (
+        <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+          <p className="text-body">{tent.descriptionHe}</p>
+          <ul className="space-y-3">
+            {tent.features.map((f) => (
+              <li key={f} className="text-body flex items-start gap-3">
                 <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-                <span>{i}</span>
+                <span>{f}</span>
               </li>
             ))}
           </ul>
-        </>
-      )}
+        </div>
+      ),
+    },
+    ...(tent.includedItems.length
+      ? [{
+          id: "included",
+          label: "מה כלול",
+          content: (
+            <ItemTiles
+              items={tilesFromLabels(tent.includedItems)}
+              initial={tent.includedItems.length}
+              cols="grid-cols-3 sm:grid-cols-4 lg:grid-cols-6"
+            />
+          ),
+        }]
+      : []),
+    { id: "specs", label: "מפרט", content: <SpecList rows={specs} className="max-w-2xl" /> },
+  ];
 
+  return (
+    <article>
+      <div className="grid gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:items-start md:gap-14">
+        {/* פאנל הקנייה מימין, הגלריה משמאל · במובייל הגלריה למעלה */}
+        <div className="md:sticky md:top-28">
+          <p className="text-tag text-textgray">אוהל</p>
+          <h1 className={cn("text-h1-sm mt-2 md:text-h1", latinTracking(tent.nameEn))}>{tent.nameEn}</h1>
+          <p className="text-subtitle text-textgray mt-1">{tent.nameHe}</p>
+          <p className="text-body mt-4">{tent.taglineHe}</p>
+
+          <div className="mt-5">
+            <QuickFacts
+              facts={[
+                { label: `עד ${tent.capacity} אנשים`, Icon: IconGroup },
+                { label: `${tent.sizeSqm} מ״ר`, Icon: IconSquareFoot },
+                { label: `הקמה כ-${tent.setupMinutes} דק׳`, Icon: IconHomeRepairService },
+              ]}
+            />
+          </div>
+
+          <div className="mt-6 border-t border-stroke pt-6">
+            <p className="text-h2">
+              {ils(tent.priceFrom)} <span className="text-body text-textgray">ללילה</span>
+            </p>
+            <p className="text-tag text-textgray mt-1">מחיר האוהל, לפני רמת אירוח, תוספות ומשלוח</p>
+            <div className="mt-5">
+              <PickTent slug={tent.slug} className="w-full" />
+            </div>
+          </div>
+
+          <ProductPerks />
+        </div>
+
+        <ProductGallery
+          images={[tent.image, ...tent.gallery]}
+          alt={tent.nameHe}
+          className="order-first md:order-none"
+        />
+      </div>
+
+      <ProductTabs tabs={tabs} className="mt-16 md:mt-20" />
+
+      <Related kind="tents" items={others} />
     </article>
   );
 }

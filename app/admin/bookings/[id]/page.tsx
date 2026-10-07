@@ -70,7 +70,7 @@ export default async function BookingDetailPage({
     <>
       <Link
         href="/admin/bookings"
-        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
+        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
       >
         <ArrowRight className="h-4 w-4" />
         לכל ההזמנות

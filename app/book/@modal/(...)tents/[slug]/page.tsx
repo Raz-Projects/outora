@@ -1,7 +1,7 @@
-import { RouteDialog } from "@/components/ui/route-dialog";
+import { DialogOnMobileOnly } from "@/components/ui/route-dialog";
 import { TentContent } from "@/components/content/tent-content";
 
-/** נפתח כדיאלוג כשמגיעים מתוך האשף. הכתובת עדיין /tents/[slug]. */
+/** במובייל נפתח כמגירה כשמגיעים מתוך האשף, בדסקטופ כדף מלא. הכתובת עדיין /tents/[slug]. */
 export default async function TentModal({
   params,
 }: {
@@ -9,8 +9,8 @@ export default async function TentModal({
 }) {
   const { slug } = await params;
   return (
-    <RouteDialog>
+    <DialogOnMobileOnly>
       <TentContent slug={slug} />
-    </RouteDialog>
+    </DialogOnMobileOnly>
   );
 }

@@ -17,13 +17,17 @@ export default {
         // ── Figma palette (שמות ישירים) ──
         white:    "#FFFFFF",
         offwhite: "#FBFBFB",
-        cream:    "#F9F5EC",
-        stroke:   "#E6E6E6",
+        cream:    "#EFEAE4",
+        sand:     "#ECE2D3",
+        stroke:   "#DDD3C7",
         textgray: "#666666",
         black:    "#000000",
-        beige:    "#D9C18A",
-        beigedark:"#C7AC71",
-        orange:   "#D9652C",
+        brown:    "#705040",
+        browndark:"#5A3F32",
+        khaki:    "#968662",
+        orange:   "#B97351",
+        // הירוק של וואטסאפ · רק לכפתור הצף
+        whatsapp: { DEFAULT: "#25D366", dark: "#1EBE5A" },
         error:    "#B3261E",
         errorbg:  "#FDECEA",
         success:  "#2F7A55",
@@ -67,6 +71,11 @@ export default {
         body:     ["16px", { lineHeight: "1.6",  fontWeight: "400" }],
         button:   ["16px", { lineHeight: "1.2",  fontWeight: "500" }],
         tag:      ["14px", { lineHeight: "1.35", fontWeight: "500" }],
+      },
+
+      letterSpacing: {
+        // כותרות ותגיות באנגלית בלבד
+        display: "0.2em",
       },
 
       transitionTimingFunction: {

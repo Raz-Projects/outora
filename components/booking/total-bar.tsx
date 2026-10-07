@@ -7,6 +7,7 @@ import { resolveItems } from "@/lib/items";
 import { useBooking } from "@/lib/booking-context";
 import { Drawer } from "@/components/nav/drawer";
 import { AnimatedNumber } from "./animated-number";
+import { latinTracking } from "@/components/content/section-head";
 import { cn } from "@/lib/utils";
 
 export const ils = (n: number) => `${n.toLocaleString("he-IL")}₪`;
@@ -23,7 +24,7 @@ function Chevron({ className }: { className?: string }) {
 function Thumb({ src, alt }: { src?: string; alt: string }) {
   if (!src) {
     return (
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border border-stroke bg-white text-beige">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-stroke text-brown">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M3 8l9-5 9 5v8l-9 5-9-5V8Z" strokeLinejoin="round" />
           <path d="m3 8 9 5 9-5M12 13v8" strokeLinejoin="round" />
@@ -33,7 +34,7 @@ function Thumb({ src, alt }: { src?: string; alt: string }) {
   }
 
   return (
-    <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[10px] bg-white">
+    <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-sm bg-white">
       <Image src={src} alt={alt} fill sizes="96px" quality={90} className="object-cover" />
     </span>
   );
@@ -49,13 +50,17 @@ function Ctrl({
       onClick={onClick}
       aria-label={label}
       className="flex h-7 w-7 items-center justify-center rounded-full border border-stroke
-                 text-black transition-colors hover:border-beige hover:bg-offwhite"
+                 text-brown transition-colors hover:border-brown hover:bg-sand"
     >
       {children}
     </button>
   );
 }
 
+/**
+ * הפירוט של ההזמנה. ברירת המחדל צפה (תפריט שנפתח מהסכום) ולכן עם צל.
+ * כשהיא מוצגת בתוך הדף מעבירים className שטוח: bg-transparent shadow-none border border-stroke
+ */
 export function OrderPanel({
   className,
   totalLabel = "סכום ביניים",
@@ -75,7 +80,7 @@ export function OrderPanel({
 
   return (
     <div dir="rtl"
-      className={cn("max-h-[70vh] overflow-y-auto overscroll-contain rounded-[20px] bg-white p-7 shadow-drop", className)}>
+      className={cn("max-h-[70vh] overflow-y-auto overscroll-contain rounded-lg bg-white p-7 shadow-drop", className)}>
       <div className={cn(hideTitle && "sr-only")}>
         <p className="text-h3">ההזמנה שלי</p>
         {nights > 0 && (
@@ -111,7 +116,7 @@ export function OrderPanel({
             <li key={item.id} className="flex items-center gap-3 py-2.5">
               <Thumb src={item.image} alt={item.nameHe} />
               <div className="min-w-0 flex-1">
-                <p className="text-body">{item.nameHe}</p>
+                <p className="text-body">{item.nameHe}{item.qty > 1 && ` · ${item.qty} יח׳`}</p>
                 <p className="text-tag text-textgray mt-0.5">כלול בחבילה</p>
               </div>
               <span className="text-body text-textgray">0₪</span>
@@ -123,7 +128,9 @@ export function OrderPanel({
           <li className="flex items-center gap-3 py-2.5">
             <Thumb src={tier.image} alt={tier.nameEn} />
             <div className="min-w-0 flex-1">
-              <p className="text-body">רמת אירוח {tier.nameEn}</p>
+              <p className="text-body">
+                רמת אירוח <span className={latinTracking(tier.nameEn)}>{tier.nameEn}</span>
+              </p>
               <p className="text-tag text-textgray mt-0.5">
                 {tierPrice > 0
                   ? `${ils(tier.pricePerNight)} ללילה × ${Math.max(nights, 1)} לילות`
@@ -291,7 +298,7 @@ export function MobileTotalBar() {
   return (
     <>
       <div
-        className="fixed inset-x-0 bottom-0 z-40 rounded-t-[20px] bg-white px-5 pt-4 md:hidden
+        className="fixed inset-x-0 bottom-0 z-40 rounded-t-lg bg-white px-5 pt-4 md:hidden
                    pb-[max(16px,env(safe-area-inset-bottom))]
                    shadow-[0_-4px_16px_2px_#00000022]"
       >
@@ -315,7 +322,7 @@ export function MobileTotalBar() {
 
       <Drawer open={open} onClose={() => setOpen(false)} title="ההזמנה שלי">
         {sub && <p className="text-body text-textgray -mt-2 mb-3">{sub}</p>}
-        <OrderPanel hideTitle className="max-h-none rounded-none p-0 shadow-none" />
+        <OrderPanel hideTitle className="max-h-none rounded-none bg-transparent p-0 shadow-none" />
       </Drawer>
     </>
   );

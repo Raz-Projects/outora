@@ -5,19 +5,24 @@ import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-/** Outora Button · Figma: Elements/Button */
+/**
+ * Outora Button · מ-07.10.2026 בהשראת MOA LIVING:
+ * כפתור שקוף עם מסגרת דקה ופינות עגולות לגמרי. ב-hover הוא מתמלא מלמטה והטקסט מתהפך.
+ */
 const buttonVariants = cva(
   "group relative isolate inline-flex items-center justify-center gap-3 overflow-hidden " +
-    "rounded-md text-button transition-colors " +
+    "rounded-full text-button transition-colors duration-300 ease-smooth " +
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2",
   {
     variants: {
       variant: {
-        primary: "bg-beige text-black",
-        outline: "border border-stroke bg-white text-black",
-        ghost:   "bg-transparent text-black",
-        muted:   "bg-offwhite text-textgray cursor-not-allowed",
-        link:    "h-auto overflow-visible p-0 bg-transparent text-black underline " +
+        primary: "border border-brown bg-transparent text-brown hover:text-white active:text-white",
+        /** על תמונה או רקע כהה */
+        light:   "border border-white bg-transparent text-white hover:text-brown active:text-brown",
+        outline: "border border-stroke bg-transparent text-brown",
+        ghost:   "bg-transparent text-brown",
+        muted:   "border border-stroke bg-transparent text-textgray cursor-not-allowed",
+        link:    "h-auto overflow-visible p-0 bg-transparent text-brown underline " +
                  "underline-offset-4 decoration-1 hover:text-textgray",
       },
       size: {
@@ -38,9 +43,10 @@ const fillClasses =
   "group-hover:scale-y-100 group-active:scale-y-100";
 
 const fillColor = {
-  primary: "bg-beigedark",
-  outline: "bg-offwhite",
-  ghost:   "bg-offwhite",
+  primary: "bg-brown",
+  light:   "bg-white",
+  outline: "bg-sand",
+  ghost:   "bg-sand",
   muted:   "",
   link:    "",
 } as const;

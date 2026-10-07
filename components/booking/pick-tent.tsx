@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useInRouteDialog } from "@/components/ui/route-dialog";
 
 /** בוחר את האוהל וממשיך לתוספות · יושב בתוך דף האוהל */
-export function PickTent({ slug }: { slug: string }) {
+export function PickTent({ slug, className = "sm:w-auto sm:min-w-[240px]" }: { slug: string; className?: string }) {
   const { set } = useBooking();
   const router = useRouter();
   const inDialog = useInRouteDialog();
@@ -28,7 +28,7 @@ export function PickTent({ slug }: { slug: string }) {
   };
 
   return (
-    <Button block size="md" onClick={go} className="sm:w-auto sm:min-w-[240px]">
+    <Button block size="md" onClick={go} className={className}>
       בחרו אוהל זה
     </Button>
   );

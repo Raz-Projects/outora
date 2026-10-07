@@ -1,4 +1,4 @@
-import { area, image, items, sub, text, type PageDef } from "./types";
+import { area, image, items, list, sub, text, type PageDef } from "./types";
 
 /** סקשנים שמופיעים ביותר מדף אחד · שינוי כאן משנה בכל המקומות */
 const defaults = {
@@ -45,6 +45,22 @@ const defaults = {
   ],
 
   footerHours: "א׳–ו׳ · 09:00–20:00",
+
+  /** הפס הכתום מעל הפוטר · בהשראת JOIN OUR TRIBE של MOA. ⚠️ טיוטה שלי (07.10.2026) */
+  bandTag: "OUTORA CLUB",
+  bandTitle: "הצטרפו למועדון החברים",
+  bandText: "10% הנחה על כל הזמנה, לילה במתנה ועוד הטבות. בחינם.",
+  bandButton: "להצטרפות",
+
+  /** דפי אוהל וחבילה · השורות מתחת לכפתור. ⚠️ טיוטה שלי (07.10.2026) */
+  productPerks: [
+    "ביטול חינם עד 48 שעות לפני המועד",
+    "איסוף עצמי, משלוח או הקמה מלאה במקום",
+    "צוות זמין בוואטסאפ לכל שאלה",
+  ],
+  productQuestion: "יש שאלה? כתבו לנו בוואטסאפ",
+  relatedTents: "אוהלים נוספים",
+  relatedPackages: "חבילות נוספות",
 };
 
 const card = [sub.text("title", "כותרת"), sub.area("desc", "טקסט")];
@@ -76,8 +92,23 @@ export const sharedPage: PageDef<typeof defaults> = {
       ],
     },
     {
+      title: "דפי אוהל וחבילה",
+      fields: [
+        list("productPerks", "יתרונות מתחת לכפתור", "שורה לכל יתרון"),
+        text("productQuestion", "קישור לוואטסאפ"),
+        text("relatedTents", "כותרת · אוהלים נוספים"),
+        text("relatedPackages", "כותרת · חבילות נוספות"),
+      ],
+    },
+    {
       title: "תחתית האתר",
-      fields: [text("footerHours", "שעות פעילות")],
+      fields: [
+        text("footerHours", "שעות פעילות"),
+        text("bandTag", "פס כתום · כותרת קטנה"),
+        text("bandTitle", "פס כתום · כותרת"),
+        area("bandText", "פס כתום · טקסט"),
+        text("bandButton", "פס כתום · כפתור"),
+      ],
     },
   ],
 };

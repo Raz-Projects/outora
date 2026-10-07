@@ -22,7 +22,7 @@ export function StepperMobile() {
 
         const dot =
           active || done ? (
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-beige text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brown text-white">
               <Icon className="h-4 w-4" />
             </span>
           ) : (
@@ -65,7 +65,7 @@ export function StepperMobile() {
               <span
                 className={cn(
                   "mt-[13px] h-px min-w-4 flex-1 transition-colors",
-                  done ? "bg-beige" : "bg-white/50"
+                  done ? "bg-brown" : "bg-white/50"
                 )}
               />
             )}

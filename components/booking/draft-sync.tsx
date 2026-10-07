@@ -2,7 +2,20 @@
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { useBooking } from "@/lib/booking-context";
+import { useBooking, type BookingState } from "@/lib/booking-context";
+
+/**
+ * ההערות שנשמרות בהזמנה · אין שדה כתובת בהזמנה, ולכן הכתובת למשלוח
+ * (או "איסוף עצמי") נכנסת בראש ההערות, כדי שתגיע לצוות.
+ */
+export function orderNotes(state: BookingState): string | null {
+  const isPickup = state.mode !== "package" && state.deliveryId === "pickup";
+  const address = state.customer.address.trim();
+  return [
+    isPickup ? "איסוף עצמי" : address && `כתובת למשלוח: ${address}`,
+    state.customer.notes.trim(),
+  ].filter(Boolean).join("\n") || null;
+}
 
 /**
  * שולח את מצב ההזמנה לשרת בכל שינוי, כדי שנדע איפה אנשים עוצרים.
@@ -47,7 +60,7 @@ export function DraftSync() {
       customer_name: state.customer.name || null,
       customer_phone: state.customer.phone || null,
       customer_email: state.customer.email || null,
-      notes: state.customer.notes || null,
+      notes: orderNotes(state),
     };
 
     const body = JSON.stringify(payload);

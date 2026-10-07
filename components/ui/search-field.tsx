@@ -25,7 +25,7 @@ export function SearchField({
         onClick={onSearch}
         aria-label={buttonLabel}
         className="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center
-                   rounded-full bg-beige text-black transition-colors hover:bg-beigedark
+                   rounded-full border border-brown text-brown transition-colors hover:bg-brown hover:text-white
                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange"
       >
         <Search className="h-5 w-5" strokeWidth={2.5} />

@@ -19,8 +19,8 @@ function Round({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-beige
-                 text-black transition-colors hover:bg-beigedark"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brown
+                 text-brown transition-colors hover:bg-brown hover:text-white"
     >
       {children}
     </button>
@@ -36,7 +36,7 @@ export function ExtraCard({ item }: { item: Accessory }) {
   return (
     <article
       className={cn(
-        "flex h-full flex-col overflow-hidden rounded-[16px] border bg-white text-right transition-colors",
+        "flex h-full flex-col overflow-hidden rounded-lg bg-white border text-right transition-colors",
         on ? "border-orange" : "border-stroke"
       )}
     >
@@ -45,21 +45,21 @@ export function ExtraCard({ item }: { item: Accessory }) {
           (v, i, arr) => v && arr.indexOf(v) === i
         )}
         alt={item.nameHe}
-        className="aspect-[16/9] bg-white sm:aspect-[4/3]"
-        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 75vw"
+        className="aspect-[4/3] bg-white"
+        sizes="(min-width: 1280px) 18vw, (min-width: 768px) 24vw, 60vw"
         fit="contain"
       />
 
-      <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <h3 className="text-h3">{item.nameHe}</h3>
-        <p className="text-body text-textgray mt-1">{item.descriptionHe || "תוספת לחוויה שלכם."}</p>
+      <div className="flex flex-1 flex-col p-3 sm:p-4">
+        <h3 className="text-button">{item.nameHe}</h3>
+        <p className="text-tag text-textgray mt-1 line-clamp-2">{item.descriptionHe || "תוספת לחוויה שלכם."}</p>
 
         {/* המחיר מימין, הכפתור משמאל */}
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4 sm:gap-4 sm:pt-5">
-          <p className="text-body">{item.pricePerNight}₪ ללילה</p>
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <p className="text-tag">{item.pricePerNight}₪ ללילה</p>
 
           {on ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Round label="הוספת כמות" onClick={() => setQty(item.id, qty + 1)}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />

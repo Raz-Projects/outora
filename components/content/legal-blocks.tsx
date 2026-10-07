@@ -72,7 +72,7 @@ function LegalTable({ head, rows }: { head: string[]; rows: string[][] }) {
     <div className="overflow-x-auto">
       <table className="text-body w-full border-collapse">
         <thead>
-          <tr className="border-b border-black">
+          <tr className="border-b border-brown">
             {head.map((h) => (
               <th key={h} className="text-button py-3 pe-6 text-start font-medium">
                 {h}
@@ -88,7 +88,7 @@ function LegalTable({ head, rows }: { head: string[]; rows: string[][] }) {
                   key={c}
                   className={
                     c === 0
-                      ? "py-3 pe-6 align-top text-black"
+                      ? "py-3 pe-6 align-top text-brown"
                       : "text-textgray py-3 pe-6 align-top last:pe-0"
                   }
                 >

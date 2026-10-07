@@ -1,7 +1,7 @@
 import type { PageDef } from "./types";
 import { homePage } from "./home";
 import { aboutPage } from "./about";
-import { faqPage, howItWorksPage, guidePage, businessPage } from "./info";
+import { faqPage, howItWorksPage, guidePage, businessPage, contactPage } from "./info";
 import { clubPage } from "./club";
 import { tentsPage, packagesPage, locationsPage, legalIndexPage } from "./archives";
 import { sharedPage } from "./shared";
@@ -19,6 +19,7 @@ export const PAGE_GROUPS: { title: string; pages: PageDef[] }[] = [
       guidePage,
       faqPage,
       businessPage,
+      contactPage,
       clubPage,
       tentsPage,
       packagesPage,

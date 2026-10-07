@@ -4,6 +4,7 @@ import * as React from "react";
 import { Plus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { parseInclude, formatInclude } from "@/lib/items";
 
 /** רשימת טקסטים · תכונות, מה כלול, מתקנים */
 export function ListField({
@@ -30,7 +31,7 @@ export function ListField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-black">{label}</label>
+      <label className="text-button mb-2 block text-brown">{label}</label>
       {hint && <p className="text-tag text-textgray mb-3">{hint}</p>}
 
       {value.length > 0 && (
@@ -100,7 +101,7 @@ export function PickerField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-black">{label}</label>
+      <label className="text-button mb-2 block text-brown">{label}</label>
       {hint && <p className="text-tag text-textgray mb-3">{hint}</p>}
 
       <div className="flex flex-wrap gap-2">
@@ -115,8 +116,8 @@ export function PickerField({
               className={
                 "text-tag rounded-full border px-3 py-1.5 transition-colors ease-smooth " +
                 (on
-                  ? "border-beige bg-beige text-black"
-                  : "border-stroke bg-white text-textgray hover:border-beige hover:text-black")
+                  ? "border-brown bg-brown text-white"
+                  : "border-stroke bg-white text-textgray hover:border-brown hover:text-brown")
               }
             >
               {o.label}
@@ -124,6 +125,69 @@ export function PickerField({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+/**
+ * בחירה מרובה עם כמות · פריטי חבילה.
+ * כל פריט נשמר כ-"id" (יחידה אחת) או "id:N" (כמה יחידות). ראו parseInclude ב-lib/items.ts.
+ */
+export function QuantityPickerField({
+  label,
+  hint,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  hint?: string;
+  options: { id: string; label: string }[];
+  value: string[];
+  onChange: (next: string[]) => void;
+}) {
+  const parsed = value.map(parseInclude);
+  const ids = parsed.map((p) => p.id);
+  const qtyOf = (id: string) => parsed.find((p) => p.id === id)?.qty ?? 1;
+
+  // בחירה וביטול · פריט שנשאר שומר על הכמות שלו
+  const pick = (next: string[]) => onChange(next.map((id) => formatInclude(id, qtyOf(id))));
+  const setQty = (id: string, qty: number) =>
+    onChange(parsed.map((p) => formatInclude(p.id, p.id === id ? Math.max(1, Math.min(99, qty)) : p.qty)));
+
+  return (
+    <div>
+      <PickerField label={label} hint={hint} options={options} value={ids} onChange={pick} />
+
+      {parsed.length > 0 && (
+        <ul className="mt-5 divide-y divide-stroke border-y border-stroke">
+          {parsed.map((p) => (
+            <li key={p.id} className="flex items-center justify-between gap-4 py-2.5">
+              <span className="text-body">{options.find((o) => o.id === p.id)?.label ?? p.id}</span>
+              <span className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setQty(p.id, p.qty + 1)}
+                  aria-label="הוספת כמות"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-brown transition-colors hover:border-brown"
+                >
+                  +
+                </button>
+                <span className="text-button w-6 text-center">{p.qty}</span>
+                <button
+                  type="button"
+                  onClick={() => setQty(p.id, p.qty - 1)}
+                  disabled={p.qty <= 1}
+                  aria-label="הפחתת כמות"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-brown transition-colors hover:border-brown disabled:opacity-40"
+                >
+                  −
+                </button>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

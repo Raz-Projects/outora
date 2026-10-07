@@ -9,7 +9,7 @@ import {
 import { Panel, OptionList, type Option } from "@/components/nav/panel";
 import { Drawer } from "@/components/nav/drawer";
 import { DatePicker, DatePickerMobile, type Range } from "@/components/nav/date-picker";
-import { formatHe, nightsBetween, MONTHS_HE } from "@/lib/dates";
+import { formatHe, nightsBetween, MONTHS_HE, MIN_NIGHTS } from "@/lib/dates";
 import { useBooking } from "@/lib/booking-context";
 import { cn } from "@/lib/utils";
 
@@ -87,12 +87,14 @@ export function SearchBar({
       : formatHe(range.from)
     : "תאריכים";
 
-  const ready = !!guests && !!range.from && !!range.to && !!location;
+  /** תאריכים ששמורים מלפני שנקבע המינימום לא נחשבים */
+  const datesOk = !!range.from && !!range.to && nightsBetween(range.from, range.to) >= MIN_NIGHTS;
+  const ready = !!guests && datesOk && !!location;
   React.useEffect(() => { if (ready) setError(false); }, [ready]);
 
   const missing = [
     !guests                   && { key: "people"   as const, name: "מספר אנשים" },
-    !(range.from && range.to) && { key: "dates"    as const, name: "תאריכים" },
+    !datesOk                  && { key: "dates"    as const, name: `תאריכים (מינימום ${MIN_NIGHTS} לילות)` },
     !location                 && { key: "location" as const, name: "מיקום" },
   ].filter(Boolean) as { key: Exclude<Open, null>; name: string }[];
 
@@ -122,8 +124,8 @@ export function SearchBar({
 
   const nights = range.from && range.to ? nightsBetween(range.from, range.to) : 0;
 
-  const tone     = (on: boolean) => (on ? "text-black" : error ? "text-error" : "text-textgray");
-  const iconTone = (on: boolean) => (on ? "text-beige" : error ? "text-error" : "text-beige/50");
+  const tone     = (on: boolean) => (on ? "text-brown" : error ? "text-error" : "text-textgray");
+  const iconTone = (on: boolean) => (on ? "text-brown" : error ? "text-error" : "text-brown/40");
 
   return (
     <div ref={root} className={cn("relative w-full max-w-[677px]", className)}>
@@ -188,11 +190,12 @@ export function SearchBar({
           <button
             type="button"
             onClick={submit}
-            className="mt-[6px] flex h-[46px] w-full items-center justify-center gap-2 rounded-[14px]
-                       bg-beige text-button text-black transition-colors active:bg-beigedark"
+            className="mt-[6px] flex h-[46px] w-full items-center justify-center gap-2 rounded-full
+                       border border-brown text-button text-brown transition-colors
+                       active:bg-brown active:text-white"
           >
             <span>חפש</span>
-            <IconSearch className="h-5 w-5 text-black" />
+            <IconSearch className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -200,11 +203,12 @@ export function SearchBar({
       {/* ─────────── דסקטופ ─────────── */}
       <div
         className={cn(
-          "hidden h-[67px] w-full items-center bg-white px-[10px]",
+          "hidden h-[67px] w-full items-center px-[10px]",
           "transition-colors md:flex",
+          // בשורה שבהדר · בלי רקע לבן, כדי שכל הפס יהיה בצבע אחד
           flat
-            ? "rounded-none border-0"
-            : "rounded-[20px] border-[1.31px] shadow-drop",
+            ? "rounded-none border-0 bg-transparent"
+            : "rounded-[20px] border-[1.31px] bg-white shadow-drop",
           error ? "border-error" : "border-stroke"
         )}
       >
@@ -215,8 +219,8 @@ export function SearchBar({
               onClick={() => setOpen(open === key ? null : key)}
               className={cn(
                 "flex min-w-0 flex-1 items-center justify-center gap-2 rounded-[12px] py-2",
-                "transition-colors hover:bg-offwhite",
-                open === key && "bg-offwhite"
+                "transition-colors hover:bg-sand",
+                open === key && "bg-sand"
               )}
             >
               <Icon className={cn("shrink-0 transition-colors", iconTone(on))} />
@@ -237,16 +241,17 @@ export function SearchBar({
           type="button"
           onClick={submit}
           className="group relative isolate ms-4 flex h-[47px] shrink-0 items-center gap-2
-                     overflow-hidden rounded-[12px] bg-beige px-6 text-button text-black"
+                     overflow-hidden rounded-full border border-brown px-6 text-button text-brown
+                     transition-colors duration-300 ease-smooth hover:text-white"
         >
           <span
             aria-hidden
             className="pointer-events-none absolute inset-0 -z-10 origin-bottom scale-y-0
-                       bg-beigedark transition-transform duration-300 ease-smooth
+                       bg-brown transition-transform duration-300 ease-smooth
                        group-hover:scale-y-100"
           />
           <span className="relative z-10">חפש</span>
-          <IconSearch className="relative z-10 text-black" />
+          <IconSearch className="relative z-10" />
         </button>
       </div>
 
@@ -293,7 +298,7 @@ export function SearchBar({
         footer={
           <div className="flex items-center justify-between gap-4">
             <p className="text-tag text-textgray">
-              {nights > 0 ? `${nights} לילות` : "בחרו תאריכים"}
+              {nights > 0 ? `${nights} לילות` : range.from ? `מינימום ${MIN_NIGHTS} לילות` : "בחרו תאריכים"}
             </p>
             <div className="flex items-center gap-4">
               <button type="button" onClick={() => setRange({})} className="text-button text-textgray">
@@ -302,8 +307,9 @@ export function SearchBar({
               <button
                 type="button"
                 onClick={() => setOpen(null)}
-                disabled={nights <= 0}
-                className="h-[52px] rounded-[12px] bg-beige px-8 text-button text-black
+                disabled={nights < MIN_NIGHTS}
+                className="h-[52px] rounded-full border border-brown px-8 text-button text-brown
+                           transition-colors active:bg-brown active:text-white
                            disabled:cursor-not-allowed disabled:opacity-50"
               >
                 אישור

@@ -18,7 +18,7 @@ function Diagram() {
       strokeWidth="2"
       strokeLinejoin="round"
       strokeLinecap="round"
-      className="h-auto w-full text-black"
+      className="h-auto w-full text-brown"
       aria-hidden
     >
       {/* קרקע */}
@@ -36,9 +36,9 @@ function Diagram() {
       <path d="M192 150 Q192 130 168 128" />
 
       {/* המחבר · המסדרון בין השניים */}
-      <path d="M224 196 V150 H310 V196" className="text-beige" strokeWidth="2.5" />
-      <path d="M224 150 Q267 124 310 150" className="text-beige" strokeWidth="2.5" />
-      <path d="M240 196 V160 M294 196 V160" className="text-beige" strokeDasharray="4 6" />
+      <path d="M224 196 V150 H310 V196" className="text-brown" strokeWidth="2.5" />
+      <path d="M224 150 Q267 124 310 150" className="text-brown" strokeWidth="2.5" />
+      <path d="M240 196 V160 M294 196 V160" className="text-brown" strokeDasharray="4 6" />
     </svg>
   );
 }
@@ -47,12 +47,12 @@ export async function TentConnect() {
   const c = await getPageContent(sharedPage);
 
   return (
-    <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px]">
+    <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-[90px] md:py-32">
       <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
         {/* ימין · הטקסט */}
         <div>
           <p className="text-tag text-textgray">{c.connectTag}</p>
-          <h2 className="text-h2 mt-2">{c.connectTitle}</h2>
+          <h2 className="text-h2 mt-3">{c.connectTitle}</h2>
           <p className="text-subtitle text-textgray mt-4">
             {c.connectText}
           </p>
@@ -86,12 +86,12 @@ export async function TentConnect() {
         </div>
 
         {/* שמאל · האיור */}
-        <div className="rounded-lg border border-stroke bg-white p-8 md:p-12">
+        <div className="p-4 md:p-8">
           <Diagram />
           <div className="mt-6 flex items-center justify-between">
-            <p className="text-tag text-textgray">HAVEN / HAVEN PRIME</p>
-            <p className="text-tag text-beige">המחבר</p>
-            <p className="text-tag text-textgray">HALO</p>
+            <p className="text-tag text-textgray tracking-display">HAVEN / HAVEN PRIME</p>
+            <p className="text-tag text-brown">המחבר</p>
+            <p className="text-tag text-textgray tracking-display">HALO</p>
           </div>
         </div>
       </div>

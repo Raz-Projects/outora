@@ -5,9 +5,11 @@ import type { ExperiencePackage as Pkg } from "@/lib/packages";
 import { getTentBySlug } from "@/lib/tents";
 import { resolveItems } from "@/lib/items";
 import { Gallery } from "@/components/booking/gallery";
+import { ItemTiles } from "@/components/booking/item-tiles";
 import { ils } from "@/components/booking/total-bar";
 import { IconGroup, IconLocation, IconCamping } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { latinTracking } from "@/components/content/section-head";
 
 /** תמונת החבילה ואחריה הגלריה של האוהל שלה */
 function images(pkg: Pkg) {
@@ -27,7 +29,7 @@ export function PackageCard({ pkg }: { pkg: Pkg }) {
   ];
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[16px] border border-stroke bg-white">
+    <article className="flex h-full flex-col overflow-hidden rounded-lg bg-white border border-stroke">
       <Gallery
         images={images(pkg)}
         alt={pkg.title}
@@ -37,23 +39,20 @@ export function PackageCard({ pkg }: { pkg: Pkg }) {
 
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <h3 className="text-h3">{pkg.title}</h3>
-        <p className="text-body text-textgray mt-1">{pkg.hook}</p>
+        <p className="text-body text-textgray mt-1 line-clamp-2">{pkg.hook}</p>
 
-        <ul className="mt-4 hidden space-y-1.5 md:block">
-          {resolveItems(pkg.includes).slice(0, 4).map((f) => (
-            <li key={f.id} className="text-body flex items-start gap-2">
-              <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-              <span>{f.nameHe}</span>
-            </li>
-          ))}
-        </ul>
+        <ItemTiles
+          items={resolveItems(pkg.includes).map((i) => ({ key: i.id, name: i.nameHe, image: i.image, qty: i.qty }))}
+          initial={4}
+          className="mt-4"
+        />
 
         <ul className="text-tag text-textgray mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5
                        md:block md:space-y-1.5">
           {meta.map(({ label, Icon }) => (
             <li key={label} className="flex min-w-0 items-center gap-1.5 md:gap-2">
-              <Icon className="h-5 w-5 shrink-0 text-beige" />
-              <span className="truncate">{label}</span>
+              <Icon className="h-5 w-5 shrink-0 text-brown" />
+              <span className={`truncate ${latinTracking(label)}`}>{label}</span>
             </li>
           ))}
         </ul>
