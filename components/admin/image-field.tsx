@@ -4,7 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import { Upload, X, GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button, Spinner } from "@/components/ui/button";
 import { uploadCatalogImage } from "@/app/admin/content/actions";
 
 const MAX_SIDE = 2400;
@@ -51,6 +51,20 @@ async function upload(folder: string, original: File) {
   return uploadCatalogImage(form);
 }
 
+/** תמונה שבדרך · התצוגה מהמחשב, עם סימן טעינה עד שהיא עולה */
+function UploadingTile({ src, done = false }: { src: string; done?: boolean }) {
+  return (
+    <>
+      <Image src={src} alt="" fill unoptimized className="object-cover" />
+      {!done && (
+        <span className="absolute inset-0 flex items-center justify-center bg-white/60 text-brown">
+          <Spinner />
+        </span>
+      )}
+    </>
+  );
+}
+
 /** תמונה בודדת · תצוגה מקדימה, החלפה והסרה */
 export function ImageField({
   label,
@@ -66,13 +80,18 @@ export function ImageField({
   onError: (msg: string) => void;
 }) {
   const [busy, setBusy] = React.useState(false);
+  const [preview, setPreview] = React.useState("");
   const input = React.useRef<HTMLInputElement>(null);
 
   async function pick(file?: File) {
     if (!file) return;
+    const local = URL.createObjectURL(file);
+    setPreview(local);
     setBusy(true);
     const res = await upload(folder, file);
     setBusy(false);
+    setPreview("");
+    URL.revokeObjectURL(local);
     if (res.ok) onChange(res.url);
     else onError(res.error);
   }
@@ -82,7 +101,9 @@ export function ImageField({
       <label className="text-button mb-2 block text-brown">{label}</label>
       <div className="flex items-start gap-4">
         <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-md border border-stroke bg-offwhite">
-          {value ? (
+          {preview ? (
+            <UploadingTile src={preview} />
+          ) : value ? (
             <Image src={value} alt="" fill sizes="112px" className="object-cover" />
           ) : (
             <span className="flex h-full items-center justify-center text-tag text-textgray">
@@ -140,13 +161,24 @@ export function GalleryField({
   onError: (msg: string) => void;
   hint?: string;
 }) {
-  const [busy, setBusy] = React.useState(false);
+  const [pending, setPending] = React.useState<
+    { key: string; src: string; status: "busy" | "done" | "failed" }[]
+  >([]);
+  const busy = pending.length > 0;
+  const finished = pending.filter((t) => t.status !== "busy").length;
   const input = React.useRef<HTMLInputElement>(null);
 
   async function add(files: FileList | null) {
     if (!files?.length) return;
-    setBusy(true);
     const list = Array.from(files);
+    const tiles = list.map((f, i) => ({
+      key: `${Date.now()}-${i}`,
+      src: URL.createObjectURL(f),
+      status: "busy" as const,
+    }));
+    setPending(tiles);
+    const mark = (i: number, status: "done" | "failed") =>
+      setPending((p) => p.map((t, j) => (j === i ? { ...t, status } : t)));
     const results: (string | null)[] = new Array(list.length).fill(null);
 
     // ההקטנה רצה שלוש במקביל · Next שולח את ההעלאות עצמן אחת אחת · הסדר נשמר
@@ -155,13 +187,19 @@ export function GalleryField({
       while (next < list.length) {
         const i = next++;
         const res = await upload(folder, list[i]);
-        if (res.ok) results[i] = res.url;
-        else onError(res.error);
+        if (res.ok) {
+          results[i] = res.url;
+          mark(i, "done");
+        } else {
+          onError(res.error);
+          mark(i, "failed");
+        }
       }
     }
     await Promise.all(Array.from({ length: Math.min(3, list.length) }, worker));
 
-    setBusy(false);
+    tiles.forEach((t) => URL.revokeObjectURL(t.src));
+    setPending([]);
     const urls = results.filter((u): u is string => !!u);
     if (urls.length) onChange([...value, ...urls]);
   }
@@ -227,6 +265,17 @@ export function GalleryField({
           </div>
         ))}
 
+        {pending
+          .filter((t) => t.status !== "failed")
+          .map((t) => (
+            <div
+              key={t.key}
+              className="relative h-28 w-28 overflow-hidden rounded-md border border-stroke bg-offwhite"
+            >
+              <UploadingTile src={t.src} done={t.status === "done"} />
+            </div>
+          ))}
+
         <button
           type="button"
           onClick={() => input.current?.click()}
@@ -238,7 +287,9 @@ export function GalleryField({
           )}
         >
           <Upload className="h-5 w-5" />
-          <span className="text-tag">{busy ? "מעלה..." : "הוספה"}</span>
+          <span className="text-tag">
+            {busy ? `מעלה ${Math.min(finished + 1, pending.length)} מתוך ${pending.length}` : "הוספה"}
+          </span>
         </button>
       </div>
 
