@@ -15,6 +15,13 @@ const nextConfig: NextConfig = {
     browserToTerminal: false,
   },
 
+  // ברירת המחדל היא 1MB · התמונות מוקטנות בדפדפן, זה מרווח ביטחון
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
+  },
+
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

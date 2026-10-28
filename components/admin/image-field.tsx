@@ -7,7 +7,44 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { uploadCatalogImage } from "@/app/admin/content/actions";
 
-async function upload(folder: string, file: File) {
+const MAX_SIDE = 2400;
+const SMALL_ENOUGH = 900 * 1024;
+
+/** מקטין תמונה בדפדפן לפני ההעלאה · השרת מקבל עד 4MB */
+async function shrink(file: File): Promise<File> {
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;
+  }
+
+  const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+  if (scale === 1 && file.size <= SMALL_ENOUGH) {
+    bitmap.close();
+    return file;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d")?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/webp", 0.82)
+  );
+  if (!blob || blob.type !== "image/webp" || blob.size >= file.size) return file;
+
+  const name = file.name.replace(/\.[^.]+$/, "") + ".webp";
+  return new File([blob], name, { type: "image/webp" });
+}
+
+async function upload(folder: string, original: File) {
+  const file = await shrink(original);
+  if (file.size > 4 * 1024 * 1024) {
+    return { ok: false as const, error: "התמונה גדולה מדי גם אחרי הקטנה. נסו תמונה אחרת." };
+  }
   const form = new FormData();
   form.set("file", file);
   form.set("folder", folder);
@@ -109,13 +146,23 @@ export function GalleryField({
   async function add(files: FileList | null) {
     if (!files?.length) return;
     setBusy(true);
-    const urls: string[] = [];
-    for (const file of Array.from(files)) {
-      const res = await upload(folder, file);
-      if (res.ok) urls.push(res.url);
-      else onError(res.error);
+    const list = Array.from(files);
+    const results: (string | null)[] = new Array(list.length).fill(null);
+
+    // ההקטנה רצה שלוש במקביל · Next שולח את ההעלאות עצמן אחת אחת · הסדר נשמר
+    let next = 0;
+    async function worker() {
+      while (next < list.length) {
+        const i = next++;
+        const res = await upload(folder, list[i]);
+        if (res.ok) results[i] = res.url;
+        else onError(res.error);
+      }
     }
+    await Promise.all(Array.from({ length: Math.min(3, list.length) }, worker));
+
     setBusy(false);
+    const urls = results.filter((u): u is string => !!u);
     if (urls.length) onChange([...value, ...urls]);
   }
 
