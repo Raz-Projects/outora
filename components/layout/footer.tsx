@@ -63,7 +63,7 @@ export async function Footer() {
   const COLUMNS = columns(footerHours);
 
   return (
-    <footer className="bg-khaki text-white">
+    <footer className="bg-black text-white">
       {/* פס כתום מלא · הצטרפות למועדון, כמו JOIN OUR TRIBE של MOA. בדף המועדון עצמו מיותר */}
       <HideOn paths={["/club"]}>
       <div className="bg-orange">

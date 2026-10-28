@@ -30,7 +30,7 @@ export function ProductTabs({ tabs, className }: { tabs: ProductTab[]; className
               onClick={() => setActive(t.id)}
               className={cn(
                 "text-button -mb-px shrink-0 border-b-2 pb-4 transition-colors",
-                on ? "border-brown text-brown" : "border-transparent text-textgray hover:text-brown"
+                on ? "border-beige text-black" : "border-transparent text-textgray hover:text-black"
               )}
             >
               {t.label}

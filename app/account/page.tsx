@@ -15,7 +15,7 @@ const ils = (n?: number | null) => `${Number(n ?? 0).toLocaleString("he-IL")}₪
 
 const STATUS: Record<string, { label: string; className: string }> = {
   draft:     { label: "טיוטה",    className: "border-stroke text-textgray" },
-  pending:   { label: "ממתינה",   className: "border-brown text-brown" },
+  pending:   { label: "ממתינה",   className: "border-beige text-black" },
   confirmed: { label: "מאושרת",   className: "border-success text-success" },
   completed: { label: "הסתיימה",  className: "border-stroke text-textgray" },
   cancelled: { label: "בוטלה",    className: "border-error text-error" },
@@ -93,7 +93,7 @@ export default async function AccountPage({
         <h1 className="text-h1-sm md:text-h1">ההזמנות שלי</h1>
         <div className="mt-8 rounded-lg border border-error bg-errorbg p-6">
           <p className="text-h3 text-error">האזור האישי לא זמין כרגע</p>
-          <p className="text-body mt-2 text-brown/70">
+          <p className="text-body mt-2 text-black/70">
             אין חיבור למסד הנתונים. ברגע שיהיה, ההזמנות שלכם יופיעו כאן.
           </p>
         </div>
@@ -104,7 +104,7 @@ export default async function AccountPage({
   return (
     <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-36 md:px-6 md:pb-32 md:pt-44">
       {welcome === "club" && (
-        <div className="mb-12 rounded-lg border border-brown p-6 md:p-8">
+        <div className="mb-12 rounded-lg border border-beige p-6 md:p-8">
           <p className="text-tag text-orange uppercase tracking-display">OUTORA CLUB</p>
           <p className="text-h3 mt-1">ברוכים הבאים למועדון!</p>
           <p className="text-body text-textgray mt-2">
@@ -203,7 +203,7 @@ export default async function AccountPage({
         {/* שמאל · המועדון והפרטים */}
         <aside className="space-y-6">
           {memberNo ? (
-            <div className="rounded-lg border border-brown p-6">
+            <div className="rounded-lg border border-beige p-6">
               <p className="text-tag text-orange uppercase tracking-display">OUTORA CLUB</p>
               <p className="text-h2 mt-3" dir="ltr">{memberNo}</p>
               <p className="text-tag text-textgray mt-1">מספר חבר</p>

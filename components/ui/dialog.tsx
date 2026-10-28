@@ -53,7 +53,7 @@ export function Dialog({
             type="button"
             onClick={onClose}
             aria-label="סגור"
-            className="text-textgray transition-colors hover:text-brown"
+            className="text-textgray transition-colors hover:text-black"
           >
             <X className="h-5 w-5" />
           </button>

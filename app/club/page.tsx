@@ -50,7 +50,7 @@ export default async function ClubPage() {
               const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
               return (
                 <li key={i} className="mx-auto flex max-w-[260px] flex-col items-center text-center">
-                  <Icon aria-hidden className="h-8 w-8 text-brown" />
+                  <Icon aria-hidden className="h-8 w-8 text-black" />
                   <h3 className="text-h3 mt-5">{b.title}</h3>
                   <p className="text-body text-textgray mt-3">{b.desc}</p>
                 </li>
@@ -67,7 +67,7 @@ export default async function ClubPage() {
             <ol className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
               {c.steps.map((s, i) => (
                 <li key={i} className="mx-auto max-w-[280px] text-center">
-                  <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-brown">
+                  <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-beige">
                     {i + 1}
                   </span>
                   <h3 className="text-h3 mt-5">{s.title}</h3>
@@ -90,7 +90,7 @@ export default async function ClubPage() {
                 כבר חברים?{" "}
                 <Link
                   href="/auth/login"
-                  className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+                  className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
                 >
                   כניסה לחשבון
                 </Link>

@@ -18,7 +18,7 @@ export default async function LegalIndexPage() {
           <li key={d.slug} className="border-b border-stroke">
             <Link
               href={`/legal/${d.slug}`}
-              className="text-subtitle ease-smooth flex items-center justify-between gap-4 py-5 text-brown transition-colors hover:text-textgray"
+              className="text-subtitle ease-smooth flex items-center justify-between gap-4 py-5 text-black transition-colors hover:text-textgray"
             >
               <span>{d.title}</span>
               {/* חץ קדימה · ב-RTL מצביע שמאלה */}

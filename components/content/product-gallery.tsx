@@ -62,7 +62,7 @@ export function ProductGallery({
                 aria-label={dir === "next" ? "התמונה הבאה" : "התמונה הקודמת"}
                 className={cn(
                   "absolute top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full",
-                  "bg-cream/90 text-brown opacity-0 transition-opacity duration-300 ease-smooth",
+                  "bg-cream/90 text-black opacity-0 transition-opacity duration-300 ease-smooth",
                   "group-hover:opacity-100 focus-visible:opacity-100 md:flex",
                   dir === "next" ? "end-4" : "start-4"
                 )}
@@ -84,7 +84,7 @@ export function ProductGallery({
                     aria-current={n === i}
                     className={cn(
                       "h-1.5 rounded-full transition-all duration-300 ease-smooth",
-                      n === i ? "w-4 bg-brown" : "w-1.5 bg-stroke hover:bg-textgray"
+                      n === i ? "w-4 bg-beige" : "w-1.5 bg-stroke hover:bg-textgray"
                     )}
                   />
                 ))}
@@ -106,7 +106,7 @@ export function ProductGallery({
                 aria-current={n === i}
                 className={cn(
                   "relative block aspect-square w-full overflow-hidden rounded-md border transition-opacity",
-                  n === i ? "border-brown" : "border-transparent opacity-70 hover:opacity-100"
+                  n === i ? "border-beige" : "border-transparent opacity-70 hover:opacity-100"
                 )}
               >
                 <Image src={src} alt="" fill sizes="(min-width: 1024px) 12vw, 20vw" className="object-cover" />

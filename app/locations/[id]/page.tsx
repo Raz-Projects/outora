@@ -16,7 +16,7 @@ export default async function LocationPage({ params }: { params: Promise<{ id: s
 
   return (
     <main className="mx-auto max-w-[1100px] px-5 pb-24 pt-36 md:px-6 md:pb-32 md:pt-44">
-      <Link href="/locations" className="text-tag text-textgray underline underline-offset-4 transition-colors hover:text-brown">
+      <Link href="/locations" className="text-tag text-textgray underline underline-offset-4 transition-colors hover:text-black">
         חזרה לכל הלוקיישנים
       </Link>
       <div className="mt-8">

@@ -50,7 +50,7 @@ export function TeamRecipientsForm({ initial }: { initial: string[] }) {
             <button
               type="button"
               onClick={() => setList(initial)}
-              className="text-button text-brown underline underline-offset-4
+              className="text-button text-black underline underline-offset-4
                          transition-colors hover:text-textgray"
             >
               ביטול השינויים

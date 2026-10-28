@@ -9,9 +9,9 @@ export function Breadcrumbs({ items }: { items: { href?: string; label: string }
           <li key={it.label} className="flex items-center gap-2">
             {i > 0 && <span aria-hidden>/</span>}
             {it.href ? (
-              <Link href={it.href} className="transition-colors hover:text-brown">{it.label}</Link>
+              <Link href={it.href} className="transition-colors hover:text-black">{it.label}</Link>
             ) : (
-              <span aria-current="page" className="text-brown">{it.label}</span>
+              <span aria-current="page" className="text-black">{it.label}</span>
             )}
           </li>
         ))}

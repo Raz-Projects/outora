@@ -14,7 +14,7 @@ export function ResultRow({ title, distance, meta, className, ...props }: Result
       className={cn(
         "flex h-16 w-full items-center justify-between rounded-md border border-stroke",
         "bg-white px-6 text-right transition-colors hover:bg-offwhite",
-        "focus-visible:outline-none focus-visible:border-brown",
+        "focus-visible:outline-none focus-visible:border-beige",
         className
       )}
       {...props}
@@ -23,7 +23,7 @@ export function ResultRow({ title, distance, meta, className, ...props }: Result
         <span className="text-h3">{title}</span>
         {distance && <span className="text-tag text-textgray">{distance}</span>}
       </span>
-      {meta && <span className="text-body text-brown">{meta}</span>}
+      {meta && <span className="text-body text-black">{meta}</span>}
     </button>
   );
 }

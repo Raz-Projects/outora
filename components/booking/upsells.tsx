@@ -59,8 +59,8 @@ export function Upsells({
       className={cn(
         "text-tag shrink-0 rounded-full border px-3 py-1.5 transition-colors",
         on
-          ? "border-stroke text-textgray hover:text-brown"
-          : "border-brown text-brown hover:bg-brown hover:text-white"
+          ? "border-stroke text-textgray hover:text-black"
+          : "border-beige text-black hover:bg-beige"
       )}
     >
       {on ? "נוסף ✓" : "הוספה"}

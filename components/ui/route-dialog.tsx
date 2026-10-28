@@ -61,7 +61,7 @@ export function RouteDialog({ children }: { children: React.ReactNode }) {
           onClick={close}
           aria-label="סגירה"
           className="absolute end-4 top-5 z-10 flex h-10 w-10 items-center justify-center md:top-4
-                     rounded-full border border-stroke bg-white text-brown
+                     rounded-full border border-stroke bg-white text-black
                      transition-colors hover:bg-offwhite"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

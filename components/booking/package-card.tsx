@@ -51,7 +51,7 @@ export function PackageCard({ pkg }: { pkg: Pkg }) {
                        md:block md:space-y-1.5">
           {meta.map(({ label, Icon }) => (
             <li key={label} className="flex min-w-0 items-center gap-1.5 md:gap-2">
-              <Icon className="h-5 w-5 shrink-0 text-brown" />
+              <Icon className="h-5 w-5 shrink-0 text-black" />
               <span className={`truncate ${latinTracking(label)}`}>{label}</span>
             </li>
           ))}

@@ -61,7 +61,7 @@ export default async function GuidePage() {
             {c.sourceNote}{" "}
             <Link
               href="/legal/rental"
-              className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+              className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
             >
               תנאי השימוש וההשכרה המלאים
             </Link>

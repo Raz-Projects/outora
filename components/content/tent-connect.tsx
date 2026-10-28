@@ -18,7 +18,7 @@ function Diagram() {
       strokeWidth="2"
       strokeLinejoin="round"
       strokeLinecap="round"
-      className="h-auto w-full text-brown"
+      className="h-auto w-full text-black"
       aria-hidden
     >
       {/* קרקע */}
@@ -36,9 +36,9 @@ function Diagram() {
       <path d="M192 150 Q192 130 168 128" />
 
       {/* המחבר · המסדרון בין השניים */}
-      <path d="M224 196 V150 H310 V196" className="text-brown" strokeWidth="2.5" />
-      <path d="M224 150 Q267 124 310 150" className="text-brown" strokeWidth="2.5" />
-      <path d="M240 196 V160 M294 196 V160" className="text-brown" strokeDasharray="4 6" />
+      <path d="M224 196 V150 H310 V196" className="text-black" strokeWidth="2.5" />
+      <path d="M224 150 Q267 124 310 150" className="text-black" strokeWidth="2.5" />
+      <path d="M240 196 V160 M294 196 V160" className="text-black" strokeDasharray="4 6" />
     </svg>
   );
 }
@@ -90,7 +90,7 @@ export async function TentConnect() {
           <Diagram />
           <div className="mt-6 flex items-center justify-between">
             <p className="text-tag text-textgray tracking-display">HAVEN / HAVEN PRIME</p>
-            <p className="text-tag text-brown">המחבר</p>
+            <p className="text-tag text-black">המחבר</p>
             <p className="text-tag text-textgray tracking-display">HALO</p>
           </div>
         </div>

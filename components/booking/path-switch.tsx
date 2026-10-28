@@ -26,7 +26,7 @@ export function PathSwitch() {
       <button
         type="button"
         onClick={pkg ? toCustom : toPackages}
-        className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+        className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
       >
         {pkg ? "בנו את החוויה שלכם" : "עברו לחבילות"}
       </button>

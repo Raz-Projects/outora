@@ -200,7 +200,7 @@ export default function SummaryStep() {
                 הזמנתם אצלנו בעבר?{" "}
                 <Link
                   href="/auth/login?next=/book/summary"
-                  className="text-brown underline underline-offset-4"
+                  className="text-black underline underline-offset-4"
                 >
                   כניסה לחשבון
                 </Link>{" "}
@@ -232,7 +232,7 @@ export default function SummaryStep() {
                 value={c.notes}
                 onChange={(e) => patch("notes", e.target.value)}
                 className="w-full rounded-md border border-stroke bg-white px-6 py-4 text-body
-                           text-brown placeholder:text-textgray focus-visible:border-brown
+                           text-black placeholder:text-textgray focus-visible:border-beige
                            focus-visible:outline-none"
               />
             </div>

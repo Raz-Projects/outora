@@ -112,7 +112,7 @@ export async function PackageContent({ id }: { id: string }) {
               <ul className="divide-y divide-stroke border-y border-stroke">
                 {details.map(({ label, value, href, Icon }) => (
                   <li key={label} className="flex items-center gap-3 py-3">
-                    <Icon className="h-5 w-5 shrink-0 text-brown" />
+                    <Icon className="h-5 w-5 shrink-0 text-black" />
                     <span className="text-body text-textgray">{label}</span>
                     {href ? (
                       <Link href={href} className="text-body ms-auto text-end underline underline-offset-4 transition-colors hover:text-textgray">

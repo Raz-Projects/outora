@@ -148,7 +148,7 @@ export function Header() {
                 href={item.href}
                 className={cn(
                   "text-button whitespace-nowrap transition-colors",
-                  light ? "text-brown hover:text-textgray" : "text-white hover:text-white/70"
+                  light ? "text-black hover:text-textgray" : "text-white hover:text-white/70"
                 )}
               >
                 {item.label}
@@ -162,7 +162,7 @@ export function Header() {
               href={signedIn ? "/account" : "/auth/login"}
               className={cn(
                 "text-button whitespace-nowrap transition-colors",
-                light ? "text-brown hover:text-textgray" : "text-white hover:text-white/70"
+                light ? "text-black hover:text-textgray" : "text-white hover:text-white/70"
               )}
             >
               {signedIn ? "ההזמנות שלי" : "התחברות"}
@@ -181,7 +181,7 @@ export function Header() {
             aria-expanded={menu}
             className={cn(
               "md:hidden",
-              light ? "text-brown" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+              light ? "text-black" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
             )}
           >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -207,10 +207,10 @@ export function Header() {
               <Link
                 href="/book"
                 className="flex h-12 items-center justify-center gap-2 rounded-full border
-                           border-stroke bg-white text-button text-brown
+                           border-stroke bg-white text-button text-black
                            transition-colors active:bg-offwhite md:hidden"
               >
-                <IconSearch className="h-5 w-5 text-brown" />
+                <IconSearch className="h-5 w-5 text-black" />
                 לאן החופשה הבאה?
               </Link>
             </div>
@@ -228,7 +228,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMenu(false)}
-                className="text-h3 border-b border-stroke py-5 text-brown"
+                className="text-h3 border-b border-stroke py-5 text-black"
               >
                 {item.label}
               </Link>
@@ -237,9 +237,9 @@ export function Header() {
             <Link
               href={signedIn ? "/account" : "/auth/login"}
               onClick={() => setMenu(false)}
-              className="text-h3 flex items-center gap-3 border-b border-stroke py-5 text-brown"
+              className="text-h3 flex items-center gap-3 border-b border-stroke py-5 text-black"
             >
-              <ProfileIcon className="text-brown" />
+              <ProfileIcon className="text-black" />
               {signedIn ? "ההזמנות שלי" : "כניסה לחשבון"}
             </Link>
 

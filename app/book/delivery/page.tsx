@@ -63,7 +63,7 @@ export default function DeliveryStep() {
               key={o.id}
               className={cn(
                 "rounded-lg bg-white border transition-colors",
-                on ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-brown"
+                on ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-beige"
               )}
             >
               <button
@@ -82,7 +82,7 @@ export default function DeliveryStep() {
 
                     {o.ourTeamSetsUp && (
                       <p className="text-tag text-textgray mt-1 flex items-center gap-1.5">
-                        <IconRecommend className="text-brown" />
+                        <IconRecommend className="text-black" />
                         מומלץ
                       </p>
                     )}

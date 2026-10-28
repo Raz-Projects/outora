@@ -124,7 +124,7 @@ export function TentEditor({ row }: { row?: TentRow }) {
           />
 
           <div>
-            <label className="text-button mb-2 block text-brown">תיאור</label>
+            <label className="text-button mb-2 block text-black">תיאור</label>
             <Textarea
               value={v.descriptionHe}
               onChange={(e) => set("descriptionHe", e.target.value)}

@@ -29,8 +29,8 @@ export function ContentNav() {
             className={cn(
               "shrink-0 rounded-full border px-4 py-2 text-button transition-colors ease-smooth",
               active
-                ? "border-brown bg-brown text-white"
-                : "border-stroke bg-white text-textgray hover:bg-offwhite hover:text-brown"
+                ? "border-beige bg-beige text-black"
+                : "border-stroke bg-white text-textgray hover:bg-offwhite hover:text-black"
             )}
           >
             {t.label}

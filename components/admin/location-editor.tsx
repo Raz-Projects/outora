@@ -116,7 +116,7 @@ export function LocationEditor({
 
           <Grid>
             <div>
-              <label className="text-button mb-2 block text-brown">אזור</label>
+              <label className="text-button mb-2 block text-black">אזור</label>
               <Select value={v.region} onChange={(e) => set("region", e.target.value)}>
                 {Object.entries(regionLabels).map(([id, label]) => (
                   <option key={id} value={id}>{label}</option>
@@ -124,7 +124,7 @@ export function LocationEditor({
               </Select>
             </div>
             <div>
-              <label className="text-button mb-2 block text-brown">סוג נוף</label>
+              <label className="text-button mb-2 block text-black">סוג נוף</label>
               <Select value={v.landscape} onChange={(e) => set("landscape", e.target.value)}>
                 {Object.entries(landscapeLabels).map(([id, label]) => (
                   <option key={id} value={id}>{label}</option>
@@ -134,7 +134,7 @@ export function LocationEditor({
           </Grid>
 
           <div>
-            <label className="text-button mb-2 block text-brown">תיאור</label>
+            <label className="text-button mb-2 block text-black">תיאור</label>
             <Textarea value={v.descriptionHe} onChange={(e) => set("descriptionHe", e.target.value)}
                       className="min-h-32" />
           </div>

@@ -33,7 +33,7 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
           ? "border border-stroke"
           : selected
             ? "border border-orange ring-1 ring-orange"
-            : "border border-stroke hover:border-brown"
+            : "border border-stroke hover:border-beige"
       )}
     >
 
@@ -73,11 +73,11 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
                             md:text-body md:gap-5">
               <span className="flex items-center gap-1.5 md:gap-2">
                 עד {tent.capacity} אנשים
-                <IconGroup className="h-5 w-5 text-brown md:h-6 md:w-6" />
+                <IconGroup className="h-5 w-5 text-black md:h-6 md:w-6" />
               </span>
               <span className="flex items-center gap-1.5 md:gap-2">
                 {tent.sizeSqm} מ״ר
-                <IconSquareFoot className="h-5 w-5 text-brown md:h-6 md:w-6" />
+                <IconSquareFoot className="h-5 w-5 text-black md:h-6 md:w-6" />
               </span>
             </div>
           </div>
@@ -88,7 +88,7 @@ function TentRow({ tent, selected, taken }: { tent: Tent; selected: boolean; tak
             </div>
           ) : (
             /* נכנסים לדף האוהל (נפתח מעל האשף), ומשם בוחרים וממשיכים · כמו בחבילות */
-            <Button block size="md" asChild noFill={selected} className={cn("mt-4", selected && "bg-brown text-white")}>
+            <Button block size="md" asChild noFill={selected} className={cn("mt-4", selected && "bg-beigedark")}>
               <Link href={`/tents/${tent.slug}`}>
                 {selected ? (
                   <>

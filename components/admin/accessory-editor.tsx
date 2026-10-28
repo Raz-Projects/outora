@@ -90,7 +90,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           />
 
           <div>
-            <label className="text-button mb-2 block text-brown">תיאור</label>
+            <label className="text-button mb-2 block text-black">תיאור</label>
             <Textarea
               value={v.descriptionHe}
               placeholder="מופיע בכרטיס באשף. אם ריק, מוצג טקסט כללי."
@@ -99,7 +99,7 @@ export function AccessoryEditor({ row }: { row?: AccessoryRow }) {
           </div>
 
           <div>
-            <label className="text-button mb-2 block text-brown">קטגוריה</label>
+            <label className="text-button mb-2 block text-black">קטגוריה</label>
             <Select value={v.category} onChange={(e) => set("category", e.target.value)}>
               {CATEGORY_OPTIONS.map((c) => (
                 <option key={c.id} value={c.id}>{c.title}</option>

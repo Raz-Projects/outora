@@ -118,19 +118,19 @@ export function PackageEditor({
                  onChange={(e) => set("tagline", e.target.value)} />
 
           <div>
-            <label className="text-button mb-2 block text-brown">משפט מכירה</label>
+            <label className="text-button mb-2 block text-black">משפט מכירה</label>
             <Textarea value={v.hook} onChange={(e) => set("hook", e.target.value)} className="min-h-24" />
           </div>
 
           <Grid>
             <div>
-              <label className="text-button mb-2 block text-brown">אוהל</label>
+              <label className="text-button mb-2 block text-black">אוהל</label>
               <Select value={v.tentSlug} onChange={(e) => set("tentSlug", e.target.value)}>
                 {tents.map((t) => <option key={t.slug} value={t.slug}>{t.name}</option>)}
               </Select>
             </div>
             <div>
-              <label className="text-button mb-2 block text-brown">מיקום</label>
+              <label className="text-button mb-2 block text-black">מיקום</label>
               <Select value={v.locationId} onChange={(e) => set("locationId", e.target.value)}>
                 {locations.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
               </Select>
@@ -142,7 +142,7 @@ export function PackageEditor({
           </Grid>
 
           <div>
-            <label className="text-button mb-2 block text-brown">תגית</label>
+            <label className="text-button mb-2 block text-black">תגית</label>
             <Select value={v.badge} onChange={(e) => set("badge", e.target.value)}>
               {BADGES.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}
             </Select>
@@ -158,7 +158,7 @@ export function PackageEditor({
                    message="המחיר המחוק שמוצג ליד" />
           </Grid>
           <p className="text-body text-textgray">
-            ההנחה שתוצג: <span className="text-brown">{savings}%</span>
+            ההנחה שתוצג: <span className="text-black">{savings}%</span>
           </p>
 
           <Grid>
@@ -194,7 +194,7 @@ export function PackageEditor({
 
         <Section title="וואטסאפ">
           <div>
-            <label className="text-button mb-2 block text-brown">טקסט להודעה</label>
+            <label className="text-button mb-2 block text-black">טקסט להודעה</label>
             <Textarea value={v.waText} onChange={(e) => set("waText", e.target.value)}
                       className="min-h-24"
                       placeholder="ההודעה שנפתחת כשלקוח לוחץ על וואטסאפ מהחבילה" />

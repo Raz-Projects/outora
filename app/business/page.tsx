@@ -43,7 +43,7 @@ export default async function BusinessPage() {
             </Button>
             <Link
               href="/contact"
-              className="text-tag text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+              className="text-tag text-black underline underline-offset-4 transition-colors hover:text-textgray"
             >
               או השאירו פרטים
             </Link>

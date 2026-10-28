@@ -8,26 +8,22 @@
 
 // ── Colors ────────────────────────────────────────────────────
 /**
- * הפלטה עודכנה ב-07.10.2026 לבקשת יותם, בהשראת MOA LIVING:
- * רקע חול, טקסט וכפתורים בחום, פוטר בחאקי, כתום רך יותר.
+ * הפלטה הוחזרה ב-28.10.2026 לבקשת יותם לפלטה שלפני 07.10.2026:
+ * רקע שמנת, טקסט שחור, כפתורים בבז', פוטר שחור. הכתום נשאר בגוון הרך.
  */
 export const colors = {
   white:     "#FFFFFF",
   offWhite:  "#FBFBFB",
-  /** רקע הדף */
-  cream:     "#EFEAE4",
-  /** רקע משני · הדגשה רכה, טווח תאריכים, כרטיס פרומו */
-  sand:      "#ECE2D3",
-  /** קווים דקים · גוון חם שמתאים לרקע החול ⚠️ הצעה שלי (07.10.2026) */
-  stroke:    "#DDD3C7",
+  /** רקע הדף · שמנת. נוסף לבקשת רז (22.09.2026) במקום הלבן */
+  cream:     "#F9F5EC",
+  /** רקע משני · בז' בהיר. טווח תאריכים, כרטיס פרומו ⚠️ הצעה שלי (28.10.2026) */
+  sand:      "#F1E8D3",
+  stroke:    "#E6E6E6",
   textGray:  "#666666",
-  /** שחור אמיתי · רק לשכבת הכהיה על תמונות */
+  /** טקסט ראשי, רקע הפוטר, שכבת הכהיה על תמונות */
   black:     "#000000",
-  /** Primary · טקסט ראשי וכפתורים */
-  brown:     "#705040",
-  brownDark: "#5A3F32", // Primary · hover/pressed  ⚠️ מוערך
-  /** רקע הפוטר */
-  khaki:     "#968662",
+  beige:     "#D9C18A", // Primary · כפתורים
+  beigeDark: "#C7AC71", // Primary · hover/pressed  ⚠️ מוערך · צריך את ההקס המדויק
   orange:    "#B97351", // Secondary · תגיות בלבד
   /** הירוק הרשמי של וואטסאפ · רק לכפתור הצף. לבקשת יותם (07.10.2026) */
   whatsapp:     "#25D366",
@@ -59,10 +55,10 @@ export const semantic = {
   backgroundAlt:   colors.offWhite,
   surface:         colors.white, // כרטיסים, שדות, חלונות
   border:          colors.stroke,
-  textPrimary:     colors.brown,
+  textPrimary:     colors.black,
   textSecondary:   colors.textGray,
-  primary:         colors.brown,
-  footer:          colors.khaki,
+  primary:         colors.beige,
+  footer:          colors.black,
   secondary:       colors.orange,
 } as const;
 

@@ -9,7 +9,7 @@ type Tone = "error" | "success" | "info";
 const tones: Record<Tone, { accent: string; icon: React.ElementType }> = {
   success: { accent: "text-success", icon: CheckCircle2 },
   error:   { accent: "text-error",   icon: AlertCircle },
-  info:    { accent: "text-brown",   icon: Info },
+  info:    { accent: "text-black",   icon: Info },
 };
 
 export interface ToastData {
@@ -42,14 +42,14 @@ export function Toast({
     >
       <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", accent)} />
       <div className="flex-1 text-right">
-        <p className="text-button text-brown">{title}</p>
+        <p className="text-button text-black">{title}</p>
         {description && <p className="text-tag mt-1 text-textgray">{description}</p>}
       </div>
       {onClose && (
         <button
           onClick={onClose}
           aria-label="סגור"
-          className="text-textgray transition-colors hover:text-brown"
+          className="text-textgray transition-colors hover:text-black"
         >
           <X className="h-4 w-4" />
         </button>

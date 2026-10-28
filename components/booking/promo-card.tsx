@@ -102,7 +102,7 @@ function Shell({
           onClick={onClick}
           className={cn(
             "text-tag mt-auto pt-3 text-start underline underline-offset-4 transition-colors",
-            on ? "text-textgray hover:text-brown" : "text-brown hover:text-textgray"
+            on ? "text-textgray hover:text-black" : "text-black hover:text-textgray"
           )}
         >
           {cta}

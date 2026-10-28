@@ -20,7 +20,7 @@ export function Collapsible({
     <details open={open} className={cn("group border-b border-stroke", className)}>
       <summary
         className="text-button flex cursor-pointer list-none items-center justify-between gap-4 py-4
-                   text-brown transition-colors hover:text-textgray [&::-webkit-details-marker]:hidden"
+                   text-black transition-colors hover:text-textgray [&::-webkit-details-marker]:hidden"
       >
         <span>{title}</span>
         <svg

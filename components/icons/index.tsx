@@ -1,5 +1,5 @@
 // נוצר אוטומטית מ-public/icons (Figma)
-// כל אייקון מקבל את הצבע מ-className, למשל: <IconLocation className="text-brown" />
+// כל אייקון מקבל את הצבע מ-className, למשל: <IconLocation className="text-black" />
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 

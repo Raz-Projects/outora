@@ -13,13 +13,13 @@ export function FaqList({ items, className }: { items: readonly FaqItem[]; class
         <details key={item.q} name="faq" className="group">
           <summary
             className="text-subtitle flex cursor-pointer list-none items-center justify-between gap-4 py-5
-                       text-brown transition-colors hover:text-textgray
+                       text-black transition-colors hover:text-textgray
                        [&::-webkit-details-marker]:hidden"
           >
             <span>{item.q}</span>
             <svg
               width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-              className="shrink-0 text-brown transition-transform duration-300 ease-smooth group-open:rotate-45"
+              className="shrink-0 text-black transition-transform duration-300 ease-smooth group-open:rotate-45"
               aria-hidden
             >
               <path d="M12 5v14M5 12h14" strokeLinecap="round" />

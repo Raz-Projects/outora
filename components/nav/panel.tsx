@@ -57,11 +57,11 @@ export function OptionList({
             className={cn(
               "flex w-full items-center justify-between gap-6 rounded-[12px] px-3 py-2.5",
               "text-button transition-colors hover:bg-offwhite",
-              value === o.value ? "text-brown" : "text-brown"
+              value === o.value ? "text-black" : "text-black"
             )}
           >
             <span>{o.label}</span>
-            <o.Icon className="shrink-0 text-brown" />
+            <o.Icon className="shrink-0 text-black" />
           </button>
           {i < options.length - 1 && <span className="mx-3 block h-px bg-stroke" />}
         </li>

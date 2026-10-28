@@ -21,7 +21,7 @@ export function QuickFacts({
     <ul className="flex flex-wrap gap-2">
       {facts.map(({ label, Icon }) => (
         <li key={label} className="text-tag flex items-center gap-1.5 rounded-full border border-stroke px-3 py-1.5">
-          <Icon className="h-4 w-4 shrink-0 text-brown" />
+          <Icon className="h-4 w-4 shrink-0 text-black" />
           {label}
         </li>
       ))}
@@ -51,7 +51,7 @@ export async function ProductPerks() {
         href="https://wa.me/972528448870"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-tag mt-5 inline-flex items-center gap-2 text-brown underline underline-offset-4
+        className="text-tag mt-5 inline-flex items-center gap-2 text-black underline underline-offset-4
                    transition-colors hover:text-textgray"
       >
         <IconWhatsapp className="h-4 w-4" />

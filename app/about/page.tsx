@@ -141,7 +141,7 @@ export default async function AboutPage() {
             </Button>
             <Link
               href="/how-it-works"
-              className="text-tag text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+              className="text-tag text-black underline underline-offset-4 transition-colors hover:text-textgray"
             >
               איך זה עובד
             </Link>

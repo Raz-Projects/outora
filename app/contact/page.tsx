@@ -56,14 +56,14 @@ export default async function ContactPage() {
             const body = (
               <>
                 <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brown text-brown
-                             transition-colors duration-300 ease-smooth group-hover:bg-brown group-hover:text-white"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-beige text-black
+                             transition-colors duration-300 ease-smooth group-hover:bg-beige"
                 >
                   <Icon className="h-6 w-6" />
                 </span>
                 <span className="min-w-0">
                   <span className="text-tag block text-textgray">{label}</span>
-                  <span className="text-subtitle block break-words text-brown">
+                  <span className="text-subtitle block break-words text-black">
                     {value}
                   </span>
                 </span>

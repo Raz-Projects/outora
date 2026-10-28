@@ -53,7 +53,7 @@ export default async function PackagesArchive() {
       <ul className="mt-16 grid gap-6 md:grid-cols-3">
         {tiers.map((tier) => (
           <li key={tier.id}>
-            <article className="flex h-full flex-col rounded-lg bg-white border border-stroke p-6 transition-colors hover:border-brown md:p-8">
+            <article className="flex h-full flex-col rounded-lg bg-white border border-stroke p-6 transition-colors hover:border-beige md:p-8">
               {/* תמונה קטנה ליד השם · המוצרים צולמו על לבן */}
               <div className="flex items-center gap-4">
                 {tier.image && (

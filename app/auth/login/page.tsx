@@ -41,7 +41,7 @@ export default async function LoginPage({
               עוד לא חברים במועדון?{" "}
               <Link
                 href="/club#join"
-                className="text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+                className="text-black underline underline-offset-4 transition-colors hover:text-textgray"
               >
                 הצטרפות ל-OUTORA CLUB
               </Link>

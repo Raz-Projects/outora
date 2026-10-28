@@ -24,7 +24,7 @@ function Chevron({ className }: { className?: string }) {
 function Thumb({ src, alt }: { src?: string; alt: string }) {
   if (!src) {
     return (
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-stroke text-brown">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-stroke text-black">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M3 8l9-5 9 5v8l-9 5-9-5V8Z" strokeLinejoin="round" />
           <path d="m3 8 9 5 9-5M12 13v8" strokeLinejoin="round" />
@@ -50,7 +50,7 @@ function Ctrl({
       onClick={onClick}
       aria-label={label}
       className="flex h-7 w-7 items-center justify-center rounded-full border border-stroke
-                 text-brown transition-colors hover:border-brown hover:bg-sand"
+                 text-black transition-colors hover:border-beige hover:bg-sand"
     >
       {children}
     </button>

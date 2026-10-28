@@ -37,10 +37,9 @@ const swatches = [
   { name: "Sand · רקע משני",   hex: colors.sand,     border: true },
   { name: "Stroke",           hex: colors.stroke },
   { name: "Text Gray",        hex: colors.textGray },
-  { name: "Primary Brown · טקסט וכפתורים", hex: colors.brown },
-  { name: "Brown · hover",    hex: colors.brownDark },
-  { name: "Khaki · פוטר",     hex: colors.khaki },
-  { name: "Black · הכהיית תמונות", hex: colors.black },
+  { name: "Primary Beige · כפתורים", hex: colors.beige },
+  { name: "Beige · hover",    hex: colors.beigeDark },
+  { name: "Black · טקסט ופוטר", hex: colors.black },
   { name: "Secondary Orange", hex: colors.orange },
   { name: "WhatsApp · כפתור צף", hex: colors.whatsapp },
 ];
@@ -151,7 +150,7 @@ export default function DesignSystemPage() {
       <Section title="Buttons">
         <div className="max-w-xl space-y-4">
           <Button block>בחרו חבילה זו</Button>
-          <Button block noFill className="bg-brown text-white">בחרו חבילה זו · hover</Button>
+          <Button block noFill className="bg-beigedark">בחרו חבילה זו · hover</Button>
           <Button block>
             בחרו חבילה זו
             <SearchIcon />
@@ -160,7 +159,7 @@ export default function DesignSystemPage() {
         </div>
 
         <h3 className="text-h3 mt-10 mb-4">על תמונה · variant=&quot;light&quot;</h3>
-        <div className="max-w-xl rounded-lg bg-khaki p-6">
+        <div className="max-w-xl rounded-lg bg-black p-6">
           <Button block variant="light">להצטרפות</Button>
         </div>
 
@@ -183,7 +182,7 @@ export default function DesignSystemPage() {
       </Section>
 
       <Section title="Link Button">
-        <a href="#" className="text-button text-brown underline underline-offset-4 decoration-1
+        <a href="#" className="text-button text-black underline underline-offset-4 decoration-1
                                transition-colors hover:text-textgray">
           קראו עוד על החבילה
         </a>
@@ -234,7 +233,7 @@ export default function DesignSystemPage() {
       <Section title="Admin · Product list">
         <p className="text-tag text-textgray">
           רשימות המוצרים, טפסי העריכה והעלאת התמונות חיים בממשק הניהול תחת
-          <span className="mx-1 text-brown">/admin/content</span>
+          <span className="mx-1 text-black">/admin/content</span>
           ומשתמשים בקומפוננטות שבדף הזה.
         </p>
       </Section>

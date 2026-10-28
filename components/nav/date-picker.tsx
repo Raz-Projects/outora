@@ -33,8 +33,8 @@ function ArrowButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-8 w-8 items-center justify-center rounded-full border border-brown
-                 text-brown transition-colors hover:bg-brown hover:text-white
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-beige
+                 text-black transition-colors hover:bg-beige
                  disabled:cursor-not-allowed disabled:border-stroke disabled:text-stroke
                  disabled:hover:bg-transparent"
     >
@@ -102,9 +102,9 @@ function Month({
               className={cn(
                 "text-body h-9 w-full transition-colors",
                 past && "cursor-not-allowed text-stroke",
-                !past && isToday && !edge && !mid && "font-medium underline underline-offset-4 decoration-brown",
-                edge && "bg-brown text-white",
-                mid  && "bg-sand text-brown",
+                !past && isToday && !edge && !mid && "font-medium underline underline-offset-4 decoration-beige",
+                edge && "bg-beige text-black",
+                mid  && "bg-sand text-black",
                 !past && !edge && !mid && "hover:bg-offwhite",
                 isFrom && !end && "rounded-[8px]",
                 isFrom && end && "rounded-s-[8px]",
@@ -190,11 +190,11 @@ export function DatePicker({
           { label: "הגעה",  value: range.from },
           { label: "עזיבה", value: range.to },
         ].map((f) => (
-          <div key={f.label} className="relative flex-1 rounded-[12px] border border-brown px-4 py-3">
+          <div key={f.label} className="relative flex-1 rounded-[12px] border border-beige px-4 py-3">
             <span className="text-tag absolute -top-2 right-3 bg-white px-1 text-textgray">
               {f.label}
             </span>
-            <p className="text-body text-center text-brown">
+            <p className="text-body text-center text-black">
               {f.value ? formatHe(f.value) : "-"}
             </p>
           </div>
@@ -234,7 +234,7 @@ export function DatePicker({
 
       {/* תחתית */}
       <div className="mt-6 flex items-center justify-between border-t border-stroke pt-4">
-        <p className="text-body text-brown">
+        <p className="text-body text-black">
           {nights > 0
             ? `${nights} לילות : ${range.from!.getDate()}–${range.to!.getDate()} ב${MONTHS_HE[range.to!.getMonth()]} ${range.to!.getFullYear()}`
             : range.from
@@ -246,7 +246,7 @@ export function DatePicker({
           <button
             type="button"
             onClick={() => onChange({})}
-            className="text-button text-textgray transition-colors hover:text-brown"
+            className="text-button text-textgray transition-colors hover:text-black"
           >
             נקה
           </button>
@@ -256,14 +256,14 @@ export function DatePicker({
             onClick={onConfirm}
             disabled={nights < MIN_NIGHTS}
             className="group relative isolate flex h-[47px] items-center overflow-hidden
-                       rounded-full border border-brown px-10 text-button text-brown
-                       transition-colors duration-300 ease-smooth enabled:hover:text-white
+                       rounded-full bg-beige px-10 text-button text-black
+                       transition-colors duration-300 ease-smooth
                        disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 -z-10 origin-bottom scale-y-0
-                         bg-brown transition-transform duration-300 ease-smooth
+                         bg-beigedark transition-transform duration-300 ease-smooth
                          group-enabled:group-hover:scale-y-100"
             />
             <span className="relative z-10">אישור</span>

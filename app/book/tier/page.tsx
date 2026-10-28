@@ -36,7 +36,7 @@ function TierCard({ tier, selected, onPick }: { tier: Tier; selected: boolean; o
       onClick={onPick}
       className={cn(
         "flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white border transition-colors",
-        selected ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-brown"
+        selected ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-beige"
       )}
     >
       <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -71,7 +71,7 @@ function TierCard({ tier, selected, onPick }: { tier: Tier; selected: boolean; o
             size="md"
             onClick={(e) => { e.stopPropagation(); onPick(); }}
             noFill={selected}
-            className={cn("mt-4", selected && "bg-brown text-white")}
+            className={cn("mt-4", selected && "bg-beigedark")}
           >
             {selected ? (
               <>
@@ -105,7 +105,7 @@ function BundleCard({
       aria-pressed={on}
       className={cn(
         "flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white border transition-colors",
-        on ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-brown"
+        on ? "border-orange ring-1 ring-orange" : "border-stroke hover:border-beige"
       )}
     >
       <div className="flex flex-1 flex-col p-4">

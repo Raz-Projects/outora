@@ -151,7 +151,7 @@ export function LocationsBrowser({
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                     />
                   ) : (
-                    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-lg bg-sand text-brown">
+                    <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-lg bg-sand text-black">
                       <LandscapeIcon landscape={loc.landscape} className="h-14 w-14" />
                       <span className="text-tag text-textgray">{loc.landscapeHe}</span>
                     </div>

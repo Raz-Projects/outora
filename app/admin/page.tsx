@@ -30,7 +30,7 @@ function BarRow({ label, value, max, suffix }: { label: string; value: number; m
       </div>
       <div className="mt-1.5 h-1.5 w-full rounded-full bg-offwhite">
         <div
-          className="h-full rounded-full bg-brown"
+          className="h-full rounded-full bg-beige"
           style={{ width: `${Math.max(3, (value / Math.max(1, max)) * 100)}%` }}
         />
       </div>

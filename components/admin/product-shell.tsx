@@ -104,7 +104,7 @@ export function ProductShell<T>({
     <>
       <Link
         href={backHref}
-        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
+        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
       >
         <ArrowRight className="h-4 w-4" />
         לכל ה{label.many}
@@ -118,7 +118,7 @@ export function ProductShell<T>({
             <Link
               href={publicHref}
               target="_blank"
-              className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
+              className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
             >
               <ExternalLink className="h-4 w-4" />
               באתר

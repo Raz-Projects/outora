@@ -44,7 +44,7 @@ function SimpleField({
     case "textarea":
       return (
         <div>
-          <label className="text-button mb-2 block text-brown">{def.label}</label>
+          <label className="text-button mb-2 block text-black">{def.label}</label>
           <Textarea value={value as string} onChange={(e) => onChange(e.target.value)} />
           {def.hint && <p className="text-tag text-textgray mt-2">{def.hint}</p>}
         </div>
@@ -103,7 +103,7 @@ function ItemsField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-brown">{def.label}</label>
+      <label className="text-button mb-2 block text-black">{def.label}</label>
       {def.hint && <p className="text-tag text-textgray mb-3">{def.hint}</p>}
 
       <ul className="space-y-4">
@@ -121,7 +121,7 @@ function ItemsField({
                     onClick={() => move(i, i - 1)}
                     disabled={i === 0}
                     aria-label="הזזה למעלה"
-                    className="transition-colors hover:text-brown disabled:opacity-30"
+                    className="transition-colors hover:text-black disabled:opacity-30"
                   >
                     <ArrowUp className="h-4 w-4" />
                   </button>
@@ -130,7 +130,7 @@ function ItemsField({
                     onClick={() => move(i, i + 1)}
                     disabled={i === value.length - 1}
                     aria-label="הזזה למטה"
-                    className="transition-colors hover:text-brown disabled:opacity-30"
+                    className="transition-colors hover:text-black disabled:opacity-30"
                   >
                     <ArrowDown className="h-4 w-4" />
                   </button>
@@ -232,7 +232,7 @@ export function PageEditor({
     <>
       <Link
         href="/admin/content/pages"
-        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
+        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
       >
         <ArrowRight className="h-4 w-4" />
         לכל הדפים
@@ -243,7 +243,7 @@ export function PageEditor({
         <Link
           href={href}
           target="_blank"
-          className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
+          className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
         >
           <ExternalLink className="h-4 w-4" />
           באתר

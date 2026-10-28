@@ -31,7 +31,7 @@ export function ListField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-brown">{label}</label>
+      <label className="text-button mb-2 block text-black">{label}</label>
       {hint && <p className="text-tag text-textgray mb-3">{hint}</p>}
 
       {value.length > 0 && (
@@ -101,7 +101,7 @@ export function PickerField({
 
   return (
     <div>
-      <label className="text-button mb-2 block text-brown">{label}</label>
+      <label className="text-button mb-2 block text-black">{label}</label>
       {hint && <p className="text-tag text-textgray mb-3">{hint}</p>}
 
       <div className="flex flex-wrap gap-2">
@@ -116,8 +116,8 @@ export function PickerField({
               className={
                 "text-tag rounded-full border px-3 py-1.5 transition-colors ease-smooth " +
                 (on
-                  ? "border-brown bg-brown text-white"
-                  : "border-stroke bg-white text-textgray hover:border-brown hover:text-brown")
+                  ? "border-beige bg-beige text-black"
+                  : "border-stroke bg-white text-textgray hover:border-beige hover:text-black")
               }
             >
               {o.label}
@@ -169,7 +169,7 @@ export function QuantityPickerField({
                   type="button"
                   onClick={() => setQty(p.id, p.qty + 1)}
                   aria-label="הוספת כמות"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-brown transition-colors hover:border-brown"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-black transition-colors hover:border-beige"
                 >
                   +
                 </button>
@@ -179,7 +179,7 @@ export function QuantityPickerField({
                   onClick={() => setQty(p.id, p.qty - 1)}
                   disabled={p.qty <= 1}
                   aria-label="הפחתת כמות"
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-brown transition-colors hover:border-brown disabled:opacity-40"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-stroke text-black transition-colors hover:border-beige disabled:opacity-40"
                 >
                   −
                 </button>

@@ -21,8 +21,8 @@ export function LegalNav({ current }: { current: string }) {
                   "text-tag ease-smooth block whitespace-nowrap rounded-full border px-4 py-2 transition-colors",
                   "md:rounded-none md:border-0 md:px-0 md:py-2.5",
                   active
-                    ? "border-brown text-brown"
-                    : "border-stroke text-textgray hover:text-brown",
+                    ? "border-beige text-black"
+                    : "border-stroke text-textgray hover:text-black",
                 )}
               >
                 {d.label}

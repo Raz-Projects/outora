@@ -6,8 +6,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 /**
- * Outora Button · מ-07.10.2026 בהשראת MOA LIVING:
- * כפתור שקוף עם מסגרת דקה ופינות עגולות לגמרי. ב-hover הוא מתמלא מלמטה והטקסט מתהפך.
+ * Outora Button · Figma: Elements/Button
+ * כפתור מלא בבז' עם טקסט שחור ופינות עגולות לגמרי. ב-hover מתמלא בבז' כהה מלמטה.
  */
 const buttonVariants = cva(
   "group relative isolate inline-flex items-center justify-center gap-3 overflow-hidden " +
@@ -16,13 +16,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "border border-brown bg-transparent text-brown hover:text-white active:text-white",
+        primary: "bg-beige text-black",
         /** על תמונה או רקע כהה */
-        light:   "border border-white bg-transparent text-white hover:text-brown active:text-brown",
-        outline: "border border-stroke bg-transparent text-brown",
-        ghost:   "bg-transparent text-brown",
+        light:   "border border-white bg-transparent text-white hover:text-black active:text-black",
+        outline: "border border-stroke bg-white text-black",
+        ghost:   "bg-transparent text-black",
         muted:   "border border-stroke bg-transparent text-textgray cursor-not-allowed",
-        link:    "h-auto overflow-visible p-0 bg-transparent text-brown underline " +
+        link:    "h-auto overflow-visible p-0 bg-transparent text-black underline " +
                  "underline-offset-4 decoration-1 hover:text-textgray",
       },
       size: {
@@ -43,10 +43,10 @@ const fillClasses =
   "group-hover:scale-y-100 group-active:scale-y-100";
 
 const fillColor = {
-  primary: "bg-brown",
+  primary: "bg-beigedark",
   light:   "bg-white",
-  outline: "bg-sand",
-  ghost:   "bg-sand",
+  outline: "bg-offwhite",
+  ghost:   "bg-offwhite",
   muted:   "",
   link:    "",
 } as const;

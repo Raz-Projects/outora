@@ -14,14 +14,13 @@
     /* ── Colors (Figma) ── */
     --white:      #FFFFFF;
     --off-white:  #FBFBFB;
-    --cream:      #EFEAE4;  /* רקע הדף */
-    --sand:       #ECE2D3;  /* רקע משני */
-    --stroke:     #DDD3C7;  /* קווים דקים · ⚠️ הצעה */
+    --cream:      #F9F5EC;  /* רקע הדף · שמנת */
+    --sand:       #F1E8D3;  /* רקע משני · בז' בהיר ⚠️ הצעה */
+    --stroke:     #E6E6E6;
     --text-gray:  #666666;
-    --black:      #000000;  /* רק לשכבת הכהיה על תמונות */
-    --brown:      #705040;  /* Primary · טקסט וכפתורים */
-    --brown-dark: #5A3F32;  /* Primary · hover */
-    --khaki:      #968662;  /* רקע הפוטר */
+    --black:      #000000;  /* טקסט ראשי ופוטר */
+    --beige:      #D9C18A;  /* Primary · כפתורים */
+    --beige-dark: #C7AC71;  /* Primary · hover */
     --orange:     #B97351;  /* Secondary */
     --whatsapp:      #25D366;  /* רק לכפתור הצף */
     --whatsapp-dark: #1EBE5A;
@@ -40,14 +39,14 @@
     --pin-lake:      #3F63B5;
 
     /* ── shadcn/ui tokens (HSL) ── */
-    --background:           33 27% 92%;   /* cream  */
-    --foreground:           20 27% 34%;   /* brown  */
+    --background:           42 52% 95%;   /* cream  */
+    --foreground:            0 0% 0%;
     --card:                  0 0% 100%;
-    --card-foreground:      20 27% 34%;
+    --card-foreground:       0 0% 0%;
     --popover:               0 0% 100%;
-    --popover-foreground:   20 27% 34%;
-    --primary:              20 27% 34%;   /* brown  */
-    --primary-foreground:    0 0% 100%;
+    --popover-foreground:    0 0% 0%;
+    --primary:              42 51% 70%;   /* beige  */
+    --primary-foreground:    0 0% 0%;
     --secondary:            20 42% 52%;   /* orange */
     --secondary-foreground:  0 0% 100%;
     --muted:                 0 0% 98%;    /* off-white */
@@ -56,8 +55,8 @@
     --accent-foreground:     0 0% 100%;
     --destructive:           0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border:               33 24% 82%;   /* stroke */
-    --input:                33 24% 82%;
+    --border:                0 0% 90%;    /* stroke */
+    --input:                 0 0% 90%;
     --ring:                 20 42% 52%;
     --radius: 0.75rem;
 
@@ -77,7 +76,7 @@
 
   body {
     background-color: var(--cream);
-    color: var(--brown);
+    color: var(--black);
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;

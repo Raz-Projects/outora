@@ -118,7 +118,7 @@ export function BookingForm({
     <>
       <Link
         href="/admin/bookings"
-        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-brown"
+        className="text-button inline-flex items-center gap-2 text-textgray transition-colors hover:text-black"
       >
         <ArrowRight className="h-4 w-4" />
         לכל ההזמנות
@@ -145,7 +145,7 @@ export function BookingForm({
 
           <Section title="מה הוזמן">
             <div>
-              <label className="text-button mb-2 block text-brown">סוג הזמנה</label>
+              <label className="text-button mb-2 block text-black">סוג הזמנה</label>
               <Select value={mode} onChange={(e) => setMode(e.target.value as "custom" | "package")}>
                 <option value="custom">בנייה אישית</option>
                 <option value="package">חבילה מוכנה</option>
@@ -154,7 +154,7 @@ export function BookingForm({
 
             {mode === "package" ? (
               <div>
-                <label className="text-button mb-2 block text-brown">חבילה</label>
+                <label className="text-button mb-2 block text-black">חבילה</label>
                 <Select value={packageId} onChange={(e) => setPackageId(e.target.value)}>
                   {packages.map((p) => (
                     <option key={p.id} value={p.id}>{p.title}</option>
@@ -163,7 +163,7 @@ export function BookingForm({
               </div>
             ) : (
               <div>
-                <label className="text-button mb-2 block text-brown">אוהל</label>
+                <label className="text-button mb-2 block text-black">אוהל</label>
                 <Select value={tentSlug} onChange={(e) => setTentSlug(e.target.value)}>
                   {tents.map((t) => (
                     <option key={t.slug} value={t.slug}>{t.name} · {ils(t.price)}</option>
@@ -185,7 +185,7 @@ export function BookingForm({
               <Field label="מספר אנשים" type="number" min={1} max={17} dir="ltr" value={guests}
                      className="h-12 px-4" onChange={(e) => setGuests(e.target.value)} />
               <div>
-                <label className="text-button mb-2 block text-brown">מיקום</label>
+                <label className="text-button mb-2 block text-black">מיקום</label>
                 <Select value={locationId} onChange={(e) => setLocationId(e.target.value)}>
                   <option value="">לא נבחר</option>
                   {locations.map((l) => (
@@ -198,7 +198,7 @@ export function BookingForm({
             {mode === "custom" && (
               <>
                 <div>
-                  <label className="text-button mb-2 block text-brown">משלוח</label>
+                  <label className="text-button mb-2 block text-black">משלוח</label>
                   <Select value={deliveryType} onChange={(e) => setDeliveryType(e.target.value)}>
                     <option value="">לא נבחר</option>
                     {deliveryOptions.map((d) => (
@@ -254,7 +254,7 @@ export function BookingForm({
                  message="ריק = מחושב אוטומטית" />
 
           <div>
-            <label className="text-button mb-2 block text-brown">סטטוס</label>
+            <label className="text-button mb-2 block text-black">סטטוס</label>
             <Select value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="confirmed">מאושרת</option>
               <option value="pending">ממתינה</option>
@@ -263,7 +263,7 @@ export function BookingForm({
           </div>
 
           <div>
-            <label className="text-button mb-2 block text-brown">תשלום</label>
+            <label className="text-button mb-2 block text-black">תשלום</label>
             <Select value={paymentStatus} onChange={(e) => setPaymentStatus(e.target.value)}>
               <option value="unpaid">לא שולם</option>
               <option value="deposit_paid">שולמה מקדמה</option>

@@ -119,7 +119,7 @@ export default async function Home() {
                         <p className="text-h3 text-white">{loc.nameHe}</p>
                         <p className="text-tag mt-1 text-white/80">{loc.regionHe}</p>
                       </div>
-                      <span className="text-tag shrink-0 rounded-full bg-white/90 px-3 py-1 text-brown">
+                      <span className="text-tag shrink-0 rounded-full bg-white/90 px-3 py-1 text-black">
                         {loc.landscapeHe}
                       </span>
                     </div>

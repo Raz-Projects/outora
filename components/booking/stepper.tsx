@@ -56,7 +56,7 @@ export function Stepper() {
           <span
             className={cn(
               "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
-              active || done ? "bg-brown text-white" : "border border-stroke text-textgray"
+              active || done ? "bg-beige text-black" : "border border-stroke text-textgray"
             )}
           >
             <Icon className="h-5 w-5" />
@@ -91,7 +91,7 @@ export function Stepper() {
               <span
                 className={cn(
                   "mt-[18px] h-px min-w-6 flex-1 transition-colors",
-                  done ? "bg-brown" : "bg-stroke"
+                  done ? "bg-beige" : "bg-stroke"
                 )}
               />
             )}

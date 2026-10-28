@@ -19,8 +19,8 @@ function Round({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brown
-                 text-brown transition-colors hover:bg-brown hover:text-white"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-beige
+                 text-black transition-colors hover:bg-beige"
     >
       {children}
     </button>

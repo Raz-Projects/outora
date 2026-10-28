@@ -52,7 +52,7 @@ function Lightbox({ item, src, onClose }: { item: TileItem; src: string; onClose
           onClick={onClose}
           aria-label="סגירה"
           className="absolute end-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full
-                     border border-stroke bg-white text-brown transition-colors hover:border-brown"
+                     border border-stroke bg-white text-black transition-colors hover:border-beige"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
@@ -86,7 +86,7 @@ function Thumb({
       type="button"
       onClick={(e) => { e.stopPropagation(); onOpen(); }}
       aria-label="הגדלת התמונה"
-      className={cn(box, "cursor-zoom-in transition-colors hover:border-brown")}
+      className={cn(box, "cursor-zoom-in transition-colors hover:border-beige")}
     >
       <Image src={src} alt="" fill sizes={sizes} className="object-contain p-1" />
     </button>
@@ -153,7 +153,7 @@ export function ItemTiles({
           type="button"
           onClick={(e) => { e.stopPropagation(); setOpen((v) => !v); }}
           aria-expanded={open}
-          className="text-tag mt-3 text-brown underline underline-offset-4 transition-colors hover:text-textgray"
+          className="text-tag mt-3 text-black underline underline-offset-4 transition-colors hover:text-textgray"
         >
           {open ? "הצגת פחות" : `קראו עוד · עוד ${hidden} פריטים`}
         </button>

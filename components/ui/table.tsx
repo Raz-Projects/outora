@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-stroke bg-white">
-      <table className={cn("w-full border-collapse text-body text-brown", className)} {...props} />
+      <table className={cn("w-full border-collapse text-body text-black", className)} {...props} />
     </div>
   );
 }

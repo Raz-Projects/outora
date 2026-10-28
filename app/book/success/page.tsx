@@ -62,7 +62,7 @@ export default function SuccessPage() {
             <ol className="mt-12 grid gap-12 md:grid-cols-3 md:gap-10">
               {NEXT_STEPS.map((s) => (
                 <li key={s.n} className="mx-auto max-w-[260px] text-center">
-                  <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-brown">
+                  <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-beige">
                     {s.n}
                   </span>
                   <h3 className="text-h3 mt-5">{s.title}</h3>

@@ -336,7 +336,7 @@ export function LocationMap({
                     type="button"
                     onClick={close}
                     aria-label="סגירה"
-                    className="shrink-0 text-textgray transition-colors hover:text-brown"
+                    className="shrink-0 text-textgray transition-colors hover:text-black"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
@@ -368,7 +368,7 @@ export function LocationMap({
                     sizes="180px"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-brown">
+                  <div className="flex h-full items-center justify-center text-black">
                     <LandscapeIcon landscape={picked.landscape} className="h-10 w-10" />
                   </div>
                 )}

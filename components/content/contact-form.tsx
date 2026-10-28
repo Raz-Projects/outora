@@ -73,7 +73,7 @@ export function ContactForm({ waLink, button }: {
       />
 
       <div>
-        <label htmlFor="contact-message" className="text-button mb-2 block text-brown">
+        <label htmlFor="contact-message" className="text-button mb-2 block text-black">
           הודעה
         </label>
         <Textarea

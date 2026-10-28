@@ -18,7 +18,7 @@ export default async function HowItWorksPage() {
         <ol className="mt-16 flex flex-wrap justify-center gap-x-10 gap-y-14">
           {c.steps.map((s, i) => (
             <li key={i} className="w-full max-w-[260px] text-center sm:basis-[45%] lg:basis-[22%]">
-              <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-brown">
+              <span className="text-button mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-beige">
                 {i + 1}
               </span>
               <h2 className="text-h3 mt-5">{s.title}</h2>

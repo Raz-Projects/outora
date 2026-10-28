@@ -124,8 +124,8 @@ export function SearchBar({
 
   const nights = range.from && range.to ? nightsBetween(range.from, range.to) : 0;
 
-  const tone     = (on: boolean) => (on ? "text-brown" : error ? "text-error" : "text-textgray");
-  const iconTone = (on: boolean) => (on ? "text-brown" : error ? "text-error" : "text-brown/40");
+  const tone     = (on: boolean) => (on ? "text-black" : error ? "text-error" : "text-textgray");
+  const iconTone = (on: boolean) => (on ? "text-black" : error ? "text-error" : "text-black/40");
 
   return (
     <div ref={root} className={cn("relative w-full max-w-[677px]", className)}>
@@ -191,8 +191,8 @@ export function SearchBar({
             type="button"
             onClick={submit}
             className="mt-[6px] flex h-[46px] w-full items-center justify-center gap-2 rounded-full
-                       border border-brown text-button text-brown transition-colors
-                       active:bg-brown active:text-white"
+                       bg-beige text-button text-black transition-colors
+                       active:bg-beigedark"
           >
             <span>חפש</span>
             <IconSearch className="h-5 w-5" />
@@ -241,13 +241,13 @@ export function SearchBar({
           type="button"
           onClick={submit}
           className="group relative isolate ms-4 flex h-[47px] shrink-0 items-center gap-2
-                     overflow-hidden rounded-full border border-brown px-6 text-button text-brown
-                     transition-colors duration-300 ease-smooth hover:text-white"
+                     overflow-hidden rounded-full bg-beige px-6 text-button text-black
+                     transition-colors duration-300 ease-smooth"
         >
           <span
             aria-hidden
             className="pointer-events-none absolute inset-0 -z-10 origin-bottom scale-y-0
-                       bg-brown transition-transform duration-300 ease-smooth
+                       bg-beigedark transition-transform duration-300 ease-smooth
                        group-hover:scale-y-100"
           />
           <span className="relative z-10">חפש</span>
@@ -308,8 +308,8 @@ export function SearchBar({
                 type="button"
                 onClick={() => setOpen(null)}
                 disabled={nights < MIN_NIGHTS}
-                className="h-[52px] rounded-full border border-brown px-8 text-button text-brown
-                           transition-colors active:bg-brown active:text-white
+                className="h-[52px] rounded-full bg-beige px-8 text-button text-black
+                           transition-colors active:bg-beigedark
                            disabled:cursor-not-allowed disabled:opacity-50"
               >
                 אישור
