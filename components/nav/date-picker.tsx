@@ -3,7 +3,7 @@
 import * as React from "react";
 import {
   MONTHS_HE, WEEKDAYS_HE, monthGrid, sameDay, startOfDay,
-  addMonths, nightsBetween, formatHe, MIN_NIGHTS,
+  addMonths, nightsBetween, formatHe, MIN_NIGHTS, MAX_NIGHTS,
 } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 
@@ -57,12 +57,14 @@ function Month({
   const cells = monthGrid(date.getFullYear(), date.getMonth());
   const { from, to } = range;
 
-  /** אחרי שנבחר תאריך הגעה · הימים שקרובים מדי אליו לא יכולים להיות יום עזיבה */
-  const tooShort = (d: Date) =>
-    !!from && !to && startOfDay(d) > startOfDay(from) && nightsBetween(from, d) < MIN_NIGHTS;
+  /** אחרי שנבחר תאריך הגעה · הימים שקרובים או רחוקים מדי ממנו לא יכולים להיות יום עזיבה */
+  const outOfRange = (d: Date) =>
+    !!from && !to && startOfDay(d) > startOfDay(from) &&
+    (nightsBetween(from, d) < MIN_NIGHTS || nightsBetween(from, d) > MAX_NIGHTS);
 
   /** כשבחרו רק תאריך התחלה · התאריך שמרחפים מעליו משמש כסוף זמני */
-  const end = to ?? (from && hover && nightsBetween(from, hover) >= MIN_NIGHTS ? hover : undefined);
+  const end = to ?? (from && hover && nightsBetween(from, hover) >= MIN_NIGHTS &&
+    nightsBetween(from, hover) <= MAX_NIGHTS ? hover : undefined);
 
   const inRange = (d: Date) =>
     from && end && startOfDay(d) > startOfDay(from) && startOfDay(d) < startOfDay(end);
@@ -89,7 +91,7 @@ function Month({
           const isEnd  = end && sameDay(d, end);
           const mid    = inRange(d);
           const edge   = isFrom || isEnd;
-          const past   = startOfDay(d) < startOfDay(today) || tooShort(d);
+          const past   = startOfDay(d) < startOfDay(today) || outOfRange(d);
           const isToday = sameDay(d, today);
 
           return (
@@ -137,7 +139,7 @@ export function DatePickerMobile({
     const { from, to } = range;
     if (!from || (from && to)) return onChange({ from: d });
     if (startOfDay(d) <= startOfDay(from)) return onChange({ from: d });
-    if (nightsBetween(from, d) < MIN_NIGHTS) return;
+    if (nightsBetween(from, d) < MIN_NIGHTS || nightsBetween(from, d) > MAX_NIGHTS) return;
     onChange({ from, to: d });
   };
 
@@ -176,7 +178,7 @@ export function DatePicker({
     const { from, to } = range;
     if (!from || (from && to)) { setHover(undefined); return onChange({ from: d }); }
     if (startOfDay(d) <= startOfDay(from)) return onChange({ from: d });
-    if (nightsBetween(from, d) < MIN_NIGHTS) return;
+    if (nightsBetween(from, d) < MIN_NIGHTS || nightsBetween(from, d) > MAX_NIGHTS) return;
     onChange({ from, to: d });
   };
 
@@ -238,7 +240,7 @@ export function DatePicker({
           {nights > 0
             ? `${nights} לילות : ${range.from!.getDate()}–${range.to!.getDate()} ב${MONTHS_HE[range.to!.getMonth()]} ${range.to!.getFullYear()}`
             : range.from
-              ? `בחרו יום עזיבה · מינימום ${MIN_NIGHTS} לילות`
+              ? `בחרו יום עזיבה · ${MIN_NIGHTS}–${MAX_NIGHTS} לילות`
               : "בחרו תאריכים"}
         </p>
 

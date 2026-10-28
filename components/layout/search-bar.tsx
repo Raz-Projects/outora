@@ -9,7 +9,7 @@ import {
 import { Panel, OptionList, type Option } from "@/components/nav/panel";
 import { Drawer } from "@/components/nav/drawer";
 import { DatePicker, DatePickerMobile, type Range } from "@/components/nav/date-picker";
-import { formatHe, nightsBetween, MONTHS_HE, MIN_NIGHTS } from "@/lib/dates";
+import { formatHe, nightsBetween, MONTHS_HE, MIN_NIGHTS, MAX_NIGHTS } from "@/lib/dates";
 import { useBooking } from "@/lib/booking-context";
 import { cn } from "@/lib/utils";
 
@@ -88,13 +88,14 @@ export function SearchBar({
     : "תאריכים";
 
   /** תאריכים ששמורים מלפני שנקבע המינימום לא נחשבים */
-  const datesOk = !!range.from && !!range.to && nightsBetween(range.from, range.to) >= MIN_NIGHTS;
+  const datesOk = !!range.from && !!range.to &&
+    nightsBetween(range.from, range.to) >= MIN_NIGHTS && nightsBetween(range.from, range.to) <= MAX_NIGHTS;
   const ready = !!guests && datesOk && !!location;
   React.useEffect(() => { if (ready) setError(false); }, [ready]);
 
   const missing = [
     !guests                   && { key: "people"   as const, name: "מספר אנשים" },
-    !datesOk                  && { key: "dates"    as const, name: `תאריכים (מינימום ${MIN_NIGHTS} לילות)` },
+    !datesOk                  && { key: "dates"    as const, name: `תאריכים (${MIN_NIGHTS}–${MAX_NIGHTS} לילות)` },
     !location                 && { key: "location" as const, name: "מיקום" },
   ].filter(Boolean) as { key: Exclude<Open, null>; name: string }[];
 
@@ -298,7 +299,7 @@ export function SearchBar({
         footer={
           <div className="flex items-center justify-between gap-4">
             <p className="text-tag text-textgray">
-              {nights > 0 ? `${nights} לילות` : range.from ? `מינימום ${MIN_NIGHTS} לילות` : "בחרו תאריכים"}
+              {nights > 0 ? `${nights} לילות` : range.from ? `${MIN_NIGHTS}–${MAX_NIGHTS} לילות` : "בחרו תאריכים"}
             </p>
             <div className="flex items-center gap-4">
               <button type="button" onClick={() => setRange({})} className="text-button text-textgray">

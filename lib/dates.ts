@@ -47,3 +47,6 @@ export function formatRangeHe(from: Date, to: Date) {
 
 /** מינימום לילות בהזמנה · לבקשת יותם (07.10.2026) */
 export const MIN_NIGHTS = 2;
+
+/** מקסימום לילות בהזמנה · זמני, לבקשת יותם (28.10.2026), עד שאורטורה יקבעו */
+export const MAX_NIGHTS = 14;
