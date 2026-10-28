@@ -73,20 +73,10 @@ function Gate({ onUnlock }: { onUnlock: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] overflow-y-auto bg-black">
-      <Image
-        src="/gallery/hero.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        priority
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/50" />
-
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-white font-gate">
       <div className="relative flex min-h-full flex-col items-center justify-center px-5 py-16">
         <Image
-          src="/logo-mark-w2.png"
+          src="/logo-mark-b2.png"
           alt="Outora"
           width={100}
           height={83}
@@ -94,15 +84,15 @@ function Gate({ onUnlock }: { onUnlock: () => void }) {
           className="mb-6 w-[80px] md:w-[100px]"
         />
 
-        <h1 className="text-h1-sm text-white md:text-h1">בקרוב</h1>
+        <h1 className="text-h1-sm text-black md:text-h1">בקרוב</h1>
 
-        <p className="text-subtitle mt-4 max-w-md text-center text-white">
+        <p className="text-subtitle mt-4 max-w-md text-center text-textgray">
           האתר בבנייה. יש לכם סיסמה? אתם מוזמנים להציץ.
         </p>
 
         <form
           onSubmit={submit}
-          className="shadow-drop mt-10 w-full max-w-md rounded-lg bg-white p-6 md:p-8"
+          className="mt-10 w-full max-w-md rounded-lg border border-stroke bg-white p-6 md:p-8"
         >
           <Field
             label="סיסמה"

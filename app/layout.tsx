@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { sans } from "./fonts";
+import { sans, gate } from "./fonts";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SiteChrome } from "@/components/layout/site-chrome";
@@ -60,7 +60,7 @@ export default async function RootLayout({
   const catalog = await getCatalog();
 
   return (
-    <html lang="he" dir="rtl" className={sans.variable}>
+    <html lang="he" dir="rtl" className={`${sans.variable} ${gate.variable}`}>
       <body>
         <PageView />
         <BookingProvider catalog={catalog}>

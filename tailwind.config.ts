@@ -58,6 +58,8 @@ export default {
 
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        // רק למסך הסיסמה · לבקשת יותם (28.10.2026)
+        gate: ["var(--font-gate)", "sans-serif"],
       },
 
       fontSize: {

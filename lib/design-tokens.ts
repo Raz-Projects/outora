@@ -63,6 +63,11 @@ export const semantic = {
 } as const;
 
 // ── Typography ────────────────────────────────────────────────
+/** פונט חלופי · רק למסך הסיסמה ("בקרוב"), לבקשת יותם (28.10.2026). בשאר האתר Almoni Neue */
+export const fontFamily = {
+  gate: "Assistant, sans-serif",
+} as const;
+
 export const fontWeight = {
   regular:  400,
   medium:   500,
